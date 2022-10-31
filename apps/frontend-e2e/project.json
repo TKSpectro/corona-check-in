@@ -15,16 +15,72 @@
         "production": {
           "devServerTarget": "frontend:serve:production"
         }
-      }
+      },
+      "inputs": [
+        "default",
+        "^production"
+      ]
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["apps/frontend-e2e/**/*.{js,ts}"]
-      }
+        "lintFilePatterns": [
+          "apps/frontend-e2e/**/*.{js,ts}"
+        ]
+      },
+      "inputs": [
+        "default",
+        "{workspaceRoot}/.eslintrc.json"
+      ]
     }
   },
   "tags": [],
-  "implicitDependencies": ["frontend"]
+  "implicitDependencies": [
+    "frontend"
+  ],
+  "files": [
+    {
+      "file": "apps/frontend-e2e/.eslintrc.json",
+      "hash": "4c5989b23b5aa8cc7aba2a07d1ae7daee19c1555"
+    },
+    {
+      "file": "apps/frontend-e2e/cypress.config.ts",
+      "hash": "22f7c84eb637d4f23447fcb59dee130dd25b2de0",
+      "deps": [
+        "npm:cypress",
+        "npm:@nrwl/cypress"
+      ]
+    },
+    {
+      "file": "apps/frontend-e2e/project.json",
+      "hash": "45a324515fb342890332236df4cf86e5a4be7d34"
+    },
+    {
+      "file": "apps/frontend-e2e/src/e2e/app.cy.ts",
+      "hash": "c37b7f7cc489bd8f9c0b695d8c2e131a863c90f0"
+    },
+    {
+      "file": "apps/frontend-e2e/src/fixtures/example.json",
+      "hash": "294cbed6ce9e0b948b787452e8676aee486cb3be"
+    },
+    {
+      "file": "apps/frontend-e2e/src/support/app.po.ts",
+      "hash": "32934246969c2ecb827ac05677785933a707a54d"
+    },
+    {
+      "file": "apps/frontend-e2e/src/support/commands.ts",
+      "hash": "310f1fa0e043ffebbbcf575c5a4d17f13a6b14d6"
+    },
+    {
+      "file": "apps/frontend-e2e/src/support/e2e.ts",
+      "hash": "3d469a6b6cf31eb66117d73e278bcf74f398f1db"
+    },
+    {
+      "file": "apps/frontend-e2e/tsconfig.json",
+      "hash": "9e27f75c6fadf5f6175f48ca953d551089aef787"
+    }
+  ]
 }

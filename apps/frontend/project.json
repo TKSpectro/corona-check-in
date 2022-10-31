@@ -7,7 +7,9 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/frontend",
         "index": "apps/frontend/src/index.html",
@@ -15,8 +17,14 @@
         "polyfills": "apps/frontend/src/polyfills.ts",
         "tsConfig": "apps/frontend/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": ["apps/frontend/src/favicon.ico", "apps/frontend/src/assets"],
-        "styles": ["apps/frontend/src/styles.scss"],
+        "assets": [
+          "apps/frontend/src/favicon.ico",
+          "apps/frontend/src/assets"
+        ],
+        "styles": [
+          "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
+          "apps/frontend/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -50,7 +58,14 @@
           "namedChunks": true
         }
       },
-      "defaultConfiguration": "production"
+      "defaultConfiguration": "production",
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "production",
+        "^production"
+      ]
     },
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
@@ -73,17 +88,148 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": ["apps/frontend/**/*.ts", "apps/frontend/**/*.html"]
-      }
+        "lintFilePatterns": [
+          "apps/frontend/**/*.ts",
+          "apps/frontend/**/*.html"
+        ]
+      },
+      "inputs": [
+        "default",
+        "{workspaceRoot}/.eslintrc.json"
+      ]
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
         "jestConfig": "apps/frontend/jest.config.ts",
         "passWithNoTests": true
-      }
+      },
+      "inputs": [
+        "default",
+        "^production",
+        "{workspaceRoot}/jest.preset.js"
+      ]
     }
   },
-  "tags": []
+  "tags": [],
+  "files": [
+    {
+      "file": "apps/frontend/.browserslistrc",
+      "hash": "4f9ac26980c156a3d525267010d5f78144b43519"
+    },
+    {
+      "file": "apps/frontend/.eslintrc.json",
+      "hash": "bbee81c44014f8064c21f4ea367083a2434f29f3"
+    },
+    {
+      "file": "apps/frontend/jest.config.ts",
+      "hash": "2edc444725f00a643e0bfe337d7a2f900f36c175"
+    },
+    {
+      "file": "apps/frontend/project.json",
+      "hash": "3fd016625eef4790d1166f665046eb8e7b7faf9c"
+    },
+    {
+      "file": "apps/frontend/src/app/app.component.html",
+      "hash": "6e33c67e9858f212c4791d3f9b3d3e0a7f0908eb"
+    },
+    {
+      "file": "apps/frontend/src/app/app.component.scss",
+      "hash": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "file": "apps/frontend/src/app/app.component.spec.ts",
+      "hash": "da8105cbeacb54f201daf894c7a11d84b91d60b8",
+      "deps": [
+        "npm:@angular/core"
+      ]
+    },
+    {
+      "file": "apps/frontend/src/app/app.component.ts",
+      "hash": "6cd394f6515ddb1c65f1893407ece4e07dfadb70",
+      "deps": [
+        "npm:@angular/core"
+      ]
+    },
+    {
+      "file": "apps/frontend/src/app/app.module.ts",
+      "hash": "ca4cff2f830a9ae53ecd2ee9e5ecff7282c211f6",
+      "deps": [
+        "npm:@angular/core",
+        "npm:@angular/platform-browser"
+      ]
+    },
+    {
+      "file": "apps/frontend/src/app/nx-welcome.component.ts",
+      "hash": "c7f6172aebe01e2b999332b9bf68de9b4d6f3849",
+      "deps": [
+        "npm:@angular/core"
+      ]
+    },
+    {
+      "file": "apps/frontend/src/assets/.gitkeep",
+      "hash": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+    },
+    {
+      "file": "apps/frontend/src/environments/environment.prod.ts",
+      "hash": "c9669790be176ac85a5d8c11278875c2f52dc507"
+    },
+    {
+      "file": "apps/frontend/src/environments/environment.ts",
+      "hash": "66998ae9a7c27359bc473c6d2aa0029dd1f4b700"
+    },
+    {
+      "file": "apps/frontend/src/favicon.ico",
+      "hash": "317ebcb2336e0833a22dddf0ab287849f26fda57"
+    },
+    {
+      "file": "apps/frontend/src/index.html",
+      "hash": "7369ca5f39254c98480fa726505210e0344c6c9a"
+    },
+    {
+      "file": "apps/frontend/src/main.ts",
+      "hash": "d9a2e7e4a582e265db779363bd8b2492c43c141b",
+      "deps": [
+        "npm:@angular/core",
+        "npm:@angular/platform-browser-dynamic"
+      ]
+    },
+    {
+      "file": "apps/frontend/src/polyfills.ts",
+      "hash": "e4555ed11fa2f217b8e4c744d564da4f7388b4c4",
+      "deps": [
+        "npm:zone.js"
+      ]
+    },
+    {
+      "file": "apps/frontend/src/styles.scss",
+      "hash": "90d4ee0072ce3fc41812f8af910219f9eea3c3de"
+    },
+    {
+      "file": "apps/frontend/src/test-setup.ts",
+      "hash": "1100b3e8a6ed08f4b5c27a96471846d57023c320",
+      "deps": [
+        "npm:jest-preset-angular"
+      ]
+    },
+    {
+      "file": "apps/frontend/tsconfig.app.json",
+      "hash": "915ae8b2fbf62700c36dfb72cfd6252d9dae8d0a"
+    },
+    {
+      "file": "apps/frontend/tsconfig.editor.json",
+      "hash": "20c4afdbf437457984afcb236d4b5e588aec858a"
+    },
+    {
+      "file": "apps/frontend/tsconfig.json",
+      "hash": "c756d84676bd8d116ad9dc12a173b10c44b4955f"
+    },
+    {
+      "file": "apps/frontend/tsconfig.spec.json",
+      "hash": "c5db02778f96a2a200d787c0a7b376fe0d6c36f7"
+    }
+  ]
 }
