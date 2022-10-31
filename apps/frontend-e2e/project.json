@@ -16,31 +16,19 @@
           "devServerTarget": "frontend:serve:production"
         }
       },
-      "inputs": [
-        "default",
-        "^production"
-      ]
+      "inputs": ["default", "^production"]
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "apps/frontend-e2e/**/*.{js,ts}"
-        ]
+        "lintFilePatterns": ["apps/frontend-e2e/**/*.{js,ts}"]
       },
-      "inputs": [
-        "default",
-        "{workspaceRoot}/.eslintrc.json"
-      ]
+      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
     }
   },
   "tags": [],
-  "implicitDependencies": [
-    "frontend"
-  ],
+  "implicitDependencies": ["frontend"],
   "files": [
     {
       "file": "apps/frontend-e2e/.eslintrc.json",
@@ -49,10 +37,7 @@
     {
       "file": "apps/frontend-e2e/cypress.config.ts",
       "hash": "22f7c84eb637d4f23447fcb59dee130dd25b2de0",
-      "deps": [
-        "npm:cypress",
-        "npm:@nrwl/cypress"
-      ]
+      "deps": ["npm:cypress", "npm:@nrwl/cypress"]
     },
     {
       "file": "apps/frontend-e2e/project.json",
