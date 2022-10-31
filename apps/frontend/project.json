@@ -7,9 +7,7 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/frontend",
         "index": "apps/frontend/src/index.html",
@@ -17,10 +15,7 @@
         "polyfills": "apps/frontend/src/polyfills.ts",
         "tsConfig": "apps/frontend/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": [
-          "apps/frontend/src/favicon.ico",
-          "apps/frontend/src/assets"
-        ],
+        "assets": ["apps/frontend/src/favicon.ico", "apps/frontend/src/assets"],
         "styles": [
           "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
           "apps/frontend/src/styles.scss"
@@ -59,13 +54,8 @@
         }
       },
       "defaultConfiguration": "production",
-      "dependsOn": [
-        "^build"
-      ],
-      "inputs": [
-        "production",
-        "^production"
-      ]
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
     },
     "serve": {
       "executor": "@angular-devkit/build-angular:dev-server",
@@ -77,7 +67,10 @@
           "browserTarget": "frontend:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "options": {
+        "proxyConfig": "apps/frontend/proxy.conf.json"
+      }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
@@ -88,30 +81,18 @@
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "options": {
-        "lintFilePatterns": [
-          "apps/frontend/**/*.ts",
-          "apps/frontend/**/*.html"
-        ]
+        "lintFilePatterns": ["apps/frontend/**/*.ts", "apps/frontend/**/*.html"]
       },
-      "inputs": [
-        "default",
-        "{workspaceRoot}/.eslintrc.json"
-      ]
+      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/{projectRoot}"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "apps/frontend/jest.config.ts",
         "passWithNoTests": true
       },
-      "inputs": [
-        "default",
-        "^production",
-        "{workspaceRoot}/jest.preset.js"
-      ]
+      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
     }
   },
   "tags": [],
@@ -143,31 +124,22 @@
     {
       "file": "apps/frontend/src/app/app.component.spec.ts",
       "hash": "da8105cbeacb54f201daf894c7a11d84b91d60b8",
-      "deps": [
-        "npm:@angular/core"
-      ]
+      "deps": ["npm:@angular/core"]
     },
     {
       "file": "apps/frontend/src/app/app.component.ts",
       "hash": "6cd394f6515ddb1c65f1893407ece4e07dfadb70",
-      "deps": [
-        "npm:@angular/core"
-      ]
+      "deps": ["npm:@angular/core"]
     },
     {
       "file": "apps/frontend/src/app/app.module.ts",
       "hash": "ca4cff2f830a9ae53ecd2ee9e5ecff7282c211f6",
-      "deps": [
-        "npm:@angular/core",
-        "npm:@angular/platform-browser"
-      ]
+      "deps": ["npm:@angular/core", "npm:@angular/platform-browser"]
     },
     {
       "file": "apps/frontend/src/app/nx-welcome.component.ts",
       "hash": "c7f6172aebe01e2b999332b9bf68de9b4d6f3849",
-      "deps": [
-        "npm:@angular/core"
-      ]
+      "deps": ["npm:@angular/core"]
     },
     {
       "file": "apps/frontend/src/assets/.gitkeep",
@@ -192,17 +164,12 @@
     {
       "file": "apps/frontend/src/main.ts",
       "hash": "d9a2e7e4a582e265db779363bd8b2492c43c141b",
-      "deps": [
-        "npm:@angular/core",
-        "npm:@angular/platform-browser-dynamic"
-      ]
+      "deps": ["npm:@angular/core", "npm:@angular/platform-browser-dynamic"]
     },
     {
       "file": "apps/frontend/src/polyfills.ts",
       "hash": "e4555ed11fa2f217b8e4c744d564da4f7388b4c4",
-      "deps": [
-        "npm:zone.js"
-      ]
+      "deps": ["npm:zone.js"]
     },
     {
       "file": "apps/frontend/src/styles.scss",
@@ -211,9 +178,7 @@
     {
       "file": "apps/frontend/src/test-setup.ts",
       "hash": "1100b3e8a6ed08f4b5c27a96471846d57023c320",
-      "deps": [
-        "npm:jest-preset-angular"
-      ]
+      "deps": ["npm:jest-preset-angular"]
     },
     {
       "file": "apps/frontend/tsconfig.app.json",
