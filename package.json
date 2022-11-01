@@ -7,6 +7,7 @@
     "postinstall": "node ./decorate-angular-cli.js",
     "start": "nx serve",
     "start:all": "nx run-many --target=serve --all=true --parallel=true",
+    "start:api": "nx run-many --target=serve --projects=gateway,qr-ms",
     "build": "nx build",
     "test": "nx test",
     "lint:all": "nx run-many --target=lint --all=true"
@@ -28,7 +29,7 @@
     "@nestjs/microservices": "^9.1.6",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/typeorm": "^9.0.1",
-    "ioredis": "^5.2.3",
+    "kafkajs": "^2.2.2",
     "pg": "^8.8.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.0.0",

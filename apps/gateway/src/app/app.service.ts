@@ -1,18 +1,43 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { ClientProxy } from '@nestjs/microservices';
+import { Injectable } from '@nestjs/common';
+import { Client, ClientKafka, Transport } from '@nestjs/microservices';
+
 @Injectable()
 export class AppService {
-  constructor(@Inject('QR_MS') private client: ClientProxy) {}
+  @Client({
+    transport: Transport.KAFKA,
+    options: {
+      client: {
+        clientId: 'qr',
+        brokers: ['localhost:9092'],
+      },
+      consumer: {
+        groupId: 'qr-consumer',
+      },
+    },
+  })
+  client: ClientKafka;
+
+  async onModuleInit() {
+    this.client.subscribeToResponseOf('items.get.all');
+    this.client.subscribeToResponseOf('items.get');
+    this.client.subscribeToResponseOf('items.create');
+
+    await this.client.connect();
+  }
 
   getData(): { message: string } {
     return { message: 'Welcome to gateway!' };
   }
 
   getItems() {
-    return this.client.send({ role: 'item', cmd: 'get-all' }, {});
+    return this.client.send('items.get.all', {});
+  }
+
+  getItem(id: number) {
+    return this.client.send('items.get', { id: id });
   }
 
   createItem({ name }: { name: string }) {
-    return this.client.send({ role: 'item', cmd: 'create' }, { name });
+    return this.client.send('items.create', { name: name });
   }
 }
