@@ -12,6 +12,10 @@ export class AppService {
     return this.client.send({ role: 'item', cmd: 'get-all' }, {});
   }
 
+  getItemById(id: number) {
+    return this.client.send({ role: 'item', cmd: 'get-by-id' }, { id });
+  }
+
   createItem({ name }: { name: string }) {
     return this.client.send({ role: 'item', cmd: 'create' }, { name });
   }

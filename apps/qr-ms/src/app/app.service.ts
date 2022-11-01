@@ -18,6 +18,10 @@ export class AppService {
     return this.itemRepository.find();
   }
 
+  getItemById(id: number) {
+    return this.itemRepository.findOne({ where: { id } });
+  }
+
   createItem({ name }: { name: string }) {
     const item = this.itemRepository.create({ name });
 

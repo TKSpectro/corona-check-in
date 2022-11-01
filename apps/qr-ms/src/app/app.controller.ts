@@ -17,6 +17,11 @@ export class AppController {
     return this.appService.getItems();
   }
 
+  @MessagePattern({ role: 'item', cmd: 'get-by-id' })
+  getItemById({ id }: { id: number }) {
+    return this.appService.getItemById(id);
+  }
+
   @MessagePattern({ role: 'item', cmd: 'create' })
   createItem({ name }: { name: string }) {
     return this.appService.createItem({ name });
