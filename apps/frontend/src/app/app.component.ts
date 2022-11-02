@@ -14,9 +14,7 @@ export class AppComponent {
   public items!: { id: string; name: string }[];
 
   constructor(private http: HttpClient) {
-    const req = this.http.get<{ id: string; name: string }[]>(
-      'http://localhost:4200/api/items'
-    );
+    const req = this.http.get<{ id: string; name: string }[]>('/api/items');
 
     req.subscribe((items) => {
       this.items = items;
@@ -25,7 +23,7 @@ export class AppComponent {
 
   addItemHandler() {
     this.http
-      .post<{ id: string; name: string }>('http://localhost:4200/api/items', {
+      .post<{ id: string; name: string }>('/api/items', {
         name: this.name,
       })
       .subscribe((item) => {
