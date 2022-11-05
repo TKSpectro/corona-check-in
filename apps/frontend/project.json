@@ -3,7 +3,7 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
   "sourceRoot": "apps/frontend/src",
-  "prefix": "corona-check-in",
+  "prefix": "ccn",
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
