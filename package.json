@@ -28,6 +28,8 @@
     "@nestjs/microservices": "^9.1.6",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/typeorm": "^9.0.1",
+    "@swimlane/ngx-charts": "^20.1.0",
+    "d3-shape": "^3.1.0",
     "ioredis": "^5.2.3",
     "pg": "^8.8.0",
     "reflect-metadata": "^0.1.13",
