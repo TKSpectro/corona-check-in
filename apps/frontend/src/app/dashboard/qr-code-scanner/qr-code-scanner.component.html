@@ -1,0 +1,23 @@
+<div class='wrapper'>
+  <button (click)='turnCameraOn= !turnCameraOn '>Turn Camera On</button>
+  <div *ngIf='turnCameraOn'>
+    <label>
+      Change Camera
+      <select [(ngModel)]='desiredDevice'
+              (ngModelChange)='changeCamera()'>
+        <option *ngFor='let device of cameraDevices' [ngValue]='device'>{{ device.label }}</option>
+      </select>
+    </label>
+  </div>
+  <div class='qr-camera' *ngIf='turnCameraOn'>
+    <zxing-scanner
+      [(device)]='desiredDevice'
+      (camerasFound)='camerasFoundHandler($event)'
+      (camerasNotFound)='camerasNotFoundHandler($event)'
+      (scanSuccess)='scanSuccessHandler($event)'
+      (scanError)='scanErrorHandler($event)'
+      (scanComplete)='scanCompleteHandler($event)'
+    ></zxing-scanner>
+  </div>
+
+</div>
