@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'corona-check-in-root',
+  selector: 'ccn-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
