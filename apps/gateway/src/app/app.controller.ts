@@ -11,7 +11,7 @@ import { AuthService } from '../auth/auth.service';
 import { Public } from '../auth/decorators/public.decorator';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { LocalAuthGuard } from '../auth/guards/local-auth.guard';
-import { Role } from '../users/users.service';
+import { UserEntity, UserRole } from '../users/user.entity';
 
 import { AppService } from './app.service';
 
@@ -49,13 +49,19 @@ export class AppController {
     return this.authService.login(req.user);
   }
 
+  @Post('auth/signup')
+  @Public()
+  async signup(@Body() user: UserEntity) {
+    return this.authService.signup(user);
+  }
+
   @Get('me')
   getProfile(@Request() req) {
     return req.user;
   }
 
   @Get('admin')
-  @Roles(Role.Admin)
+  @Roles(UserRole.ADMIN)
   getAdmin() {
     return 'You are a admin';
   }

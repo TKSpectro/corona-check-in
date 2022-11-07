@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { compareSync } from 'bcrypt';
-import { User, UsersService } from '../users/users.service';
+import { compareSync, hashSync } from 'bcrypt';
+import { UserEntity } from '../users/user.entity';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class AuthService {
@@ -10,7 +11,7 @@ export class AuthService {
     private jwtService: JwtService
   ) {}
 
-  async validateUser(email: string, pass: string): Promise<User | null> {
+  async validateUser(email: string, pass: string): Promise<UserEntity | null> {
     const user = await this.usersService.findOne(email);
 
     if (user && compareSync(pass, user.password)) {
@@ -21,7 +22,23 @@ export class AuthService {
     return null;
   }
 
-  async login(user: User) {
+  async login(user: UserEntity) {
+    const payload = { email: user.email, sub: user.id, roles: user.roles };
+
+    return {
+      token: this.jwtService.sign(payload),
+    };
+  }
+
+  // TODO: Setup better schema validation
+  async signup(userInput: UserEntity) {
+    delete userInput.id;
+    delete userInput.roles;
+
+    userInput.password = hashSync(userInput.password, 10);
+
+    const user = await this.usersService.create(userInput);
+
     const payload = { email: user.email, sub: user.id, roles: user.roles };
 
     return {
