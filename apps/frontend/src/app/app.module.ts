@@ -8,10 +8,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { AppComponent } from './app.component';
 import { IncidenceComponent } from './dashboard/graphs/incidence/incidence.component';
-import { NxWelcomeComponent } from './nx-welcome.component';
 
 @NgModule({
-  declarations: [AppComponent, NxWelcomeComponent, IncidenceComponent],
+  declarations: [AppComponent, IncidenceComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
