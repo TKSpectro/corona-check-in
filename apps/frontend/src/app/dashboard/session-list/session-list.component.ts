@@ -7,11 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./session-list.component.scss'],
 })
 export class SessionListComponent {
-  displayedColumns: string[] = [
-    'room',
-    'starttime',
-    'endtime',
-  ];  
+  displayedColumns: string[] = ['room', 'starttime', 'endtime'];
 
   EmpData: unknown[] = [
     {
