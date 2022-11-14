@@ -1,29 +1,14 @@
-const requestData = [
-  {
-    date: '2019-01-01',
-    value: 10,
-  },
-  {
-    date: '2019-01-02',
-    value: 14,
-  },
-  {
-    date: '2019-01-03',
-    value: 14,
-  },
-  {
-    date: '2019-01-04',
-    value: 14,
-  },
-  {
-    date: '2019-01-05',
-    value: 8,
-  },
-  {
-    date: '2019-01-06',
-    value: 4,
-  },
-];
+import { DateTime } from 'luxon';
+
+const today = DateTime.now();
+
+const requestData = [];
+for (let i = 20; i > 0; i--) {
+  requestData.push({
+    date: today.minus({ weeks: i }).toISODate(),
+    value: Math.floor(Math.random() * 100),
+  });
+}
 
 export const multi = [
   {
