@@ -1,37 +1,57 @@
-import { Injectable } from '@nestjs/common';
-
-export type User = {
-  id: string;
-  email: string;
-  password: string;
-  roles: Role[];
-};
-
-export enum Role {
-  Admin = 'admin',
-  User = 'user',
-}
+import { Injectable, OnModuleInit } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { UserEntity, UserRole } from './user.entity';
 
 @Injectable()
-export class UsersService {
-  private readonly users: User[] = [
-    {
-      id: 'a1b2c3d4-e5f6-g7h8-i9j0-k1l2m3n4o5p6',
-      email: 'admin@turbomeet.xyz',
-      // password: hashSync('password', 10),
-      password: '$2b$10$.u8J.QB3BqWG7/9e4Q.hpOoEubTbsNqHPc.sQLY2bdrisDduk8wFS',
-      roles: [Role.Admin],
-    },
-    {
-      id: 'b1c2d3e4-f5g6-h7i8-j9k0-l1m2n3o4p5q6',
-      email: 'user@turbomeet.xyz',
-      // password: hashSync('password', 10),
-      password: '$2b$10$.u8J.QB3BqWG7/9e4Q.hpOoEubTbsNqHPc.sQLY2bdrisDduk8wFS',
-      roles: [Role.User],
-    },
-  ];
+export class UsersService implements OnModuleInit {
+  constructor(
+    @InjectRepository(UserEntity)
+    private readonly userRepository: Repository<UserEntity>
+  ) {}
 
-  async findOne(email: string): Promise<User | undefined> {
-    return this.users.find((user) => user.email === email);
+  async onModuleInit() {
+    if (
+      !(await this.userRepository.findOne({
+        where: { email: 'admin@turbomeet.xyz' },
+      }))
+    ) {
+      await this.userRepository.insert({
+        id: '00000000-0000-0000-0000-000000000001',
+        email: 'admin@turbomeet.xyz',
+        // password: hashSync('password', 10),
+        password:
+          '$2b$10$.u8J.QB3BqWG7/9e4Q.hpOoEubTbsNqHPc.sQLY2bdrisDduk8wFS',
+        firstname: 'AdminFirst',
+        lastname: 'AdminLast',
+        roles: UserRole.ADMIN,
+      });
+    }
+
+    if (
+      !(await this.userRepository.findOne({
+        where: { email: 'user@turbomeet.xyz' },
+      }))
+    ) {
+      await this.userRepository.insert({
+        id: '00000000-0000-0000-0000-000000000002',
+        email: 'user@turbomeet.xyz',
+        // password: hashSync('password', 10),
+        password:
+          '$2b$10$.u8J.QB3BqWG7/9e4Q.hpOoEubTbsNqHPc.sQLY2bdrisDduk8wFS',
+        firstname: 'UserFirst',
+        lastname: 'UserLast',
+        roles: UserRole.USER,
+      });
+    }
+  }
+
+  async findOne(email: string): Promise<UserEntity> {
+    return this.userRepository.findOne({ where: { email: email } });
+    // return this.users.find((user) => user.email === email);
+  }
+
+  async create(user: UserEntity): Promise<UserEntity> {
+    return this.userRepository.save(user);
   }
 }
