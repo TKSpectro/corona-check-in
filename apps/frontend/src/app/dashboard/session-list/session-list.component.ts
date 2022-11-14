@@ -6,7 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
   templateUrl: './session-list.component.html',
   styleUrls: ['./session-list.component.scss'],
 })
-export class SessionListComponent implements OnInit {
+export class SessionListComponent {
   displayedColumns: string[] = [
     'room',
     'starttime',
@@ -29,8 +29,4 @@ export class SessionListComponent implements OnInit {
   ];
 
   dataSource = new MatTableDataSource(this.EmpData);
-  constructor() {}
-
-  ngAfterViewInit() {}
-  ngOnInit(): void {}
 }
