@@ -15,7 +15,12 @@ import { IncidenceComponent } from './dashboard/graphs/incidence/incidence.compo
 import { SessionCardComponent } from './dashboard/session-card/session-card.component';
 
 @NgModule({
-  declarations: [AppComponent, SessionListComponent, SessionCardComponent, IncidenceComponent],
+  declarations: [
+    AppComponent,
+    SessionListComponent,
+    SessionCardComponent,
+    IncidenceComponent,
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,
