@@ -8,6 +8,7 @@ import { Result } from '@zxing/library';
 })
 export class QrCodeScannerComponent implements OnInit {
   turnCameraOn = false;
+  noCameraFound = false;
   cameraDevices: MediaDeviceInfo[] = [];
   desiredDevice!: MediaDeviceInfo;
 
@@ -19,6 +20,9 @@ export class QrCodeScannerComponent implements OnInit {
     if ($event.length > 0) {
       this.cameraDevices = $event;
       this.desiredDevice = $event[0];
+    } else {
+      console.warn('no Camera found');
+      this.noCameraFound = true;
     }
   }
 
@@ -42,6 +46,5 @@ export class QrCodeScannerComponent implements OnInit {
 
   changeCamera() {
     console.log('changeCamera', this.desiredDevice);
-    //this.desiredDevice = this.cameraDevices[parseInt(cameraSelect.value)];
   }
 }
