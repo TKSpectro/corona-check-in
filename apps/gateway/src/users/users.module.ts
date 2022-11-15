@@ -1,10 +1,8 @@
 import { Module } from '@nestjs/common';
-
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { environment } from '../environments/environment';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { ItemEntity } from './item.entity';
+import { UserEntity } from './user.entity';
+import { UsersService } from './users.service';
 
 @Module({
   imports: [
@@ -18,9 +16,9 @@ import { ItemEntity } from './item.entity';
       synchronize: true,
       autoLoadEntities: true,
     }),
-    TypeOrmModule.forFeature([ItemEntity]),
+    TypeOrmModule.forFeature([UserEntity]),
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  providers: [UsersService],
+  exports: [UsersService],
 })
-export class AppModule {}
+export class UsersModule {}
