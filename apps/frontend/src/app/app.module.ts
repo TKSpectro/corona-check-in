@@ -6,18 +6,21 @@ import { FormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
+import { SessionListComponent } from './dashboard/session-list/session-list.component';
+import { MatTableModule } from '@angular/material/table';
 import { MatCardModule } from '@angular/material/card';
 
 import { SessionCardComponent } from './dashboard/session-card/session-card.component';
 
 @NgModule({
-  declarations: [AppComponent, SessionCardComponent],
+  declarations: [AppComponent, SessionListComponent, SessionCardComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
     MatSliderModule,
+    MatTableModule,
     MatCardModule,
   ],
   providers: [],
