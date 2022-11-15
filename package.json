@@ -6,10 +6,10 @@
     "ng": "nx",
     "postinstall": "node ./decorate-angular-cli.js",
     "start": "nx serve",
-    "start:all": "nx run-many --target=serve --all=true --parallel=true",
+    "start:all": "nx run-many --target=serve --parallel=100",
     "build": "nx build",
     "test": "nx test",
-    "lint:all": "nx run-many --target=lint --all=true"
+    "lint:all": "nx run-many --target=lint --parallel=100"
   },
   "private": true,
   "dependencies": {
