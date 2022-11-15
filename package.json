@@ -6,10 +6,10 @@
     "ng": "nx",
     "postinstall": "node ./decorate-angular-cli.js",
     "start": "nx serve",
-    "start:all": "nx run-many --target=serve --all=true --parallel=true",
+    "start:all": "nx run-many --target=serve --parallel=100",
     "build": "nx build",
     "test": "nx test",
-    "lint:all": "nx run-many --target=lint --all=true"
+    "lint:all": "nx run-many --target=lint --parallel=100"
   },
   "private": true,
   "dependencies": {
@@ -30,8 +30,11 @@
     "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/typeorm": "^9.0.1",
+    "@swimlane/ngx-charts": "^20.1.0",
     "bcrypt": "^5.1.0",
+    "d3-shape": "^3.1.0",
     "ioredis": "^5.2.3",
+    "luxon": "^3.1.0",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
@@ -63,6 +66,7 @@
     "@nrwl/workspace": "15.0.4",
     "@types/bcrypt": "^5.0.0",
     "@types/jest": "28.1.1",
+    "@types/luxon": "^3.1.0",
     "@types/node": "18.7.1",
     "@types/passport-jwt": "^3.0.7",
     "@types/passport-local": "^1.0.34",

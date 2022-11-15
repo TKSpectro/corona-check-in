@@ -22,6 +22,16 @@ import { AppService } from './app.service';
         },
       },
     ]),
+    ClientsModule.register([
+      {
+        name: 'incidence-service',
+        transport: Transport.REDIS,
+        options: {
+          host: 'localhost',
+          port: 6379,
+        },
+      },
+    ]),
   ],
   controllers: [AppController],
   providers: [

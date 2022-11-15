@@ -65,4 +65,9 @@ export class AppController {
   getAdmin() {
     return 'You are a admin';
   }
+
+  @Get('/incidence')
+  getIncidenceData() {
+    return this.appService.getIncidenceData();
+  }
 }
