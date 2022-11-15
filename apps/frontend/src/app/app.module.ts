@@ -6,12 +6,11 @@ import { FormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
-import { NxWelcomeComponent } from './nx-welcome.component';
 import { SessionListComponent } from './dashboard/session-list/session-list.component';
 import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
-  declarations: [AppComponent, NxWelcomeComponent, SessionListComponent],
+  declarations: [AppComponent, SessionListComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
