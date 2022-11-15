@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { curveBumpX } from 'd3-shape';
-import { multi } from './data';
+import { IncidenceService } from './incidence.service';
 
 @Component({
   selector: 'ccn-incidence',
@@ -8,7 +8,7 @@ import { multi } from './data';
   styleUrls: ['./incidence.component.scss'],
 })
 export class IncidenceComponent implements OnInit {
-  multi!: any[];
+  incidenceChartData!: any;
   view: [number, number] = [700, 300];
 
   // chart options
@@ -23,9 +23,14 @@ export class IncidenceComponent implements OnInit {
   yAxisLabel = '7-Day incidence';
   curve = curveBumpX;
 
+  constructor(private incidenceService: IncidenceService) {}
+
   ngOnInit(): void {
     // TODO: This will be replaced by a service call
-    Object.assign(this, { multi });
+
+    this.incidenceService.getIncidenceData().subscribe((data) => {
+      this.incidenceChartData = data;
+    });
   }
 
   onSelect(data: any): void {
