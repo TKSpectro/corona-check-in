@@ -1,12 +1,29 @@
-<ccn-qr-code-scanner></ccn-qr-code-scanner>
-
-<mat-slider min="1" max="100" step="1" value="50"></mat-slider>
+<div>
+  <h1>QR-Code Scanner</h1>
+  <ccn-qr-code-scanner></ccn-qr-code-scanner>
+</div>
 
 <div>
+  <h1>HTTP Test with authed endpoints</h1>
   <input [(ngModel)]="name" />
   <button (click)="addItemHandler()">Click me!</button>
 
   <div *ngFor="let item of items">{{ item.id }} {{ item.name }}</div>
 </div>
 
-<ccn-incidence></ccn-incidence>
+<div>
+  <h1>Session list and current infection status</h1>
+  <div>
+    <ccn-session-list></ccn-session-list>
+  </div>
+  <hr />
+  <div style="width: 30%">
+    <ccn-session-card></ccn-session-card>
+  </div>
+</div>
+
+<div>
+  <h1>ngx-charts with data from api</h1>
+  <ccn-incidence></ccn-incidence>
+  <br />
+</div>

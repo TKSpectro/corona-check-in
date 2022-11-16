@@ -1,4 +1,9 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<table
+  mat-table
+  [dataSource]="dataSource"
+  class="mat-elevation-z8"
+  style="width: 30%"
+>
   <ng-container matColumnDef="room">
     <mat-header-cell *matHeaderCellDef>Room</mat-header-cell>
     <mat-cell *matCellDef="let session">{{ session.room }}</mat-cell>

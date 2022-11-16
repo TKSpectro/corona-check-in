@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Result } from '@zxing/library';
 
 @Component({
@@ -11,6 +11,7 @@ export class QrCodeScannerComponent {
   noCameraFound = false;
   cameraDevices: MediaDeviceInfo[] = [];
   desiredDevice!: MediaDeviceInfo;
+  result!: any;
 
   camerasFoundHandler($event: MediaDeviceInfo[]) {
     if ($event.length > 0) {
@@ -37,6 +38,7 @@ export class QrCodeScannerComponent {
   scanCompleteHandler($event: Result) {
     if ($event) {
       console.log('scanCompleteHandler', $event);
+      this.result = JSON.stringify(JSON.parse($event.getText()), null, 2);
     }
   }
 
