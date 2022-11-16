@@ -12,7 +12,6 @@ export class QrCodeScannerComponent {
   cameraDevices: MediaDeviceInfo[] = [];
   desiredDevice!: MediaDeviceInfo;
 
-
   camerasFoundHandler($event: MediaDeviceInfo[]) {
     if ($event.length > 0) {
       this.cameraDevices = $event;
