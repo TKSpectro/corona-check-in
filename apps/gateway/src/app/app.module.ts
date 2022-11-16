@@ -3,6 +3,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 import { AuthModule } from '../auth/auth.module';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
+import { SessionsModule } from '../sessions/sessions.module';
 import { UsersModule } from '../users/users.module';
 
 import { AppController } from './app.controller';
@@ -32,6 +33,7 @@ import { AppService } from './app.service';
         },
       },
     ]),
+    SessionsModule,
   ],
   controllers: [AppController],
   providers: [
