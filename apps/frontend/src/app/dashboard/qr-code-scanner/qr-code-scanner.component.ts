@@ -6,15 +6,11 @@ import { Result } from '@zxing/library';
   templateUrl: './qr-code-scanner.component.html',
   styleUrls: ['./qr-code-scanner.component.scss'],
 })
-export class QrCodeScannerComponent implements OnInit {
+export class QrCodeScannerComponent {
   turnCameraOn = false;
   noCameraFound = false;
   cameraDevices: MediaDeviceInfo[] = [];
   desiredDevice!: MediaDeviceInfo;
-
-  constructor() {}
-
-  ngOnInit(): void {}
 
   camerasFoundHandler($event: MediaDeviceInfo[]) {
     if ($event.length > 0) {
