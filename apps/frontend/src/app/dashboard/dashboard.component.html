@@ -2,9 +2,17 @@
 
 <mat-slider min="1" max="100" step="1" value="50"></mat-slider>
 
+<label>
+  {{ 'LANGUAGE' | translate }}
+  <select #langSelect (change)="translate.use(langSelect.value)">
+    <option *ngFor="let lang of translate.getLangs()" [value]="lang"
+            [selected]="lang === translate.currentLang">{{ lang }}</option>
+  </select>
+</label>
+
 <div>
   <input [(ngModel)]="name" />
-  <button (click)="addItemHandler()">Click me!</button>
+  <button (click)="addItemHandler()">{{'CLICK' | translate}}</button>
 
   <div *ngFor="let item of items">{{ item.id }} {{ item.name }}</div>
 </div>

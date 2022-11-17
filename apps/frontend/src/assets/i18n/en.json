@@ -1,0 +1,47 @@
+{
+  "CLICK": "click the button",
+  "LANGUAGE": "Sprache",
+  "CREATE": "Create",
+  "DASHBOARD": "Dashboard",
+  "CANCEL": "Cancel",
+  "DELETE": "Delete",
+  "ERROR_404": "Page not found.",
+  "SUBMIT": "Submit",
+  "LOGIN": "login",
+  "REGISTER": "Sign Up",
+  "SAVE": "Save",
+  "SEARCH": "Search",
+  "SETTINGS": "Settings",
+  "PROFILES": {
+    "PROFILE": "Profile",
+    "PROFILES": "Profiles",
+    "USER": "User",
+    "USERS": "Users",
+    "USERNAME": "Username",
+    "PASSWORD": "Password",
+    "OLD_PASSWORD": "Old password",
+    "NEW_PASSWORD": "New password"
+  },
+  "YES": "yes",
+  "CASES": {
+    "CASES": "Cases",
+    "ALL_CASES": "All Cases"
+  },
+  "SESSIONS": {
+    "SESSIONS": "SESSIONS",
+    "ALL SESSIONS": "All sessions",
+    "SESSION": "Session",
+    "LAST_SESSION": "Last Sessions",
+    "UPDATE_SESSION": "Update Session",
+    "DELETE_SESSION": "Delete Session"
+  },
+  "ROOMS": {
+    "ROOMS": "Rooms",
+    "ROOM": "Room",
+    "ALL_ROOMS": "All Rooms",
+    "CREATE_ROOM": "Create room",
+    "DELETE_ROOM": "Delete Room",
+    "ROOM_DETAILS": "Room Details",
+    "UPDATE_ROOM": "Update Room"
+  }
+}
