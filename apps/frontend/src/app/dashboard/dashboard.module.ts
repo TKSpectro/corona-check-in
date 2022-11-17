@@ -13,6 +13,7 @@ import { IncidenceComponent } from './graphs/incidence/incidence.component';
 import { QrCodeScannerComponent } from './qr-code-scanner/qr-code-scanner.component';
 import { SessionCardComponent } from './session-card/session-card.component';
 import { SessionListComponent } from './session-list/session-list.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { SessionListComponent } from './session-list/session-list.component';
     MatCardModule,
     HttpClientModule,
     FormsModule,
+    TranslateModule,
   ],
   exports: [DashboardComponent],
 })

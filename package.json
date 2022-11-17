@@ -31,6 +31,8 @@
     "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/typeorm": "^9.0.1",
+    "@ngx-translate/core": "^14.0.0",
+    "@ngx-translate/http-loader": "^7.0.0",
     "@swimlane/ngx-charts": "^20.1.0",
     "@zxing/browser": "^0.1.1",
     "@zxing/library": "^0.19.1",
