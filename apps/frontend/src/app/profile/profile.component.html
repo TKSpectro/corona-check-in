@@ -1,0 +1,97 @@
+<mat-card>
+  <mat-card-content>
+    <form #f="ngForm">
+      <mat-form-field>
+        <mat-label>{{ 'PROFILES.EMAIL' | translate }}</mat-label>
+        <input
+          matInput
+          type="email"
+          name="email"
+          [(ngModel)]="email"
+          required
+          email
+        />
+        <mat-error
+          *ngIf="f.form.get('email')?.dirty && !f?.form?.get('email')?.valid"
+        >
+          {{ 'ERROR.EMAIL_NOT_VALID' | translate }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ 'PROFILES.OLD_PASSWORD' | translate }}</mat-label>
+        <input
+          matInput
+          type="password"
+          name="password"
+          [(ngModel)]="oldPassword"
+          required
+        />
+        <mat-error
+          *ngIf="
+            f.form.get('oldPassword')?.dirty &&
+            !f?.form?.get('oldPassword')?.valid
+          "
+        >
+          {{ 'ERROR.PASSWORD_NOT_VALID' | translate }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ 'PROFILES.NEW_PASSWORD' | translate }}</mat-label>
+        <input
+          matInput
+          type="password"
+          name="password"
+          [(ngModel)]="newPassword"
+          required
+        />
+        <mat-error
+          *ngIf="
+            f.form.get('newPassword')?.dirty &&
+            !f?.form?.get('newPassword')?.valid
+          "
+        >
+          {{ 'ERROR.PASSWORD_NOT_VALID' | translate }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ 'PROFILES.NEW_PASSWORD_REPEAT' | translate }}</mat-label>
+        <input
+          matInput
+          type="password"
+          name="password"
+          [(ngModel)]="newPasswordRepeat"
+          required
+        />
+        <mat-error
+          *ngIf="
+            f.form.get('newPasswordRepeat')?.dirty &&
+            !f?.form?.get('newPasswordRepeat')?.valid
+          "
+        >
+          {{ 'ERROR.PASSWORD_NOT_VALID' | translate }}
+        </mat-error>
+      </mat-form-field>
+
+      <button
+        mat-stroked-button
+        color="primary"
+        [disabled]="!f.valid"
+        (click)="handleSubmit()"
+      >
+        {{ 'SUBMIT' | translate }}
+      </button>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<!-- TODO: Implement warning popover -->
+<mat-card>
+  <mat-card-content>
+    <button mat-stroked-button color="warning" (click)="handleDelete()">
+      {{ 'PROFILES.DELETE_ACCOUNT' | translate }}
+    </button>
+  </mat-card-content>
+</mat-card>

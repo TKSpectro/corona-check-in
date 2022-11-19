@@ -20,7 +20,8 @@
     "USERNAME": "Nutzername",
     "PASSWORD": "Passwort",
     "OLD_PASSWORD": "Altes password",
-    "NEW_PASSWORD": "Neues password"
+    "NEW_PASSWORD": "Neues password",
+    "NEW_PASSWORD_REPEAT": "Neues Passwort wiederholen"
   },
   "YES": "Ja",
   "CASES": {
@@ -45,4 +46,3 @@
     "UPDATE_ROOM": "Raum bearbeiten"
   }
 }
-

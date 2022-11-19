@@ -23,7 +23,7 @@ export class AuthService {
   }
 
   async login(user: UserEntity) {
-    const payload = { email: user.email, sub: user.id, roles: user.roles };
+    const payload = { email: user.email, sub: user.id, role: user.role };
 
     return {
       token: this.jwtService.sign(payload),
@@ -33,16 +33,20 @@ export class AuthService {
   // TODO: Setup better schema validation
   async signup(userInput: UserEntity) {
     delete userInput.id;
-    delete userInput.roles;
+    delete userInput.role;
 
     userInput.password = hashSync(userInput.password, 10);
 
     const user = await this.usersService.create(userInput);
 
-    const payload = { email: user.email, sub: user.id, roles: user.roles };
+    const payload = { email: user.email, sub: user.id, role: user.role };
 
     return {
       token: this.jwtService.sign(payload),
     };
+  }
+
+  async me(reqUser: { email: string; sub: string; roles: string }) {
+    return await this.usersService.findOne(reqUser.email);
   }
 }

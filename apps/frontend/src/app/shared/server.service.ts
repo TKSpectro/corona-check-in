@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../auth/user';
 
@@ -16,5 +16,13 @@ export class ServerService {
   // cross domain problem
   login(user: User): Observable<{ token: string }> {
     return this.httpClient.post<{ token: string }>('/api/auth/login', user);
+  }
+
+  me(): Observable<any> {
+    return this.httpClient.get<any>('/api/me');
+  }
+
+  deleteUser(id: string): Observable<boolean> {
+    return this.httpClient.delete<any>(`/api/users/${id}`);
   }
 }

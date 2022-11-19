@@ -20,7 +20,8 @@
     "USERNAME": "Username",
     "PASSWORD": "Password",
     "OLD_PASSWORD": "Old password",
-    "NEW_PASSWORD": "New password"
+    "NEW_PASSWORD": "New password",
+    "NEW_PASSWORD_REPEAT": "Repeat new password"
   },
   "YES": "yes",
   "CASES": {

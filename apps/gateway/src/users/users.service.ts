@@ -11,6 +11,16 @@ export class UsersService implements OnModuleInit {
   ) {}
 
   async onModuleInit() {
+    await this.userRepository.delete({
+      email: 'deleted-00000000-0000-0000-0000-000000000001',
+    });
+    await this.userRepository.delete({
+      email: 'deleted-00000000-0000-0000-0000-000000000002',
+    });
+    await this.userRepository.delete({
+      email: 'deleted-00000000-0000-0000-0000-000000000003',
+    });
+
     if (
       !(await this.userRepository.findOne({
         where: { email: 'admin@turbomeet.xyz' },
@@ -24,7 +34,7 @@ export class UsersService implements OnModuleInit {
           '$2b$10$.u8J.QB3BqWG7/9e4Q.hpOoEubTbsNqHPc.sQLY2bdrisDduk8wFS',
         firstname: 'AdminFirst',
         lastname: 'AdminLast',
-        roles: UserRole.ADMIN,
+        role: UserRole.ADMIN,
       });
     }
 
@@ -41,17 +51,56 @@ export class UsersService implements OnModuleInit {
           '$2b$10$.u8J.QB3BqWG7/9e4Q.hpOoEubTbsNqHPc.sQLY2bdrisDduk8wFS',
         firstname: 'UserFirst',
         lastname: 'UserLast',
-        roles: UserRole.USER,
+        role: UserRole.USER,
+      });
+    }
+
+    if (
+      !(await this.userRepository.findOne({
+        where: [
+          { email: 'deleteme@turbomeet.xyz' },
+          { email: 'deleted-00000000-0000-0000-0000-000000000003' },
+        ],
+      }))
+    ) {
+      await this.userRepository.insert({
+        id: '00000000-0000-0000-0000-000000000003',
+        email: 'deleteme@turbomeet.xyz',
+        // password: hashSync('password', 10),
+        password:
+          '$2b$10$.u8J.QB3BqWG7/9e4Q.hpOoEubTbsNqHPc.sQLY2bdrisDduk8wFS',
+        firstname: 'UserFirst',
+        lastname: 'UserLast',
+        role: UserRole.USER,
       });
     }
   }
 
   async findOne(email: string): Promise<UserEntity> {
-    return this.userRepository.findOne({ where: { email: email } });
-    // return this.users.find((user) => user.email === email);
+    return this.userRepository.findOne({
+      where: { email: email },
+    });
   }
 
   async create(user: UserEntity): Promise<UserEntity> {
     return this.userRepository.save(user);
+  }
+
+  async delete(id: string): Promise<boolean> {
+    const user = await this.userRepository.findOne({ where: { id: id } });
+
+    if (!user) {
+      return false;
+    }
+
+    user.deleted = true;
+    user.email = 'deleted-' + user.id;
+    user.firstname = '';
+    user.lastname = '';
+    user.password = '';
+
+    await this.userRepository.save(user);
+
+    return true;
   }
 }

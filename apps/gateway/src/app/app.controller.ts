@@ -57,7 +57,7 @@ export class AppController {
 
   @Get('me')
   getProfile(@Request() req) {
-    return req.user;
+    return this.authService.me(req.user);
   }
 
   @Get('admin')

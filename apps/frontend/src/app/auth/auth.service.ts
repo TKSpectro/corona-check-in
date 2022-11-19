@@ -24,5 +24,10 @@ export class AuthService {
     });
   }
 
+  logout() {
+    this.token = '';
+    localStorage.removeItem('token');
+  }
+
   constructor(private serverSrv: ServerService) {}
 }
