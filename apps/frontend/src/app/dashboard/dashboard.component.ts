@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'ccn-dashboard',
@@ -14,7 +15,13 @@ export class DashboardComponent {
   testJwt =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAdHVyYm9tZWV0Lnh5eiIsInN1YiI6IjAwMDAwMDAwLTAwMDAtMDAwMC0wMDAwLTAwMDAwMDAwMDAwMiIsInJvbGVzIjoidXNlciIsImlhdCI6MTY2ODUzODI0MywiZXhwIjoxNjcxMTMwMjQzfQ.5kGUhp8oWctxBMpA_LQW_uLRzGjuhrRWukooX6siouE';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, public translate: TranslateService) {
+    translate.addLangs(['en', 'de']);
+    const browserLang = translate.getBrowserLang();
+    browserLang
+      ? translate.use(browserLang.match(/en|fr/) ? browserLang : 'en')
+      : '';
+
     const req = this.http.get<{ id: string; name: string }[]>('/api/items', {
       headers: { Authorization: `Bearer ${this.testJwt}` },
     });

@@ -1,0 +1,48 @@
+{
+  "CLICK": "Klicke die Taste",
+  "LANGUAGE": "Sprache",
+  "CREATE": "Erstellen",
+  "DASHBOARD": "Übersicht",
+  "CANCEL": "Abbrechen",
+  "DELETE": "Löschen",
+  "ERROR_404": "Die gewünschte Seite konnte nicht gefunden werden.",
+  "SUBMIT": "Absenden",
+  "LOGIN": "login",
+  "REGISTER": "Sign Up",
+  "SAVE": "Speichern",
+  "SEARCH": "Suchen",
+  "SETTINGS": "Einstellung",
+  "PROFILES": {
+    "PROFILE": "Profil",
+    "PROFILES": "Profile",
+    "USER": "Nutzer",
+    "USERS": "Nutzern",
+    "USERNAME": "Nutzername",
+    "PASSWORD": "Passwort",
+    "OLD_PASSWORD": "Altes password",
+    "NEW_PASSWORD": "Neues password"
+  },
+  "YES": "Ja",
+  "CASES": {
+    "CASES": "Infektionen",
+    "ALL_CASES": "Alle Infektionen"
+  },
+  "SESSIONS": {
+    "SESSIONS": "SESSIONS",
+    "ALL SESSIONS": "Alle sessions",
+    "SESSION": "Session",
+    "LAST_SESSION": "Letzte Session",
+    "UPDATE_SESSION": "Update Session",
+    "DELETE_SESSION": "Session löschen"
+  },
+  "ROOMS": {
+    "ROOMS": "Räume",
+    "ROOM": "Raum",
+    "ALL_ROOMS": "Alle Räume",
+    "CREATE_ROOM": "Raum erstellen",
+    "DELETE_ROOM": "Raum löschen",
+    "ROOM_DETAILS": "Raum-Details",
+    "UPDATE_ROOM": "Raum bearbeiten"
+  }
+}
+
