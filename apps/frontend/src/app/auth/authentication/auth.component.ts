@@ -1,22 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
-import { User } from '../user';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'ccn-auth',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
 })
-export class AuthComponent implements OnInit {
+export class AuthComponent {
+  email!: string;
+  password!: string;
+
   constructor(private authSrv: AuthService, private router: Router) {}
 
-  ngOnInit(): void {
-    const user: User = {
-      email: 'user@turbomeet.xyz',
-      password: 'password',
-    };
-    this.authSrv.login(user);
+  handleSubmit() {
+    this.authSrv.login({ email: this.email, password: this.password });
   }
 
   navigateToDashboard() {

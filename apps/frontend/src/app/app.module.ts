@@ -1,22 +1,31 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpClientModule,
+  HTTP_INTERCEPTORS,
+} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
+import {
+  MatFormFieldModule,
+  MAT_FORM_FIELD_DEFAULT_OPTIONS,
+} from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatTableModule } from '@angular/material/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { AppComponent } from './app.component';
-import { AuthComponent } from './auth/authentication/auth.component';
-import { AuthModule } from './auth/auth.module';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { DashboardModule } from './dashboard/dashboard.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { AppComponent } from './app.component';
 import { AuthInterceptor } from './auth.interceptor';
 import { AuthGuard } from './auth/auth.guard';
+import { AuthModule } from './auth/auth.module';
+import { AuthComponent } from './auth/authentication/auth.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -43,6 +52,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserAnimationsModule,
     MatTableModule,
     MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
     NgxChartsModule,
     DashboardModule,
     AuthModule,
@@ -57,6 +68,10 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: { appearance: 'outline' },
+    },
   ],
   bootstrap: [AppComponent],
 })
