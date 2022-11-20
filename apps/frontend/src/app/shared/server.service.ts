@@ -22,6 +22,10 @@ export class ServerService {
     return this.httpClient.get<any>('/api/me');
   }
 
+  updateUser(id: string, user: any): Observable<User> {
+    return this.httpClient.put<User>(`/api/users/${id}`, user);
+  }
+
   deleteUser(id: string): Observable<boolean> {
     return this.httpClient.delete<any>(`/api/users/${id}`);
   }

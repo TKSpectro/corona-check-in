@@ -1,7 +1,14 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  OnModuleInit,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { compareSync, hashSync } from 'bcrypt';
 import { Repository } from 'typeorm';
 import { UserEntity, UserRole } from './user.entity';
+import { UpdateUserDto } from './users.dto';
 
 @Injectable()
 export class UsersService implements OnModuleInit {
@@ -84,6 +91,40 @@ export class UsersService implements OnModuleInit {
 
   async create(user: UserEntity): Promise<UserEntity> {
     return this.userRepository.save(user);
+  }
+
+  async update(id: string, data: UpdateUserDto) {
+    const user = await this.userRepository.findOne({ where: { id: id } });
+
+    if (!user) {
+      throw new HttpException({}, HttpStatus.NOT_FOUND);
+    }
+
+    if (user.role !== UserRole.ADMIN) {
+      delete data.role;
+    }
+
+    if (data.newPassword) {
+      if (!data.oldPassword || !compareSync(data.oldPassword, user.password)) {
+        throw new HttpException(
+          'ERROR_OLD_PASSWORD_WRONG',
+          HttpStatus.BAD_REQUEST
+        );
+      }
+
+      if (data.newPassword !== data.newPasswordRepeat) {
+        throw new HttpException(
+          'ERROR_PASSWORDS_NOT_MATCHING',
+          HttpStatus.BAD_REQUEST
+        );
+      }
+
+      data['password'] = hashSync(data.newPassword, 10);
+    }
+
+    Object.assign(user, data);
+
+    return { ...(await user.save()), password: undefined };
   }
 
   async delete(id: string): Promise<boolean> {

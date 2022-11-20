@@ -44,5 +44,7 @@
     "DELETE_ROOM": "Delete Room",
     "ROOM_DETAILS": "Room Details",
     "UPDATE_ROOM": "Update Room"
-  }
+  },
+  "ERROR_OLD_PASSWORD_WRONG": "Old password is wrong",
+  "ERROR_PASSWORDS_NOT_MATCHING": "New password is not matching"
 }

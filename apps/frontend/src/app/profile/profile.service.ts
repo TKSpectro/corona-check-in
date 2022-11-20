@@ -10,6 +10,7 @@ import { ServerService } from '../shared/server.service';
 export class ProfileService {
   profileData!: any;
   submitProfileData = new Subject<any>();
+  updateProfileData = new Subject<any>();
 
   constructor(
     private serverSrv: ServerService,
@@ -31,6 +32,20 @@ export class ProfileService {
     return this.profileData;
   }
 
+  updateUser(id: string, data: any) {
+    this.serverSrv.updateUser(id, data).subscribe({
+      next: (result) => {
+        this.profileData = result;
+        this.updateProfileData.next(this.profileData);
+      },
+      error: (error) => {
+        this.updateProfileData.next(error);
+      },
+    });
+
+    return this.profileData;
+  }
+
   deleteUser(id: string) {
     this.serverSrv.deleteUser(id).subscribe({
       next: (result) => {
@@ -43,5 +58,9 @@ export class ProfileService {
     });
 
     return this.profileData;
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }

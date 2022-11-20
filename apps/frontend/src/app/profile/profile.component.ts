@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ProfileService } from './profile.service';
@@ -9,6 +10,7 @@ import { ProfileService } from './profile.service';
 })
 export class ProfileComponent implements OnInit, OnDestroy {
   subscription!: Subscription;
+  updateSub!: Subscription;
 
   id!: string;
   email!: string;
@@ -17,6 +19,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   oldPassword!: string;
   newPassword!: string;
   newPasswordRepeat!: string;
+
+  error!: string;
 
   constructor(private profileService: ProfileService) {}
 
@@ -36,13 +40,37 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.updateSub.unsubscribe();
   }
 
-  handleSubmit() {
-    console.log('email', this.email);
+  handleUpdate() {
+    this.profileService.updateUser(this.id, {
+      email: this.email,
+      firstname: this.firstname,
+      lastname: this.lastname,
+      oldPassword: this.oldPassword,
+      newPassword: this.newPassword,
+      newPasswordRepeat: this.newPasswordRepeat,
+    });
+    this.updateSub = this.profileService.updateProfileData.subscribe((data) => {
+      if (data instanceof HttpErrorResponse) {
+        this.error = data.error.message;
+        return;
+      }
+      this.id = data.id;
+      this.firstname = data.firstname;
+      this.lastname = data.lastname;
+      this.email = data.email;
+      this.firstname = data.firstname;
+      this.lastname = data.lastname;
+    });
   }
 
   handleDelete() {
     this.profileService.deleteUser(this.id);
+  }
+
+  handleLogout() {
+    this.profileService.logout();
   }
 }
