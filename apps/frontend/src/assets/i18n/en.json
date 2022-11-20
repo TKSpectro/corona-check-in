@@ -24,7 +24,8 @@
     "OLD_PASSWORD": "Old password",
     "NEW_PASSWORD": "New password",
     "NEW_PASSWORD_REPEAT": "Repeat new password",
-    "DELETE_USER": "Delete account"
+    "DELETE_USER": "Delete account",
+    "DELETE_USER_WARNING": "Are you sure you want to delete your account? This action cannot be undone."
   },
   "YES": "yes",
   "CASES": {

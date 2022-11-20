@@ -22,6 +22,7 @@ interface DialogData {
 export class ProfileComponent implements OnInit, OnDestroy {
   subscription!: Subscription;
   updateSub!: Subscription;
+  deleteSub!: Subscription;
 
   id!: string;
   email!: string;
@@ -55,8 +56,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
-    this.updateSub.unsubscribe();
+    this.subscription?.unsubscribe();
+    this.updateSub?.unsubscribe();
+    this.deleteSub?.unsubscribe();
   }
 
   handleUpdate() {
@@ -88,8 +90,32 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   handleDelete() {
-    this.dialog.open(ProfileDeleteDialogComponent, {
+    const dialogRef = this.dialog.open(ProfileDeleteDialogComponent, {
       data: { id: this.id },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) {
+        this.profileService.deleteUser(this.id);
+        this.deleteSub = this.profileService.deleteUserData.subscribe(
+          (data) => {
+            if (data instanceof HttpErrorResponse) {
+              this.snackBar.open('Could not delete the profile', undefined, {
+                panelClass: 'snackbar-error',
+              });
+              return;
+            }
+
+            this.profileService.logout();
+
+            this.snackBar.open('Profile was successfully deleted', undefined, {
+              panelClass: 'snackbar-success',
+            });
+
+            this.router.navigate(['/']);
+          }
+        );
+      }
     });
   }
 
@@ -104,36 +130,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
   templateUrl: 'profile-delete-dialog.component.html',
   styleUrls: ['./profile.component.scss'],
 })
-export class ProfileDeleteDialogComponent implements OnDestroy {
-  deleteSub!: Subscription;
-
+export class ProfileDeleteDialogComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    public dialogRef: MatDialogRef<ProfileDeleteDialogComponent>,
-    private profileService: ProfileService,
-    private router: Router
+    public dialogRef: MatDialogRef<ProfileDeleteDialogComponent>
   ) {}
 
-  ngOnDestroy() {
-    this.deleteSub?.unsubscribe();
-  }
-
   onNoClick(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
 
   onYesClick(): void {
-    this.dialogRef.close();
-
-    this.profileService.deleteUser(this.data.id);
-    this.deleteSub = this.profileService.deleteUserData.subscribe((data) => {
-      if (data instanceof HttpErrorResponse) {
-        console.log(data.error.message);
-        return;
-      }
-
-      // this.profileService.logout();
-      // this.router.navigate(['/']);
-    });
+    this.dialogRef.close(true);
   }
 }

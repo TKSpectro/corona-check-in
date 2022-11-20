@@ -24,7 +24,8 @@
     "OLD_PASSWORD": "Altes password",
     "NEW_PASSWORD": "Neues password",
     "NEW_PASSWORD_REPEAT": "Neues Passwort wiederholen",
-    "DELETE_USER": "Konto löschen"
+    "DELETE_USER": "Konto löschen",
+    "DELETE_USER_WARNING": "Wenn Sie Ihr Konto löschen, werden alle Ihre Daten gelöscht. Möchten Sie Ihr Konto wirklich löschen?"
   },
   "YES": "Ja",
   "CASES": {
