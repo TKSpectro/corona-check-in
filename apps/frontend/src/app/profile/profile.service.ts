@@ -3,14 +3,15 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import { ServerService } from '../shared/server.service';
+import { UpdateUser, User } from '../shared/types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProfileService {
-  profileData!: any;
-  submitProfileData = new Subject<any>();
-  updateProfileData = new Subject<any>();
+  profileData!: User;
+  submitProfileData = new Subject<User>();
+  updateProfileData = new Subject<User>();
 
   constructor(
     private serverSrv: ServerService,
@@ -32,7 +33,7 @@ export class ProfileService {
     return this.profileData;
   }
 
-  updateUser(id: string, data: any) {
+  updateUser(id: string, data: UpdateUser) {
     this.serverSrv.updateUser(id, data).subscribe({
       next: (result) => {
         this.profileData = result;
@@ -48,7 +49,7 @@ export class ProfileService {
 
   deleteUser(id: string) {
     this.serverSrv.deleteUser(id).subscribe({
-      next: (result) => {
+      next: () => {
         this.authService.logout();
         this.router.navigate(['/']);
       },

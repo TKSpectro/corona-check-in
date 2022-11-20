@@ -1,5 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ProfileService } from './profile.service';
 
@@ -22,18 +24,22 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   error!: string;
 
-  constructor(private profileService: ProfileService) {}
+  constructor(
+    private router: Router,
+    private profileService: ProfileService,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.profileService.getProfileData();
     this.subscription = this.profileService.submitProfileData.subscribe(
       (data) => {
-        this.id = data.id;
-        this.firstname = data.firstname;
-        this.lastname = data.lastname;
-        this.email = data.email;
-        this.firstname = data.firstname;
-        this.lastname = data.lastname;
+        this.id = data.id as string;
+        this.firstname = data.firstname as string;
+        this.lastname = data.lastname as string;
+        this.email = data.email as string;
+        this.firstname = data.firstname as string;
+        this.lastname = data.lastname as string;
       }
     );
   }
@@ -57,12 +63,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.error = data.error.message;
         return;
       }
-      this.id = data.id;
-      this.firstname = data.firstname;
-      this.lastname = data.lastname;
-      this.email = data.email;
-      this.firstname = data.firstname;
-      this.lastname = data.lastname;
+
+      this.id = data.id as string;
+      this.firstname = data.firstname as string;
+      this.lastname = data.lastname as string;
+      this.email = data.email as string;
+      this.firstname = data.firstname as string;
+      this.lastname = data.lastname as string;
+
+      this.snackBar.open('Profile was successfully updated', undefined, {
+        panelClass: 'snackbar-success',
+      });
     });
   }
 
@@ -72,5 +83,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   handleLogout() {
     this.profileService.logout();
+    this.router.navigate(['/']);
   }
 }
