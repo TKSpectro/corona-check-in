@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { ServerService } from '../shared/server.service';
 import { User } from './user';
 
@@ -6,17 +7,25 @@ import { User } from './user';
   providedIn: 'root',
 })
 export class AuthService {
-  private token = '';
+  private token: string | null = null;
 
-  getToken(): string {
+  constructor(private serverSrv: ServerService, private router: Router) {}
+
+  getToken(): string | null {
+    if (!this.token) {
+      this.token = localStorage.getItem('token');
+    }
+
     return this.token;
   }
 
   login(user: User) {
-    console.log('user', user);
     this.serverSrv.login(user).subscribe({
       next: (result) => {
         this.token = result.token;
+        localStorage.setItem('token', this.token);
+
+        this.router.navigate(['/dashboard']);
       },
       error: (error) => {
         console.error(error);
@@ -28,6 +37,4 @@ export class AuthService {
     this.token = '';
     localStorage.removeItem('token');
   }
-
-  constructor(private serverSrv: ServerService) {}
 }

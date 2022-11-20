@@ -1,1 +1,49 @@
-<button (click)='navigateToDashboard()'>dashboard</button>
+<mat-card>
+  <mat-card-content>
+    <form #f="ngForm">
+      <mat-form-field>
+        <mat-label>{{ 'PROFILES.EMAIL' | translate }}</mat-label>
+        <input
+          matInput
+          type="email"
+          name="email"
+          [(ngModel)]="email"
+          required
+          email
+        />
+        <mat-error
+          *ngIf="f.form.get('email')?.dirty && !f?.form?.get('email')?.valid"
+        >
+          {{ 'ERROR.EMAIL_NOT_VALID' | translate }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ 'PROFILES.PASSWORD' | translate }}</mat-label>
+        <input
+          matInput
+          type="password"
+          name="password"
+          [(ngModel)]="password"
+          required
+        />
+        <mat-error
+          *ngIf="
+            f.form.get('password')?.dirty && !f?.form?.get('password')?.valid
+          "
+        >
+          {{ 'ERROR.PASSWORD_NOT_VALID' | translate }}
+        </mat-error>
+      </mat-form-field>
+
+      <button
+        mat-stroked-button
+        color="primary"
+        [disabled]="!f.valid"
+        (click)="handleSubmit()"
+      >
+        {{ 'SUBMIT' | translate }}
+      </button>
+    </form>
+  </mat-card-content>
+</mat-card>

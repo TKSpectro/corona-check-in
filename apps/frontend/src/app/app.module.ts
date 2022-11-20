@@ -8,6 +8,11 @@ import {
 } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
+import {
+  MatFormFieldModule,
+  MAT_FORM_FIELD_DEFAULT_OPTIONS,
+} from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -55,6 +60,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserAnimationsModule,
     MatTableModule,
     MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
     NgxChartsModule,
     DashboardModule,
     ProfileModule,
@@ -70,6 +77,10 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: { appearance: 'outline' },
+    },
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
       useValue: {
