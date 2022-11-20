@@ -19,6 +19,8 @@
     "USER": "User",
     "USERS": "Users",
     "EMAIL": "Email",
+    "FIRSTNAME": "First Name",
+    "LASTNAME": "Last Name",
     "USERNAME": "Username",
     "PASSWORD": "Password",
     "OLD_PASSWORD": "Old password",
