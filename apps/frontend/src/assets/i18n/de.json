@@ -9,6 +9,7 @@
   "SUBMIT": "Absenden",
   "LOGIN": "login",
   "REGISTER": "Sign Up",
+  "LOGOUT": "Logout",
   "SAVE": "Speichern",
   "SEARCH": "Suchen",
   "SETTINGS": "Einstellung",
@@ -22,7 +23,8 @@
     "PASSWORD": "Passwort",
     "OLD_PASSWORD": "Altes password",
     "NEW_PASSWORD": "Neues password",
-    "NEW_PASSWORD_REPEAT": "Neues Passwort wiederholen"
+    "NEW_PASSWORD_REPEAT": "Neues Passwort wiederholen",
+    "DELETE_USER": "Konto löschen"
   },
   "YES": "Ja",
   "CASES": {

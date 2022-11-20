@@ -1,9 +1,18 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ProfileService } from './profile.service';
+
+interface DialogData {
+  id: string;
+}
 
 @Component({
   selector: 'ccn-profile',
@@ -27,7 +36,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private profileService: ProfileService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -78,11 +88,52 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   handleDelete() {
-    this.profileService.deleteUser(this.id);
+    this.dialog.open(ProfileDeleteDialogComponent, {
+      data: { id: this.id },
+    });
   }
 
   handleLogout() {
     this.profileService.logout();
     this.router.navigate(['/']);
+  }
+}
+
+@Component({
+  selector: 'ccn-profile-delete-dialog',
+  templateUrl: 'profile-delete-dialog.component.html',
+  styleUrls: ['./profile.component.scss'],
+})
+export class ProfileDeleteDialogComponent implements OnDestroy {
+  deleteSub!: Subscription;
+
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    public dialogRef: MatDialogRef<ProfileDeleteDialogComponent>,
+    private profileService: ProfileService,
+    private router: Router
+  ) {}
+
+  ngOnDestroy() {
+    this.deleteSub?.unsubscribe();
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  onYesClick(): void {
+    this.dialogRef.close();
+
+    this.profileService.deleteUser(this.data.id);
+    this.deleteSub = this.profileService.deleteUserData.subscribe((data) => {
+      if (data instanceof HttpErrorResponse) {
+        console.log(data.error.message);
+        return;
+      }
+
+      // this.profileService.logout();
+      // this.router.navigate(['/']);
+    });
   }
 }

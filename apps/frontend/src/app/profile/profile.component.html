@@ -110,16 +110,15 @@
   </mat-card-content>
 </mat-card>
 
-<!-- TODO: Implement warning popover -->
-<mat-card>
+<mat-card class="bottom-card">
   <mat-card-content>
-    <button mat-stroked-button color="warning" (click)="handleLogout()">
+    <button mat-stroked-button color="accent" (click)="handleLogout()">
       {{ 'LOGOUT' | translate }}
     </button>
   </mat-card-content>
   <mat-card-content>
-    <button mat-stroked-button color="warning" (click)="handleDelete()">
-      {{ 'PROFILES.DELETE_ACCOUNT' | translate }}
+    <button mat-stroked-button color="warn" (click)="handleDelete()">
+      {{ 'PROFILES.DELETE_USER' | translate }}
     </button>
   </mat-card-content>
 </mat-card>

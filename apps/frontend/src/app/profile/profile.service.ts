@@ -12,6 +12,7 @@ export class ProfileService {
   profileData!: User;
   submitProfileData = new Subject<User>();
   updateProfileData = new Subject<User>();
+  deleteUserData = new Subject<User>();
 
   constructor(
     private serverSrv: ServerService,
@@ -49,16 +50,15 @@ export class ProfileService {
 
   deleteUser(id: string) {
     this.serverSrv.deleteUser(id).subscribe({
-      next: () => {
+      next: (res) => {
         this.authService.logout();
-        this.router.navigate(['/']);
+
+        this.deleteUserData.next(res);
       },
       error: (error) => {
-        console.error(error);
+        this.deleteUserData.next(error);
       },
     });
-
-    return this.profileData;
   }
 
   logout() {

@@ -27,7 +27,7 @@ export class ServerService {
     return this.httpClient.put<User>(`/api/users/${id}`, user);
   }
 
-  deleteUser(id: string): Observable<boolean> {
-    return this.httpClient.delete<never>(`/api/users/${id}`);
+  deleteUser(id: string): Observable<any> {
+    return this.httpClient.delete<any>(`/api/users/${id}`);
   }
 }

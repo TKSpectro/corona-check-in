@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>{{ 'PROFILES.DELETE_USER' | translate }}</h1>
+<div mat-dialog-content>
+  <p>{{ 'PROFILES.DELETE_USER_WARNING' | translate }}</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()" cdkFocusInitial>
+    {{ 'CANCEL' | translate }}
+  </button>
+  <button mat-button (click)="onYesClick()">{{ 'SUBMIT' | translate }}</button>
+</div>
