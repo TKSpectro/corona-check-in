@@ -9,12 +9,27 @@ import { AuthService } from '../auth.service';
 })
 export class AuthComponent {
   email!: string;
+  firstname!: string;
+  lastname!: string;
   password!: string;
+  passwordRepeat!: string;
+
+  isSignup = false;
 
   constructor(private authSrv: AuthService, private router: Router) {}
 
   handleSubmit() {
-    this.authSrv.login({ email: this.email, password: this.password });
+    if (this.isSignup) {
+      this.authSrv.signup({
+        email: this.email,
+        firstname: this.firstname,
+        lastname: this.lastname,
+        password: this.password,
+        passwordRepeat: this.passwordRepeat,
+      });
+    } else {
+      this.authSrv.login({ email: this.email, password: this.password });
+    }
   }
 
   navigateToDashboard() {

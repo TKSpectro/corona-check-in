@@ -7,6 +7,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { compareSync, hashSync } from 'bcrypt';
 import { Repository } from 'typeorm';
+import { SignupUserDto } from '../auth/auth.dto';
 import { UserEntity, UserRole } from './user.entity';
 import { UpdateUserDto } from './users.dto';
 
@@ -89,7 +90,7 @@ export class UsersService implements OnModuleInit {
     });
   }
 
-  async create(user: UserEntity): Promise<UserEntity> {
+  async create(user: UserEntity | SignupUserDto): Promise<UserEntity> {
     return this.userRepository.save(user);
   }
 

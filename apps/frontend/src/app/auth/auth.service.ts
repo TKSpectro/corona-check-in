@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ServerService } from '../shared/server.service';
-import { User } from './user';
+import { User, UserSignup } from './user';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +21,20 @@ export class AuthService {
 
   login(user: User) {
     this.serverSrv.login(user).subscribe({
+      next: (result) => {
+        this.token = result.token;
+        localStorage.setItem('token', this.token);
+
+        this.router.navigate(['/dashboard']);
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
+  }
+
+  signup(user: UserSignup) {
+    this.serverSrv.signup(user).subscribe({
       next: (result) => {
         this.token = result.token;
         localStorage.setItem('token', this.token);

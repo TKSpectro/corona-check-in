@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { compareSync, hashSync } from 'bcrypt';
 import { UserEntity } from '../users/user.entity';
 import { UsersService } from '../users/users.service';
+import { SignupUserDto } from './auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -30,10 +31,13 @@ export class AuthService {
     };
   }
 
-  // TODO: Setup better schema validation
-  async signup(userInput: UserEntity) {
-    delete userInput.id;
-    delete userInput.role;
+  async signup(userInput: SignupUserDto) {
+    if (userInput.password !== userInput.passwordRepeat) {
+      throw new HttpException(
+        'ERROR_PASSWORDS_NOT_MATCHING',
+        HttpStatus.BAD_REQUEST
+      );
+    }
 
     userInput.password = hashSync(userInput.password, 10);
 

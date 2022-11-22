@@ -1,5 +1,7 @@
 <mat-card>
   <mat-card-content>
+    <h1 *ngIf="isSignup">{{ 'REGISTER' | translate }}</h1>
+    <h1 *ngIf="!isSignup">{{ 'LOGIN' | translate }}</h1>
     <form #f="ngForm">
       <mat-form-field>
         <mat-label>{{ 'PROFILES.EMAIL' | translate }}</mat-label>
@@ -18,6 +20,30 @@
         </mat-error>
       </mat-form-field>
 
+      <mat-form-field *ngIf="isSignup">
+        <mat-label>{{ 'PROFILES.FIRSTNAME' | translate }}</mat-label>
+        <input matInput name="firstname" [(ngModel)]="firstname" />
+        <mat-error
+          *ngIf="
+            f.form.get('firstname')?.dirty && !f?.form?.get('firstname')?.valid
+          "
+        >
+          {{ 'ERROR.FIRSTNAME_NOT_VALID' | translate }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="isSignup">
+        <mat-label>{{ 'PROFILES.LASTNAME' | translate }}</mat-label>
+        <input matInput name="lastname" [(ngModel)]="lastname" />
+        <mat-error
+          *ngIf="
+            f.form.get('lastname')?.dirty && !f?.form?.get('lastname')?.valid
+          "
+        >
+          {{ 'ERROR.LASTNAME_NOT_VALID' | translate }}
+        </mat-error>
+      </mat-form-field>
+
       <mat-form-field>
         <mat-label>{{ 'PROFILES.PASSWORD' | translate }}</mat-label>
         <input
@@ -33,6 +59,25 @@
           "
         >
           {{ 'ERROR.PASSWORD_NOT_VALID' | translate }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="isSignup">
+        <mat-label>{{ 'PROFILES.PASSWORD_REPEAT' | translate }}</mat-label>
+        <input
+          matInput
+          type="password"
+          name="passwordRepeat"
+          [(ngModel)]="passwordRepeat"
+          required
+        />
+        <mat-error
+          *ngIf="
+            f.form.get('passwordRepeat')?.dirty &&
+            !f?.form?.get('passwordRepeat')?.valid
+          "
+        >
+          {{ 'ERROR.PASSWORD_REPEAT_NOT_VALID' | translate }}
         </mat-error>
       </mat-form-field>
 
