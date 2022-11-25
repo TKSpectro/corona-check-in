@@ -13,6 +13,10 @@ export class ServerService {
     return this.httpClient.get<any>('/api/incidence');
   }
 
+  getSessions(): Observable<any> {
+    return this.httpClient.get<any>('/api/sessions');
+  }
+
   // cross domain problem
   login(user: User): Observable<{ token: string }> {
     return this.httpClient.post<{ token: string }>('/api/auth/login', user);
