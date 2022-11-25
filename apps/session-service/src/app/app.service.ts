@@ -37,4 +37,8 @@ export class AppService implements OnModuleInit {
   getSessions() {
     return this.sessionRepository.find();
   }
+
+  getSessionById(id: string) {
+    return this.sessionRepository.findOne({ where: { id } });
+  }
 }

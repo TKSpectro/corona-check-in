@@ -6,6 +6,9 @@ export class SessionsService {
   constructor(@Inject('sessions-service') private sessionClient: ClientProxy) {}
 
   getSessions() {
-    return this.sessionClient.send({ role: 'sessions', cmd: 'getAll' }, {});
+    return this.sessionClient.send({ role: 'sessions', cmd: 'get-all' }, {});
+  }
+  getSessionById(id: string) {
+    return this.sessionClient.send({ role: 'sessions', cmd: 'get-by-id' }, {});
   }
 }

@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { SessionsService } from './sessions.service';
 
 @Controller('sessions')
@@ -8,5 +8,10 @@ export class SessionsController {
   @Get('')
   getSessions() {
     return this.sessionsService.getSessions();
+  }
+
+  @Get('/:id')
+  getSessionById(@Param('id') id: string) {
+    return this.sessionsService.getSessionById(id);
   }
 }

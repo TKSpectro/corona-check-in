@@ -7,8 +7,13 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @MessagePattern({ role: 'sessions', cmd: 'getAll' })
+  @MessagePattern({ role: 'sessions', cmd: 'get-all' })
   getSessions() {
     return this.appService.getSessions();
+  }
+
+  @MessagePattern({ role: 'sessions', cmd: 'get-by-id' })
+  getSessionById({ id }: { id: string }) {
+    return this.appService.getSessionById(id);
   }
 }
