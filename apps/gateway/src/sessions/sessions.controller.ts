@@ -7,7 +7,6 @@ import {
   Query,
 } from '@nestjs/common';
 import { SessionsService } from './sessions.service';
-import { Pagination } from 'nestjs-typeorm-paginate';
 import { lastValueFrom } from 'rxjs';
 
 @Controller('sessions')
@@ -29,14 +28,6 @@ export class SessionsController {
       this.sessionsService.getSessions(page, limit)
     );
     const _meta = { limit: 10, page: 0, totalPages: 3, total: 30, count: 10 };
-
-    // "meta": {
-    //   "itemCount": 10,
-    //   "totalItems": 20,
-    //   "itemsPerPage": 10,
-    //   "totalPages": 5,
-    //   "currentPage": 2
-    // },
 
     return { sessions: sessions, _meta: _meta };
   }
