@@ -1,7 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { IPaginationOptions } from 'nestjs-typeorm-paginate';
-import { Pagination } from 'nestjs-typeorm-paginate';
 
 @Injectable()
 export class SessionsService {

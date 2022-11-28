@@ -2,11 +2,6 @@ import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SessionEntity } from './session.entity';
-import {
-  paginate,
-  Pagination,
-  IPaginationOptions,
-} from 'nestjs-typeorm-paginate';
 
 @Injectable()
 export class AppService implements OnModuleInit {
@@ -139,7 +134,7 @@ export class AppService implements OnModuleInit {
   }
 
   getSessions(page: number, limit: number) {
-    return this.sessionRepository.find({skip: page * limit, take: limit });
+    return this.sessionRepository.find({ skip: page * limit, take: limit });
   }
 
   getSessionById(id: string) {

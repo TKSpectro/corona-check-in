@@ -8,16 +8,13 @@ import {
 import { MessagePattern } from '@nestjs/microservices';
 
 import { AppService } from './app.service';
-import { SessionEntity } from './session.entity';
-
-import { Pagination } from 'nestjs-typeorm-paginate';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @MessagePattern({ role: 'sessions', cmd: 'get-all', })
-  getSessions( { skip , limit }: {skip: number, limit: number}) {
+  @MessagePattern({ role: 'sessions', cmd: 'get-all' })
+  getSessions({ skip, limit }: { skip: number; limit: number }) {
     return this.appService.getSessions(skip, limit);
   }
 
