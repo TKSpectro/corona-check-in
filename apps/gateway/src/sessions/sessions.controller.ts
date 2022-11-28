@@ -1,17 +1,43 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import {
+  Controller,
+  DefaultValuePipe,
+  Get,
+  Param,
+  ParseIntPipe,
+  Query,
+} from '@nestjs/common';
 import { SessionsService } from './sessions.service';
+import { Pagination } from 'nestjs-typeorm-paginate';
+import { lastValueFrom } from 'rxjs';
 
 @Controller('sessions')
 export class SessionsController {
   constructor(private readonly sessionsService: SessionsService) {}
 
-  @Get('')
-  getSessions() {
-    return this.sessionsService.getSessions();
-  }
-
   @Get('/:id')
   getSessionById(@Param('id') id: string) {
     return this.sessionsService.getSessionById(id);
+  }
+
+  @Get('')
+  async getSessions(
+    @Query('page') page = 0,
+    @Query('limit') limit = 10
+  ): Promise<any> {
+    limit = limit > 100 ? 100 : limit;
+    const sessions = await lastValueFrom(
+      this.sessionsService.getSessions(page, limit)
+    );
+    const _meta = { limit: 10, page: 0, totalPages: 3, total: 30, count: 10 };
+
+    // "meta": {
+    //   "itemCount": 10,
+    //   "totalItems": 20,
+    //   "itemsPerPage": 10,
+    //   "totalPages": 5,
+    //   "currentPage": 2
+    // },
+
+    return { sessions: sessions, _meta: _meta };
   }
 }
