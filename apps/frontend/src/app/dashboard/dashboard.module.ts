@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -30,6 +31,7 @@ import { SessionListComponent } from './session-list/session-list.component';
     NgxChartsModule,
     BrowserAnimationsModule,
     MatTableModule,
+    MatPaginatorModule,
     MatCardModule,
     HttpClientModule,
     FormsModule,
