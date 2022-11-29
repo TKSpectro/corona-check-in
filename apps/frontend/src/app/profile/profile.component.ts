@@ -7,6 +7,7 @@ import {
 } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { ProfileService } from './profile.service';
 
@@ -38,7 +39,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private router: Router,
     private profileService: ProfileService,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private t: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -83,9 +85,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.firstname = data.firstname as string;
       this.lastname = data.lastname as string;
 
-      this.snackBar.open('Profile was successfully updated', undefined, {
-        panelClass: 'snackbar-success',
-      });
+      this.snackBar.open(
+        this.t.instant('PROFILES.PROFILE_UPDATE_SUCCESS'),
+        undefined,
+        {
+          panelClass: 'snackbar-success',
+        }
+      );
     });
   }
 
@@ -100,17 +106,25 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.deleteSub = this.profileService.deleteUserData.subscribe(
           (data) => {
             if (data instanceof HttpErrorResponse) {
-              this.snackBar.open('Could not delete the profile', undefined, {
-                panelClass: 'snackbar-error',
-              });
+              this.snackBar.open(
+                this.t.instant('PROFILES.PROFILE_DELETE_ERROR'),
+                undefined,
+                {
+                  panelClass: 'snackbar-error',
+                }
+              );
               return;
             }
 
             this.profileService.logout();
 
-            this.snackBar.open('Profile was successfully deleted', undefined, {
-              panelClass: 'snackbar-success',
-            });
+            this.snackBar.open(
+              this.t.instant('PROFILES.PROFILE_DELETE_SUCCESS'),
+              undefined,
+              {
+                panelClass: 'snackbar-success',
+              }
+            );
 
             this.router.navigate(['/']);
           }
@@ -121,6 +135,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   handleLogout() {
     this.profileService.logout();
+
+    this.snackBar.open(this.t.instant('PROFILES.LOGOUT_SUCCESS'), undefined, {
+      panelClass: 'snackbar-success',
+    });
+
     this.router.navigate(['/']);
   }
 }

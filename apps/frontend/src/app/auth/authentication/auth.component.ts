@@ -35,4 +35,8 @@ export class AuthComponent {
   navigateToDashboard() {
     this.router.navigate(['/dashboard']);
   }
+
+  clickSwitch() {
+    this.isSignup = !this.isSignup;
+  }
 }

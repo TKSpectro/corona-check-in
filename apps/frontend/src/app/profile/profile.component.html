@@ -1,4 +1,7 @@
 <mat-card>
+  <mat-card-title>
+    <h1>{{ 'PROFILES.PROFILE_SETTINGS' | translate }}</h1>
+  </mat-card-title>
   <mat-card-content>
     <form #f="ngForm">
       <mat-error *ngIf="error">{{ error | translate }}</mat-error>
@@ -104,19 +107,17 @@
         [disabled]="!f.valid"
         (click)="handleUpdate()"
       >
-        {{ 'SUBMIT' | translate }}
+        {{ 'SAVE_CHANGES' | translate }}
       </button>
     </form>
   </mat-card-content>
 </mat-card>
 
-<mat-card class="bottom-card">
-  <mat-card-content>
+<mat-card>
+  <mat-card-content class="bottom-card">
     <button mat-stroked-button color="accent" (click)="handleLogout()">
       {{ 'LOGOUT' | translate }}
     </button>
-  </mat-card-content>
-  <mat-card-content>
     <button mat-stroked-button color="warn" (click)="handleDelete()">
       {{ 'PROFILES.DELETE_USER' | translate }}
     </button>

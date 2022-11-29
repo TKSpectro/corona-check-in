@@ -3,8 +3,10 @@
   <p>{{ 'PROFILES.DELETE_USER_WARNING' | translate }}</p>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()" cdkFocusInitial>
+  <button mat-stroked-button (click)="onNoClick()" cdkFocusInitial>
     {{ 'CANCEL' | translate }}
   </button>
-  <button mat-button (click)="onYesClick()">{{ 'SUBMIT' | translate }}</button>
+  <button mat-stroked-button color="warn" (click)="onYesClick()">
+    {{ 'SUBMIT' | translate }}
+  </button>
 </div>

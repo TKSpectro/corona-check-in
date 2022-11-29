@@ -7,12 +7,17 @@
   "DELETE": "Delete",
   "ERROR_404": "Page not found.",
   "SUBMIT": "Submit",
+  "SAVE_CHANGES": "Save changes",
   "LOGIN": "Login",
   "REGISTER": "Sign Up",
   "LOGOUT": "Logout",
   "SAVE": "Save",
   "SEARCH": "Search",
   "SETTINGS": "Settings",
+  "AUTH": {
+    "SIGN_IN_INSTEAD": "Sign in instead",
+    "CREATE_ACCOUNT": "Create account"
+  },
   "PROFILES": {
     "PROFILE": "Profile",
     "PROFILES": "Profiles",
@@ -28,7 +33,12 @@
     "NEW_PASSWORD": "New password",
     "NEW_PASSWORD_REPEAT": "Repeat new password",
     "DELETE_USER": "Delete account",
-    "DELETE_USER_WARNING": "Are you sure you want to delete your account? This action cannot be undone."
+    "DELETE_USER_WARNING": "Are you sure you want to delete your account? This action cannot be undone.",
+    "PROFILE_SETTINGS": "Profile settings",
+    "PROFILE_UPDATE_SUCCESS": "Profile updated successfully",
+    "LOGOUT_SUCCESS": "You have been logged out successfully",
+    "PROFILE_DELETE_SUCCESS": "Your account has been deleted successfully",
+    "PROFILE_DELETE_ERROR": "Could not delete your account"
   },
   "YES": "yes",
   "CASES": {

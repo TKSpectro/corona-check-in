@@ -11,6 +11,10 @@ export class AuthService {
 
   constructor(private serverSrv: ServerService, private router: Router) {}
 
+  autoLogin() {
+    return this.token;
+  }
+
   getToken(): string | null {
     if (!this.token) {
       this.token = localStorage.getItem('token');

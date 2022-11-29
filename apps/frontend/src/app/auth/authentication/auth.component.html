@@ -81,14 +81,25 @@
         </mat-error>
       </mat-form-field>
 
-      <button
-        mat-stroked-button
-        color="primary"
-        [disabled]="!f.valid"
-        (click)="handleSubmit()"
-      >
-        {{ 'SUBMIT' | translate }}
-      </button>
+      <div class="space-around-container">
+        <div (click)="clickSwitch()" style="cursor: pointer">
+          <p *ngIf="isSignup">
+            {{ 'AUTH.SIGN_IN_INSTEAD' | translate }}
+          </p>
+          <p *ngIf="!isSignup">
+            {{ 'AUTH.CREATE_ACCOUNT' | translate }}
+          </p>
+        </div>
+
+        <button
+          mat-stroked-button
+          color="primary"
+          [disabled]="!f.valid"
+          (click)="handleSubmit()"
+        >
+          {{ 'SUBMIT' | translate }}
+        </button>
+      </div>
     </form>
   </mat-card-content>
 </mat-card>
