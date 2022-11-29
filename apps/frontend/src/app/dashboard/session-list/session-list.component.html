@@ -1,16 +1,18 @@
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-  <ng-container matColumnDef="room">
-    <mat-header-cell *matHeaderCellDef>Room</mat-header-cell>
-    <mat-cell *matCellDef="let session">{{ session.room }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="starttime">
-    <mat-header-cell *matHeaderCellDef>Startzeit</mat-header-cell>
-    <mat-cell *matCellDef="let session">{{ session.starttime }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="endtime">
-    <mat-header-cell *matHeaderCellDef>Endzeit</mat-header-cell>
-    <mat-cell *matCellDef="let session">{{ session.endtime }}</mat-cell>
+<table mat-table [dataSource]="sessionData" class="mat-elevation-z8">
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>Session-Bezeichnung</mat-header-cell>
+    <mat-cell *matCellDef="let session">{{ session.name }}</mat-cell>
   </ng-container>
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let emprow; columns: displayedColumns"></mat-row>
 </table>
+
+<mat-paginator
+  (page)="handlePageEvent($event)"
+  [length]="_meta?.total"
+  [pageSize]="_meta?.count"
+  showFirstLastButtons
+  [pageIndex]="_meta?.page"
+  aria-label="Select page of periodic elements"
+>
+</mat-paginator>

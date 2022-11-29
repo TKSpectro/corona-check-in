@@ -1,28 +1,49 @@
-import { Component } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
+import { Subscription } from 'rxjs';
+import { SessionListService } from './session-list.service';
 
 @Component({
   selector: 'ccn-session-list',
   templateUrl: './session-list.component.html',
   styleUrls: ['./session-list.component.scss'],
 })
-export class SessionListComponent {
-  displayedColumns: string[] = ['room', 'starttime', 'endtime'];
+export class SessionListComponent implements OnInit, OnDestroy {
+  displayedColumns: string[] = ['name'];
+  sessionData!: any;
+  subscription!: Subscription;
+  _meta: any;
+  pageEvent: PageEvent = new PageEvent();
+  total!: number;
+  limit!: number;
+  page!: number;
 
-  EmpData: unknown[] = [
-    {
-      id: 1,
-      room: '5.1.05',
-      starttime: '25.10.2022 13:37',
-      endtime: '25.10.2022 16:37',
-    },
-    {
-      id: 2,
-      room: '5.1.05',
-      starttime: '01.11.2022 13:37',
-      endtime: '01.11.2022 13:37',
-    },
-  ];
+  handlePageEvent(e: PageEvent) {
+    this.pageEvent = e;
+    this.total = e.length;
+    this.limit = e.pageSize;
+    this.page = e.pageIndex;
+    console.log(this.page);
+    this.loadSessions;
+  }
+  constructor(private sessionListService: SessionListService) {}
 
-  dataSource = new MatTableDataSource(this.EmpData);
+  ngOnInit(): void {
+    this.loadSessions();
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  loadSessions() {
+    // TODO: This will be replaced by a service call
+    this.sessionListService.getSessions(this.page);
+    this.subscription = this.sessionListService.submitSessionData.subscribe(
+      (data) => {
+        this.sessionData = data.sessions;
+        this._meta = data._meta;
+      }
+    );
+  }
 }
