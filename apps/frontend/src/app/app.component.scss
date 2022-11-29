@@ -1,0 +1,37 @@
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.is-mobile {
+  position: fixed;
+  z-index: 2;
+}
+
+.main-container {
+  /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+     causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+  flex: 1;
+
+  .content {
+    margin: 1em;
+  }
+
+  .sidenav {
+    width: 300px;
+
+    &.is-mobile {
+      width: 75px;
+    }
+
+    .mat-list-item-content {
+      justify-content: center;
+    }
+  }
+}
+
