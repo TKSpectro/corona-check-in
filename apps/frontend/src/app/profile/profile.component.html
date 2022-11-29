@@ -4,8 +4,6 @@
   </mat-card-title>
   <mat-card-content>
     <form #f="ngForm">
-      <mat-error *ngIf="error">{{ error | translate }}</mat-error>
-
       <mat-form-field>
         <mat-label>{{ 'PROFILES.EMAIL' | translate }}</mat-label>
         <input

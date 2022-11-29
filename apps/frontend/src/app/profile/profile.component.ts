@@ -74,7 +74,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
     this.updateSub = this.profileService.updateProfileData.subscribe((data) => {
       if (data instanceof HttpErrorResponse) {
-        this.error = data.error.message;
+        this.snackBar.open(this.t.instant(data?.error?.message), undefined, {
+          panelClass: 'snackbar-error',
+        });
+
         return;
       }
 
