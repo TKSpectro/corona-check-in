@@ -12,8 +12,8 @@ export class SessionListService {
 
   constructor(private serverSrv: ServerService) {}
 
-  getSessions() {
-    this.serverSrv.getSessions().subscribe({
+  getSessions(page = 0, limit = 10) {
+    this.serverSrv.getSessions(page, limit).subscribe({
       next: (data) => {
         this.sessionData = data;
         this.submitSessionData.next(this.sessionData);

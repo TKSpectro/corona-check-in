@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { map, Observable } from 'rxjs';
 import { User } from '../auth/user';
 
 @Injectable({
@@ -13,8 +13,12 @@ export class ServerService {
     return this.httpClient.get<any>('/api/incidence');
   }
 
-  getSessions(): Observable<any> {
-    return this.httpClient.get<any>('/api/sessions');
+  getSessions(page = 0, limit = 10): Observable<any> {
+    return this.httpClient.get('/api/sessions', {
+      params: new HttpParams()
+        .set('page', page.toString())
+        .set('limit', limit.toString()),
+    });
   }
 
   // cross domain problem

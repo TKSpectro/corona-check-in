@@ -27,7 +27,7 @@ export class SessionsController {
     const sessions = await lastValueFrom(
       this.sessionsService.getSessions(page, limit)
     );
-    const _meta = { limit: 10, page: 0, totalPages: 3, total: 30, count: 10 };
+    const _meta = { limit: 10, page: 0, totalPages: 2, total: 11, count: 10 };
 
     return { sessions: sessions, _meta: _meta };
   }
