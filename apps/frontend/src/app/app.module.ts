@@ -26,6 +26,8 @@ import { AuthModule } from './auth/auth.module';
 import { AuthComponent } from './auth/authentication/auth.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { SessionDetailsComponent } from './dashboard/session-details/session-details.component';
+import { SessionListComponent } from './dashboard/session-list/session-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -35,6 +37,8 @@ const routes: Routes = [
     component: DashboardComponent,
   },
   { path: 'auth', component: AuthComponent },
+  { path: 'session/:id', component: SessionDetailsComponent },
+  { path: 'sessions', component: SessionListComponent },
 ];
 
 // AoT requires an exported function for factories
