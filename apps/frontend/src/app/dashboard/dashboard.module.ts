@@ -16,6 +16,7 @@ import { QrCodeScannerComponent } from './qr-code-scanner/qr-code-scanner.compon
 import { SessionCardComponent } from './session-card/session-card.component';
 import { SessionListComponent } from './session-list/session-list.component';
 import { SessionDetailsComponent } from './session-details/session-details.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { SessionDetailsComponent } from './session-details/session-details.compo
     HttpClientModule,
     FormsModule,
     TranslateModule,
+    MatFormFieldModule,
   ],
   exports: [DashboardComponent],
 })

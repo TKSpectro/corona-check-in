@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { CdkTextareaAutosize } from '@angular/cdk/text-field';
+import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 import { SessionDetailsService } from './session-details.service';
 
 @Component({
@@ -17,9 +18,11 @@ export class SessionDetailsComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
 
+  @ViewChild('autosize') autosize!: CdkTextareaAutosize;
+
   ngOnInit(): void {
     // TODO: This will be replaced by a service call
-    const id = this.route.snapshot.url[2].path;
+    const id = this.route.snapshot.url[1].path;
     this.sessionDetailsService.getSessionById(id);
     this.subscription = this.sessionDetailsService.submitSessionData.subscribe(
       (data) => {

@@ -1,1 +1,13 @@
-<p>session-details works!</p>
+<p>{{ sessionData.name }}</p>
+<mat-form-field appearance="fill">
+  <mat-label>Autosize textarea</mat-label>
+  <textarea
+    matInput
+    cdkTextareaAutosize
+    cdkAutosizeMinRows="1"
+    cdkAutosizeMaxRows="5"
+    [(ngModel)]="sessionData.name"
+  ></textarea>
+</mat-form-field>
+
+<button type="button">save</button>
