@@ -13,10 +13,10 @@ export class ServerService {
     return this.httpClient.get<any>('/api/incidence');
   }
 
-  getSessionById(id: number): Observable<any> {
-    return this.httpClient.get<any>('/api/incidence');
+  getSessionById(id: string): Observable<any> {
+    return this.httpClient.get<any>('/api/session/' + id);
   }
-  
+
   getSessions(page = 0, limit = 10): Observable<any> {
     return this.httpClient.get('/api/sessions', {
       params: new HttpParams()

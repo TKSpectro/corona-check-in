@@ -12,11 +12,11 @@ export class SessionDetailsService {
 
   constructor(private serverSrv: ServerService) {}
 
-  getIncidenceData() {
-    this.serverSrv.get().subscribe({
+  getSessionById(id: string) {
+    this.serverSrv.getSessionById(id).subscribe({
       next: (data) => {
-        this.chartData = data;
-        this.submitChartData.next(this.chartData);
+        this.sessionData = data;
+        this.submitSessionData.next(this.sessionData);
       },
       error: (error) => {
         console.log(error.error.message);
