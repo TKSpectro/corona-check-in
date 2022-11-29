@@ -12,6 +12,7 @@
           [(ngModel)]="email"
           required
           email
+          autocomplete="email"
         />
         <mat-error
           *ngIf="f.form.get('email')?.dirty && !f?.form?.get('email')?.valid"
@@ -22,7 +23,12 @@
 
       <mat-form-field *ngIf="isSignup">
         <mat-label>{{ 'PROFILES.FIRSTNAME' | translate }}</mat-label>
-        <input matInput name="firstname" [(ngModel)]="firstname" />
+        <input
+          matInput
+          name="firstname"
+          [(ngModel)]="firstname"
+          autocomplete="given-name"
+        />
         <mat-error
           *ngIf="
             f.form.get('firstname')?.dirty && !f?.form?.get('firstname')?.valid
@@ -34,7 +40,12 @@
 
       <mat-form-field *ngIf="isSignup">
         <mat-label>{{ 'PROFILES.LASTNAME' | translate }}</mat-label>
-        <input matInput name="lastname" [(ngModel)]="lastname" />
+        <input
+          matInput
+          name="lastname"
+          [(ngModel)]="lastname"
+          autocomplete="family-name"
+        />
         <mat-error
           *ngIf="
             f.form.get('lastname')?.dirty && !f?.form?.get('lastname')?.valid
@@ -52,6 +63,7 @@
           name="password"
           [(ngModel)]="password"
           required
+          [autocomplete]="isSignup ? 'new-password' : 'current-password'"
         />
         <mat-error
           *ngIf="
@@ -70,6 +82,7 @@
           name="passwordRepeat"
           [(ngModel)]="passwordRepeat"
           required
+          autocomplete="new-password"
         />
         <mat-error
           *ngIf="
