@@ -6,11 +6,16 @@ import { RolesGuard } from '../auth/guards/roles.guard';
 import { SessionsModule } from '../sessions/sessions.module';
 import { UsersModule } from '../users/users.module';
 
+import { HttpModule } from '@nestjs/axios';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { HealthModule } from './health/health.module';
+import { MetricsModule } from './metrics/metrics.module';
+import { PrometheusModule } from './prometheus/prometheus.module';
 
 @Module({
   imports: [
+    HttpModule,
     AuthModule,
     UsersModule,
     ClientsModule.register([
@@ -34,6 +39,9 @@ import { AppService } from './app.service';
       },
     ]),
     SessionsModule,
+    HealthModule,
+    PrometheusModule,
+    MetricsModule,
   ],
   controllers: [AppController],
   providers: [

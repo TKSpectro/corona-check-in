@@ -9,7 +9,8 @@
     "start:all": "nx run-many --target=serve --parallel=100",
     "build": "nx build",
     "test": "nx test",
-    "lint:all": "nx run-many --target=lint --parallel=100"
+    "lint:all": "nx run-many --target=lint --parallel=100",
+    "docker:prod": "docker compose -f docker-compose.prod.yml up"
   },
   "private": true,
   "dependencies": {
@@ -23,6 +24,7 @@
     "@angular/platform-browser": "~14.2.0",
     "@angular/platform-browser-dynamic": "~14.2.0",
     "@angular/router": "~14.2.0",
+    "@nestjs/axios": "^1.0.0",
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/jwt": "^9.0.0",
@@ -30,6 +32,7 @@
     "@nestjs/microservices": "^9.1.6",
     "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/terminus": "^9.1.4",
     "@nestjs/typeorm": "^9.0.1",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
@@ -45,6 +48,7 @@
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "pg": "^8.8.0",
+    "prom-client": "^14.1.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.0.0",
     "tslib": "^2.3.0",
