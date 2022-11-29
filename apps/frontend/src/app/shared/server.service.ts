@@ -14,7 +14,7 @@ export class ServerService {
   }
 
   getSessionById(id: string): Observable<any> {
-    return this.httpClient.get<any>('/api/session/' + id);
+    return this.httpClient.get<any>('/api/sessions/' + id);
   }
 
   getSessions(page = 0, limit = 10): Observable<any> {
