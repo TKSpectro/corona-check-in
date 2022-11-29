@@ -14,6 +14,7 @@ import { IncidenceComponent } from './graphs/incidence/incidence.component';
 import { QrCodeScannerComponent } from './qr-code-scanner/qr-code-scanner.component';
 import { SessionCardComponent } from './session-card/session-card.component';
 import { SessionListComponent } from './session-list/session-list.component';
+import { SessionDetailsComponent } from './session-details/session-details.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { SessionListComponent } from './session-list/session-list.component';
     IncidenceComponent,
     QrCodeScannerComponent,
     DashboardComponent,
+    SessionDetailsComponent,
   ],
   imports: [
     CommonModule,
