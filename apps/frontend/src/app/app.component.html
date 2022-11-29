@@ -1,6 +1,12 @@
 <div class='main-wrapper' [class.is-mobile]='mobileQuery.matches'>
+  <mat-toolbar *ngIf='mobileQuery.matches'
+    color="primary" class="example-toolbar">
+    <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
+    <h1 class="example-app-name">Responsive App</h1>
+  </mat-toolbar>
   <mat-sidenav-container class='main-container'>
-    <mat-sidenav class='sidenav'
+    <mat-sidenav #snav
+      class='sidenav'
                  opened
                  [class.is-mobile]='mobileQuery.matches'
                  [mode]="'side'"
