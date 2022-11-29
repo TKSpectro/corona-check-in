@@ -83,12 +83,12 @@
 
       <div class="space-around-container">
         <div (click)="clickSwitch()" style="cursor: pointer">
-          <p *ngIf="isSignup">
+          <div *ngIf="isSignup">
             {{ 'AUTH.SIGN_IN_INSTEAD' | translate }}
-          </p>
-          <p *ngIf="!isSignup">
+          </div>
+          <div *ngIf="!isSignup">
             {{ 'AUTH.CREATE_ACCOUNT' | translate }}
-          </p>
+          </div>
         </div>
 
         <button
