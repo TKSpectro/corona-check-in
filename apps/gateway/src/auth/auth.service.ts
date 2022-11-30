@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { compareSync, hashSync } from 'bcrypt';
 import { UserEntity } from '../users/user.entity';
 import { UsersService } from '../users/users.service';
+import { SignupUserDto } from './auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -23,26 +24,33 @@ export class AuthService {
   }
 
   async login(user: UserEntity) {
-    const payload = { email: user.email, sub: user.id, roles: user.roles };
+    const payload = { email: user.email, sub: user.id, role: user.role };
 
     return {
       token: this.jwtService.sign(payload),
     };
   }
 
-  // TODO: Setup better schema validation
-  async signup(userInput: UserEntity) {
-    delete userInput.id;
-    delete userInput.roles;
+  async signup(userInput: SignupUserDto) {
+    if (userInput.password !== userInput.passwordRepeat) {
+      throw new HttpException(
+        'ERROR_PASSWORDS_NOT_MATCHING',
+        HttpStatus.BAD_REQUEST
+      );
+    }
 
     userInput.password = hashSync(userInput.password, 10);
 
     const user = await this.usersService.create(userInput);
 
-    const payload = { email: user.email, sub: user.id, roles: user.roles };
+    const payload = { email: user.email, sub: user.id, role: user.role };
 
     return {
       token: this.jwtService.sign(payload),
     };
+  }
+
+  async me(reqUser: { email: string; sub: string; roles: string }) {
+    return await this.usersService.findOne(reqUser.email);
   }
 }

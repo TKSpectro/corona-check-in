@@ -1,5 +1,7 @@
 <mat-card>
   <mat-card-content>
+    <h1 *ngIf="isSignup">{{ 'REGISTER' | translate }}</h1>
+    <h1 *ngIf="!isSignup">{{ 'LOGIN' | translate }}</h1>
     <form #f="ngForm">
       <mat-form-field>
         <mat-label>{{ 'PROFILES.EMAIL' | translate }}</mat-label>
@@ -10,11 +12,46 @@
           [(ngModel)]="email"
           required
           email
+          autocomplete="email"
         />
         <mat-error
           *ngIf="f.form.get('email')?.dirty && !f?.form?.get('email')?.valid"
         >
           {{ 'ERROR.EMAIL_NOT_VALID' | translate }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="isSignup">
+        <mat-label>{{ 'PROFILES.FIRSTNAME' | translate }}</mat-label>
+        <input
+          matInput
+          name="firstname"
+          [(ngModel)]="firstname"
+          autocomplete="given-name"
+        />
+        <mat-error
+          *ngIf="
+            f.form.get('firstname')?.dirty && !f?.form?.get('firstname')?.valid
+          "
+        >
+          {{ 'ERROR.FIRSTNAME_NOT_VALID' | translate }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="isSignup">
+        <mat-label>{{ 'PROFILES.LASTNAME' | translate }}</mat-label>
+        <input
+          matInput
+          name="lastname"
+          [(ngModel)]="lastname"
+          autocomplete="family-name"
+        />
+        <mat-error
+          *ngIf="
+            f.form.get('lastname')?.dirty && !f?.form?.get('lastname')?.valid
+          "
+        >
+          {{ 'ERROR.LASTNAME_NOT_VALID' | translate }}
         </mat-error>
       </mat-form-field>
 
@@ -26,6 +63,7 @@
           name="password"
           [(ngModel)]="password"
           required
+          [autocomplete]="isSignup ? 'new-password' : 'current-password'"
         />
         <mat-error
           *ngIf="
@@ -36,14 +74,45 @@
         </mat-error>
       </mat-form-field>
 
-      <button
-        mat-stroked-button
-        color="primary"
-        [disabled]="!f.valid"
-        (click)="handleSubmit()"
-      >
-        {{ 'SUBMIT' | translate }}
-      </button>
+      <mat-form-field *ngIf="isSignup">
+        <mat-label>{{ 'PROFILES.PASSWORD_REPEAT' | translate }}</mat-label>
+        <input
+          matInput
+          type="password"
+          name="passwordRepeat"
+          [(ngModel)]="passwordRepeat"
+          required
+          autocomplete="new-password"
+        />
+        <mat-error
+          *ngIf="
+            f.form.get('passwordRepeat')?.dirty &&
+            !f?.form?.get('passwordRepeat')?.valid
+          "
+        >
+          {{ 'ERROR.PASSWORD_REPEAT_NOT_VALID' | translate }}
+        </mat-error>
+      </mat-form-field>
+
+      <div class="space-around-container">
+        <div (click)="clickSwitch()" style="cursor: pointer">
+          <div *ngIf="isSignup">
+            {{ 'AUTH.SIGN_IN_INSTEAD' | translate }}
+          </div>
+          <div *ngIf="!isSignup">
+            {{ 'AUTH.CREATE_ACCOUNT' | translate }}
+          </div>
+        </div>
+
+        <button
+          mat-stroked-button
+          color="primary"
+          [disabled]="!f.valid"
+          (click)="handleSubmit()"
+        >
+          {{ 'SUBMIT' | translate }}
+        </button>
+      </div>
     </form>
   </mat-card-content>
 </mat-card>
