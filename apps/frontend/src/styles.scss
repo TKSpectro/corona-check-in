@@ -7,11 +7,17 @@ html, body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
-
 .sidenav {
   .mat-list-item-content {
-    justify-content: center;
+    margin: 20px 0;
   }
+
+  .is-mobile {
+    .mat-list-item-content {
+      justify-content: center;
+    }
+  }
+
 
 }
 
