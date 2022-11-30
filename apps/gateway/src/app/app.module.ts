@@ -35,6 +35,7 @@ import { AppService } from './app.service';
       },
     ]),
     SessionsModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [

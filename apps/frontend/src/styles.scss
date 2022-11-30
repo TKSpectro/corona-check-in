@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
 
 html,
 body {
@@ -7,4 +8,16 @@ body {
 body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+$success: mat.get-color-from-palette(mat.$green-palette, 500);
+$warning: mat.get-color-from-palette(mat.$yellow-palette, 500);
+$error: mat.get-color-from-palette(mat.$red-palette, 500);
+
+.snackbar-success {
+  background-color: $success;
+}
+
+.snackbar-error {
+  background-color: $error;
 }

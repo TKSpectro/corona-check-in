@@ -13,6 +13,7 @@ import {
   MAT_FORM_FIELD_DEFAULT_OPTIONS,
 } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
@@ -26,6 +27,8 @@ import { AuthModule } from './auth/auth.module';
 import { AuthComponent } from './auth/authentication/auth.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { ProfileComponent } from './profile/profile.component';
+import { ProfileModule } from './profile/profile.module';
 import { SessionDetailsComponent } from './dashboard/session-details/session-details.component';
 import { SessionListComponent } from './dashboard/session-list/session-list.component';
 
@@ -39,6 +42,11 @@ const routes: Routes = [
   { path: 'auth', component: AuthComponent },
   { path: 'session/:id', component: SessionDetailsComponent },
   { path: 'sessions', component: SessionListComponent },
+  {
+    path: 'profile',
+    canActivate: [AuthGuard],
+    component: ProfileComponent,
+  },
 ];
 
 // AoT requires an exported function for factories
@@ -60,6 +68,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatInputModule,
     NgxChartsModule,
     DashboardModule,
+    ProfileModule,
     AuthModule,
     TranslateModule.forRoot({
       defaultLanguage: 'en',
@@ -75,6 +84,14 @@ export function HttpLoaderFactory(http: HttpClient) {
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
       useValue: { appearance: 'outline' },
+    },
+    {
+      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+      useValue: {
+        duration: 3000,
+        horizontalPosition: 'center',
+        verticalPosition: 'top',
+      },
     },
   ],
   bootstrap: [AppComponent],
