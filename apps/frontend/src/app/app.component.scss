@@ -8,12 +8,16 @@
   right: 0;
 }
 
-.is-mobile .head-toolbar{
+ccn-sidenav {
+  height: 100%;
+}
+
+.is-mobile .head-toolbar {
   position: fixed;
   z-index: 2;
 }
 
-.mat-h1{
+.mat-h1 {
   margin: 0 0 0 8px;
 }
 

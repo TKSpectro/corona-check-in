@@ -1,5 +1,11 @@
 .main-container {
   flex: 1;
+  height: 100%;
+
+  &.is-mobile{
+    height: calc(100% - 56px);
+    margin-top : 56px;
+  }
 
   .content {
     margin: 1em;
