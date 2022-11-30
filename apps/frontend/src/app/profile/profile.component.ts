@@ -1,19 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-} from '@angular/material/dialog';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import { ProfileDeleteDialogComponent } from './profile-delete-dialog-component';
 import { ProfileService } from './profile.service';
-
-interface DialogData {
-  id: string;
-}
 
 @Component({
   selector: 'ccn-profile',
@@ -21,9 +14,7 @@ interface DialogData {
   styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit, OnDestroy {
-  subscription!: Subscription;
-  updateSub!: Subscription;
-  deleteSub!: Subscription;
+  subscriptions: Subscription[] = [];
 
   id!: string;
   email!: string;
@@ -45,22 +36,20 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.profileService.getProfileData();
-    this.subscription = this.profileService.submitProfileData.subscribe(
-      (data) => {
+    this.subscriptions.push(
+      this.profileService.submitProfileData.subscribe((data) => {
         this.id = data.id as string;
         this.firstname = data.firstname as string;
         this.lastname = data.lastname as string;
         this.email = data.email as string;
         this.firstname = data.firstname as string;
         this.lastname = data.lastname as string;
-      }
+      })
     );
   }
 
   ngOnDestroy() {
-    this.subscription?.unsubscribe();
-    this.updateSub?.unsubscribe();
-    this.deleteSub?.unsubscribe();
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 
   handleUpdate() {
@@ -72,30 +61,32 @@ export class ProfileComponent implements OnInit, OnDestroy {
       newPassword: this.newPassword,
       newPasswordRepeat: this.newPasswordRepeat,
     });
-    this.updateSub = this.profileService.updateProfileData.subscribe((data) => {
-      if (data instanceof HttpErrorResponse) {
-        this.snackBar.open(this.t.instant(data?.error?.message), undefined, {
-          panelClass: 'snackbar-error',
-        });
+    this.subscriptions.push(
+      this.profileService.updateProfileData.subscribe((data) => {
+        if (data instanceof HttpErrorResponse) {
+          this.snackBar.open(this.t.instant(data?.error?.message), undefined, {
+            panelClass: 'snackbar-error',
+          });
 
-        return;
-      }
-
-      this.id = data.id as string;
-      this.firstname = data.firstname as string;
-      this.lastname = data.lastname as string;
-      this.email = data.email as string;
-      this.firstname = data.firstname as string;
-      this.lastname = data.lastname as string;
-
-      this.snackBar.open(
-        this.t.instant('PROFILES.PROFILE_UPDATE_SUCCESS'),
-        undefined,
-        {
-          panelClass: 'snackbar-success',
+          return;
         }
-      );
-    });
+
+        this.id = data.id as string;
+        this.firstname = data.firstname as string;
+        this.lastname = data.lastname as string;
+        this.email = data.email as string;
+        this.firstname = data.firstname as string;
+        this.lastname = data.lastname as string;
+
+        this.snackBar.open(
+          this.t.instant('PROFILES.PROFILE_UPDATE_SUCCESS'),
+          undefined,
+          {
+            panelClass: 'snackbar-success',
+          }
+        );
+      })
+    );
   }
 
   handleDelete() {
@@ -106,8 +97,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe((result) => {
       if (result === true) {
         this.profileService.deleteUser(this.id);
-        this.deleteSub = this.profileService.deleteUserData.subscribe(
-          (data) => {
+        this.subscriptions.push(
+          this.profileService.deleteUserData.subscribe((data) => {
             if (data instanceof HttpErrorResponse) {
               this.snackBar.open(
                 this.t.instant('PROFILES.PROFILE_DELETE_ERROR'),
@@ -130,7 +121,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
             );
 
             this.router.navigate(['/']);
-          }
+          })
         );
       }
     });
@@ -144,25 +135,5 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
 
     this.router.navigate(['/']);
-  }
-}
-
-@Component({
-  selector: 'ccn-profile-delete-dialog',
-  templateUrl: 'profile-delete-dialog.component.html',
-  styleUrls: ['./profile.component.scss'],
-})
-export class ProfileDeleteDialogComponent {
-  constructor(
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    public dialogRef: MatDialogRef<ProfileDeleteDialogComponent>
-  ) {}
-
-  onNoClick(): void {
-    this.dialogRef.close(false);
-  }
-
-  onYesClick(): void {
-    this.dialogRef.close(true);
   }
 }
