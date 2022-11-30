@@ -16,11 +16,6 @@ export class UserEntity extends BaseEntity {
   })
   email: string;
 
-  @Column({
-    nullable: false,
-  })
-  password: string;
-
   @Column()
   firstname: string;
 
@@ -28,9 +23,17 @@ export class UserEntity extends BaseEntity {
   lastname: string;
 
   @Column({
+    nullable: false,
+  })
+  password: string;
+
+  @Column({
     type: 'enum',
     enum: UserRole,
     default: UserRole.USER,
   })
-  roles: UserRole;
+  role: UserRole;
+
+  @Column({ nullable: false, default: false })
+  deleted: boolean;
 }
