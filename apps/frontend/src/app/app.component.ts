@@ -1,6 +1,13 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { AuthService } from './auth/auth.service';
+import { SidenavComponent } from './libs';
 
 @Component({
   selector: 'ccn-root',
@@ -9,10 +16,11 @@ import { AuthService } from './auth/auth.service';
 })
 export class AppComponent implements OnDestroy, OnInit {
   title = 'frontend';
-  opened = true;
+  isExpanded = false;
   mobileQuery: MediaQueryList;
 
-  fillerNav = Array.from({ length: 7 }, (_, i) => `Nav Item ${i + 1}`);
+  @ViewChild(SidenavComponent)
+  public sideNavComponent!: SidenavComponent;
 
   _mobileQueryListener: () => void;
 
@@ -23,7 +31,7 @@ export class AppComponent implements OnDestroy, OnInit {
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 700px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-    this.mobileQuery.addListener(this._mobileQueryListener);
+    this.mobileQuery.addEventListener('change', this._mobileQueryListener);
   }
 
   ngOnInit() {
@@ -31,6 +39,11 @@ export class AppComponent implements OnDestroy, OnInit {
   }
 
   ngOnDestroy(): void {
-    this.mobileQuery.removeListener(this._mobileQueryListener);
+    this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
+  }
+
+  toggleSideNav() {
+    this.isExpanded = !this.isExpanded;
+    this.sideNavComponent.toggleSideNav(this.isExpanded);
   }
 }

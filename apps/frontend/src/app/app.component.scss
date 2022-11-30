@@ -17,29 +17,4 @@
   margin: 0 0 0 8px;
 }
 
-.main-container {
-  flex: 1;
-
-  .content {
-    margin: 1em;
-  }
-
-  .sidenav {
-    width: 300px;
-
-    &.is-mobile {
-      width: 50%;
-    }
-
-    .mat-list-item-content {
-      justify-content: center;
-    }
-  }
-}
-
-
-.is-mobile .main-container {
-  flex: 1 0 auto;
-}
-
 

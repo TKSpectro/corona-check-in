@@ -1,0 +1,21 @@
+<mat-sidenav-container class='main-container'
+                       [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+  <mat-sidenav class='sidenav'
+               [opened]='!mobileQuery.matches || isExpanded'
+               [class.is-mobile]='mobileQuery.matches'
+               [mode]="mobileQuery.matches ? 'over' : 'side'"
+               [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+    <mat-nav-list>
+      <a mat-list-item
+         routerLink='.'
+         *ngFor='let nav of fillerNav'>
+        <mat-icon>info</mat-icon>
+        <span >{{nav}}</span></a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class='content'>
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

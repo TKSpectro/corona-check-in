@@ -1,36 +1,13 @@
 <div class='main-wrapper'
      [class.is-mobile]='mobileQuery.matches'>
-  <mat-toolbar *ngIf='mobileQuery.matches'
-               color='primary'
-               class='head-toolbar'>
+  <mat-toolbar class='head-toolbar'
+               *ngIf='mobileQuery.matches'
+               color='primary'>
     <button mat-icon-button
-            (click)='sideNav.toggle()'>
+            (click)='toggleSideNav()'>
       <mat-icon>menu</mat-icon>
     </button>
     <h1 class='mat-h1'>CoronaCheckIn</h1>
   </mat-toolbar>
-
-  <mat-sidenav-container class='main-container'
-                         [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
-    <mat-sidenav #sideNav
-                 class='sidenav'
-                 [opened]='!mobileQuery.matches'
-                 [class.is-mobile]='mobileQuery.matches'
-                 [mode]="mobileQuery.matches ? 'over' : 'side'"
-                 [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
-      <mat-nav-list>
-        <a mat-list-item
-           routerLink='.'
-           *ngFor='let nav of fillerNav'>
-          <mat-icon>info</mat-icon>
-          <span >
-            {{nav}}</span></a>
-      </mat-nav-list>
-    </mat-sidenav>
-    <mat-sidenav-content>
-      <div class='content'>
-        <router-outlet></router-outlet>
-      </div>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
+  <ccn-sidenav></ccn-sidenav>
 </div>
