@@ -8,14 +8,16 @@
   right: 0;
 }
 
-.is-mobile {
+.is-mobile .head-toolbar{
   position: fixed;
   z-index: 2;
 }
 
+.mat-h1{
+  margin: 0 0 0 8px;
+}
+
 .main-container {
-  /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
-     causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
   flex: 1;
 
   .content {
@@ -26,7 +28,7 @@
     width: 300px;
 
     &.is-mobile {
-      width: 75px;
+      width: 50%;
     }
 
     .mat-list-item-content {
@@ -34,4 +36,10 @@
     }
   }
 }
+
+
+.is-mobile .main-container {
+  flex: 1 0 auto;
+}
+
 
