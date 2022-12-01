@@ -1,0 +1,78 @@
+version: '3.7'
+services:
+  postgres:
+    container_name: ccn_postgres
+    image: postgres:${DB_VERSION}
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_DATABASE}
+    ports:
+      - ${DB_PORT}:5432
+    volumes:
+      - postgres:/data/postgres
+    networks:
+      - nx-microservice-network
+
+  redis:
+    container_name: ccn_redis
+    image: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - redis:/data
+
+  prometheus:
+    container_name: ccn_prometheus
+    image: prom/prometheus:latest
+    volumes:
+      - ./docker/prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    ports:
+      - '9090:9090'
+    networks:
+      - nx-microservice-network
+
+  grafana:
+    container_name: ccn_grafana
+    image: grafana/grafana:latest
+    volumes:
+      - '$PWD/monitoring/grafana:/var/lib/grafana'
+      - metrics-ui-data:/var/lib/grafana
+    links:
+      - prometheus:prometheus
+    environment:
+      - GF_SERVER_ROOT_URL=http://localhost:3000
+      - GF_SERVER_DOMAIN=localhost
+      - GF_SERVER_SERVE_FROM_SUB_PATH=true
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    ports:
+      - '3000:3000'
+    networks:
+      - nx-microservice-network
+
+  gateway:
+    container_name: ccn_gateway
+    image: ccn-gateway
+    environment:
+      - DB_VERSION=13-alpine
+      - DB_USERNAME=postgres_user
+      - DB_PASSWORD=postgres_password
+      - DB_DATABASE=ccn
+      - DB_PORT=5432
+      - DB_HOST=postgres
+    ports:
+      - '8081:3333'
+    networks:
+      - nx-microservice-network
+
+volumes:
+  postgres:
+  redis:
+    driver: local
+  metrics-ui-data:
+
+networks:
+  nx-microservice-network:
+    driver: bridge
