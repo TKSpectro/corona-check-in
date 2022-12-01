@@ -1,0 +1,123 @@
+<mat-card>
+  <mat-card-title>
+    <h1>{{ 'PROFILES.PROFILE_SETTINGS' | translate }}</h1>
+  </mat-card-title>
+  <mat-card-content>
+    <form #f="ngForm">
+      <mat-form-field>
+        <mat-label>{{ 'PROFILES.EMAIL' | translate }}</mat-label>
+        <input
+          matInput
+          type="email"
+          name="email"
+          [(ngModel)]="email"
+          required
+          email
+        />
+        <mat-error
+          *ngIf="f.form.get('email')?.dirty && !f?.form?.get('email')?.valid"
+        >
+          {{ 'ERROR_EMAIL_NOT_VALID' | translate }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ 'PROFILES.FIRSTNAME' | translate }}</mat-label>
+        <input matInput name="firstname" [(ngModel)]="firstname" required />
+        <mat-error
+          *ngIf="
+            f.form.get('firstname')?.dirty && !f?.form?.get('firstname')?.valid
+          "
+        >
+          {{ 'ERROR_FIRSTNAME_NOT_VALID' | translate }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ 'PROFILES.LASTNAME' | translate }}</mat-label>
+        <input matInput name="lastname" [(ngModel)]="lastname" required />
+        <mat-error
+          *ngIf="
+            f.form.get('lastname')?.dirty && !f?.form?.get('lastname')?.valid
+          "
+        >
+          {{ 'ERROR_LASTNAME_NOT_VALID' | translate }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ 'PROFILES.OLD_PASSWORD' | translate }}</mat-label>
+        <input
+          matInput
+          type="password"
+          name="password"
+          [(ngModel)]="oldPassword"
+        />
+        <mat-error
+          *ngIf="
+            f.form.get('oldPassword')?.dirty &&
+            !f?.form?.get('oldPassword')?.valid
+          "
+        >
+          {{ 'ERROR_PASSWORD_NOT_VALID' | translate }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ 'PROFILES.NEW_PASSWORD' | translate }}</mat-label>
+        <input
+          matInput
+          type="password"
+          name="password"
+          [(ngModel)]="newPassword"
+        />
+        <mat-error
+          *ngIf="
+            f.form.get('newPassword')?.dirty &&
+            !f?.form?.get('newPassword')?.valid
+          "
+        >
+          {{ 'ERROR_PASSWORD_NOT_VALID' | translate }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ 'PROFILES.NEW_PASSWORD_REPEAT' | translate }}</mat-label>
+        <input
+          matInput
+          type="password"
+          name="password"
+          [(ngModel)]="newPasswordRepeat"
+        />
+        <mat-error
+          *ngIf="
+            f.form.get('newPasswordRepeat')?.dirty &&
+            !f?.form?.get('newPasswordRepeat')?.valid
+          "
+        >
+          {{ 'ERROR_PASSWORD_NOT_VALID' | translate }}
+        </mat-error>
+      </mat-form-field>
+
+      <button
+        mat-stroked-button
+        color="primary"
+        [disabled]="!f.valid"
+        (click)="handleUpdate()"
+      >
+        {{ 'SAVE_CHANGES' | translate }}
+      </button>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-content class="bottom-card">
+    <button mat-stroked-button color="accent" (click)="handleLogout()">
+      {{ 'LOGOUT' | translate }}
+    </button>
+    <button mat-stroked-button color="warn" (click)="handleDelete()">
+      {{ 'PROFILES.DELETE_USER' | translate }}
+    </button>
+  </mat-card-content>
+</mat-card>

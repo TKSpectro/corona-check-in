@@ -39,6 +39,7 @@ import { PrometheusModule } from './prometheus/prometheus.module';
       },
     ]),
     SessionsModule,
+    UsersModule,
     HealthModule,
     PrometheusModule,
     MetricsModule,
