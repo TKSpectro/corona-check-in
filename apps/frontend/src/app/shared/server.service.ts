@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User as AuthUser, UserSignup } from '../auth/user';
-import { UpdateUser, User } from './types';
+import { User, UserSignup } from '../auth/user';
+import { UpdateUser } from './types';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +15,7 @@ export class ServerService {
   }
 
   // cross domain problem
-  login(user: AuthUser): Observable<{ token: string }> {
+  login(user: User): Observable<{ token: string }> {
     return this.httpClient.post<{ token: string }>('/api/auth/login', user);
   }
 

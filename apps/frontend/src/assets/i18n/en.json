@@ -4,6 +4,8 @@
   "CREATE": "Create",
   "DASHBOARD": "Dashboard",
   "CANCEL": "Cancel",
+  "STATISTICS": "Statistic",
+  "IMPRINT": "Imprint",
   "DELETE": "Delete",
   "ERROR_404": "Page not found.",
   "SUBMIT": "Submit",
