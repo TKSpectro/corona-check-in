@@ -1,24 +1,8 @@
-import {
-  ArgumentsHost,
-  Catch,
-  ExceptionFilter,
-  HttpException,
-  ValidationPipe,
-} from '@nestjs/common';
+import { RpcValidationFilter } from '@corona-check-in/micro-service-shared';
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import {
-  MicroserviceOptions,
-  RpcException,
-  Transport,
-} from '@nestjs/microservices';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { AppModule } from './app/app.module';
-
-@Catch(HttpException)
-export class RpcValidationFilter implements ExceptionFilter {
-  catch(exception: HttpException, host: ArgumentsHost) {
-    return new RpcException(exception.getResponse());
-  }
-}
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
