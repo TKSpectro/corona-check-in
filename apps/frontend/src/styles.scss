@@ -1,7 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @use '@angular/material' as mat;
 
-html, body {
+html,
+body {
   height: 100%;
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
@@ -17,8 +18,6 @@ html, body {
       justify-content: center;
     }
   }
-
-
 }
 
 $success: mat.get-color-from-palette(mat.$green-palette, 500);

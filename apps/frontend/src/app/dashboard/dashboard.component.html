@@ -1,14 +1,14 @@
 <ccn-qr-code-scanner></ccn-qr-code-scanner>
 
-<mat-slider min='1' max='100' step='1' value='50'></mat-slider>
+<mat-slider min="1" max="100" step="1" value="50"></mat-slider>
 
 <label>
   {{ 'LANGUAGE' | translate }}
-  <select #langSelect (change)='translate.use(langSelect.value)'>
+  <select #langSelect (change)="translate.use(langSelect.value)">
     <option
-      *ngFor='let lang of translate.getLangs()'
-      [value]='lang'
-      [selected]='lang === translate.currentLang'
+      *ngFor="let lang of translate.getLangs()"
+      [value]="lang"
+      [selected]="lang === translate.currentLang"
     >
       {{ lang }}
     </option>
@@ -16,11 +16,11 @@
 </label>
 
 <div>
-  <input [(ngModel)]='name' />
-  <button (click)='addItemHandler()'>{{ 'CLICK' | translate }}</button>
+  <input [(ngModel)]="name" />
+  <button (click)="addItemHandler()">{{ 'CLICK' | translate }}</button>
 
-  <div *ngFor='let item of items'>{{ item.id }} {{ item.name }}</div>
+  <div *ngFor="let item of items">{{ item.id }} {{ item.name }}</div>
 </div>
 
 <ccn-incidence></ccn-incidence>
-<p *ngFor='let content of fillerContent'>{{content}}</p>
+<p *ngFor="let content of fillerContent">{{ content }}</p>

@@ -1,13 +1,9 @@
-<div class='main-wrapper'
-     [class.is-mobile]='mobileQuery.matches'>
-  <mat-toolbar class='head-toolbar'
-               *ngIf='mobileQuery.matches'
-               color='primary'>
-    <button mat-icon-button
-            (click)='toggleSideNav()'>
+<div class="main-wrapper" [class.is-mobile]="mobileQuery.matches">
+  <mat-toolbar class="head-toolbar" *ngIf="mobileQuery.matches" color="primary">
+    <button mat-icon-button (click)="toggleSideNav()">
       <mat-icon>menu</mat-icon>
     </button>
-    <h1 class='mat-h1'>CoronaCheckIn</h1>
+    <h1 class="mat-h1">CoronaCheckIn</h1>
   </mat-toolbar>
   <ccn-sidenav></ccn-sidenav>
 </div>

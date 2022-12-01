@@ -1,41 +1,49 @@
-<mat-sidenav-container class='main-container'
-                       [class.is-mobile]='mobileQuery.matches'>
-  <mat-sidenav class='sidenav'
-               [opened]='!mobileQuery.matches || isExpanded'
-               [class.is-mobile]='mobileQuery.matches'
-               [mode]="mobileQuery.matches ? 'over' : 'side'"
-               [fixedInViewport]='mobileQuery.matches' fixedTopGap='56'>
-    <div class='sidenav-items-container'>
-      <h1 mat-list-item
-          *ngIf='!mobileQuery.matches'
-          class='ims-title'
-          routerLink='./'>
-        <span>CoronaCheckIn</span></h1>
-      <mat-nav-list [class.is-mobile]='mobileQuery.matches'>
-        <a mat-list-item
-           routerLink='./'>
+<mat-sidenav-container
+  class="main-container"
+  [class.is-mobile]="mobileQuery.matches"
+>
+  <mat-sidenav
+    class="sidenav"
+    [opened]="!mobileQuery.matches || isExpanded"
+    [class.is-mobile]="mobileQuery.matches"
+    [mode]="mobileQuery.matches ? 'over' : 'side'"
+    [fixedInViewport]="mobileQuery.matches"
+    fixedTopGap="56"
+  >
+    <div class="sidenav-items-container">
+      <h1
+        mat-list-item
+        *ngIf="!mobileQuery.matches"
+        class="ims-title"
+        routerLink="./"
+      >
+        <span>CoronaCheckIn</span>
+      </h1>
+      <mat-nav-list [class.is-mobile]="mobileQuery.matches">
+        <a mat-list-item routerLink="./">
           <mat-icon>home</mat-icon>
-          <span>{{ 'DASHBOARD' | translate }}</span></a>
-        <a mat-list-item
-           routerLink='./'>
+          <span>{{ 'DASHBOARD' | translate }}</span></a
+        >
+        <a mat-list-item routerLink="./">
           <mat-icon>bar_chart</mat-icon>
-          <span>{{ 'STATISTICS' | translate }}</span></a>
-        <a mat-list-item
-           routerLink='./'>
+          <span>{{ 'STATISTICS' | translate }}</span></a
+        >
+        <a mat-list-item routerLink="./">
           <mat-icon>watch_later</mat-icon>
-          <span>{{ 'SESSIONS.SESSION' | translate }}</span></a>
-        <a mat-list-item
-           routerLink='./profile'>
+          <span>{{ 'SESSIONS.SESSION' | translate }}</span></a
+        >
+        <a mat-list-item routerLink="./profile">
           <mat-icon>person</mat-icon>
-          <span>{{ 'PROFILES.PROFILE' | translate }}</span></a>
+          <span>{{ 'PROFILES.PROFILE' | translate }}</span></a
+        >
       </mat-nav-list>
-      <h3 mat-list-item
-         routerLink='./profile'>
-        <span>{{ 'IMPRINT' | translate }}</span></h3>
+      <h3 mat-list-item routerLink="./profile">
+        <span>{{ 'IMPRINT' | translate }}</span>
+      </h3>
     </div>
   </mat-sidenav>
   <mat-sidenav-content>
-    <div class='content'>
+    <div class="content">
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>
