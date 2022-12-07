@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { Subscription } from 'rxjs';
+import { Subscription, switchMap, tap } from 'rxjs';
 import { SessionListService } from './session-list.service';
 
 @Component({
@@ -39,11 +39,16 @@ export class SessionListComponent implements OnInit, OnDestroy {
   loadSessions() {
     // TODO: This will be replaced by a service call
     this.sessionListService.getSessions(this.page);
-    this.subscription = this.sessionListService.submitSessionData.subscribe(
-      (data) => {
-        this.sessionData = data.sessions;
-        this._meta = data._meta;
-      }
-    );
+    this.subscription = this.sessionListService.submitSessionData
+      .pipe(
+        tap((data) => {
+          this.sessionData = data.sessions;
+          this._meta = data._meta;
+        }),
+        switchMap(async (params) =>
+          this.sessionListService.getSessions(this.page)
+        )
+      )
+      .subscribe();
   }
 }
