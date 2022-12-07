@@ -2,13 +2,13 @@ version: '3.7'
 services:
   postgres:
     container_name: ccn_postgres
-    image: postgres:${POSTGRES_VERSION}
+    image: postgres:${DB_VERSION}
     environment:
-      - POSTGRES_USER=${POSTGRES_USERNAME}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DATABASE}
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_DATABASE}
     ports:
-      - ${POSTGRES_PORT}:5432
+      - ${DB_PORT}:5432
     volumes:
       - postgres:/data/postgres
     networks:

@@ -7,11 +7,16 @@ import { SessionsController } from '../sessions/sessions.controller';
 import { SessionsModule } from '../sessions/sessions.module';
 import { UsersModule } from '../users/users.module';
 
+import { HttpModule } from '@nestjs/axios';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { HealthModule } from './health/health.module';
+import { MetricsModule } from './metrics/metrics.module';
+import { PrometheusModule } from './prometheus/prometheus.module';
 
 @Module({
   imports: [
+    HttpModule,
     AuthModule,
     UsersModule,
     ClientsModule.register([
@@ -36,6 +41,9 @@ import { AppService } from './app.service';
     ]),
     SessionsModule,
     UsersModule,
+    HealthModule,
+    PrometheusModule,
+    MetricsModule,
   ],
   controllers: [AppController],
   providers: [

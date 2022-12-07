@@ -4,10 +4,20 @@
 html,
 body {
   height: 100%;
-}
-body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.sidenav {
+  .mat-list-item-content {
+    margin: 20px 0;
+  }
+
+  .is-mobile {
+    .mat-list-item-content {
+      justify-content: center;
+    }
+  }
 }
 
 $success: mat.get-color-from-palette(mat.$green-palette, 500);
