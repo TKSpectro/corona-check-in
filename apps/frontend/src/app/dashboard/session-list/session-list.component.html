@@ -1,10 +1,22 @@
 <table mat-table [dataSource]="sessionData" class="mat-elevation-z8">
   <ng-container matColumnDef="name">
-    <mat-header-cell *matHeaderCellDef>Session-Bezeichnung</mat-header-cell>
+    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
     <mat-cell *matCellDef="let session">{{ session.name }}</mat-cell>
   </ng-container>
+  <ng-container matColumnDef="startTime">
+    <mat-header-cell *matHeaderCellDef>Startzeit</mat-header-cell>
+    <mat-cell *matCellDef="let session">{{ session.startTime }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="endTime">
+    <mat-header-cell *matHeaderCellDef>Endzeit</mat-header-cell>
+    <mat-cell *matCellDef="let session">{{ session.endTime }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="infected">
+    <mat-header-cell *matHeaderCellDef>Infiziert</mat-header-cell>
+    <mat-cell *matCellDef="let session">{{ session.infected }}</mat-cell>
+  </ng-container>
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let emprow; columns: displayedColumns"></mat-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 </table>
 
 <mat-paginator

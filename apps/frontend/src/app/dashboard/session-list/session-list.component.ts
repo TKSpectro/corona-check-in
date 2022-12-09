@@ -9,7 +9,7 @@ import { SessionListService } from './session-list.service';
   styleUrls: ['./session-list.component.scss'],
 })
 export class SessionListComponent implements OnInit, OnDestroy {
-  displayedColumns: string[] = ['name'];
+  displayedColumns: string[] = ['name', 'startTime', 'endTime', 'infected'];
   sessionData!: any;
   subscription!: Subscription;
   _meta: any;
@@ -23,7 +23,6 @@ export class SessionListComponent implements OnInit, OnDestroy {
     this.total = e.length;
     this.limit = e.pageSize;
     this.page = e.pageIndex;
-    console.log(this.page);
     this.loadSessions;
   }
   constructor(private sessionListService: SessionListService) {}
