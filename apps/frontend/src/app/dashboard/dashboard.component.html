@@ -1,26 +1,16 @@
-<ccn-qr-code-scanner></ccn-qr-code-scanner>
+<h1>{{ 'DASHBOARD' | translate }}</h1>
 
-<mat-slider min="1" max="100" step="1" value="50"></mat-slider>
+<div class="top-row-container">
+  <ccn-session-card class="session-card"></ccn-session-card>
+  <mat-card style="flex: 0 0">
+    <ccn-qr-code-scanner></ccn-qr-code-scanner>
+  </mat-card>
+</div>
 
-<label>
-  {{ 'LANGUAGE' | translate }}
-  <select #langSelect (change)="translate.use(langSelect.value)">
-    <option
-      *ngFor="let lang of translate.getLangs()"
-      [value]="lang"
-      [selected]="lang === translate.currentLang"
-    >
-      {{ lang }}
-    </option>
-  </select>
-</label>
-
-<div>
-  <input [(ngModel)]="name" />
-  <button (click)="addItemHandler()">{{ 'CLICK' | translate }}</button>
-
-  <div *ngFor="let item of items">{{ item.id }} {{ item.name }}</div>
+<div style="margin-top: 1em">
+  <ccn-session-list></ccn-session-list>
 </div>
 
 <ccn-incidence></ccn-incidence>
-<p *ngFor="let content of fillerContent">{{ content }}</p>
+
+<!-- <p *ngFor="let content of fillerContent">{{ content }}</p> -->
