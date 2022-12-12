@@ -14,8 +14,16 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @MessagePattern({ role: 'sessions', cmd: 'get-all' })
-  getSessions({ skip, limit }: { skip: number; limit: number }) {
-    return this.appService.getSessions(skip, limit);
+  getSessions({
+    skip,
+    limit,
+    sessionName,
+  }: {
+    skip: number;
+    limit: number;
+    sessionName?: string;
+  }) {
+    return this.appService.getSessions(skip, limit, sessionName);
   }
 
   @MessagePattern({ role: 'sessions', cmd: 'get-by-id' })

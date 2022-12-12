@@ -18,11 +18,13 @@ export class ServerService {
     return this.httpClient.get<any>('/api/sessions/' + id);
   }
 
-  getSessions(page = 0, limit = 10): Observable<any> {
+  getSessions(page = 0, limit = 10, sessionName?: string): Observable<any> {
+    console.log(sessionName);
     return this.httpClient.get('/api/sessions', {
       params: new HttpParams()
         .set('page', page.toString())
-        .set('limit', limit.toString()),
+        .set('limit', limit.toString())
+        .set('sessionName', sessionName ? sessionName : ''),
     });
   }
 

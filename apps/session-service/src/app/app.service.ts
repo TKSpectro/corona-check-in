@@ -1,5 +1,6 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { throws } from 'assert';
 import { Repository } from 'typeorm';
 import { SessionEntity } from './session.entity';
 
@@ -156,7 +157,15 @@ export class AppService implements OnModuleInit {
     }
   }
 
-  getSessions(page: number, limit: number) {
+  getSessions(page: number, limit: number, sessionName?: string) {
+    if (sessionName) {
+      return this.sessionRepository.find({
+        skip: page * limit,
+        take: limit,
+        where: { name: sessionName },
+      });
+    }
+
     return this.sessionRepository.find({ skip: page * limit, take: limit });
   }
 

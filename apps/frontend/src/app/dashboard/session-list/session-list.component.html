@@ -1,4 +1,13 @@
-<table mat-table [dataSource]="sessionData" class="mat-elevation-z8">
+<mat-form-field appearance="standard" class="full-width">
+  <mat-label>Search Name</mat-label>
+  <input
+    matInput
+    (keyup)="applyFilter($event)"
+    placeholder="Search Columns"
+    #input
+  />
+</mat-form-field>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
     <mat-cell *matCellDef="let session">{{ session.name }}</mat-cell>
