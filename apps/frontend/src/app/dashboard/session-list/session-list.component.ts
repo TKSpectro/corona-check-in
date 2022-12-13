@@ -31,7 +31,7 @@ export class SessionListComponent implements OnInit, OnDestroy {
   constructor(private sessionListService: SessionListService) {}
 
   ngOnInit(): void {
-    //this.loadSessions();
+    this.loadSessions();
   }
 
   ngOnDestroy() {
