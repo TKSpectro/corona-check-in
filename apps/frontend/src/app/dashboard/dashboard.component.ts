@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { MediaMatcher } from '@angular/cdk/layout';
+import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -6,22 +7,31 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent {
-  fillerContent = Array.from(
-    { length: 50 },
-    () =>
-      `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-       labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-       laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-       voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-       cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
-  );
+export class DashboardComponent implements OnDestroy {
+  mobileQuery: MediaQueryList;
+  _mobileQueryListener: () => void;
+  isExpanded!: boolean;
 
-  constructor(public translate: TranslateService) {
+  constructor(
+    public translate: TranslateService,
+    media: MediaMatcher,
+    changeDetectorRef: ChangeDetectorRef
+  ) {
     translate.addLangs(['en', 'de']);
     const browserLang = translate.getBrowserLang();
     browserLang
       ? translate.use(browserLang.match(/en|fr/) ? browserLang : 'en')
       : '';
+
+    this.mobileQuery = media.matchMedia('(max-width: 1150px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addEventListener(
+      'change',
+      (event) => (this.isExpanded = !event.matches)
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
   }
 }
