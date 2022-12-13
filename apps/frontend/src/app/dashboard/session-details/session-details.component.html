@@ -1,13 +1,16 @@
-<p>{{ sessionData.name }}</p>
+<h1>{{ 'SESSIONS.SESSION_OVERVIEW' | translate }}</h1>
+<p>{{ 'SESSIONS.SESSION_START' | translate }}: {{ sessionData.startTime }}</p>
+<p>{{ 'SESSIONS.SESSION_END' | translate }}: {{ sessionData.endTime }}</p>
+<p>{{ 'SESSIONS.INFECTED' | translate }}: {{ sessionData.infected }}</p>
 <mat-form-field appearance="fill">
-  <mat-label>Autosize textarea</mat-label>
+  <mat-label>{{ 'SESSIONS.NOTE' | translate }}</mat-label>
   <textarea
     matInput
     cdkTextareaAutosize
     cdkAutosizeMinRows="1"
     cdkAutosizeMaxRows="5"
-    [(ngModel)]="sessionData.name"
+    [(ngModel)]="sessionData.note"
   ></textarea>
 </mat-form-field>
 
-<button type="button">save</button>
+<button type="button">{{ 'SAVE' | translate }}</button>

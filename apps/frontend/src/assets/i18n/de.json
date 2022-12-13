@@ -49,11 +49,16 @@
   },
   "SESSIONS": {
     "SESSIONS": "SESSIONS",
-    "ALL SESSIONS": "Alle sessions",
+    "ALL SESSIONS": "Alle Sessions",
     "SESSION": "Session",
     "LAST_SESSION": "Letzte Session",
     "UPDATE_SESSION": "Update Session",
-    "DELETE_SESSION": "Session löschen"
+    "DELETE_SESSION": "Session löschen",
+    "SESSION_OVERVIEW": "Session-Übersicht",
+    "SESSION_START": "Session-Beginn",
+    "SESSION_END": "Session-Ende",
+    "INFECTED": "Infiziert",
+    "NOTE": "Notiz"
   },
   "ROOMS": {
     "ROOMS": "Räume",

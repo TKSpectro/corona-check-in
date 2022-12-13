@@ -53,7 +53,12 @@
     "SESSION": "Session",
     "LAST_SESSION": "Last Sessions",
     "UPDATE_SESSION": "Update Session",
-    "DELETE_SESSION": "Delete Session"
+    "DELETE_SESSION": "Delete Session",
+    "SESSION_OVERVIEW": "Session overview",
+    "SESSION_START": "Session start",
+    "SESSION_END": "Session end",
+    "INFECTED": "infected",
+    "NOTE": "Note"
   },
   "ROOMS": {
     "ROOMS": "Rooms",
