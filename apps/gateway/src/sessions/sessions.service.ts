@@ -12,6 +12,9 @@ export class SessionsService {
     );
   }
   getSessionById(id: string) {
-    return this.sessionClient.send({ role: 'sessions', cmd: 'get-by-id' }, {});
+    return this.sessionClient.send(
+      { role: 'sessions', cmd: 'get-by-id' },
+      { id }
+    );
   }
 }
