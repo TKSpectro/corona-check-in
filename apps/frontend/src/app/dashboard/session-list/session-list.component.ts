@@ -28,22 +28,41 @@ export class SessionListComponent implements OnInit, OnDestroy {
     this.page = e.pageIndex;
     this.loadSessions();
   }
+
   constructor(private sessionListService: SessionListService) {}
 
   ngOnInit(): void {
     this.loadSessions();
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
   loadSessions() {
     console.log('called');
     // TODO: This will be replaced by a service call
-    this.sessionListService.getSessions(this.page, 10, this.sessionNameFilter);
-    this.subscription = this.sessionListService.submitSessionData
-      .pipe(
+    this.subscription = this.sessionListService
+      .getSessions(this.page, 10, this.sessionNameFilter)
+      .subscribe(
+        (data) => {
+          console.log('data', data);
+          this.sessionData = data.sessions;
+          this._meta = data._meta;
+          this.dataSource = new MatTableDataSource(this.sessionData);
+        },
+        (err) => console.error(err)
+      );
+
+    /* .subscribe({
+        next: (data) => {
+
+          //this.sessionData = data;
+          this.dataSource = data;
+          //this.submitSessionData.next(this.sessionData);
+        },
+        error: (error) => {
+          console.log(error.error.message);
+        },
+      });*/
+    //this.subscription = this.sessionListService.submitSessionData;
+    /*      .pipe(
         tap((data) => {
           this.dataSource = data.sessions;
           this._meta = data._meta;
@@ -56,12 +75,16 @@ export class SessionListComponent implements OnInit, OnDestroy {
           )
         )
       )
-      .subscribe();
+      .subscribe();*/
   }
 
   applyFilter(event: Event) {
     console.log('called filter');
     this.sessionNameFilter = (event.target as HTMLInputElement).value;
     this.loadSessions();
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }
