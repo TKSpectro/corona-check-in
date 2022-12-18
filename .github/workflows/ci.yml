@@ -11,11 +11,12 @@ jobs:
       - uses: actions/checkout@v3
         with:
           ref: ${{ github.head_ref }}
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
-      - run: npm i
-      - run: npm run lint:all
+          node-version: 16
+          cache: 'npm'
+      - run: npm ci
+      - run: npx nx affected --target=lint --parallel=true --maxParallel=100 --base=master
 
   # prettier:
   #   runs-on: ubuntu-latest
