@@ -19,9 +19,29 @@ jobs:
       - uses: nrwl/nx-set-shas@v3
         with:
           main-branch-name: 'master'
+
       - run: npm ci
 
       - run: npx nx affected --target=lint --parallel=true --maxParallel=100
+  
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.15.0'
+          cache: 'npm'
+      - uses: nrwl/nx-set-shas@v3
+        with:
+          main-branch-name: 'master'
+
+      - run: npm ci
+
+      - run: npx nx affected --target=test --parallel=true --maxParallel=100 --verbose
 
   # prettier:
   #   runs-on: ubuntu-latest
