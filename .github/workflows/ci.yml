@@ -16,6 +16,8 @@ jobs:
           node-version: '16.15.0'
           cache: 'npm'
       - uses: nrwl/nx-set-shas@v3
+        with:
+          main-branch-name: 'master'
       - run: npm ci
 
       - run: npx nx affected --target=lint --parallel=true --maxParallel=100
