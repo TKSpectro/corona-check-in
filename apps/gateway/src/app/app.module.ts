@@ -13,22 +13,13 @@ import { AppService } from './app.service';
 import { HealthModule } from './health/health.module';
 import { MetricsModule } from './metrics/metrics.module';
 import { PrometheusModule } from './prometheus/prometheus.module';
+import { QrCodeModule } from './qr-code/qr-code.module';
 
 @Module({
   imports: [
     HttpModule,
     AuthModule,
     UsersModule,
-    ClientsModule.register([
-      {
-        name: 'QR_MS',
-        transport: Transport.REDIS,
-        options: {
-          host: 'localhost',
-          port: 6379,
-        },
-      },
-    ]),
     ClientsModule.register([
       {
         name: 'incidence-service',
@@ -41,6 +32,7 @@ import { PrometheusModule } from './prometheus/prometheus.module';
     ]),
     SessionsModule,
     UsersModule,
+    QrCodeModule,
     HealthModule,
     PrometheusModule,
     MetricsModule,
