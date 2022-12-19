@@ -3,6 +3,8 @@
  * This is only a minimal backend to get started.
  */
 
+import { RpcValidationFilter } from '@corona-check-in/micro-service-shared';
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 
@@ -22,6 +24,12 @@ async function bootstrap() {
         retryDelay: 500,
       },
     }
+  );
+
+  // Have to use a custom filter to convert HttpExceptions to RpcExceptions
+  app.useGlobalFilters(new RpcValidationFilter());
+  app.useGlobalPipes(
+    new ValidationPipe({ whitelist: true, enableDebugMessages: true })
   );
 
   await app.listen();
