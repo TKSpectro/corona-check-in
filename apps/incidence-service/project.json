@@ -54,6 +54,18 @@
         "jestConfig": "apps/incidence-service/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          { "command": "nx build incidence-service" },
+          {
+            "command": "docker build -f ./docker/incidence-service.dockerfile . -t ccn-incidence-service"
+          }
+        ],
+        "parallel": false
+      }
     }
   },
   "tags": []

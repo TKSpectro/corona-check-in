@@ -6,3 +6,7 @@ scrape_configs:
     static_configs:
       - targets:
           - 'gateway:3333'
+  - job_name: 'traefik'
+    static_configs:
+      - targets:
+          - 'traefik:8080'

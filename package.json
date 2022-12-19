@@ -12,7 +12,7 @@
     "test": "nx test",
     "lint:all": "nx run-many --target=lint --parallel=100",
     "docker:prod": "docker compose -f docker-compose.prod.yml up",
-    "docker:prod:build": "npx nx run-many --target=build --all=true && docker build -f ./docker/gateway.dockerfile . -t ccn-gateway && docker build -f ./docker/incidence-service.dockerfile . -t ccn-incidence-service && docker build -f ./docker/session-service.dockerfile . -t ccn-session-service && docker build -f ./docker/qr-code-service.dockerfile . -t ccn-qr-code-service"
+    "docker:prod:build": "nx run-many --target=deploy --all=true --parallel=100"
   },
   "private": true,
   "dependencies": {

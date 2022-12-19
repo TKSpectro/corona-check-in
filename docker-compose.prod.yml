@@ -11,6 +11,8 @@ services:
       - ${DB_PORT}:5432
     volumes:
       - postgres:/data/postgres
+    networks:
+      - ccn-network
 
   redis:
     container_name: ccn_prod_redis
@@ -19,6 +21,26 @@ services:
       - 6379:6379
     volumes:
       - redis:/data
+    networks:
+      - ccn-network
+
+  traefik:
+    container_name: ccn_prod_traefik
+    image: traefik:latest
+    command:
+      - --providers.docker
+      - --providers.docker.exposedbydefault=false
+
+      - --api.insecure=true
+
+      - --metrics.prometheus=true
+    ports:
+      - '80:80'
+      - '8080:8080'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - ccn-network
 
   prometheus:
     container_name: ccn_prod_prometheus
@@ -29,6 +51,11 @@ services:
       - '--config.file=/etc/prometheus/prometheus.yml'
     ports:
       - '9090:9090'
+    networks:
+      - ccn-network
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.prometheus.rule=Host(`prometheus.localhost`)
 
   grafana:
     container_name: ccn_prod_grafana
@@ -45,6 +72,11 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin
     ports:
       - '3000:3000'
+    networks:
+      - ccn-network
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.grafana.rule=Host(`grafana.localhost`)
 
   gateway:
     container_name: ccn_prod_gateway
@@ -61,7 +93,12 @@ services:
       - DB_HOST=postgres
       - REDIS_HOST=redis
     ports:
-      - '8081:3333'
+      - '3333:3333'
+    networks:
+      - ccn-network
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.gateway.rule=Host(`gateway.localhost`)
 
   incidence-service:
     container_name: ccn_prod_incidence_service
@@ -79,6 +116,11 @@ services:
       - REDIS_HOST=redis
     ports:
       - '8082:3333'
+    networks:
+      - ccn-network
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.incidence-service.rule=Host(`incidence-service.localhost`)
 
   qr-code-service:
     container_name: ccn_prod_qr_code_service
@@ -96,6 +138,11 @@ services:
       - REDIS_HOST=redis
     ports:
       - '8083:3333'
+    networks:
+      - ccn-network
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.qr-code-service.rule=Host(`qr-code-service.localhost`)
 
   session-service:
     container_name: ccn_prod_session_service
@@ -113,9 +160,17 @@ services:
       - REDIS_HOST=redis
     ports:
       - '8084:3333'
+    networks:
+      - ccn-network
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.session-service.rule=Host(`session-service.localhost`)
 
 volumes:
   postgres:
   redis:
     driver: local
   metrics-ui-data:
+
+networks:
+  ccn-network:
