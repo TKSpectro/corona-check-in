@@ -23,10 +23,10 @@ export class AppController {
     return 'You are a admin';
   }
 
-  @Get('test')
-  @Roles(UserRole.ADMIN)
-  getTest() {
-    return 'You are a test';
+  @Get('admin-or-user')
+  @Roles(UserRole.ADMIN, UserRole.USER)
+  getAdminOrUser() {
+    return 'You are a admin or user';
   }
 
   @Get('/incidence')
