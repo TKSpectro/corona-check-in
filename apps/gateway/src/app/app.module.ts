@@ -24,7 +24,7 @@ import { QrCodeModule } from './qr-code/qr-code.module';
         name: 'incidence-service',
         transport: Transport.REDIS,
         options: {
-          host: 'localhost',
+          host: process.env.REDIS_HOST || 'localhost',
           port: 6379,
         },
       },

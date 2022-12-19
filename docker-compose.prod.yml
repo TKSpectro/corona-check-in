@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   postgres:
-    container_name: ccn_postgres
+    container_name: ccn_prod_postgres
     image: postgres:${DB_VERSION}
     environment:
       - POSTGRES_USER=${DB_USERNAME}
@@ -11,11 +11,9 @@ services:
       - ${DB_PORT}:5432
     volumes:
       - postgres:/data/postgres
-    networks:
-      - nx-microservice-network
 
   redis:
-    container_name: ccn_redis
+    container_name: ccn_prod_redis
     image: redis
     ports:
       - 6379:6379
@@ -23,7 +21,7 @@ services:
       - redis:/data
 
   prometheus:
-    container_name: ccn_prometheus
+    container_name: ccn_prod_prometheus
     image: prom/prometheus:latest
     volumes:
       - ./docker/prometheus.yml:/etc/prometheus/prometheus.yml
@@ -31,11 +29,9 @@ services:
       - '--config.file=/etc/prometheus/prometheus.yml'
     ports:
       - '9090:9090'
-    networks:
-      - nx-microservice-network
 
   grafana:
-    container_name: ccn_grafana
+    container_name: ccn_prod_grafana
     image: grafana/grafana:latest
     volumes:
       - '$PWD/monitoring/grafana:/var/lib/grafana'
@@ -49,12 +45,13 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin
     ports:
       - '3000:3000'
-    networks:
-      - nx-microservice-network
 
   gateway:
-    container_name: ccn_gateway
+    container_name: ccn_prod_gateway
     image: ccn-gateway
+    depends_on:
+      - 'redis'
+      - 'postgres'
     environment:
       - DB_VERSION=13-alpine
       - DB_USERNAME=postgres_user
@@ -62,17 +59,63 @@ services:
       - DB_DATABASE=ccn
       - DB_PORT=5432
       - DB_HOST=postgres
+      - REDIS_HOST=redis
     ports:
       - '8081:3333'
-    networks:
-      - nx-microservice-network
+
+  incidence-service:
+    container_name: ccn_prod_incidence_service
+    image: ccn-incidence-service
+    depends_on:
+      - 'redis'
+      - 'postgres'
+    environment:
+      - DB_VERSION=13-alpine
+      - DB_USERNAME=postgres_user
+      - DB_PASSWORD=postgres_password
+      - DB_DATABASE=ccn
+      - DB_PORT=5432
+      - DB_HOST=postgres
+      - REDIS_HOST=redis
+    ports:
+      - '8082:3333'
+
+  qr-code-service:
+    container_name: ccn_prod_qr_code_service
+    image: ccn-qr-code-service
+    depends_on:
+      - 'redis'
+      - 'postgres'
+    environment:
+      - DB_VERSION=13-alpine
+      - DB_USERNAME=postgres_user
+      - DB_PASSWORD=postgres_password
+      - DB_DATABASE=ccn
+      - DB_PORT=5432
+      - DB_HOST=postgres
+      - REDIS_HOST=redis
+    ports:
+      - '8083:3333'
+
+  session-service:
+    container_name: ccn_prod_session_service
+    image: ccn-session-service
+    depends_on:
+      - 'redis'
+      - 'postgres'
+    environment:
+      - DB_VERSION=13-alpine
+      - DB_USERNAME=postgres_user
+      - DB_PASSWORD=postgres_password
+      - DB_DATABASE=ccn
+      - DB_PORT=5432
+      - DB_HOST=postgres
+      - REDIS_HOST=redis
+    ports:
+      - '8084:3333'
 
 volumes:
   postgres:
   redis:
     driver: local
   metrics-ui-data:
-
-networks:
-  nx-microservice-network:
-    driver: bridge

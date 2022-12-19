@@ -5,7 +5,7 @@ WORKDIR /app
 COPY package.json .
 COPY package-lock.json .
 COPY decorate-angular-cli.js .
-COPY ./dist/apps/gateway .
+COPY ./dist/apps/session-service .
 
 ENV PORT=3333
 EXPOSE 3333
