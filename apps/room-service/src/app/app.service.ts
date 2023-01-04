@@ -35,7 +35,6 @@ export class AppService {
     }
   }
 
-  @MessagePattern({ role: 'rooms', cmd: 'getAll' })
   getRooms() {
     return this.roomRepository.find();
   }

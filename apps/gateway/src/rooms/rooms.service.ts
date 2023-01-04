@@ -1,13 +1,20 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { ClientProxy } from '@nestjs/microservices';
+import { RoomEntity } from '../../../room-service/src/app/room.entity';
 
 @Injectable()
 export class RoomsService {
+  constructor(@Inject('rooms-service') private roomClient: ClientProxy) {}
+
   // create(createRoomDto: CreateRoomDto) {
   //   return 'This action adds a new room';
   // }
 
   findAllRooms() {
-    return `This action returns all rooms`;
+    return this.roomClient.send<RoomEntity>(
+      { role: 'rooms', cmd: 'getAll' },
+      {}
+    );
   }
 
   findOne(id: number) {
