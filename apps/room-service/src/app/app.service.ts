@@ -111,4 +111,8 @@ export class AppService {
   getRooms() {
     return this.roomRepository.find();
   }
+
+  getRoom(id: string) {
+    return this.roomRepository.findOne({ where: { id } });
+  }
 }

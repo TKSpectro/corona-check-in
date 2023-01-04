@@ -10,4 +10,9 @@ export class AppController {
   getRooms() {
     return this.appService.getRooms();
   }
+
+  @MessagePattern({ role: 'room', cmd: 'getOne' })
+  getRoom(id: string) {
+    return this.appService.getRoom(id);
+  }
 }

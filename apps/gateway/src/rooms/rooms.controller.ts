@@ -11,13 +11,13 @@ export class RoomsController {
   // }
 
   @Get()
-  getRooms() {
-    return this.roomsService.findAllRooms();
+  findAll() {
+    return this.roomsService.getRooms();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.roomsService.findOne(+id);
+    return this.roomsService.getRoom(id);
   }
 
   // @Patch(':id')

@@ -10,15 +10,18 @@ export class RoomsService {
   //   return 'This action adds a new room';
   // }
 
-  findAllRooms() {
+  getRooms() {
     return this.roomClient.send<RoomEntity>(
       { role: 'rooms', cmd: 'getAll' },
       {}
     );
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} room`;
+  getRoom(id: string) {
+    return this.roomClient.send<RoomEntity>(
+      { role: 'room', cmd: 'getOne' },
+      id
+    );
   }
 
   // update(id: number, updateRoomDto: UpdateRoomDto) {
