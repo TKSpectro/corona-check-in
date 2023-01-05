@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { MaxLength, MinLength } from 'class-validator';
+import { Max, Min } from 'class-validator';
 
 export enum Faculty {
   AI = 'Angewandte Informatik',
@@ -27,12 +27,12 @@ export class RoomEntity extends BaseEntity {
   @UpdateDateColumn()
   updatedDate: Date;
 
-  @MinLength(1)
-  @MaxLength(60)
+  @Min(1)
+  @Max(60)
   @Column()
   maxParticipants: number;
 
-  @MinLength(1)
+  @Min(1)
   @Column()
   maxDuration: number;
 
@@ -45,4 +45,7 @@ export class RoomEntity extends BaseEntity {
 
   @Column({ nullable: true, type: 'bytea' })
   qrCode: Uint8Array;
+
+  @Column({ nullable: true })
+  createdQrCode: Date;
 }

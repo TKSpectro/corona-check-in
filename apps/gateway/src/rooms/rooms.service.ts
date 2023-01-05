@@ -1,34 +1,43 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { RoomEntity } from '../../../room-service/src/app/room.entity';
+import { Observable } from 'rxjs';
+import { RoomDto } from './rooms.dto';
+import { UpdateRoomDto } from './update-rooms.dto';
 
 @Injectable()
 export class RoomsService {
   constructor(@Inject('rooms-service') private roomClient: ClientProxy) {}
 
-  // create(createRoomDto: CreateRoomDto) {
-  //   return 'This action adds a new room';
-  // }
-
-  getRooms() {
+  createRoom(createRoomDto: RoomDto) {
     return this.roomClient.send<RoomEntity>(
-      { role: 'rooms', cmd: 'getAll' },
-      {}
+      { role: 'room', cmd: 'createRoom' },
+      createRoomDto
     );
   }
 
-  getRoom(id: string) {
+  getRooms(page: number, limit: number): Observable<RoomEntity> {
     return this.roomClient.send<RoomEntity>(
-      { role: 'room', cmd: 'getOne' },
+      { role: 'rooms', cmd: 'getRooms' },
+      { page, limit }
+    );
+  }
+
+  getRoom(id: string): Observable<RoomEntity> {
+    return this.roomClient.send<RoomEntity>(
+      { role: 'room', cmd: 'getRoom' },
       id
     );
   }
 
-  // update(id: number, updateRoomDto: UpdateRoomDto) {
-  //   return `This action updates a #${id} room`;
-  // }
+  update(updateRoomDto: UpdateRoomDto) {
+    return this.roomClient.send<RoomEntity>(
+      { role: 'room', cmd: 'updateRoom' },
+      updateRoomDto
+    );
+  }
 
-  remove(id: number) {
-    return `This action removes a #${id} room`;
+  removeRoom(id: string): Observable<RoomEntity> {
+    return this.roomClient.send({ role: 'room', cmd: 'deleteRoom' }, id);
   }
 }
