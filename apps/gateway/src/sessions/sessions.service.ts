@@ -5,10 +5,15 @@ import { ClientProxy } from '@nestjs/microservices';
 export class SessionsService {
   constructor(@Inject('sessions-service') private sessionClient: ClientProxy) {}
 
-  getSessions(skip: number, limit: number, sessionName?: string) {
+  getSessions(
+    skip: number,
+    limit: number,
+    infected?: boolean,
+    sessionName?: string
+  ) {
     return this.sessionClient.send(
       { role: 'sessions', cmd: 'get-all' },
-      { skip, limit, sessionName }
+      { skip, limit, infected, sessionName }
     );
   }
   getSessionById(id: string) {

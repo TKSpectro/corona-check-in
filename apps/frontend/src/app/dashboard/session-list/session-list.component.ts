@@ -20,6 +20,7 @@ export class SessionListComponent implements OnInit, OnDestroy {
   page!: number;
   dataSource = new MatTableDataSource(this.sessionData);
   sessionNameFilter?: string;
+  infected?: boolean;
 
   handlePageEvent(e: PageEvent) {
     this.pageEvent = e;
@@ -36,51 +37,32 @@ export class SessionListComponent implements OnInit, OnDestroy {
   }
 
   loadSessions() {
-    console.log('called');
     // TODO: This will be replaced by a service call
+    console.log(this.infected);
     this.subscription = this.sessionListService
-      .getSessions(this.page, 10, this.sessionNameFilter)
+      .getSessions(this.page, 10, this.infected, this.sessionNameFilter)
       .subscribe(
         (data) => {
-          console.log('data', data);
           this.sessionData = data.sessions;
           this._meta = data._meta;
           this.dataSource = new MatTableDataSource(this.sessionData);
         },
         (err) => console.error(err)
       );
-
-    /* .subscribe({
-        next: (data) => {
-
-          //this.sessionData = data;
-          this.dataSource = data;
-          //this.submitSessionData.next(this.sessionData);
-        },
-        error: (error) => {
-          console.log(error.error.message);
-        },
-      });*/
-    //this.subscription = this.sessionListService.submitSessionData;
-    /*      .pipe(
-        tap((data) => {
-          this.dataSource = data.sessions;
-          this._meta = data._meta;
-        }),
-        switchMap(async (params) =>
-          this.sessionListService.getSessions(
-            this.page,
-            10,
-            this.sessionNameFilter
-          )
-        )
-      )
-      .subscribe();*/
   }
 
   applyFilter(event: Event) {
-    console.log('called filter');
     this.sessionNameFilter = (event.target as HTMLInputElement).value;
+    this.loadSessions();
+  }
+
+  toggleInfectionFilter() {
+    this.infected = !this.infected;
+    this.loadSessions();
+  }
+
+  resetFilter() {
+    this.infected = undefined;
     this.loadSessions();
   }
 

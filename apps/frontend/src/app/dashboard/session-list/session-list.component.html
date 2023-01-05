@@ -7,6 +7,13 @@
     #input
   />
 </mat-form-field>
+<button mat-raised-button (click)="toggleInfectionFilter()">
+  <mat-icon *ngIf="infected">check</mat-icon>
+  <mat-icon *ngIf="infected === false">clear</mat-icon>
+  <mat-icon *ngIf="infected === undefined">remove</mat-icon>
+  {{ 'SESSIONS.INFECTED' | translate }}
+</button>
+<button mat-raised-button (click)="resetFilter()">reset</button>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
@@ -28,7 +35,10 @@
     <mat-header-cell *matHeaderCellDef>{{
       'SESSIONS.INFECTED' | translate
     }}</mat-header-cell>
-    <mat-cell *matCellDef="let session">{{ session.infected }}</mat-cell>
+    <mat-cell *matCellDef="let session"
+      ><mat-icon *ngIf="session.infected">check</mat-icon>
+      <mat-icon *ngIf="!session.infected">clear</mat-icon></mat-cell
+    >
   </ng-container>
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>

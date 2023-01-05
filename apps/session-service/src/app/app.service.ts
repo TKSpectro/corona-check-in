@@ -157,16 +157,22 @@ export class AppService implements OnModuleInit {
     }
   }
 
-  getSessions(page: number, limit: number, sessionName?: string) {
-    if (sessionName) {
-      return this.sessionRepository.find({
-        skip: page * limit,
-        take: limit,
-        where: { name: sessionName },
-      });
-    }
+  getSessions(
+    page: number,
+    limit: number,
+    infected?: boolean,
+    sessionName?: string
+  ) {
+    return this.sessionRepository.find({
+      skip: page * limit,
+      take: limit,
+      where: {
+        infected: infected ? infected : null,
+        name: sessionName ? sessionName : null,
+      },
+    });
 
-    return this.sessionRepository.find({ skip: page * limit, take: limit });
+    // return this.sessionRepository.find({ skip: page * limit, take: limit });
   }
 
   getSessionById(id: string) {

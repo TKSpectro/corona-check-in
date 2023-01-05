@@ -18,6 +18,8 @@ import { SessionListComponent } from './session-list/session-list.component';
 import { SessionDetailsComponent } from './session-details/session-details.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import { MatInputModule } from '@angular/material/input';
     TranslateModule,
     MatFormFieldModule,
     MatInputModule,
+    MatButtonModule,
+    MatIconModule,
   ],
   exports: [DashboardComponent],
 })

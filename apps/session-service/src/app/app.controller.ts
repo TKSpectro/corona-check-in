@@ -17,13 +17,15 @@ export class AppController {
   getSessions({
     skip,
     limit,
+    infected,
     sessionName,
   }: {
     skip: number;
     limit: number;
+    infected?: boolean;
     sessionName?: string;
   }) {
-    return this.appService.getSessions(skip, limit, sessionName);
+    return this.appService.getSessions(skip, limit, infected, sessionName);
   }
 
   @MessagePattern({ role: 'sessions', cmd: 'get-by-id' })

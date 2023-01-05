@@ -18,12 +18,17 @@ export class ServerService {
     return this.httpClient.get<any>('/api/sessions/' + id);
   }
 
-  getSessions(page = 0, limit = 10, sessionName?: string): Observable<any> {
-    console.log(sessionName);
+  getSessions(
+    page = 0,
+    limit = 10,
+    infected?: boolean,
+    sessionName?: string
+  ): Observable<any> {
     return this.httpClient.get('/api/sessions', {
       params: new HttpParams()
         .set('page', page.toString())
         .set('limit', limit.toString())
+        .set('infected', infected ?? '')
         .set('sessionName', sessionName ? sessionName : ''),
     });
   }
