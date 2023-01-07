@@ -106,7 +106,8 @@ export class UsersService implements OnModuleInit {
   }
 
   async find(pageOptionsDto: PageOptionsDto) {
-    return findWithMeta(this.userRepository, pageOptionsDto, 'email');
+    const queryBuilder = this.userRepository.createQueryBuilder('user');
+    return findWithMeta(queryBuilder, pageOptionsDto, 'email');
   }
 
   async findOne(email: string) {

@@ -1,5 +1,5 @@
 import { IsArray } from 'class-validator';
-import { Repository } from 'typeorm';
+import { SelectQueryBuilder } from 'typeorm';
 import { PageMetaDto } from './page-meta.dto';
 import { PageOptionsDto } from './page-options.dto';
 
@@ -16,12 +16,10 @@ export class PageDto<T> {
 }
 
 export async function findWithMeta(
-  repository: Repository<any>,
+  queryBuilder: SelectQueryBuilder<any>,
   pageOptionsDto: PageOptionsDto,
-  orderBy = 'createdAt'
+  orderBy = 'created_at'
 ) {
-  const queryBuilder = repository.createQueryBuilder();
-
   queryBuilder
     .orderBy(orderBy, pageOptionsDto.order)
     .skip((pageOptionsDto.page - 1) * pageOptionsDto.take)
