@@ -1,4 +1,8 @@
 import {
+  findWithMeta,
+  PageOptionsDto,
+} from '@corona-check-in/micro-service-shared';
+import {
   HttpException,
   HttpStatus,
   Injectable,
@@ -82,15 +86,36 @@ export class UsersService implements OnModuleInit {
         role: UserRole.USER,
       });
     }
+
+    //create 20 users
+    for (let i = 0; i < 20; i++) {
+      try {
+        await this.userRepository.insert({
+          email: `user-${i}` + '@turbomeet.xyz',
+          // password: hashSync('password', 10),
+          password:
+            '$2b$10$.u8J.QB3BqWG7/9e4Q.hpOoEubTbsNqHPc.sQLY2bdrisDduk8wFS',
+          firstname: 'UserFirst',
+          lastname: 'UserLast',
+          role: UserRole.USER,
+        });
+      } catch (error) {
+        // console.log(error);
+      }
+    }
   }
 
-  async findOne(email: string): Promise<UserEntity> {
+  async find(pageOptionsDto: PageOptionsDto) {
+    return findWithMeta(this.userRepository, pageOptionsDto, 'email');
+  }
+
+  async findOne(email: string) {
     return this.userRepository.findOne({
       where: { email: email },
     });
   }
 
-  async create(user: UserEntity | SignupUserDto): Promise<UserEntity> {
+  async create(user: UserEntity | SignupUserDto) {
     return this.userRepository.save(user);
   }
 
@@ -128,7 +153,7 @@ export class UsersService implements OnModuleInit {
     return { ...(await user.save()), password: undefined };
   }
 
-  async delete(id: string): Promise<boolean> {
+  async delete(id: string) {
     const user = await this.userRepository.findOne({ where: { id: id } });
 
     if (!user) {
