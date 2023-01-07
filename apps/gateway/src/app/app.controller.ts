@@ -23,6 +23,12 @@ export class AppController {
     return 'You are a admin';
   }
 
+  @Get('admin-or-user')
+  @Roles(UserRole.ADMIN, UserRole.USER)
+  getAdminOrUser() {
+    return 'You are a admin or user';
+  }
+
   @Get('/incidence')
   getIncidenceData() {
     return this.appService.getIncidenceData();
