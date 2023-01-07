@@ -1,5 +1,6 @@
-import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
+import { AdminService } from '../../auth/admin/admin.service';
 
 @Component({
   selector: 'ccn-sidenav',
@@ -11,10 +12,12 @@ export class SidenavComponent implements OnDestroy {
   mobileQuery: MediaQueryList;
   _mobileQueryListener: () => void;
   isExpanded!: boolean;
+  adminService: AdminService;
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
-    media: MediaMatcher
+    media: MediaMatcher,
+    adminService: AdminService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 700px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -22,6 +25,7 @@ export class SidenavComponent implements OnDestroy {
       'change',
       (event) => (this.isExpanded = !event.matches)
     );
+    this.adminService = adminService;
   }
 
   public toggleSideNav(toggleSideNav: boolean): void {

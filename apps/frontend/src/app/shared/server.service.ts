@@ -23,6 +23,10 @@ export class ServerService {
     return this.httpClient.post<{ token: string }>('/api/auth/signup', user);
   }
 
+  isAdmin() {
+    return this.httpClient.get<{ isAdmin: boolean }>('/api/admin');
+  }
+
   me(): Observable<User> {
     return this.httpClient.get<User>('/api/me');
   }

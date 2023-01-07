@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthComponent, AuthGuard } from './auth';
+import { AdminGuard, AuthComponent, AuthGuard } from './auth';
 import { DashboardComponent } from './dashboard';
 import { ProfileComponent } from './profile';
 
@@ -16,6 +16,12 @@ const routes: Routes = [
   {
     path: 'profile',
     canActivate: [AuthGuard],
+    component: ProfileComponent,
+  },
+  {
+    path: 'test',
+    canActivate: [AuthGuard, AdminGuard],
+
     component: ProfileComponent,
   },
 ];
