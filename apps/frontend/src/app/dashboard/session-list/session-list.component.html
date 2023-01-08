@@ -13,6 +13,36 @@
   <mat-icon *ngIf="infected === undefined">remove</mat-icon>
   {{ 'SESSIONS.INFECTED' | translate }}
 </button>
+<mat-form-field appearance="fill">
+  <mat-label>Enter a date range</mat-label>
+  <mat-date-range-input [rangePicker]="picker">
+    <input
+      matStartDate
+      [(ngModel)]="sessionBegin"
+      placeholder="Start date"
+      (dateInput)="sessionInputChanged()"
+      (dateChange)="sessionInputChanged()"
+    />
+    <input
+      matEndDate
+      [(ngModel)]="sessionEnd"
+      placeholder="End date"
+      (dateInput)="sessionInputChanged()"
+      (dateChange)="sessionInputChanged()"
+    />
+  </mat-date-range-input>
+  <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-date-range-picker #picker></mat-date-range-picker>
+
+  <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')"
+    >Invalid start date</mat-error
+  >
+  <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')"
+    >Invalid end date</mat-error
+  >
+</mat-form-field>
+
 <button mat-raised-button (click)="resetFilter()">reset</button>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   <ng-container matColumnDef="name">

@@ -1,7 +1,7 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { throws } from 'assert';
-import { Repository } from 'typeorm';
+import { Between, LessThanOrEqual, MoreThanOrEqual, Repository } from 'typeorm';
 import { SessionEntity } from './session.entity';
 
 @Injectable()
@@ -161,13 +161,36 @@ export class AppService implements OnModuleInit {
     page: number,
     limit: number,
     infected?: boolean,
+    sessionBegin?: string,
+    sessionEnd?: string,
     sessionName?: string
   ) {
+    let periodQuery;
+    console.log(sessionBegin);
+    console.log(sessionEnd);
+
+    if (sessionBegin == '' && sessionEnd == '') {
+      periodQuery = undefined;
+      console.log(1);
+    } else if (sessionBegin == '') {
+      periodQuery = LessThanOrEqual(sessionEnd);
+      console.log(2);
+    } else if (sessionEnd == '') {
+      periodQuery = MoreThanOrEqual(sessionBegin);
+      console.log(3);
+    } else {
+      periodQuery = Between(new Date(sessionBegin), new Date(sessionEnd));
+      console.log(4);
+    }
+
     return this.sessionRepository.find({
       skip: page * limit,
       take: limit,
       where: {
         infected: infected ? infected : null,
+        // startTime: Between(new Date(sessionBegin), new Date(sessionEnd)),
+
+        startTime: periodQuery,
         name: sessionName ? sessionName : null,
       },
     });

@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription, switchMap, tap } from 'rxjs';
@@ -21,6 +22,14 @@ export class SessionListComponent implements OnInit, OnDestroy {
   dataSource = new MatTableDataSource(this.sessionData);
   sessionNameFilter?: string;
   infected?: boolean;
+  sessionBegin?: Date;
+  sessionEnd?: Date;
+
+  // Datepicker
+  range = new FormGroup({
+    start: new FormControl<Date | null>(null),
+    end: new FormControl<Date | null>(null),
+  });
 
   handlePageEvent(e: PageEvent) {
     this.pageEvent = e;
@@ -37,10 +46,22 @@ export class SessionListComponent implements OnInit, OnDestroy {
   }
 
   loadSessions() {
+    // this.sessionBegin = this.range.value.start ?? undefined;
+    // this.sessionEnd = this.range.value.end ?? undefined;
+
+    console.log('begin: ' + this.sessionBegin);
+    console.log('end: ' + this.sessionEnd);
+
     // TODO: This will be replaced by a service call
-    console.log(this.infected);
     this.subscription = this.sessionListService
-      .getSessions(this.page, 10, this.infected, this.sessionNameFilter)
+      .getSessions(
+        this.page,
+        10,
+        this.infected,
+        this.sessionBegin?.toDateString(),
+        this.sessionEnd?.toDateString(),
+        this.sessionNameFilter
+      )
       .subscribe(
         (data) => {
           this.sessionData = data.sessions;
@@ -61,8 +82,16 @@ export class SessionListComponent implements OnInit, OnDestroy {
     this.loadSessions();
   }
 
+  sessionInputChanged() {
+    this.loadSessions();
+  }
+
   resetFilter() {
     this.infected = undefined;
+    this.sessionBegin = undefined;
+    this.sessionEnd = undefined;
+    this.range.value.start = undefined;
+    this.range.value.end = undefined;
     this.loadSessions();
   }
 

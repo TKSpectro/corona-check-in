@@ -18,14 +18,25 @@ export class AppController {
     skip,
     limit,
     infected,
+    sessionBegin,
+    sessionEnd,
     sessionName,
   }: {
     skip: number;
     limit: number;
     infected?: boolean;
+    sessionBegin?: string;
+    sessionEnd?: string;
     sessionName?: string;
   }) {
-    return this.appService.getSessions(skip, limit, infected, sessionName);
+    return this.appService.getSessions(
+      skip,
+      limit,
+      infected,
+      sessionBegin,
+      sessionEnd,
+      sessionName
+    );
   }
 
   @MessagePattern({ role: 'sessions', cmd: 'get-by-id' })

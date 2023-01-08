@@ -22,6 +22,8 @@ export class ServerService {
     page = 0,
     limit = 10,
     infected?: boolean,
+    sessionBegin?: string,
+    sessionEnd?: string,
     sessionName?: string
   ): Observable<any> {
     return this.httpClient.get('/api/sessions', {
@@ -29,6 +31,8 @@ export class ServerService {
         .set('page', page.toString())
         .set('limit', limit.toString())
         .set('infected', infected ?? '')
+        .set('sessionBegin', sessionBegin ? sessionBegin : '')
+        .set('sessionEnd', sessionEnd ? sessionEnd : '')
         .set('sessionName', sessionName ? sessionName : ''),
     });
   }

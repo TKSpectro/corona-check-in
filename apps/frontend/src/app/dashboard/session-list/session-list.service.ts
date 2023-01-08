@@ -11,7 +11,21 @@ export class SessionListService {
 
   constructor(private serverSrv: ServerService) {}
 
-  getSessions(page = 0, limit = 10, infected?: boolean, sessionName?: string) {
-    return this.serverSrv.getSessions(page, limit, infected, sessionName);
+  getSessions(
+    page = 0,
+    limit = 10,
+    infected?: boolean,
+    sessionBegin?: string,
+    sessionEnd?: string,
+    sessionName?: string
+  ) {
+    return this.serverSrv.getSessions(
+      page,
+      limit,
+      infected,
+      sessionBegin,
+      sessionEnd,
+      sessionName
+    );
   }
 }
