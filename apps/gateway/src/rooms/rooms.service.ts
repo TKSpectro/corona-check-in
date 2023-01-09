@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
-import { RoomEntity } from '../../../room-service/src/app/room.entity';
 import { Observable } from 'rxjs';
+import { RoomEntity } from './room.entity';
 import { RoomDto } from './rooms.dto';
 import { UpdateRoomDto } from './update-rooms.dto';
 

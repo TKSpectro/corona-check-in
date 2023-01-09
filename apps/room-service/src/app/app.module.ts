@@ -2,9 +2,9 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { environment } from '../../../session-service/src/environments/environment';
 import { RoomEntity } from './room.entity';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { environment } from '../environments/environment';
 
 @Module({
   imports: [

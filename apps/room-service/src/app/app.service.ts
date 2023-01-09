@@ -2,11 +2,11 @@ import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { RoomEntity } from './room.entity';
-import { RoomDto } from '../../../gateway/src/rooms/rooms.dto';
 import { ClientProxy } from '@nestjs/microservices';
-import { UpdateRoomDto } from '../../../gateway/src/rooms/update-rooms.dto';
 import { lastValueFrom } from 'rxjs';
 import { Faculty } from './faculty.enum';
+import { UpdateRoomDto } from './update-rooms.dto';
+import { RoomDto } from './rooms.dto';
 
 interface qrCodeData {
   qrCode: Uint8Array;
@@ -133,7 +133,6 @@ export class AppService {
     if (!filter) {
       filter = { name: roomFilter ? roomFilter : null };
     }
-    console.log(filter);
     return await this.roomRepository.find({
       skip: page * limit,
       take: limit,

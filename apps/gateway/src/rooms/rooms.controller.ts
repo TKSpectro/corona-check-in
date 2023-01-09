@@ -9,10 +9,10 @@ import {
   Query,
 } from '@nestjs/common';
 import { RoomsService } from './rooms.service';
-import { RoomEntity } from '../../../room-service/src/app/room.entity';
 import { lastValueFrom, Observable } from 'rxjs';
 import { RoomDto } from './rooms.dto';
 import { UpdateRoomDto } from './update-rooms.dto';
+import { RoomEntity } from './room.entity';
 
 @Controller('rooms')
 export class RoomsController {

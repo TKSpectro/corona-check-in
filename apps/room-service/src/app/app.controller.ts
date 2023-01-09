@@ -1,10 +1,9 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { AppService } from './app.service';
 import { MessagePattern } from '@nestjs/microservices';
 import { RoomEntity } from './room.entity';
-import { RoomDto } from '../../../gateway/src/rooms/rooms.dto';
-import { DeleteResult, UpdateResult } from 'typeorm';
-import { UpdateRoomDto } from '../../../gateway/src/rooms/update-rooms.dto';
+import { UpdateRoomDto } from './update-rooms.dto';
+import { RoomDto } from './rooms.dto';
 
 @Controller()
 export class AppController {
