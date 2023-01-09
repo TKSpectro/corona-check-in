@@ -165,22 +165,16 @@ export class AppService implements OnModuleInit {
     sessionEnd?: string,
     sessionName?: string
   ) {
-    let periodQuery;
-    console.log(sessionBegin);
-    console.log(sessionEnd);
+    let timespanQuery;
 
     if (sessionBegin == '' && sessionEnd == '') {
-      periodQuery = undefined;
-      console.log(1);
+      timespanQuery = undefined;
     } else if (sessionBegin == '') {
-      periodQuery = LessThanOrEqual(sessionEnd);
-      console.log(2);
+      timespanQuery = LessThanOrEqual(sessionEnd);
     } else if (sessionEnd == '') {
-      periodQuery = MoreThanOrEqual(sessionBegin);
-      console.log(3);
+      timespanQuery = MoreThanOrEqual(sessionBegin);
     } else {
-      periodQuery = Between(new Date(sessionBegin), new Date(sessionEnd));
-      console.log(4);
+      timespanQuery = Between(new Date(sessionBegin), new Date(sessionEnd));
     }
 
     return this.sessionRepository.find({
@@ -188,14 +182,10 @@ export class AppService implements OnModuleInit {
       take: limit,
       where: {
         infected: infected ? infected : null,
-        // startTime: Between(new Date(sessionBegin), new Date(sessionEnd)),
-
-        startTime: periodQuery,
+        startTime: timespanQuery,
         name: sessionName ? sessionName : null,
       },
     });
-
-    // return this.sessionRepository.find({ skip: page * limit, take: limit });
   }
 
   getSessionById(id: string) {

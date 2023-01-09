@@ -16,6 +16,10 @@
   "SAVE": "Save",
   "SEARCH": "Search",
   "SETTINGS": "Settings",
+  "ENTER_DATERANGE": "Enter a date range",
+  "INVALID_STARTDATE": "Invalid start date",
+  "INVALID_ENDDATE": "Invalid end date",
+  "RESET": "Reset",
   "AUTH": {
     "SIGN_IN_INSTEAD": "Sign in instead",
     "CREATE_ACCOUNT": "Create account"
@@ -48,7 +52,7 @@
     "ALL_CASES": "All Cases"
   },
   "SESSIONS": {
-    "SESSIONS": "SESSIONS",
+    "SESSIONS": "Sessions",
     "ALL SESSIONS": "All sessions",
     "SESSION": "Session",
     "LAST_SESSION": "Last Sessions",

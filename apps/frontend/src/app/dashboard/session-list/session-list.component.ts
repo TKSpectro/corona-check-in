@@ -11,7 +11,7 @@ import { SessionListService } from './session-list.service';
   styleUrls: ['./session-list.component.scss'],
 })
 export class SessionListComponent implements OnInit, OnDestroy {
-  displayedColumns: string[] = ['name', 'startTime', 'endTime', 'infected'];
+  displayedColumns: string[] = ['startTime', 'endTime', 'infected'];
   sessionData!: any;
   subscription!: Subscription;
   _meta: any;
@@ -46,12 +46,6 @@ export class SessionListComponent implements OnInit, OnDestroy {
   }
 
   loadSessions() {
-    // this.sessionBegin = this.range.value.start ?? undefined;
-    // this.sessionEnd = this.range.value.end ?? undefined;
-
-    console.log('begin: ' + this.sessionBegin);
-    console.log('end: ' + this.sessionEnd);
-
     // TODO: This will be replaced by a service call
     this.subscription = this.sessionListService
       .getSessions(

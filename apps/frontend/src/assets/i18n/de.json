@@ -16,6 +16,10 @@
   "IMPRINT": "Impressum",
   "SEARCH": "Suchen",
   "SETTINGS": "Einstellung",
+  "ENTER_DATERANGE": "Zeitspanne eingeben",
+  "INVALID_STARTDATE": "Ungültiges Startdatum",
+  "INVALID_ENDDATE": "Ungültiges Enddatum",
+  "RESET": "zurücksetzen",
   "AUTH": {
     "SIGN_IN_INSTEAD": "Stattdessen anmelden",
     "CREATE_ACCOUNT": "Konto erstellen"
@@ -48,7 +52,7 @@
     "ALL_CASES": "Alle Infektionen"
   },
   "SESSIONS": {
-    "SESSIONS": "SESSIONS",
+    "SESSIONS": "Sessions",
     "ALL SESSIONS": "Alle Sessions",
     "SESSION": "Session",
     "LAST_SESSION": "Letzte Session",
