@@ -7,11 +7,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Max, Min } from 'class-validator';
-
-export enum Faculty {
-  AI = 'Angewandte Informatik',
-  SA = 'Soziale Arbeit',
-}
+import { Faculty } from './faculty.enum';
 
 @Entity()
 export class RoomEntity extends BaseEntity {

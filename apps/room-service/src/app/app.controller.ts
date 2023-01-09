@@ -14,11 +14,13 @@ export class AppController {
   getRooms({
     page,
     limit,
+    roomFilter,
   }: {
     page: number;
     limit: number;
+    roomFilter?: string;
   }): Promise<RoomEntity[]> {
-    return this.appService.getRooms(page, limit);
+    return this.appService.getRooms(page, limit, roomFilter);
   }
 
   @MessagePattern({ role: 'room', cmd: 'getRoom' })

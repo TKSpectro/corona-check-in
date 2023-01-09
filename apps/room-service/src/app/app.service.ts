@@ -1,11 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DeleteResult, Repository, UpdateResult } from 'typeorm';
+import { Repository } from 'typeorm';
 import { RoomEntity } from './room.entity';
 import { RoomDto } from '../../../gateway/src/rooms/rooms.dto';
 import { ClientProxy } from '@nestjs/microservices';
 import { UpdateRoomDto } from '../../../gateway/src/rooms/update-rooms.dto';
 import { lastValueFrom } from 'rxjs';
+import { Faculty } from './faculty.enum';
 
 interface qrCodeData {
   qrCode: Uint8Array;
@@ -118,8 +119,26 @@ export class AppService {
     }
   }
 
-  async getRooms(page: number, limit: number): Promise<RoomEntity[]> {
-    return await this.roomRepository.find({ skip: page * limit, take: limit });
+  async getRooms(
+    page: number,
+    limit: number,
+    roomFilter?: string
+  ): Promise<RoomEntity[]> {
+    let filter;
+    for (const key in Faculty) {
+      if (Faculty[key] === roomFilter) {
+        filter = { faculty: Faculty[key] };
+      }
+    }
+    if (!filter) {
+      filter = { name: roomFilter ? roomFilter : null };
+    }
+    console.log(filter);
+    return await this.roomRepository.find({
+      skip: page * limit,
+      take: limit,
+      where: filter,
+    });
   }
 
   async getRoom(id: string): Promise<RoomEntity> {
