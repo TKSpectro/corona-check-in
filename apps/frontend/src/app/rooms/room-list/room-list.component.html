@@ -1,0 +1,61 @@
+<div class='filter-input'>
+  <mat-form-field appearance='standard' class='full-width'>
+    <mat-label>Search...</mat-label>
+    <input
+      matInput
+      (keyup)='applyFilter($event)'
+      placeholder='Search Columns'
+      #input
+    />
+  </mat-form-field>
+
+  <button mat-raised-button (click)='resetFilter()'>
+    <mat-icon>replay</mat-icon>
+  </button>
+</div>
+<table mat-table [dataSource]='roomList' class='mat-elevation-z8'>
+  <ng-container matColumnDef='name'>
+    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+    <mat-cell *matCellDef='let room'>{{ room.name }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef='created'>
+    <mat-header-cell *matHeaderCellDef>{{
+      'ROOMS.CREATE_ROOM' | translate
+      }}</mat-header-cell>
+    <mat-cell *matCellDef='let room'>{{ room.createdDate }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef='updated'>
+    <mat-header-cell *matHeaderCellDef>{{
+      'ROOMS.UPDATE_ROOM' | translate
+      }}</mat-header-cell>
+    <mat-cell *matCellDef='let room'>{{ room.updatedDate }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef='maxParticipants'>
+    <mat-header-cell *matHeaderCellDef>{{'ROOMS.MAX_PARTICIPANTS' | translate}}</mat-header-cell>
+    <mat-cell *matCellDef='let room'>{{ room.maxParticipants }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef='maxDuration'>
+    <mat-header-cell *matHeaderCellDef>{{
+      'ROOMS.MAX_DURATION' | translate
+      }}</mat-header-cell>
+    <mat-cell *matCellDef='let room'>{{ room.maxDuration }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef='faculty'>
+    <mat-header-cell *matHeaderCellDef>{{
+      'ROOMS.FACULITY' | translate
+      }}</mat-header-cell>
+    <mat-cell *matCellDef='let room'>{{ room.faculty }}</mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef='displayedColumns'></mat-header-row>
+  <mat-row *matRowDef='let row; columns: displayedColumns'></mat-row>
+</table>
+
+<mat-paginator
+  (page)='handlePageEvent($event)'
+  [length]='_meta?.total'
+  [pageSize]='_meta?.count'
+  showFirstLastButtons
+  [pageIndex]='_meta?.page'
+  aria-label='Select page of periodic elements'
+>
+</mat-paginator>

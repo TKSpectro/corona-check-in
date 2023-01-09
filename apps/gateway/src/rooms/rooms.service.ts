@@ -16,10 +16,14 @@ export class RoomsService {
     );
   }
 
-  getRooms(page: number, limit: number): Observable<RoomEntity> {
+  getRooms(
+    page: number,
+    limit: number,
+    roomFilter: string
+  ): Observable<RoomEntity> {
     return this.roomClient.send<RoomEntity>(
       { role: 'rooms', cmd: 'getRooms' },
-      { page, limit }
+      { page, limit, roomFilter }
     );
   }
 

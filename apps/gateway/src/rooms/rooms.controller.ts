@@ -4,7 +4,6 @@ import {
   Delete,
   Get,
   Param,
-  Patch,
   Post,
   Put,
   Query,
@@ -25,10 +24,15 @@ export class RoomsController {
   }
 
   @Get()
-  async findAll(@Query('page') page = 0, @Query('limit') limit = 10) {
-    console.log(page, limit);
-    const _meta = { limit: 10, page: 0, totalPages: 2, total: 11, count: 10 };
-    const rooms = await lastValueFrom(this.roomsService.getRooms(page, limit));
+  async findAll(
+    @Query('page') page = 0,
+    @Query('limit') limit = 10,
+    @Query('roomFilter') roomFilter = ''
+  ) {
+    const _meta = { limit: 10, page: 0, totalPages: 2, total: 10, count: 10 };
+    const rooms = await lastValueFrom(
+      this.roomsService.getRooms(page, limit, roomFilter)
+    );
     return { rooms, _meta };
   }
 
