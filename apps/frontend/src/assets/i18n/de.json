@@ -47,6 +47,7 @@
     "PROFILE_DELETE_ERROR": "Profil konnte nicht gelöscht werden"
   },
   "YES": "Ja",
+  "NO": "Nein",
   "CASES": {
     "CASES": "Infektionen",
     "ALL_CASES": "Alle Infektionen"

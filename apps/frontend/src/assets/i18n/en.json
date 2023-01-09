@@ -47,6 +47,7 @@
     "PROFILE_DELETE_ERROR": "Could not delete your account"
   },
   "YES": "yes",
+  "NO": "no",
   "CASES": {
     "CASES": "Cases",
     "ALL_CASES": "All Cases"

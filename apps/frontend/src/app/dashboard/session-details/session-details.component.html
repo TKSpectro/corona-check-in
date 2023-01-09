@@ -1,16 +1,49 @@
-<h1>{{ 'SESSIONS.SESSION_OVERVIEW' | translate }}</h1>
-<p>{{ 'SESSIONS.SESSION_START' | translate }}: {{ sessionData.startTime }}</p>
-<p>{{ 'SESSIONS.SESSION_END' | translate }}: {{ sessionData.endTime }}</p>
-<p>{{ 'SESSIONS.INFECTED' | translate }}: {{ sessionData.infected }}</p>
-<mat-form-field appearance="fill">
-  <mat-label>{{ 'SESSIONS.NOTE' | translate }}</mat-label>
-  <textarea
-    matInput
-    cdkTextareaAutosize
-    cdkAutosizeMinRows="1"
-    cdkAutosizeMaxRows="5"
-    [(ngModel)]="sessionData.note"
-  ></textarea>
-</mat-form-field>
+<h2 class="mat-h2">{{ 'SESSIONS.SESSION_OVERVIEW' | translate }}</h2>
 
-<button type="button">{{ 'SAVE' | translate }}</button>
+<mat-card
+  class="session-card"
+  [ngClass]="{
+    'infection-red': sessionData.infected,
+    'infection-green': !sessionData.infected
+  }"
+>
+  <mat-card-content>
+    <div class="column-left">
+      <p>{{ 'SESSIONS.SESSION_START' | translate }}:</p>
+    </div>
+    <div class="column-right">
+      <p>
+        {{ sessionData.startTime | date: 'dd.MM.yyyy HH:mm:ss' }}
+      </p>
+    </div>
+
+    <div class="column-left">
+      <p>{{ 'SESSIONS.SESSION_END' | translate }}:</p>
+    </div>
+    <div class="column-right">
+      <p>
+        {{ sessionData.endTime | date: 'dd.MM.yyyy HH:mm:ss' }}
+      </p>
+    </div>
+
+    <div class="column-left">
+      <p>{{ 'SESSIONS.INFECTED' | translate }}:</p>
+    </div>
+    <div class="column-right">
+      <p *ngIf="sessionData.infected">{{ 'YES' | translate }}</p>
+      <p *ngIf="!sessionData.infected">{{ 'NO' | translate }}</p>
+    </div>
+
+    <mat-form-field appearance="fill" class="note-input">
+      <mat-label>{{ 'SESSIONS.NOTE' | translate }}</mat-label>
+      <textarea
+        matInput
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="1"
+        cdkAutosizeMaxRows="5"
+        [(ngModel)]="sessionData.note"
+      ></textarea>
+    </mat-form-field>
+    <button mat-raised-button>{{ 'SAVE' | translate }}</button>
+  </mat-card-content>
+</mat-card>
