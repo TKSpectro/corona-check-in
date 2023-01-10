@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Request } from '@nestjs/common';
+import { Controller, Get, Request } from '@nestjs/common';
 import { AuthService } from '../auth/auth.service';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { UserRole } from '../users/user.entity';
@@ -12,26 +12,6 @@ export class AppController {
     private authService: AuthService
   ) {}
 
-  @Get()
-  getData() {
-    return this.appService.getData();
-  }
-
-  @Get('/items')
-  getItems() {
-    return this.appService.getItems();
-  }
-
-  @Get('/items/:id')
-  getItemById(@Param('id') id: number) {
-    return this.appService.getItemById(id);
-  }
-
-  @Post('/items')
-  createItem(@Body() { name }: { name: string }) {
-    return this.appService.createItem({ name });
-  }
-
   @Get('me')
   getProfile(@Request() req) {
     return this.authService.me(req.user);
@@ -41,6 +21,12 @@ export class AppController {
   @Roles(UserRole.ADMIN)
   getAdmin() {
     return 'You are a admin';
+  }
+
+  @Get('admin-or-user')
+  @Roles(UserRole.ADMIN, UserRole.USER)
+  getAdminOrUser() {
+    return 'You are a admin or user';
   }
 
   @Get('/incidence')
