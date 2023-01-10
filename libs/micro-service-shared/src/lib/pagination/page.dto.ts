@@ -22,7 +22,7 @@ export async function findWithMeta(
 ) {
   queryBuilder
     .orderBy(orderBy, pageOptionsDto.order)
-    .skip((pageOptionsDto.page - 1) * pageOptionsDto.take)
+    .skip(pageOptionsDto.page * pageOptionsDto.take)
     .take(pageOptionsDto.take);
 
   const itemCount = await queryBuilder.getCount();

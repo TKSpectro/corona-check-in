@@ -13,9 +13,9 @@ export class PageOptionsDto {
 
   @Type(() => Number)
   @IsInt()
-  @Min(1)
+  @Min(0)
   @IsOptional()
-  readonly page?: number = 1;
+  readonly page?: number = 0;
 
   @Type(() => Number)
   @IsInt()

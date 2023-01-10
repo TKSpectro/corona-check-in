@@ -23,7 +23,7 @@ export class PageMetaDto {
     this.take = pageOptionsDto.take;
     this.itemCount = itemCount;
     this.pageCount = Math.ceil(this.itemCount / this.take);
-    this.hasPreviousPage = this.page > 1;
+    this.hasPreviousPage = this.page > 0;
     this.hasNextPage = this.page < this.pageCount;
   }
 }
