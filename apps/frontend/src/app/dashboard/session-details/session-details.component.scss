@@ -1,0 +1,28 @@
+.session-card {
+  max-width: 350px;
+}
+
+.note-input {
+  width: 100%;
+}
+
+.column-left {
+  width: 40%;
+  float: left;
+  font-weight: 500;
+  min-height: 40px;
+}
+
+.column-right {
+  width: 60%;
+  float: left;
+  min-height: 40px;
+}
+
+.infection-red {
+  background-color: #381111;
+}
+
+.infection-green {
+  background-color: #225224;
+}
