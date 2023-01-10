@@ -16,6 +16,10 @@
   "SAVE": "Save",
   "SEARCH": "Search",
   "SETTINGS": "Settings",
+  "ENTER_DATERANGE": "Enter a date range",
+  "INVALID_STARTDATE": "Invalid start date",
+  "INVALID_ENDDATE": "Invalid end date",
+  "RESET": "Reset",
   "AUTH": {
     "SIGN_IN_INSTEAD": "Sign in instead",
     "CREATE_ACCOUNT": "Create account"
@@ -43,17 +47,23 @@
     "PROFILE_DELETE_ERROR": "Could not delete your account"
   },
   "YES": "yes",
+  "NO": "no",
   "CASES": {
     "CASES": "Cases",
     "ALL_CASES": "All Cases"
   },
   "SESSIONS": {
-    "SESSIONS": "SESSIONS",
+    "SESSIONS": "Sessions",
     "ALL SESSIONS": "All sessions",
     "SESSION": "Session",
     "LAST_SESSION": "Last Sessions",
     "UPDATE_SESSION": "Update Session",
-    "DELETE_SESSION": "Delete Session"
+    "DELETE_SESSION": "Delete Session",
+    "SESSION_OVERVIEW": "Session overview",
+    "SESSION_START": "Session start",
+    "SESSION_END": "Session end",
+    "INFECTED": "infected",
+    "NOTE": "Note"
   },
   "ROOMS": {
     "ROOMS": "Rooms",
@@ -62,7 +72,10 @@
     "CREATE_ROOM": "Create room",
     "DELETE_ROOM": "Delete Room",
     "ROOM_DETAILS": "Room Details",
-    "UPDATE_ROOM": "Update Room"
+    "UPDATE_ROOM": "Update Room",
+    "MAX_PARTICIPANTS": "Max Participants",
+    "MAX_DURATION": "Maximum Duration",
+    "FACULITY": "faculty"
   },
   "ERROR_OLD_PASSWORD_WRONG": "Old password is wrong",
   "ERROR_PASSWORDS_NOT_MATCHING": "New password is not matching"
