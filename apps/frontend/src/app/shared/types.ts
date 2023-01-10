@@ -30,3 +30,12 @@ export interface Room {
   qrCode: string;
   createdQrCode: string;
 }
+
+export interface Session {
+  id: string;
+  name: string;
+  startTime: Date;
+  endTime?: Date;
+  infected: boolean;
+  note?: string;
+}

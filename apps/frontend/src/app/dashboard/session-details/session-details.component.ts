@@ -2,6 +2,7 @@ import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription, take } from 'rxjs';
+import { Session } from '../../shared/types';
 import { SessionDetailsService } from './session-details.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { SessionDetailsService } from './session-details.service';
   styleUrls: ['./session-details.component.scss'],
 })
 export class SessionDetailsComponent implements OnInit {
-  sessionData!: any;
+  sessionData!: Session;
   subscription!: Subscription;
 
   constructor(
@@ -33,5 +34,16 @@ export class SessionDetailsComponent implements OnInit {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  saveNote() {
+    this.sessionDetailsService.updateSession({
+      id: this.sessionData.id,
+      name: this.sessionData.name,
+      startTime: this.sessionData.startTime,
+      endTime: this.sessionData.endTime,
+      infected: this.sessionData.infected,
+      note: this.sessionData.note,
+    });
   }
 }

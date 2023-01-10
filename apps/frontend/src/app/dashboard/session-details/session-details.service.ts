@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ServerService } from '../../shared/server.service';
+import { Session } from '../../shared/types';
 
 @Injectable({
   providedIn: 'root',
@@ -20,6 +21,14 @@ export class SessionDetailsService {
       },
       error: (error) => {
         console.log(error.error.message);
+      },
+    });
+  }
+
+  updateSession(session: Session) {
+    this.serverSrv.updateSession(session).subscribe({
+      error: (error) => {
+        console.error(error);
       },
     });
   }

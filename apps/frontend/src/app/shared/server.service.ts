@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User, UserSignup } from '../auth/user';
-import { UpdateUser } from './types';
+import { Session, UpdateUser } from './types';
 
 @Injectable({
   providedIn: 'root',
@@ -35,6 +35,10 @@ export class ServerService {
         .set('sessionEnd', sessionEnd ? sessionEnd : '')
         .set('sessionName', sessionName ? sessionName : ''),
     });
+  }
+
+  updateSession(session: Session): Observable<Session> {
+    return this.httpClient.put<Session>(`/api/sessions`, session);
   }
 
   // cross domain problem

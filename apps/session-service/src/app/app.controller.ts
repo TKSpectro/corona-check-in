@@ -8,6 +8,8 @@ import {
 import { MessagePattern } from '@nestjs/microservices';
 
 import { AppService } from './app.service';
+import { SessionEntity } from './session.entity';
+import { UpdateSessionDto } from './sessions.dto';
 
 @Controller()
 export class AppController {
@@ -42,5 +44,10 @@ export class AppController {
   @MessagePattern({ role: 'sessions', cmd: 'get-by-id' })
   getSessionById({ id }: { id: string }) {
     return this.appService.getSessionById(id);
+  }
+
+  @MessagePattern({ role: 'sessions', cmd: 'update-session' })
+  updateRoom(updateSessionDto: UpdateSessionDto): Promise<SessionEntity> {
+    return this.appService.updateSession(updateSessionDto);
   }
 }

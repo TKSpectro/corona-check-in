@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { throws } from 'assert';
 import { Between, LessThanOrEqual, MoreThanOrEqual, Repository } from 'typeorm';
 import { SessionEntity } from './session.entity';
+import { UpdateSessionDto } from './sessions.dto';
 
 @Injectable()
 export class AppService implements OnModuleInit {
@@ -190,5 +191,17 @@ export class AppService implements OnModuleInit {
 
   getSessionById(id: string) {
     return this.sessionRepository.findOne({ where: { id } });
+  }
+
+  async updateSession(
+    updateSessionDto: UpdateSessionDto
+  ): Promise<SessionEntity> {
+    const updateSession = await this.sessionRepository.findOne({
+      where: { id: updateSessionDto.id },
+    });
+
+    return await this.sessionRepository.save(
+      this.sessionRepository.merge(updateSession, updateSessionDto)
+    );
   }
 }

@@ -44,6 +44,8 @@
         [(ngModel)]="sessionData.note"
       ></textarea>
     </mat-form-field>
-    <button mat-raised-button>{{ 'SAVE' | translate }}</button>
+    <button mat-raised-button (click)="saveNote()">
+      {{ 'SAVE' | translate }}
+    </button>
   </mat-card-content>
 </mat-card>

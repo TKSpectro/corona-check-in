@@ -1,5 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
+import { SessionEntity } from './session.entity';
+import { UpdateSessionDto } from './sessions.dto';
 
 @Injectable()
 export class SessionsService {
@@ -22,6 +24,13 @@ export class SessionsService {
     return this.sessionClient.send(
       { role: 'sessions', cmd: 'get-by-id' },
       { id }
+    );
+  }
+
+  updateSession(updateSessionDto: UpdateSessionDto) {
+    return this.sessionClient.send<SessionEntity>(
+      { role: 'sessions', cmd: 'update-session' },
+      updateSessionDto
     );
   }
 }

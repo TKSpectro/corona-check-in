@@ -1,13 +1,19 @@
 import {
+  Body,
   Controller,
   DefaultValuePipe,
   Get,
+  HttpCode,
+  HttpException,
   Param,
   ParseIntPipe,
+  Put,
   Query,
+  Request,
 } from '@nestjs/common';
 import { SessionsService } from './sessions.service';
 import { lastValueFrom } from 'rxjs';
+import { UpdateSessionDto } from './sessions.dto';
 
 @Controller('sessions')
 export class SessionsController {
@@ -41,5 +47,10 @@ export class SessionsController {
     const _meta = { limit: 10, page: 0, totalPages: 2, total: 11, count: 10 };
 
     return { sessions: sessions, _meta: _meta };
+  }
+
+  @Put('')
+  update(@Body() updateSessionDto: UpdateSessionDto) {
+    return this.sessionsService.updateSession(updateSessionDto);
   }
 }
