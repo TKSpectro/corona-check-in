@@ -1,12 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatOptionModule } from '@angular/material/core';
+import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTableModule } from '@angular/material/table';
@@ -18,6 +22,7 @@ import { DashboardComponent } from './dashboard.component';
 import { IncidenceComponent } from './graphs/incidence/incidence.component';
 import { QrCodeScannerComponent } from './qr-code-scanner/qr-code-scanner.component';
 import { SessionCardComponent } from './session-card/session-card.component';
+import { SessionDetailsComponent } from './session-details/session-details.component';
 import { SessionListComponent } from './session-list/session-list.component';
 
 @NgModule({
@@ -27,6 +32,7 @@ import { SessionListComponent } from './session-list/session-list.component';
     IncidenceComponent,
     QrCodeScannerComponent,
     DashboardComponent,
+    SessionDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -35,10 +41,18 @@ import { SessionListComponent } from './session-list/session-list.component';
     NgxChartsModule,
     BrowserAnimationsModule,
     MatTableModule,
+    MatPaginatorModule,
     MatCardModule,
     HttpClientModule,
     FormsModule,
     TranslateModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDatepickerModule,
+    ReactiveFormsModule,
+    MatNativeDateModule,
     MatIconModule,
     MatFormFieldModule,
     MatOptionModule,

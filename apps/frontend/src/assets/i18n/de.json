@@ -16,6 +16,10 @@
   "IMPRINT": "Impressum",
   "SEARCH": "Suchen",
   "SETTINGS": "Einstellung",
+  "ENTER_DATERANGE": "Zeitspanne eingeben",
+  "INVALID_STARTDATE": "Ungültiges Startdatum",
+  "INVALID_ENDDATE": "Ungültiges Enddatum",
+  "RESET": "zurücksetzen",
   "AUTH": {
     "SIGN_IN_INSTEAD": "Stattdessen anmelden",
     "CREATE_ACCOUNT": "Konto erstellen"
@@ -43,17 +47,23 @@
     "PROFILE_DELETE_ERROR": "Profil konnte nicht gelöscht werden"
   },
   "YES": "Ja",
+  "NO": "Nein",
   "CASES": {
     "CASES": "Infektionen",
     "ALL_CASES": "Alle Infektionen"
   },
   "SESSIONS": {
-    "SESSIONS": "SESSIONS",
-    "ALL SESSIONS": "Alle sessions",
+    "SESSIONS": "Sessions",
+    "ALL SESSIONS": "Alle Sessions",
     "SESSION": "Session",
     "LAST_SESSION": "Letzte Session",
     "UPDATE_SESSION": "Update Session",
-    "DELETE_SESSION": "Session löschen"
+    "DELETE_SESSION": "Session löschen",
+    "SESSION_OVERVIEW": "Session-Übersicht",
+    "SESSION_START": "Session-Beginn",
+    "SESSION_END": "Session-Ende",
+    "INFECTED": "Infiziert",
+    "NOTE": "Notiz"
   },
   "ROOMS": {
     "ROOMS": "Räume",

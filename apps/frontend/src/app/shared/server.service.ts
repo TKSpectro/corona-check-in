@@ -14,6 +14,29 @@ export class ServerService {
     return this.httpClient.get<any>('/api/incidence');
   }
 
+  getSessionById(id: string): Observable<any> {
+    return this.httpClient.get<any>('/api/sessions/' + id);
+  }
+
+  getSessions(
+    page = 0,
+    limit = 10,
+    infected?: boolean,
+    sessionBegin?: string,
+    sessionEnd?: string,
+    sessionName?: string
+  ): Observable<any> {
+    return this.httpClient.get('/api/sessions', {
+      params: new HttpParams()
+        .set('page', page.toString())
+        .set('limit', limit.toString())
+        .set('infected', infected ?? '')
+        .set('sessionBegin', sessionBegin ? sessionBegin : '')
+        .set('sessionEnd', sessionEnd ? sessionEnd : '')
+        .set('sessionName', sessionName ? sessionName : ''),
+    });
+  }
+
   // cross domain problem
   login(user: User): Observable<{ token: string }> {
     return this.httpClient.post<{ token: string }>('/api/auth/login', user);
