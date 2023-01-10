@@ -64,7 +64,7 @@
       'SESSIONS.SESSION_START' | translate
     }}</mat-header-cell>
     <mat-cell *matCellDef="let session">{{
-      session.startTime | date: 'dd.MM.yyyy HH:mm:ss'
+      session.startTime | date : 'dd.MM.yyyy HH:mm:ss'
     }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="endTime">
@@ -72,7 +72,7 @@
       'SESSIONS.SESSION_END' | translate
     }}</mat-header-cell>
     <mat-cell *matCellDef="let session">{{
-      session.endTime | date: 'dd.MM.yyyy HH:mm:ss'
+      session.endTime | date : 'dd.MM.yyyy HH:mm:ss'
     }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="infected">
@@ -83,6 +83,21 @@
       ><mat-icon *ngIf="session.infected">check</mat-icon>
       <mat-icon *ngIf="!session.infected">clear</mat-icon></mat-cell
     >
+  </ng-container>
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef>{{
+      'ACTIONS' | translate
+    }}</mat-header-cell>
+    <mat-cell *matCellDef="let session">
+      <div *ngIf="adminService.isAdmin">
+        <button mat-stroked-button>
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-stroked-button>
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </mat-cell>
   </ng-container>
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>

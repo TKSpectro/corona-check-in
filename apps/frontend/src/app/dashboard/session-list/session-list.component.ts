@@ -2,7 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { Subscription, switchMap, tap } from 'rxjs';
+import { Subscription } from 'rxjs';
+import { AdminService } from '../../auth/admin/admin.service';
 import { SessionListService } from './session-list.service';
 
 @Component({
@@ -11,7 +12,7 @@ import { SessionListService } from './session-list.service';
   styleUrls: ['./session-list.component.scss'],
 })
 export class SessionListComponent implements OnInit, OnDestroy {
-  displayedColumns: string[] = ['startTime', 'endTime', 'infected'];
+  displayedColumns: string[] = ['startTime', 'endTime', 'infected', 'actions'];
   sessionData!: any;
   subscription!: Subscription;
   _meta: any;
@@ -24,6 +25,8 @@ export class SessionListComponent implements OnInit, OnDestroy {
   infected?: boolean;
   sessionBegin?: Date;
   sessionEnd?: Date;
+
+  adminService: AdminService;
 
   // Datepicker
   range = new FormGroup({
@@ -39,7 +42,12 @@ export class SessionListComponent implements OnInit, OnDestroy {
     this.loadSessions();
   }
 
-  constructor(private sessionListService: SessionListService) {}
+  constructor(
+    private sessionListService: SessionListService,
+    adminService: AdminService
+  ) {
+    this.adminService = adminService;
+  }
 
   ngOnInit(): void {
     this.loadSessions();

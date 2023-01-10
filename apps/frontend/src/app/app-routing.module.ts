@@ -3,10 +3,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminGuard, AuthComponent, AuthGuard } from './auth';
 import { DashboardComponent } from './dashboard';
-import { ProfileComponent } from './profile';
-import { RoomListComponent } from './rooms';
 import { SessionDetailsComponent } from './dashboard/session-details/session-details.component';
 import { SessionListComponent } from './dashboard/session-list/session-list.component';
+import { ProfileComponent } from './profile';
+import { RoomListComponent } from './rooms';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -26,8 +26,16 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     component: RoomListComponent,
   },
-  { path: 'sessions/:id', component: SessionDetailsComponent },
-  { path: 'sessions', component: SessionListComponent },
+  {
+    path: 'sessions/:id',
+    canActivate: [AuthGuard],
+    component: SessionDetailsComponent,
+  },
+  {
+    path: 'sessions',
+    canActivate: [AuthGuard],
+    component: SessionListComponent,
+  },
   {
     path: 'admin',
     canActivate: [AuthGuard, AdminGuard],
