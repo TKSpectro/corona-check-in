@@ -1,19 +1,30 @@
+import { PageOptionsDto } from '@corona-check-in/micro-service-shared';
 import {
   Body,
   Controller,
   Delete,
+  Get,
   HttpCode,
   HttpException,
   Param,
   Put,
+  Query,
   Request,
 } from '@nestjs/common';
+import { Roles } from '../auth/decorators/roles.decorator';
+import { UserRole } from './user.entity';
 import { UpdateUserDto } from './users.dto';
 import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
   constructor(private userService: UsersService) {}
+
+  @Get('')
+  @Roles(UserRole.ADMIN)
+  async getUsers(@Query() pageOptionsDto: PageOptionsDto) {
+    return this.userService.find(pageOptionsDto);
+  }
 
   @Put(':id')
   @HttpCode(200)

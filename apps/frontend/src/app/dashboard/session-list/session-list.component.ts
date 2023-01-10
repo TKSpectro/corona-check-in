@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { Subscription, switchMap, tap } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { SessionListService } from './session-list.service';
 
 @Component({
@@ -58,7 +58,7 @@ export class SessionListComponent implements OnInit, OnDestroy {
       )
       .subscribe(
         (data) => {
-          this.sessionData = data.sessions;
+          this.sessionData = data.data;
           this._meta = data._meta;
           this.dataSource = new MatTableDataSource(this.sessionData);
         },

@@ -64,7 +64,7 @@
       'SESSIONS.SESSION_START' | translate
     }}</mat-header-cell>
     <mat-cell *matCellDef="let session">{{
-      session.startTime | date: 'dd.MM.yyyy HH:mm:ss'
+      session.startTime | date : 'dd.MM.yyyy HH:mm:ss'
     }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="endTime">
@@ -72,7 +72,7 @@
       'SESSIONS.SESSION_END' | translate
     }}</mat-header-cell>
     <mat-cell *matCellDef="let session">{{
-      session.endTime | date: 'dd.MM.yyyy HH:mm:ss'
+      session.endTime | date : 'dd.MM.yyyy HH:mm:ss'
     }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="infected">
@@ -89,11 +89,11 @@
 </table>
 
 <mat-paginator
-  (page)="handlePageEvent($event)"
-  [length]="_meta?.total"
-  [pageSize]="_meta?.count"
   showFirstLastButtons
-  [pageIndex]="_meta?.page"
   aria-label="Select page of periodic elements"
+  [length]="_meta?.itemCount"
+  [pageSize]="_meta?.take"
+  [pageIndex]="_meta?.page"
+  (page)="handlePageEvent($event)"
 >
 </mat-paginator>
