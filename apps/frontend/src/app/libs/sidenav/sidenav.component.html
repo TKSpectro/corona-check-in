@@ -40,7 +40,7 @@
           <mat-icon>person</mat-icon>
           <span>{{ 'PROFILES.PROFILE' | translate }}</span></a
         >
-        <a mat-list-item *ngIf="adminService.getIsAdmin()" routerLink="./test">
+        <a mat-list-item *ngIf="adminService.isAdmin" routerLink="./admin">
           <mat-icon>person</mat-icon>
           <span>{{ 'onlyAdmin' | translate }}</span></a
         >

@@ -25,9 +25,8 @@ const routes: Routes = [
     component: RoomListComponent,
   },
   {
-    path: 'test',
+    path: 'admin',
     canActivate: [AuthGuard, AdminGuard],
-
     component: ProfileComponent,
   },
 ];
