@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminGuard, AuthComponent, AuthGuard } from './auth';
 import { DashboardComponent } from './dashboard';
 import { ProfileComponent } from './profile';
+import { RoomListComponent } from './rooms';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -17,6 +18,11 @@ const routes: Routes = [
     path: 'profile',
     canActivate: [AuthGuard],
     component: ProfileComponent,
+  },
+  {
+    path: 'rooms',
+    canActivate: [AuthGuard],
+    component: RoomListComponent,
   },
   {
     path: 'test',

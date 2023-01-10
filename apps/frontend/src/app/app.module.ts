@@ -19,6 +19,8 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import { DashboardModule } from './dashboard';
 import { SidenavComponent } from './libs';
 import { ProfileModule } from './profile';
+import { AppRoutingModule } from './app-routing.module';
+import { RoomListModule } from './rooms/room-list.module';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -35,6 +37,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserAnimationsModule,
     NgxChartsModule,
     DashboardModule,
+    RoomListModule,
     ProfileModule,
     AuthModule,
     AngularMaterialModule,
