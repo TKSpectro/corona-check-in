@@ -1,28 +1,95 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { Subscription, switchMap, tap } from 'rxjs';
+import { SessionListService } from './session-list.service';
 
 @Component({
   selector: 'ccn-session-list',
   templateUrl: './session-list.component.html',
   styleUrls: ['./session-list.component.scss'],
 })
-export class SessionListComponent {
-  displayedColumns: string[] = ['room', 'starttime', 'endtime'];
+export class SessionListComponent implements OnInit, OnDestroy {
+  displayedColumns: string[] = ['startTime', 'endTime', 'infected'];
+  sessionData!: any;
+  subscription!: Subscription;
+  _meta: any;
+  pageEvent: PageEvent = new PageEvent();
+  total!: number;
+  limit!: number;
+  page!: number;
+  dataSource = new MatTableDataSource(this.sessionData);
+  sessionNameFilter?: string;
+  infected?: boolean;
+  sessionBegin?: Date;
+  sessionEnd?: Date;
 
-  EmpData: unknown[] = [
-    {
-      id: 1,
-      room: '5.1.05',
-      starttime: '25.10.2022 13:37',
-      endtime: '25.10.2022 16:37',
-    },
-    {
-      id: 2,
-      room: '5.1.05',
-      starttime: '01.11.2022 13:37',
-      endtime: '01.11.2022 13:37',
-    },
-  ];
+  // Datepicker
+  range = new FormGroup({
+    start: new FormControl<Date | null>(null),
+    end: new FormControl<Date | null>(null),
+  });
 
-  dataSource = new MatTableDataSource(this.EmpData);
+  handlePageEvent(e: PageEvent) {
+    this.pageEvent = e;
+    this.total = e.length;
+    this.limit = e.pageSize;
+    this.page = e.pageIndex;
+    this.loadSessions();
+  }
+
+  constructor(private sessionListService: SessionListService) {}
+
+  ngOnInit(): void {
+    this.loadSessions();
+  }
+
+  loadSessions() {
+    // TODO: This will be replaced by a service call
+    this.subscription = this.sessionListService
+      .getSessions(
+        this.page,
+        10,
+        this.infected,
+        this.sessionBegin?.toDateString(),
+        this.sessionEnd?.toDateString(),
+        this.sessionNameFilter
+      )
+      .subscribe(
+        (data) => {
+          this.sessionData = data.sessions;
+          this._meta = data._meta;
+          this.dataSource = new MatTableDataSource(this.sessionData);
+        },
+        (err) => console.error(err)
+      );
+  }
+
+  applyFilter(event: Event) {
+    this.sessionNameFilter = (event.target as HTMLInputElement).value;
+    this.loadSessions();
+  }
+
+  toggleInfectionFilter() {
+    this.infected = !this.infected;
+    this.loadSessions();
+  }
+
+  sessionInputChanged() {
+    this.loadSessions();
+  }
+
+  resetFilter() {
+    this.infected = undefined;
+    this.sessionBegin = undefined;
+    this.sessionEnd = undefined;
+    this.range.value.start = undefined;
+    this.range.value.end = undefined;
+    this.loadSessions();
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 }
