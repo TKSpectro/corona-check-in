@@ -18,17 +18,24 @@ export class AppService implements OnModuleInit {
     for (let i = 1; i < 26; i++) {
       if (
         !(await this.sessionRepository.findOne({
-          where: { name: `seed-session-${i}` },
+          where: [
+            { name: `seed-session-${i}` },
+            { id: `00000000-0000-0000-0002-0000000000${i < 10 ? 0 : ''}${i}` },
+          ],
         }))
       ) {
-        await this.sessionRepository.insert({
-          id: `00000000-0000-0000-0002-0000000000${i < 10 ? 0 : ''}${i}`,
-          name: `seed-session-${i}`,
-          startTime: `2022-12-${i < 10 ? 0 : ''}${i}T08:00:00`,
-          endTime:
-            i % 2 === 0 ? `2022-12-${i < 10 ? '0' : ''}${i}T09:30:00` : null,
-          infected: i % 2 === 0 ? true : false,
-        });
+        try {
+          await this.sessionRepository.insert({
+            id: `00000000-0000-0000-0002-0000000000${i < 10 ? 0 : ''}${i}`,
+            name: `seed-session-${i}`,
+            startTime: `2022-12-${i < 10 ? 0 : ''}${i}T08:00:00`,
+            endTime:
+              i % 2 === 0 ? `2022-12-${i < 10 ? '0' : ''}${i}T09:30:00` : null,
+            infected: i % 2 === 0 ? true : false,
+          });
+        } catch (error) {
+          // do nothing
+        }
       }
       await new Promise((resolve) => setTimeout(resolve, 10));
     }
