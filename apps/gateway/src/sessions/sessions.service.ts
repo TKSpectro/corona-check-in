@@ -1,3 +1,4 @@
+import { PageOptionsDto } from '@corona-check-in/micro-service-shared';
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { SessionEntity } from './session.entity';
@@ -8,16 +9,15 @@ export class SessionsService {
   constructor(@Inject('sessions-service') private sessionClient: ClientProxy) {}
 
   getSessions(
-    skip: number,
-    limit: number,
+    pageOptionsDto: PageOptionsDto,
     infected?: boolean,
-    sessionBegin?: string,
-    sessionEnd?: string,
-    sessionName?: string
+    sessionName?: string,
+    sessionBegin?: Date,
+    sessionEnd?: Date
   ) {
     return this.sessionClient.send(
       { role: 'sessions', cmd: 'get-all' },
-      { skip, limit, infected, sessionBegin, sessionEnd, sessionName }
+      { pageOptionsDto, infected, sessionName, sessionBegin, sessionEnd }
     );
   }
   getSessionById(id: string) {

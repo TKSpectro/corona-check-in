@@ -1,10 +1,5 @@
-import {
-  Controller,
-  DefaultValuePipe,
-  Get,
-  ParseIntPipe,
-  Query,
-} from '@nestjs/common';
+import { PageOptionsDto } from '@corona-check-in/micro-service-shared';
+import { Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 
 import { AppService } from './app.service';
@@ -17,27 +12,24 @@ export class AppController {
 
   @MessagePattern({ role: 'sessions', cmd: 'get-all' })
   getSessions({
-    skip,
-    limit,
+    pageOptionsDto,
     infected,
+    sessionName,
     sessionBegin,
     sessionEnd,
-    sessionName,
   }: {
-    skip: number;
-    limit: number;
-    infected?: boolean;
-    sessionBegin?: string;
-    sessionEnd?: string;
+    pageOptionsDto: PageOptionsDto;
+    infected?: string;
     sessionName?: string;
+    sessionBegin?: Date;
+    sessionEnd?: Date;
   }) {
     return this.appService.getSessions(
-      skip,
-      limit,
+      pageOptionsDto,
       infected,
+      sessionName,
       sessionBegin,
-      sessionEnd,
-      sessionName
+      sessionEnd
     );
   }
 

@@ -1,19 +1,8 @@
-import {
-  Body,
-  Controller,
-  DefaultValuePipe,
-  Get,
-  HttpCode,
-  HttpException,
-  Param,
-  ParseIntPipe,
-  Put,
-  Query,
-  Request,
-} from '@nestjs/common';
-import { SessionsService } from './sessions.service';
-import { lastValueFrom } from 'rxjs';
+import { PageOptionsDto } from '@corona-check-in/micro-service-shared';
+import { Body, Controller, Get, Param, Put, Query } from '@nestjs/common';
+import { firstValueFrom } from 'rxjs';
 import { UpdateSessionDto } from './sessions.dto';
+import { SessionsService } from './sessions.service';
 
 @Controller('sessions')
 export class SessionsController {
@@ -26,27 +15,21 @@ export class SessionsController {
 
   @Get('')
   async getSessions(
-    @Query('page') page = 0,
-    @Query('limit') limit = 10,
-    @Query('infected') infected,
-    @Query('sessionBegin') sessionBegin,
-    @Query('sessionEnd') sessionEnd,
-    @Query('sessionName') sessionName
-  ): Promise<any> {
-    limit = limit > 100 ? 100 : limit;
-    const sessions = await lastValueFrom(
+    @Query() pageOptionsDto: PageOptionsDto,
+    @Query('infected') infected?: boolean,
+    @Query('sessionName') sessionName?: string,
+    @Query('sessionBegin') sessionBegin?: Date,
+    @Query('sessionEnd') sessionEnd?: Date
+  ) {
+    return await firstValueFrom(
       this.sessionsService.getSessions(
-        page,
-        limit,
+        pageOptionsDto,
         infected,
+        sessionName,
         sessionBegin,
-        sessionEnd,
-        sessionName
+        sessionEnd
       )
     );
-    const _meta = { limit: 10, page: 0, totalPages: 2, total: 11, count: 10 };
-
-    return { sessions: sessions, _meta: _meta };
   }
 
   @Put('')
