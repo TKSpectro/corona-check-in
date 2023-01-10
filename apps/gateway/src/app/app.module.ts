@@ -14,6 +14,7 @@ import { HealthModule } from './health/health.module';
 import { MetricsModule } from './metrics/metrics.module';
 import { PrometheusModule } from './prometheus/prometheus.module';
 import { QrCodeModule } from './qr-code/qr-code.module';
+import { RoomsModule } from '../rooms/rooms.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { QrCodeModule } from './qr-code/qr-code.module';
       },
     ]),
     SessionsModule,
+    RoomsModule,
     UsersModule,
     QrCodeModule,
     HealthModule,

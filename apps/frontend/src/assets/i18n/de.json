@@ -72,7 +72,11 @@
     "CREATE_ROOM": "Raum erstellen",
     "DELETE_ROOM": "Raum löschen",
     "ROOM_DETAILS": "Raum-Details",
-    "UPDATE_ROOM": "Raum bearbeiten"
+    "UPDATE_ROOM": "Raum bearbeiten",
+    "MAX_PARTICIPANTS": "Maximale Teilnehmer",
+    "MAX_DURATION": "Maximale Dauer",
+    "FACULITY": "Fakultät"
+
   },
   "ERROR_OLD_PASSWORD_WRONG": "Altes Passwort ist falsch",
   "ERROR_PASSWORDS_NOT_MATCHING": "Neues Passwort stimmt nicht überein"

@@ -72,7 +72,10 @@
     "CREATE_ROOM": "Create room",
     "DELETE_ROOM": "Delete Room",
     "ROOM_DETAILS": "Room Details",
-    "UPDATE_ROOM": "Update Room"
+    "UPDATE_ROOM": "Update Room",
+    "MAX_PARTICIPANTS": "Max Participants",
+    "MAX_DURATION": "Maximum Duration",
+    "FACULITY": "faculty"
   },
   "ERROR_OLD_PASSWORD_WRONG": "Old password is wrong",
   "ERROR_PASSWORDS_NOT_MATCHING": "New password is not matching"

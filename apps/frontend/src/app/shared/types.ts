@@ -18,3 +18,15 @@ export interface UpdateUser extends User {
   newPassword?: string;
   newPasswordRepeat?: string;
 }
+
+export interface Room {
+  id: string;
+  name: string;
+  createdDate: string;
+  updatedDate: string;
+  maxParticipants: number;
+  maxDuration: number;
+  faculty: string;
+  qrCode: string;
+  createdQrCode: string;
+}

@@ -57,4 +57,17 @@ export class ServerService {
   deleteUser(id: string): Observable<any> {
     return this.httpClient.delete<any>(`/api/users/${id}`);
   }
+
+  getRooms(
+    page: number = 0,
+    limit: number = 10,
+    roomFilter?: string
+  ): Observable<any> {
+    return this.httpClient.get('/api/rooms', {
+      params: new HttpParams()
+        .set('page', page.toString())
+        .set('limit', limit.toString())
+        .set('roomFilter', roomFilter ? roomFilter : ''),
+    });
+  }
 }
