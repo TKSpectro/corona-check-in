@@ -17,7 +17,7 @@ import { AppComponent } from './app.component';
 import { AuthModule } from './auth';
 import { AuthInterceptor } from './auth.interceptor';
 import { DashboardModule } from './dashboard';
-import { SidenavComponent } from './libs';
+import { ConfirmationDialogComponent, SidenavComponent } from './libs';
 import { ProfileModule } from './profile';
 import { RoomListModule } from './rooms/room-list.module';
 
@@ -27,7 +27,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, SidenavComponent],
+  declarations: [AppComponent, SidenavComponent, ConfirmationDialogComponent],
   imports: [
     BrowserModule,
     RouterModule,
