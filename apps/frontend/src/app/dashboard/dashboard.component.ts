@@ -35,6 +35,7 @@ export class DashboardComponent {
     });
 
     req.subscribe((items) => {
+      console.log(items);
       this.items = items;
     });
   }

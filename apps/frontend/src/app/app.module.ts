@@ -20,6 +20,8 @@ import { DashboardModule } from './dashboard';
 import { ProfileModule } from './profile';
 import { AppRoutingModule } from './app-routing.module';
 import { RoomListModule } from './rooms/room-list.module';
+import { SessionsModule } from './sessions/sessions.module';
+import { SharedModule } from './shared/shared.module';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -37,6 +39,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     NgxChartsModule,
     DashboardModule,
     RoomListModule,
+    SessionsModule,
+    SharedModule,
     ProfileModule,
     AuthModule,
     AngularMaterialModule,
