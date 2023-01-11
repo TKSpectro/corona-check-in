@@ -1,9 +1,10 @@
+import { PageOptionsDto } from '@corona-check-in/micro-service-shared';
 import { Controller } from '@nestjs/common';
-import { AppService } from './app.service';
 import { MessagePattern } from '@nestjs/microservices';
+import { AppService } from './app.service';
 import { RoomEntity } from './room.entity';
-import { UpdateRoomDto } from './update-rooms.dto';
 import { RoomDto } from './rooms.dto';
+import { UpdateRoomDto } from './update-rooms.dto';
 
 @Controller()
 export class AppController {
@@ -11,15 +12,13 @@ export class AppController {
 
   @MessagePattern({ role: 'rooms', cmd: 'getRooms' })
   getRooms({
-    page,
-    limit,
+    pageOptionsDto,
     roomFilter,
   }: {
-    page: number;
-    limit: number;
+    pageOptionsDto: PageOptionsDto;
     roomFilter?: string;
-  }): Promise<RoomEntity[]> {
-    return this.appService.getRooms(page, limit, roomFilter);
+  }) {
+    return this.appService.getRooms(pageOptionsDto, roomFilter);
   }
 
   @MessagePattern({ role: 'room', cmd: 'getRoom' })

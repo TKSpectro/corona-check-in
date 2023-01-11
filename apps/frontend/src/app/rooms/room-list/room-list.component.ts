@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { RoomsService } from '../rooms.service';
-import { Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
 import { Room } from '../../shared/types';
+import { RoomsService } from '../rooms.service';
 
 @Component({
   selector: 'ccn-room-list',
@@ -32,7 +31,7 @@ export class RoomListComponent implements OnInit {
 
   ngOnInit(): void {
     this.subscription = this.roomSrv.roomList$.subscribe((data) => {
-      this.roomList = data.rooms;
+      this.roomList = data.data;
       this._meta = data._meta;
     });
   }
@@ -40,7 +39,7 @@ export class RoomListComponent implements OnInit {
   loadRooms() {
     this.roomSrv.getRooms(this.page, 10, this.filter).subscribe({
       next: (data) => {
-        this.roomList = data.rooms;
+        this.roomList = data.data;
         this._meta = data._meta;
       },
       error: (err) => console.error(err),
