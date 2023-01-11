@@ -1,7 +1,7 @@
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import { Component, NgZone, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription, take } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Session } from '../../shared/types';
 import { SessionDetailsService } from './session-details.service';
 
@@ -12,7 +12,8 @@ import { SessionDetailsService } from './session-details.service';
 })
 export class SessionDetailsComponent implements OnInit {
   sessionData!: Session;
-  subscription!: Subscription;
+  subscription: Subscription[] = [];
+  id = '';
 
   constructor(
     private sessionDetailsService: SessionDetailsService,
@@ -22,18 +23,21 @@ export class SessionDetailsComponent implements OnInit {
   @ViewChild('autosize') autosize!: CdkTextareaAutosize;
 
   ngOnInit(): void {
-    // TODO: This will be replaced by a service call
-    const id = this.route.snapshot.url[1].path;
-    this.sessionDetailsService.getSessionById(id);
-    this.subscription = this.sessionDetailsService.submitSessionData.subscribe(
-      (data) => {
+    this.subscription.push(
+      this.route.paramMap.subscribe((params) => {
+        this.id = params.has('id') ? params.get('id') || '' : '';
+      })
+    );
+    this.sessionDetailsService.getSessionById(this.id);
+    this.subscription.push(
+      this.sessionDetailsService.submitSessionData.subscribe((data) => {
         this.sessionData = data;
-      }
+      })
     );
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.subscription.forEach((sub) => sub.unsubscribe());
   }
 
   saveNote() {
