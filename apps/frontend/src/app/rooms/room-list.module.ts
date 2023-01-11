@@ -6,6 +6,7 @@ import { RoomListComponent } from './room-list/room-list.component';
 import { RoomDetailsComponent } from './room-details/room-details.component';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { RoomsComponent } from './rooms.component';
+import { LibModule } from '../libs/lib.module';
 
 @NgModule({
   declarations: [RoomListComponent, RoomDetailsComponent, RoomsComponent],
@@ -15,6 +16,7 @@ import { RoomsComponent } from './rooms.component';
     AngularMaterialModule,
     RouterOutlet,
     RouterLink,
+    LibModule,
   ],
 })
 export class RoomListModule {}
