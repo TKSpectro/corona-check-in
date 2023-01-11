@@ -1,7 +1,7 @@
 import {
+  HTTP_INTERCEPTORS,
   HttpClient,
   HttpClientModule,
-  HTTP_INTERCEPTORS,
 } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -17,9 +17,11 @@ import { AppComponent } from './app.component';
 import { AuthModule } from './auth';
 import { AuthInterceptor } from './auth.interceptor';
 import { DashboardModule } from './dashboard';
-import { ConfirmationDialogComponent, SidenavComponent } from './libs';
+import { SidenavComponent } from './libs';
 import { ProfileModule } from './profile';
 import { RoomListModule } from './rooms/room-list.module';
+import { SessionsModule } from './sessions/sessions.module';
+import { LibModule } from './libs/lib.module';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -27,7 +29,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, SidenavComponent, ConfirmationDialogComponent],
+  declarations: [AppComponent, SidenavComponent],
   imports: [
     BrowserModule,
     RouterModule,
@@ -37,6 +39,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     NgxChartsModule,
     DashboardModule,
     RoomListModule,
+    SessionsModule,
+    LibModule,
     ProfileModule,
     AuthModule,
     AngularMaterialModule,
