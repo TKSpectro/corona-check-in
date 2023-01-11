@@ -5,7 +5,6 @@ interface Session {
   name: string;
   startTime: Date;
   endTime?: Date;
-  x;
   infected: boolean;
   note?: string;
 }
