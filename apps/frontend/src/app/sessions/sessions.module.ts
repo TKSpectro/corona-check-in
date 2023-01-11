@@ -5,7 +5,7 @@ import { AngularMaterialModule } from '../angular-material.module';
 import { SessionListComponent } from './session-list/session-list.component';
 import { SessionDetailsComponent } from './session-details/session-details.component';
 import { FormsModule } from '@angular/forms';
-import { SharedModule } from '../shared/shared.module';
+import { LibModule } from '../libs/lib.module';
 
 @NgModule({
   declarations: [SessionListComponent, SessionDetailsComponent],
@@ -14,7 +14,7 @@ import { SharedModule } from '../shared/shared.module';
     TranslateModule,
     AngularMaterialModule,
     FormsModule,
-    SharedModule,
+    LibModule,
   ],
 })
 export class SessionsModule {}
