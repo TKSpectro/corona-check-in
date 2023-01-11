@@ -1,3 +1,4 @@
+import { PageOptionsDto } from '@corona-check-in/micro-service-shared';
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { Observable } from 'rxjs';
@@ -9,21 +10,13 @@ import { UpdateRoomDto } from './update-rooms.dto';
 export class RoomsService {
   constructor(@Inject('rooms-service') private roomClient: ClientProxy) {}
 
-  createRoom(createRoomDto: RoomDto) {
-    return this.roomClient.send<RoomEntity>(
-      { role: 'room', cmd: 'createRoom' },
-      createRoomDto
-    );
-  }
-
   getRooms(
-    page: number,
-    limit: number,
+    pageOptionsDto: PageOptionsDto,
     roomFilter: string
   ): Observable<RoomEntity> {
     return this.roomClient.send<RoomEntity>(
       { role: 'rooms', cmd: 'getRooms' },
-      { page, limit, roomFilter }
+      { pageOptionsDto, roomFilter }
     );
   }
 
@@ -31,6 +24,13 @@ export class RoomsService {
     return this.roomClient.send<RoomEntity>(
       { role: 'room', cmd: 'getRoom' },
       id
+    );
+  }
+
+  createRoom(createRoomDto: RoomDto) {
+    return this.roomClient.send<RoomEntity>(
+      { role: 'room', cmd: 'createRoom' },
+      createRoomDto
     );
   }
 

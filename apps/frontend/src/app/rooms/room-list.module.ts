@@ -1,17 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RoomListComponent } from './room-list/room-list.component';
-import { AngularMaterialModule } from '../angular-material.module';
+import { NgModule } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { AngularMaterialModule } from '../angular-material.module';
+import { RoomListComponent } from './room-list/room-list.component';
 
 @NgModule({
   declarations: [RoomListComponent],
-  imports: [
-    CommonModule,
-    TranslateModule,
-    AngularMaterialModule,
-    MatPaginatorModule,
-  ],
+  imports: [CommonModule, TranslateModule, AngularMaterialModule],
 })
 export class RoomListModule {}

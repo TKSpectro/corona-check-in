@@ -5,8 +5,8 @@ import { AuthComponent, AuthGuard } from './auth';
 import { DashboardComponent } from './dashboard';
 import { ProfileComponent } from './profile';
 import { RoomListComponent } from './rooms';
-import { SessionDetailsComponent } from './dashboard/session-details/session-details.component';
-import { SessionListComponent } from './dashboard/session-list/session-list.component';
+import { SessionDetailsComponent } from './sessions/session-details/session-details.component';
+import { SessionListComponent } from './sessions/session-list/session-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },

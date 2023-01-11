@@ -1,0 +1,29 @@
+<table mat-table [dataSource]="sessionList" class="mat-elevation-z8">
+  <ng-container matColumnDef="startTime">
+    <mat-header-cell *matHeaderCellDef>{{
+      'SESSIONS.SESSION_START' | translate
+      }}</mat-header-cell>
+    <mat-cell *matCellDef="let session">{{
+      session.startTime | date : 'dd.MM.yyyy HH:mm:ss'
+      }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="endTime">
+    <mat-header-cell *matHeaderCellDef>{{
+      'SESSIONS.SESSION_END' | translate
+      }}</mat-header-cell>
+    <mat-cell *matCellDef="let session">{{
+      session.endTime | date : 'dd.MM.yyyy HH:mm:ss'
+      }}</mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="infected">
+    <mat-header-cell *matHeaderCellDef>{{
+      'SESSIONS.INFECTED' | translate
+      }}</mat-header-cell>
+    <mat-cell *matCellDef="let session"
+    ><mat-icon *ngIf="session.infected">check</mat-icon>
+      <mat-icon *ngIf="!session.infected">clear</mat-icon></mat-cell
+    >
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</table>

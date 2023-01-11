@@ -1,3 +1,4 @@
+import { Max, Min } from 'class-validator';
 import {
   BaseEntity,
   Column,
@@ -6,7 +7,6 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Max, Min } from 'class-validator';
 import { Faculty } from './faculty.enum';
 
 @Entity()
@@ -17,10 +17,10 @@ export class RoomEntity extends BaseEntity {
   @Column()
   name: string;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ name: 'created_at' })
   createdDate: Date;
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ name: 'updated_at' })
   updatedDate: Date;
 
   @Min(1)
