@@ -20,6 +20,7 @@ import { DashboardModule } from './dashboard';
 import { ConfirmationDialogComponent, SidenavComponent } from './libs';
 import { ProfileModule } from './profile';
 import { RoomListModule } from './rooms/room-list.module';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -27,7 +28,12 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, SidenavComponent, ConfirmationDialogComponent],
+  declarations: [
+    AppComponent,
+    SidenavComponent,
+    ConfirmationDialogComponent,
+    PageNotFoundComponent,
+  ],
   imports: [
     BrowserModule,
     RouterModule,

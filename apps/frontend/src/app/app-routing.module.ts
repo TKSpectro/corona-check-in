@@ -7,6 +7,9 @@ import { ProfileComponent } from './profile';
 import { RoomListComponent } from './rooms';
 import { SessionDetailsComponent } from './dashboard/session-details/session-details.component';
 import { SessionListComponent } from './dashboard/session-list/session-list.component';
+import { RoomDetailsComponent } from './rooms/room-details/room-details.component';
+import { RoomsComponent } from './rooms/rooms.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -23,11 +26,25 @@ const routes: Routes = [
   },
   {
     path: 'rooms',
+    component: RoomsComponent,
     canActivate: [AuthGuard],
-    component: RoomListComponent,
+    children: [
+      { path: '', component: RoomListComponent },
+      { path: ':id', component: RoomDetailsComponent },
+    ],
   },
-  { path: 'sessions/:id', component: SessionDetailsComponent },
-  { path: 'sessions', component: SessionListComponent },
+  {
+    path: 'sessions/:id',
+    canActivate: [AuthGuard],
+    component: SessionDetailsComponent,
+  },
+  {
+    path: 'sessions',
+    canActivate: [AuthGuard],
+    component: SessionListComponent,
+  },
+  { path: '404', component: PageNotFoundComponent },
+  { path: '**', redirectTo: '/404' },
 ];
 
 @NgModule({

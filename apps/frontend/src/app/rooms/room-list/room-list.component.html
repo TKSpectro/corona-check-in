@@ -47,7 +47,9 @@
     <mat-cell *matCellDef='let room'>{{ room.faculty }}</mat-cell>
   </ng-container>
   <mat-header-row *matHeaderRowDef='displayedColumns'></mat-header-row>
-  <mat-row *matRowDef='let row; columns: displayedColumns'></mat-row>
+  <mat-row
+    [routerLink]="[row.id]"
+    *matRowDef='let row; columns: displayedColumns'></mat-row>
 </table>
 
 <mat-paginator
