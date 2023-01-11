@@ -20,7 +20,7 @@ export class ServerService {
 
   getSessions(
     page = 0,
-    limit = 10,
+    take = 10,
     infected?: boolean,
     sessionBegin?: string,
     sessionEnd?: string,
@@ -29,7 +29,7 @@ export class ServerService {
     return this.httpClient.get('/api/sessions', {
       params: new HttpParams()
         .set('page', page.toString())
-        .set('limit', limit.toString())
+        .set('take', take.toString())
         .set('infected', infected ?? '')
         .set('sessionBegin', sessionBegin ? sessionBegin : '')
         .set('sessionEnd', sessionEnd ? sessionEnd : '')
