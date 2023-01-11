@@ -1,37 +1,48 @@
-.container{
+.container {
   display: flex;
+  flex-wrap: wrap;
 
-  >div{
+  > div {
     margin: 0.5em;
   }
 
-  .room-details{
-    flex-grow: 8;
+  .room-details {
+    flex: 70%;
 
-    .info-wrapper{
+    .info-wrapper {
       display: flex;
-      font-size: 18px;
-      >div{
-        flex-grow: 1;
+      font-size: 16px;
+      border-bottom: 1px solid gray;
+
+      > div {
+        flex: 50%;
         padding: 1em 8px;
       }
-      :first-child{
-        background-color: lime;
-      }
-      :last-child{
-        background-color: green;
-      }
+
+      //:first-child {
+      //  background-color: lime;
+      //}
+      //
+      //:last-child {
+      //  background-color: green;
+      //}
     }
   }
-  .room-code{
+
+  .qr-code {
     background-color: #0AAEB3;
-    flex-grow: 2;
+    flex: 25%;
   }
 }
-.mat-title{
- margin: 0;
+
+.mat-title {
+  margin: 0;
 }
 
-.is-mobile{
+.is-mobile {
   flex-direction: column;
+}
+
+.small {
+  font-size: 14px;
 }

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { RoomsService } from '../rooms.service';
 import { Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
-import { TranslateService } from '@ngx-translate/core';
 import { Room } from '../../shared/types';
 
 @Component({
@@ -29,10 +28,7 @@ export class RoomListComponent implements OnInit {
   page!: number;
   filter?: string;
 
-  constructor(
-    private roomSrv: RoomsService,
-    public translate: TranslateService
-  ) {}
+  constructor(private roomSrv: RoomsService) {}
 
   ngOnInit(): void {
     this.subscription = this.roomSrv.roomList$.subscribe((data) => {
