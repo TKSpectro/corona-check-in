@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AdminGuard, AuthComponent, AuthGuard } from './auth';
+import { AuthComponent, AuthGuard } from './auth';
 import { DashboardComponent } from './dashboard';
 import { SessionDetailsComponent } from './dashboard/session-details/session-details.component';
 import { SessionListComponent } from './dashboard/session-list/session-list.component';
@@ -36,11 +36,12 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     component: SessionListComponent,
   },
-  {
-    path: 'admin',
-    canActivate: [AuthGuard, AdminGuard],
-    component: ProfileComponent,
-  },
+  // TODO: Remove this, as it's just an example for AdminGuard usage
+  // {
+  //   path: 'admin',
+  //   canActivate: [AuthGuard, AdminGuard],
+  //   component: ProfileComponent,
+  // },
 ];
 
 @NgModule({
