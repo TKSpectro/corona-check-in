@@ -2,18 +2,19 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 interface DialogData {
-  id: string;
+  title: string;
+  description: string;
 }
 
 @Component({
-  selector: 'ccn-profile-delete-dialog',
-  templateUrl: 'profile-delete-dialog.component.html',
-  styleUrls: ['./profile.component.scss'],
+  selector: 'ccn-confirmation-dialog',
+  templateUrl: './confirmation-dialog.component.html',
+  styleUrls: ['./confirmation-dialog.component.scss'],
 })
-export class ProfileDeleteDialogComponent {
+export class ConfirmationDialogComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    public dialogRef: MatDialogRef<ProfileDeleteDialogComponent>
+    public dialogRef: MatDialogRef<ConfirmationDialogComponent>
   ) {}
 
   onNoClick(): void {

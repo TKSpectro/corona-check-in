@@ -1,24 +1,24 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import {
-  HTTP_INTERCEPTORS,
   HttpClient,
   HttpClientModule,
+  HTTP_INTERCEPTORS,
 } from '@angular/common/http';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { AngularMaterialModule } from './angular-material.module';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SidenavComponent } from './libs';
 import { AuthModule } from './auth';
 import { AuthInterceptor } from './auth.interceptor';
-import { AngularMaterialModule } from './angular-material.module';
 import { DashboardModule } from './dashboard';
+import { ConfirmationDialogComponent, SidenavComponent } from './libs';
 import { ProfileModule } from './profile';
-import { AppRoutingModule } from './app-routing.module';
 import { RoomListModule } from './rooms/room-list.module';
 
 // AoT requires an exported function for factories
@@ -27,7 +27,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, SidenavComponent],
+  declarations: [AppComponent, SidenavComponent, ConfirmationDialogComponent],
   imports: [
     BrowserModule,
     RouterModule,
