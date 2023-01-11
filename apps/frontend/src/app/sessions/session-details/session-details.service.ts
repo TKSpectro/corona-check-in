@@ -1,14 +1,14 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { ServerService } from '../../shared/server.service';
+import { Session } from '../../shared/types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SessionDetailsService {
-  sessionData!: any;
-  submitSessionData = new Subject<any>();
+  sessionData!: Session;
+  submitSessionData = new Subject<Session>();
 
   constructor(private serverSrv: ServerService) {}
 
@@ -22,5 +22,9 @@ export class SessionDetailsService {
         console.log(error.error.message);
       },
     });
+  }
+
+  updateSession(session: Session): Observable<Session> {
+    return this.serverSrv.updateSession(session);
   }
 }
