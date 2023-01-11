@@ -1,10 +1,8 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MediaMatcher } from '@angular/cdk/layout';
-import { RoomsService } from '../rooms.service';
 import { Subscription } from 'rxjs';
-import { Room } from '../../shared/types';
-import { SessionListService } from '../../dashboard/session-list/session-list.service';
+import { SessionListService } from '../../sessions/session-list.service';
 
 @Component({
   selector: 'ccn-room-details',

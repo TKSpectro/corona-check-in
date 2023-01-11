@@ -30,12 +30,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    SidenavComponent,
-    ConfirmationDialogComponent,
-    PageNotFoundComponent,
-  ],
+  declarations: [AppComponent, SidenavComponent, PageNotFoundComponent],
   imports: [
     BrowserModule,
     RouterModule,

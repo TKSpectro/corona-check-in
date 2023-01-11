@@ -5,11 +5,11 @@ import { AuthComponent, AuthGuard } from './auth';
 import { DashboardComponent } from './dashboard';
 import { ProfileComponent } from './profile';
 import { RoomListComponent } from './rooms';
-import { SessionDetailsComponent } from './dashboard/session-details/session-details.component';
-import { SessionListComponent } from './dashboard/session-list/session-list.component';
 import { RoomDetailsComponent } from './rooms/room-details/room-details.component';
 import { RoomsComponent } from './rooms/rooms.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { SessionDetailsComponent } from './sessions/session-details/session-details.component';
+import { SessionListComponent } from './sessions/session-list/session-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },

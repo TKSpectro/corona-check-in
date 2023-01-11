@@ -51,6 +51,7 @@
   </ng-container>
   <mat-header-row *matHeaderRowDef='displayedColumns'></mat-header-row>
   <mat-row
+    [routerLink]='row.id'
     *matRowDef='let row; columns: displayedColumns'></mat-row>
 </table>
 

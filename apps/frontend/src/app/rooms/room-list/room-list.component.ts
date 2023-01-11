@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Room } from '../../shared/types';
 import { RoomsService } from '../rooms.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'ccn-room-list',
