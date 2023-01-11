@@ -104,11 +104,11 @@
 </table>
 
 <mat-paginator
-  (page)="handlePageEvent($event)"
-  [length]="_meta?.total"
-  [pageSize]="_meta?.count"
   showFirstLastButtons
-  [pageIndex]="_meta?.page"
   aria-label="Select page of periodic elements"
+  [length]="_meta?.itemCount"
+  [pageSize]="_meta?.take"
+  [pageIndex]="_meta?.page"
+  (page)="handlePageEvent($event)"
 >
 </mat-paginator>

@@ -66,7 +66,7 @@ export class SessionListComponent implements OnInit, OnDestroy {
       )
       .subscribe(
         (data) => {
-          this.sessionData = data.sessions;
+          this.sessionData = data.data;
           this._meta = data._meta;
           this.dataSource = new MatTableDataSource(this.sessionData);
         },
