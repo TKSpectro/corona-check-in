@@ -1,1 +1,13 @@
-<p>room-details works!</p>
+<h2 class='mat-h2'>{{ 'ROOMS.ROOM_DETAILS' | translate }}</h2>
+<div class='container'
+     [class.is-mobile]='mobileQuery.matches'>
+  <div class='room-details'>
+    <div class='info-wrapper'
+         [class.is-mobile]='mobileQuery.matches'>
+      <div class='mat-title'>test</div>
+      <div class='mat-title'>test</div>
+    </div>
+  </div>
+  <div class='room-code'>2</div>
+
+</div>

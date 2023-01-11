@@ -1,0 +1,37 @@
+.container{
+  display: flex;
+
+  >div{
+    margin: 0.5em;
+  }
+
+  .room-details{
+    flex-grow: 8;
+
+    .info-wrapper{
+      display: flex;
+      font-size: 18px;
+      >div{
+        flex-grow: 1;
+        padding: 1em 8px;
+      }
+      :first-child{
+        background-color: lime;
+      }
+      :last-child{
+        background-color: green;
+      }
+    }
+  }
+  .room-code{
+    background-color: #0AAEB3;
+    flex-grow: 2;
+  }
+}
+.mat-title{
+ margin: 0;
+}
+
+.is-mobile{
+  flex-direction: column;
+}
