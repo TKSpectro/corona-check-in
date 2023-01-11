@@ -1,5 +1,5 @@
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Session } from '../../shared/types';
@@ -10,7 +10,7 @@ import { SessionDetailsService } from './session-details.service';
   templateUrl: './session-details.component.html',
   styleUrls: ['./session-details.component.scss'],
 })
-export class SessionDetailsComponent implements OnInit {
+export class SessionDetailsComponent implements OnInit, OnDestroy {
   sessionData!: Session;
   subscription: Subscription[] = [];
   id = '';
@@ -41,13 +41,19 @@ export class SessionDetailsComponent implements OnInit {
   }
 
   saveNote() {
-    this.sessionDetailsService.updateSession({
-      id: this.sessionData.id,
-      name: this.sessionData.name,
-      startTime: this.sessionData.startTime,
-      endTime: this.sessionData.endTime,
-      infected: this.sessionData.infected,
-      note: this.sessionData.note,
-    });
+    this.subscription.push(
+      this.sessionDetailsService
+        .updateSession({
+          id: this.sessionData.id,
+          name: this.sessionData.name,
+          startTime: this.sessionData.startTime,
+          endTime: this.sessionData.endTime,
+          infected: this.sessionData.infected,
+          note: this.sessionData.note,
+        })
+        .subscribe((data) => {
+          this.sessionData = data;
+        })
+    );
   }
 }

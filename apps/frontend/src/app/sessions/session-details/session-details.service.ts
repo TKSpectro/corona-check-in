@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { ServerService } from '../../shared/server.service';
 import { Session } from '../../shared/types';
 
@@ -7,8 +7,8 @@ import { Session } from '../../shared/types';
   providedIn: 'root',
 })
 export class SessionDetailsService {
-  sessionData!: any;
-  submitSessionData = new Subject<any>();
+  sessionData!: Session;
+  submitSessionData = new Subject<Session>();
 
   constructor(private serverSrv: ServerService) {}
 
@@ -24,11 +24,7 @@ export class SessionDetailsService {
     });
   }
 
-  updateSession(session: Session) {
-    this.serverSrv.updateSession(session).subscribe({
-      error: (error) => {
-        console.error(error);
-      },
-    });
+  updateSession(session: Session): Observable<Session> {
+    return this.serverSrv.updateSession(session);
   }
 }
