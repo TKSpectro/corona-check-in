@@ -20,6 +20,7 @@
   "INVALID_STARTDATE": "Invalid start date",
   "INVALID_ENDDATE": "Invalid end date",
   "RESET": "Reset",
+  "INFECTIONS": "Infections",
   "AUTH": {
     "SIGN_IN_INSTEAD": "Sign in instead",
     "CREATE_ACCOUNT": "Create account"

@@ -38,7 +38,7 @@ export class RoomListComponent implements OnInit {
   }
 
   loadRooms() {
-    this.roomSrv.getRooms(this.page, 10, this.filter).subscribe({
+    this.roomSrv.getRoomListWithMetaData(this.page, 10, this.filter).subscribe({
       next: (data) => {
         this.roomList = data.data;
         this._meta = data._meta;
