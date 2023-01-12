@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { Subscription } from 'rxjs';
 import { SessionListService } from '../../sessions/session-list.service';
+import { mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'ccn-room-details',
@@ -16,6 +17,7 @@ export class RoomDetailsComponent implements OnInit {
   isExpanded!: boolean;
   subscription: Subscription[] = [];
   sessionList = [];
+  infectedSessionList = [];
   _meta: any;
 
   constructor(
@@ -43,14 +45,22 @@ export class RoomDetailsComponent implements OnInit {
 
   loadSessions() {
     this.subscription.push(
-      this.sessionListService.getSessions(0, 5).subscribe({
-        next: (data) => {
-          console.log(data);
-          this.sessionList = data.rooms;
-          this._meta = data._meta;
-        },
-        error: (err) => console.error(err),
-      })
+      this.sessionListService
+        .getSessions(0, 5)
+        .pipe(
+          mergeMap((data) => {
+            this.sessionList = data.data;
+            return this.sessionListService.getSessions(0, 5, true);
+          })
+        )
+        .subscribe({
+          next: (data) => {
+            console.log('infected: ', data);
+            this.infectedSessionList = data.data;
+            this._meta = data._meta;
+          },
+          error: (err) => console.error(err),
+        })
     );
   }
 }
