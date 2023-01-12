@@ -10,10 +10,10 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { compareSync, hashSync } from 'bcrypt';
-import { Repository } from 'typeorm';
+import { Brackets, Repository } from 'typeorm';
 import { SignupUserDto } from '../auth/auth.dto';
 import { UserEntity, UserRole } from './user.entity';
-import { UpdateUserDto } from './users.dto';
+import { findAllQueryDto, UpdateUserDto } from './users.dto';
 
 @Injectable()
 export class UsersService implements OnModuleInit {
@@ -105,8 +105,27 @@ export class UsersService implements OnModuleInit {
     }
   }
 
-  async find(pageOptionsDto: PageOptionsDto) {
+  async find(pageOptionsDto: PageOptionsDto, query: findAllQueryDto) {
     const queryBuilder = this.userRepository.createQueryBuilder('user');
+
+    if (query.role && Object.values(UserRole).includes(query.role)) {
+      queryBuilder.andWhere('user.role = :role', { role: query.role });
+    }
+
+    if (query.search) {
+      queryBuilder.andWhere(
+        new Brackets((qb) => {
+          qb.where('user.email LIKE :search', { search: `%${query.search}%` })
+            .orWhere('user.firstname LIKE :search', {
+              search: `%${query.search}%`,
+            })
+            .orWhere('user.lastname LIKE :search', {
+              search: `%${query.search}%`,
+            });
+        })
+      );
+    }
+
     return findWithMeta(queryBuilder, pageOptionsDto, 'email');
   }
 
