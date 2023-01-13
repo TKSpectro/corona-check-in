@@ -7,6 +7,7 @@ import { RoomDetailsComponent } from './room-details/room-details.component';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { RoomsComponent } from './rooms.component';
 import { LibModule } from '../libs/lib.module';
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   declarations: [RoomListComponent, RoomDetailsComponent, RoomsComponent],
@@ -17,6 +18,7 @@ import { LibModule } from '../libs/lib.module';
     RouterOutlet,
     RouterLink,
     LibModule,
+    QRCodeModule,
   ],
 })
-export class RoomListModule {}
+export class RoomsModule {}

@@ -124,7 +124,7 @@ export class AppService {
       }
     }
     if (!isFaculty && roomFilter) {
-      queryBuilder.andWhere('name = :name', { name: roomFilter });
+      queryBuilder.andWhere('name like :name', { name: `%${roomFilter}%` });
     }
 
     return findWithMeta(queryBuilder, pageOptionsDto);
@@ -150,6 +150,7 @@ export class AppService {
           }
         )
       );
+      console.log(qrCode.qrCode.length);
       room.qrCode = qrCode.qrCode;
       room.createdQrCode = qrCode.generatedAt;
     }

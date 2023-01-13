@@ -27,7 +27,10 @@ export interface Room {
   maxParticipants: number;
   maxDuration: number;
   faculty: string;
-  qrCode: string;
+  qrCode: {
+    type: string;
+    data: Uint8Array;
+  };
   createdQrCode: string;
 }
 

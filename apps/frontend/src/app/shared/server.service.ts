@@ -66,8 +66,12 @@ export class ServerService {
     return this.httpClient.get('/api/rooms', {
       params: new HttpParams()
         .set('page', page.toString())
-        .set('limit', limit.toString())
+        .set('take', limit.toString())
         .set('roomFilter', roomFilter ? roomFilter : ''),
     });
+  }
+
+  getRoom(id: string): Observable<any> {
+    return this.httpClient.get(`/api/rooms/${id}`);
   }
 }

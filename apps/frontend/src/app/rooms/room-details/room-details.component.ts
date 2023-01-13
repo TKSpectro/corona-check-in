@@ -20,6 +20,7 @@ export class RoomDetailsComponent implements OnInit, OnDestroy {
   sessionList = [];
   infectedSessionList = [];
   roomList: Room[] = [];
+  qrCode = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -38,23 +39,42 @@ export class RoomDetailsComponent implements OnInit, OnDestroy {
       })
     );
 
-    this.loadRooms();
+    this.init();
     this.loadSessions();
   }
 
-  loadRooms() {
-    this.roomsSrv.getRoomListWithMetaData().subscribe({
-      next: (res) => {
-        this.roomList = res.data;
-        const selectedRoom = this.roomList.find(
-          (selectedRoom) => selectedRoom.id === this.id
-        );
-        if (selectedRoom) {
-          this.room = selectedRoom;
-        }
-      },
-      error: (err) => console.error(err),
-    });
+  init() {
+    const _meta: { page: number; take: number } = this.roomsSrv.getMetaData();
+    if (!_meta) {
+      this.roomsSrv.getRoomDetails(this.id).subscribe({
+        next: (data) => {
+          this.room = data;
+          this.qrCode = JSON.stringify(this.room.qrCode.data);
+          console.log('qrCode= ', this.qrCode);
+          console.log('length= ', this.room.qrCode.data.length);
+        },
+        error: (err) => console.error(err),
+      });
+      return;
+    }
+    console.log(_meta);
+    this.subscription.push(
+      this.roomsSrv.getRoomList(_meta.page, _meta.take).subscribe({
+        next: (res) => {
+          this.roomList = res.data;
+          const selectedRoom = this.roomList.find(
+            (selectedRoom) => selectedRoom.id === this.id
+          );
+          if (selectedRoom) {
+            this.room = selectedRoom;
+            this.qrCode = JSON.stringify(this.room.qrCode.data);
+            console.log('qrCode= ', this.qrCode);
+            console.log('length= ', this.room.qrCode.data.length);
+          }
+        },
+        error: (err) => console.error(err),
+      })
+    );
   }
 
   loadSessions() {

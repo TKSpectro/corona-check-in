@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ServerService } from '../shared/server.service';
-import { Observable, Subject } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Meta, Room } from '../shared/types';
 import { map } from 'rxjs/operators';
-import { of } from 'rxjs';
 
 interface RoomListResponse {
   data: Room[];
@@ -15,23 +14,33 @@ interface RoomListResponse {
 })
 export class RoomsService {
   private metaData!: RoomListResponse;
-  roomList$: Observable<any> = this.getRoomListWithMetaData();
 
   constructor(private serverSrv: ServerService) {}
 
-  getRoomListWithMetaData(
+  getMetaData() {
+    return this.metaData?._meta;
+  }
+  getRoomDetails(id: string): Observable<any> {
+    return this.serverSrv.getRoom(id);
+  }
+  getRoomList(
     page = 0,
-    limit = 10,
-    roomFilter?: string
+    take = 10,
+    roomFilter?: string,
+    id?: string
   ): Observable<any> {
     if (
+      !id &&
+      !roomFilter &&
+      page === this.metaData?._meta?.page &&
+      take === this.metaData?._meta?.take &&
       this.metaData &&
       this.metaData.data &&
       this.metaData.data.length !== 0
     ) {
       return of(this.metaData);
     }
-    return this.serverSrv.getRooms(page, limit, roomFilter).pipe(
+    return this.serverSrv.getRooms(page, take, roomFilter).pipe(
       map((data) => {
         this.metaData = { ...data };
         return data;

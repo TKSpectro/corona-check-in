@@ -22,7 +22,9 @@
         <div [class.small]='mobileQuery.matches'>{{room.maxDuration}}</div>
       </div>
     </div>
-    <div class='qr-code'>2</div>
+    <div class='qr-code'>
+      <qrcode [qrdata]="qrCode" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+    </div>
   </div>
   <div class='room-details-tables' [class.is-mobile]='mobileQuery.matches'>
     <div class='full-width'

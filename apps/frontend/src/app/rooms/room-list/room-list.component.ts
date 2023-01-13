@@ -31,14 +31,14 @@ export class RoomListComponent implements OnInit {
   constructor(private roomSrv: RoomsService) {}
 
   ngOnInit(): void {
-    this.subscription = this.roomSrv.roomList$.subscribe((data) => {
+    this.subscription = this.roomSrv.getRoomList().subscribe((data) => {
       this.roomList = data.data;
       this._meta = data._meta;
     });
   }
 
   loadRooms() {
-    this.roomSrv.getRoomListWithMetaData(this.page, 10, this.filter).subscribe({
+    this.roomSrv.getRoomList(this.page, 10, this.filter).subscribe({
       next: (data) => {
         this.roomList = data.data;
         this._meta = data._meta;
