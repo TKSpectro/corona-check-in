@@ -18,10 +18,10 @@ export class RoomEntity extends BaseEntity {
   name: string;
 
   @CreateDateColumn({ name: 'created_at' })
-  createdDate: Date;
+  createdAt: Date;
 
   @UpdateDateColumn({ name: 'updated_at' })
-  updatedDate: Date;
+  updatedAt: Date;
 
   @Min(1)
   @Max(60)
@@ -39,7 +39,7 @@ export class RoomEntity extends BaseEntity {
   })
   faculty: Faculty;
 
-  @Column({ nullable: true, type: 'bytea' })
+  @Column({ nullable: true, type: 'bytea', select: false })
   qrCode: Uint8Array;
 
   @Column({ nullable: true })

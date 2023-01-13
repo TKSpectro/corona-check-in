@@ -44,20 +44,20 @@ export class RoomDetailsComponent implements OnInit, OnDestroy {
   }
 
   init() {
-    const _meta: { page: number; take: number } = this.roomsSrv.getMetaData();
+    const _meta = this.roomsSrv.getMetaData();
     if (!_meta) {
       this.roomsSrv.getRoomDetails(this.id).subscribe({
         next: (data) => {
           this.room = data;
-          this.qrCode = JSON.stringify(this.room.qrCode.data);
-          console.log('qrCode= ', this.qrCode);
-          console.log('length= ', this.room.qrCode.data.length);
+          this.qrCode = JSON.stringify({
+            id: this.room.id,
+            name: this.room.createdQrCode,
+          });
         },
         error: (err) => console.error(err),
       });
       return;
     }
-    console.log(_meta);
     this.subscription.push(
       this.roomsSrv.getRoomList(_meta.page, _meta.take).subscribe({
         next: (res) => {
@@ -67,9 +67,10 @@ export class RoomDetailsComponent implements OnInit, OnDestroy {
           );
           if (selectedRoom) {
             this.room = selectedRoom;
-            this.qrCode = JSON.stringify(this.room.qrCode.data);
-            console.log('qrCode= ', this.qrCode);
-            console.log('length= ', this.room.qrCode.data.length);
+            this.qrCode = JSON.stringify({
+              id: this.room.id,
+              name: this.room.createdQrCode,
+            });
           }
         },
         error: (err) => console.error(err),

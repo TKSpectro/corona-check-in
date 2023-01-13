@@ -2,7 +2,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User, UserSignup } from '../auth/user';
-import { UpdateUser } from './types';
+import { PaginationResponse, Room, UpdateUser } from './types';
+import * as ts from 'typescript/lib/tsserverlibrary';
+import Session = ts.server.Session;
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +28,7 @@ export class ServerService {
     sessionEnd?: string,
     sessionName?: string
   ): Observable<any> {
-    return this.httpClient.get('/api/sessions', {
+    return this.httpClient.get<PaginationResponse<Session>>('/api/sessions', {
       params: new HttpParams()
         .set('page', page.toString())
         .set('take', take.toString())
@@ -58,12 +60,8 @@ export class ServerService {
     return this.httpClient.delete<any>(`/api/users/${id}`);
   }
 
-  getRooms(
-    page: number = 0,
-    limit: number = 10,
-    roomFilter?: string
-  ): Observable<any> {
-    return this.httpClient.get('/api/rooms', {
+  getRooms(page: number = 0, limit: number = 10, roomFilter?: string) {
+    return this.httpClient.get<PaginationResponse<Room>>('/api/rooms', {
       params: new HttpParams()
         .set('page', page.toString())
         .set('take', limit.toString())
@@ -71,7 +69,7 @@ export class ServerService {
     });
   }
 
-  getRoom(id: string): Observable<any> {
-    return this.httpClient.get(`/api/rooms/${id}`);
+  getRoom(id: string) {
+    return this.httpClient.get<Room>(`/api/rooms/${id}`);
   }
 }

@@ -27,18 +27,20 @@ export interface Room {
   maxParticipants: number;
   maxDuration: number;
   faculty: string;
-  qrCode: {
-    type: string;
-    data: Uint8Array;
-  };
+  qrCode: null;
   createdQrCode: string;
 }
 
-export interface Meta {
+export type Meta = {
   hasNextPage: boolean;
   hasPreviousPage: boolean;
   itemCount: number;
   pageCount: number;
   page: number;
   take: number;
-}
+};
+
+export type PaginationResponse<T> = {
+  data: T[];
+  _meta: Meta;
+};
