@@ -68,8 +68,4 @@ export class RoomListComponent implements OnInit {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-
-  naviagte(row: string) {
-    console.log('id= ', row);
-  }
 }

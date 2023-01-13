@@ -30,3 +30,12 @@ export interface Room {
   qrCode: string;
   createdQrCode: string;
 }
+
+export interface Meta {
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+  itemCount: number;
+  pageCount: number;
+  page: number;
+  take: number;
+}

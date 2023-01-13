@@ -19,7 +19,7 @@ export class RoomDetailsComponent implements OnInit, OnDestroy {
   subscription: Subscription[] = [];
   sessionList = [];
   infectedSessionList = [];
-  _meta: any;
+  roomList: Room[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -35,17 +35,26 @@ export class RoomDetailsComponent implements OnInit, OnDestroy {
     this.subscription.push(
       this.route.paramMap.subscribe((params) => {
         this.id = params.has('id') ? params.get('id')! : '';
-        const selectedRoom = this.roomsSrv.getRoom(this.id);
-        if (selectedRoom) this.room = selectedRoom;
       })
     );
 
-    this.subscription.push(
-      this.roomsSrv.roomSubject.subscribe((room: Room) => {
-        this.room = room;
-      })
-    );
+    this.loadRooms();
     this.loadSessions();
+  }
+
+  loadRooms() {
+    this.roomsSrv.getRoomListWithMetaData().subscribe({
+      next: (res) => {
+        this.roomList = res.data;
+        const selectedRoom = this.roomList.find(
+          (selectedRoom) => selectedRoom.id === this.id
+        );
+        if (selectedRoom) {
+          this.room = selectedRoom;
+        }
+      },
+      error: (err) => console.error(err),
+    });
   }
 
   loadSessions() {
@@ -61,7 +70,6 @@ export class RoomDetailsComponent implements OnInit, OnDestroy {
         .subscribe({
           next: (data) => {
             this.infectedSessionList = data.data;
-            this._meta = data._meta;
           },
           error: (err) => console.error(err),
         })
