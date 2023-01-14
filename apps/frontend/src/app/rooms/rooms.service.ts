@@ -18,6 +18,11 @@ export class RoomsService {
   getRoomDetails(id: string) {
     return this.serverSrv.getRoom(id);
   }
+
+  updateQrCode(room: Room) {
+    return this.serverSrv.updateQrCode(room);
+  }
+
   getRoomList(page = 0, take = 10, roomFilter?: string, id?: string) {
     if (
       !id &&

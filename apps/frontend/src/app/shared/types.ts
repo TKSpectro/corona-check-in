@@ -28,7 +28,7 @@ export interface Room {
   maxDuration: number;
   faculty: string;
   qrCode: null;
-  createdQrCode: string;
+  createdQrCode: Date;
 }
 
 export interface Session {

@@ -107,6 +107,18 @@ export class AppService {
     return room;
   }
 
+  async updateQrCode(updateRoomDto: UpdateRoomDto): Promise<RoomEntity> {
+    const updateRoom = await this.roomRepository.findOne({
+      where: { id: updateRoomDto.id },
+    });
+    updateRoom.createdQrCode = updateRoom.createdQrCode;
+    const room = await this.roomRepository.save(
+      this.roomRepository.merge(updateRoom, updateRoomDto)
+    );
+    room.qrCode = null;
+    return room;
+  }
+
   async deleteRoom(id: string): Promise<boolean> {
     return (await this.roomRepository.delete(id)).affected > 0;
   }

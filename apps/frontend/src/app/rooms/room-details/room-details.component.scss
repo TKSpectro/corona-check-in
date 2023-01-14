@@ -31,6 +31,12 @@
     flex: 15%;
     display: flex;
     justify-content: center;
+
+    .mat-icon{
+      font-size: 30px;
+      width: 30px;
+      height: 30px;
+    }
   }
 
   .room-details-tables {

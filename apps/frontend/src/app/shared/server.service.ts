@@ -74,4 +74,8 @@ export class ServerService {
   getRoom(id: string) {
     return this.httpClient.get<Room>(`/api/rooms/${id}`);
   }
+
+  updateQrCode(room: Room) {
+    return this.httpClient.put<Room>(`/api/rooms/qr-code`, room);
+  }
 }

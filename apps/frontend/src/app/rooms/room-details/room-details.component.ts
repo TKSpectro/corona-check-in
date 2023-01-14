@@ -100,4 +100,17 @@ export class RoomDetailsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription.forEach((sub) => sub.unsubscribe());
   }
+
+  renewCode() {
+    const newDate = new Date();
+    this.qrCode = JSON.stringify({
+      id: this.room.id,
+      name: newDate,
+    });
+    this.room.createdQrCode = newDate;
+    this.roomsSrv.updateQrCode(this.room).subscribe((data) => {
+      // TODO: show success message
+      console.log(data);
+    });
+  }
 }

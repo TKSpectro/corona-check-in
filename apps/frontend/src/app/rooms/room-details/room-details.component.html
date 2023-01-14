@@ -24,6 +24,7 @@
     </div>
     <div class='qr-code' [class.center]='mobileQuery.matches'>
       <qrcode [qrdata]="qrCode" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+      <div (click)='renewCode()'><mat-icon>autorenew</mat-icon></div>
     </div>
   </div>
   <div class='room-details-tables' [class.is-mobile]='mobileQuery.matches'>

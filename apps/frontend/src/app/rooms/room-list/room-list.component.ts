@@ -12,7 +12,6 @@ import { Subscription } from 'rxjs';
 export class RoomListComponent implements OnInit {
   displayedColumns: string[] = [
     'name',
-    'created',
     'updated',
     'maxParticipants',
     'maxDuration',
