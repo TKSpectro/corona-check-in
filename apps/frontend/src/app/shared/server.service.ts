@@ -3,8 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User, UserSignup } from '../auth/user';
 import { PaginationResponse, Room, UpdateUser } from './types';
-import * as ts from 'typescript/lib/tsserverlibrary';
-import Session = ts.server.Session;
 
 @Injectable({
   providedIn: 'root',
@@ -28,7 +26,7 @@ export class ServerService {
     sessionEnd?: string,
     sessionName?: string
   ): Observable<any> {
-    return this.httpClient.get<PaginationResponse<Session>>('/api/sessions', {
+    return this.httpClient.get<any>('/api/sessions', {
       params: new HttpParams()
         .set('page', page.toString())
         .set('take', take.toString())
