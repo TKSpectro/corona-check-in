@@ -31,6 +31,15 @@ export interface Room {
   createdQrCode: string;
 }
 
+export interface Session {
+  id: string;
+  name: string;
+  startTime: Date;
+  endTime?: Date;
+  infected: boolean;
+  note?: string;
+}
+
 export type Meta = {
   hasNextPage: boolean;
   hasPreviousPage: boolean;
