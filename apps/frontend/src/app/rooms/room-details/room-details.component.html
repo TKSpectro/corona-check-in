@@ -23,8 +23,11 @@
       </div>
     </div>
     <div class='qr-code' [class.center]='mobileQuery.matches'>
-      <qrcode [qrdata]="qrCode" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
-      <div (click)='renewCode()'><mat-icon>autorenew</mat-icon></div>
+      <qrcode [qrdata]='qrCode' [width]='220' [errorCorrectionLevel]="'M'"></qrcode>
+      <button class='primary-color qr-code-btn' mat-stroked-button (click)='renewCode()'>
+        <mat-icon>autorenew</mat-icon>
+        QrCode regenerieren
+      </button>
     </div>
   </div>
   <div class='room-details-tables' [class.is-mobile]='mobileQuery.matches'>

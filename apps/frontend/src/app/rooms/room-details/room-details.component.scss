@@ -31,8 +31,15 @@
     flex: 15%;
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
 
-    .mat-icon{
+    .qr-code-btn {
+      width: 220px;
+    }
+
+
+    .mat-icon {
       font-size: 30px;
       width: 30px;
       height: 30px;
