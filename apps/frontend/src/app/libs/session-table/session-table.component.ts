@@ -1,13 +1,5 @@
 import { Component, Input } from '@angular/core';
-
-interface Session {
-  id: string;
-  name: string;
-  startTime: Date;
-  endTime?: Date;
-  infected: boolean;
-  note?: string;
-}
+import { Session } from '../../shared/types';
 
 @Component({
   selector: 'ccn-session-table',
