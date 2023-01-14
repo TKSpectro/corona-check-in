@@ -23,13 +23,13 @@
     <mat-header-cell *matHeaderCellDef>{{
       'ROOMS.CREATE_ROOM' | translate
     }}</mat-header-cell>
-    <mat-cell *matCellDef="let room">{{ room.createdDate }}</mat-cell>
+    <mat-cell *matCellDef="let room">{{ room.createdAt }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="updated">
     <mat-header-cell *matHeaderCellDef>{{
       'ROOMS.UPDATE_ROOM' | translate
     }}</mat-header-cell>
-    <mat-cell *matCellDef="let room">{{ room.updatedDate }}</mat-cell>
+    <mat-cell *matCellDef="let room">{{ room.updatedAt }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="maxParticipants">
     <mat-header-cell *matHeaderCellDef>{{

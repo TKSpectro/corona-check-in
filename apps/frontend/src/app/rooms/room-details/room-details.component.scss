@@ -5,7 +5,7 @@
   .room-details-wrapper {
     width: 100%;
     display: flex;
-    height: 250px;
+    height: 256px;
   }
 
   .room-details {
@@ -28,7 +28,9 @@
   }
 
   .qr-code {
-    flex: 25%;
+    flex: 15%;
+    display: flex;
+    justify-content: center;
   }
 
   .room-details-tables {
@@ -62,6 +64,7 @@
   flex-direction: column;
   flex-wrap: nowrap;
   margin: 0 0 12px !important;
+  height: 100% !important;
 }
 
 .small {
@@ -72,6 +75,13 @@
 .margin {
   margin: 1em 0 !important;
 }
-.mat-spinner{
+
+.mat-spinner {
   margin: 1em auto;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  margin-top: 1em;
 }
