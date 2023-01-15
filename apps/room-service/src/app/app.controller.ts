@@ -36,6 +36,11 @@ export class AppController {
     return this.appService.updateRoom(updateRoomDto);
   }
 
+  @MessagePattern({ role: 'room', cmd: 'updateQrCode' })
+  updateQrCode(updateRoomDto: UpdateRoomDto): Promise<RoomEntity> {
+    return this.appService.updateQrCode(updateRoomDto);
+  }
+
   @MessagePattern({ role: 'room', cmd: 'deleteRoom' })
   deleteRoom(id: string): Promise<boolean> {
     return this.appService.deleteRoom(id);

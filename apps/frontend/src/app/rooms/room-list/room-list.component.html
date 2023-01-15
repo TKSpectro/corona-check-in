@@ -1,5 +1,6 @@
-<div class="filter-input">
-  <mat-form-field appearance="standard" class="full-width">
+<h2 class="mat-h2">{{ 'ROOMS.ROOMS' | translate }}</h2>
+<div class='filter-input'>
+  <mat-form-field appearance='standard' class='full-width'>
     <mat-label>Search...</mat-label>
     <input
       matInput
@@ -18,17 +19,11 @@
     <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
     <mat-cell *matCellDef="let room">{{ room.name }}</mat-cell>
   </ng-container>
-  <ng-container matColumnDef="created">
-    <mat-header-cell *matHeaderCellDef>{{
-      'ROOMS.CREATE_ROOM' | translate
-    }}</mat-header-cell>
-    <mat-cell *matCellDef="let room">{{ room.createdDate }}</mat-cell>
-  </ng-container>
   <ng-container matColumnDef="updated">
     <mat-header-cell *matHeaderCellDef>{{
       'ROOMS.UPDATE_ROOM' | translate
     }}</mat-header-cell>
-    <mat-cell *matCellDef="let room">{{ room.updatedDate }}</mat-cell>
+    <mat-cell *matCellDef="let room">{{ room.updatedAt | date : 'dd.MM.yyyy HH:mm'}}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="maxParticipants">
     <mat-header-cell *matHeaderCellDef>{{
@@ -40,24 +35,26 @@
     <mat-header-cell *matHeaderCellDef>{{
       'ROOMS.MAX_DURATION' | translate
     }}</mat-header-cell>
-    <mat-cell *matCellDef="let room">{{ room.maxDuration }}</mat-cell>
+    <mat-cell *matCellDef="let room">{{ room.maxDuration }} min.</mat-cell>
   </ng-container>
   <ng-container matColumnDef="faculty">
     <mat-header-cell *matHeaderCellDef>{{
       'ROOMS.FACULITY' | translate
     }}</mat-header-cell>
-    <mat-cell *matCellDef="let room">{{ room.faculty }}</mat-cell>
+    <mat-cell *matCellDef="let room">{{room.faculty}}</mat-cell>
   </ng-container>
-  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  <mat-header-row *matHeaderRowDef='displayedColumns'></mat-header-row>
+  <mat-row
+    [routerLink]='row.id'
+    *matRowDef='let row; columns: displayedColumns'></mat-row>
 </table>
 
 <mat-paginator
   showFirstLastButtons
   aria-label="Select page of periodic elements"
-  [length]="_meta?.itemCount"
-  [pageSize]="_meta?.take"
-  [pageIndex]="_meta?.page"
+  [length]="_meta.itemCount"
+  [pageSize]="_meta.take"
+  [pageIndex]="_meta.page"
   (page)="handlePageEvent($event)"
 >
 </mat-paginator>

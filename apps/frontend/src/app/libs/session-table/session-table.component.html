@@ -16,11 +16,11 @@
       }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="infected">
-    <mat-header-cell *matHeaderCellDef>{{
+    <mat-header-cell class="center" *matHeaderCellDef>{{
       'SESSIONS.INFECTED' | translate
       }}</mat-header-cell>
-    <mat-cell *matCellDef="let session"
-    ><mat-icon *ngIf="session.infected">check</mat-icon>
+    <mat-cell class="center" *matCellDef="let session">
+      <mat-icon *ngIf="session.infected">check</mat-icon>
       <mat-icon *ngIf="!session.infected">clear</mat-icon></mat-cell
     >
   </ng-container>

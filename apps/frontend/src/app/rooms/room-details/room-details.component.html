@@ -1,0 +1,47 @@
+<h2 class='mat-h2'>{{ 'ROOMS.ROOM_DETAILS' | translate }}</h2>
+<div class='container'
+     *ngIf='room'
+     [class.is-mobile]='mobileQuery.matches'>
+  <div class='room-details-wrapper' [class.is-mobile]='mobileQuery.matches'>
+    <div class='room-details'>
+      <div class='info-wrapper'
+           [class.is-mobile]='mobileQuery.matches'>
+        <div [class.small]='mobileQuery.matches'>Name</div>
+        <div [class.small]='mobileQuery.matches'>{{room.name}}</div>
+      </div>
+      <div class='info-wrapper' [class.is-mobile]='mobileQuery.matches'>
+        <div [class.small]='mobileQuery.matches'>{{
+          'ROOMS.MAX_PARTICIPANTS' | translate
+          }}</div>
+        <div [class.small]='mobileQuery.matches'>{{room.maxParticipants}}</div>
+      </div>
+      <div class='info-wrapper' [class.is-mobile]='mobileQuery.matches'>
+        <div [class.small]='mobileQuery.matches'>{{
+          'ROOMS.MAX_DURATION' | translate
+          }}</div>
+        <div [class.small]='mobileQuery.matches'>{{room.maxDuration}}</div>
+      </div>
+    </div>
+    <div class='qr-code' [class.center]='mobileQuery.matches'>
+      <qrcode [qrdata]='qrCode' [width]='220' [errorCorrectionLevel]="'M'"></qrcode>
+      <button class='primary-color qr-code-btn' mat-stroked-button (click)='renewCode()'>
+        <mat-icon>autorenew</mat-icon>
+        QrCode regenerieren
+      </button>
+    </div>
+  </div>
+  <div class='room-details-tables' [class.is-mobile]='mobileQuery.matches'>
+    <div class='full-width'
+         [class.margin]='mobileQuery.matches'
+         *ngIf='sessionList.length > 0'>
+      <h2 class='mat-h2'>{{ 'SESSIONS.SESSIONS' | translate }}</h2>
+      <ccn-session-table [sessionList]='sessionList'></ccn-session-table>
+    </div>
+    <div class='full-width' [class.margin]='mobileQuery.matches' *ngIf='infectedSessionList.length > 0'>
+      <h2 class='mat-h2'>{{ 'INFECTIONS' | translate }}</h2>
+      <ccn-session-table [sessionList]='infectedSessionList'></ccn-session-table>
+    </div>
+  </div>
+</div>
+<mat-spinner *ngIf='!room'></mat-spinner>
+

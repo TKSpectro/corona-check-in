@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { SessionTableComponent } from './session-table/session-table.component';
 import { AngularMaterialModule } from '../angular-material.module';
 import { TranslateModule } from '@ngx-translate/core';
-import { SidenavComponent } from './sidenav/sidenav.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { RouterOutlet } from '@angular/router';
 import { IncidenceComponent } from './graphs/incidence/incidence.component';

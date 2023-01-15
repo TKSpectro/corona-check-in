@@ -19,7 +19,8 @@ import { AuthInterceptor } from './auth.interceptor';
 import { DashboardModule } from './dashboard';
 import { SidenavComponent } from './libs';
 import { ProfileModule } from './profile';
-import { RoomListModule } from './rooms/room-list.module';
+import { RoomsModule } from './rooms/rooms.module';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { SessionsModule } from './sessions/sessions.module';
 import { LibModule } from './libs/lib.module';
 
@@ -29,7 +30,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, SidenavComponent],
+  declarations: [AppComponent, SidenavComponent, PageNotFoundComponent],
   imports: [
     BrowserModule,
     RouterModule,
@@ -38,7 +39,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserAnimationsModule,
     NgxChartsModule,
     DashboardModule,
-    RoomListModule,
+    RoomsModule,
     SessionsModule,
     LibModule,
     ProfileModule,

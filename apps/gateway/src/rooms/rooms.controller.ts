@@ -44,6 +44,11 @@ export class RoomsController {
     return this.roomsService.update(updateRoomDto);
   }
 
+  @Put('/qr-code')
+  updateQrCode(@Body() updateRoomDto: UpdateRoomDto) {
+    return this.roomsService.updateQrCode(updateRoomDto);
+  }
+
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.roomsService.removeRoom(id);
