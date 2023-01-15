@@ -52,9 +52,9 @@
 <mat-paginator
   showFirstLastButtons
   aria-label="Select page of periodic elements"
-  [length]="_meta?.itemCount"
-  [pageSize]="_meta?.take"
-  [pageIndex]="_meta?.page"
+  [length]="_meta.itemCount"
+  [pageSize]="_meta.take"
+  [pageIndex]="_meta.page"
   (page)="handlePageEvent($event)"
 >
 </mat-paginator>

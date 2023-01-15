@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { Room } from '../../shared/types';
+import { Meta, Room } from '../../shared/types';
 import { RoomsService } from '../rooms.service';
 import { Subscription } from 'rxjs';
 
@@ -20,7 +20,7 @@ export class RoomListComponent implements OnInit {
 
   roomList!: Room[];
   subscription!: Subscription;
-  _meta: any;
+  _meta!: Meta;
   pageEvent: PageEvent = new PageEvent();
   total!: number;
   limit!: number;

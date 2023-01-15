@@ -35,7 +35,7 @@ export class RoomDetailsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscription.push(
       this.route.paramMap.subscribe((params) => {
-        this.id = params.has('id') ? params.get('id')! : '';
+        this.id = params.get('id') || '';
       })
     );
 
@@ -46,16 +46,18 @@ export class RoomDetailsComponent implements OnInit, OnDestroy {
   init() {
     const _meta = this.roomsSrv.getMetaData();
     if (!_meta) {
-      this.roomsSrv.getRoomDetails(this.id).subscribe({
-        next: (data) => {
-          this.room = data;
-          this.qrCode = JSON.stringify({
-            id: this.room.id,
-            name: this.room.createdQrCode,
-          });
-        },
-        error: (err) => console.error(err),
-      });
+      this.subscription.push(
+        this.roomsSrv.getRoomDetails(this.id).subscribe({
+          next: (data) => {
+            this.room = data;
+            this.qrCode = JSON.stringify({
+              id: this.room.id,
+              name: this.room.createdQrCode,
+            });
+          },
+          error: (err) => console.error(err),
+        })
+      );
       return;
     }
     this.subscription.push(

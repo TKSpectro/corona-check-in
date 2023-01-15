@@ -111,7 +111,7 @@ export class AppService {
     const updateRoom = await this.roomRepository.findOne({
       where: { id: updateRoomDto.id },
     });
-    updateRoom.createdQrCode = updateRoom.createdQrCode;
+    updateRoom.createdQrCode = updateRoomDto.createdQrCode;
     const room = await this.roomRepository.save(
       this.roomRepository.merge(updateRoom, updateRoomDto)
     );
