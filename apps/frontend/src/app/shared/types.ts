@@ -27,6 +27,29 @@ export interface Room {
   maxParticipants: number;
   maxDuration: number;
   faculty: string;
-  qrCode: string;
-  createdQrCode: string;
+  qrCode: null;
+  createdQrCode: Date;
 }
+
+export interface Session {
+  id: string;
+  name: string;
+  startTime: Date;
+  endTime?: Date;
+  infected: boolean;
+  note?: string;
+}
+
+export type Meta = {
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+  itemCount: number;
+  pageCount: number;
+  page: number;
+  take: number;
+};
+
+export type PaginationResponse<T> = {
+  data: T[];
+  _meta: Meta;
+};

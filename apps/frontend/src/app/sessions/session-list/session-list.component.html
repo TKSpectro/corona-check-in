@@ -1,5 +1,5 @@
 <h2 class="mat-h2">{{ 'SESSIONS.SESSIONS' | translate }}</h2>
-<mat-form-field appearance="fill" class="filter-space">
+<mat-form-field appearance="standard" class="filter-space">
   <mat-label>Search Name</mat-label>
   <input
     matInput
@@ -9,7 +9,7 @@
   />
 </mat-form-field>
 
-<mat-form-field appearance="fill" class="filter-space">
+<mat-form-field appearance="standard" class="filter-space">
   <mat-label>{{ 'ENTER_DATERANGE' | translate }}</mat-label>
   <mat-date-range-input [rangePicker]="picker">
     <input
@@ -39,7 +39,7 @@
 </mat-form-field>
 
 <button
-  mat-raised-button
+  mat-stroked-button
   (click)="toggleInfectionFilter()"
   class="filter-space filter-button"
 >
@@ -58,42 +58,15 @@
   {{ 'RESET' | translate }}
 </button>
 
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-  <ng-container matColumnDef="startTime">
-    <mat-header-cell *matHeaderCellDef>{{
-      'SESSIONS.SESSION_START' | translate
-    }}</mat-header-cell>
-    <mat-cell *matCellDef="let session">{{
-      session.startTime | date: 'dd.MM.yyyy HH:mm:ss'
-    }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="endTime">
-    <mat-header-cell *matHeaderCellDef>{{
-      'SESSIONS.SESSION_END' | translate
-    }}</mat-header-cell>
-    <mat-cell *matCellDef="let session">{{
-      session.endTime | date: 'dd.MM.yyyy HH:mm:ss'
-    }}</mat-cell>
-  </ng-container>
-  <ng-container matColumnDef="infected">
-    <mat-header-cell *matHeaderCellDef>{{
-      'SESSIONS.INFECTED' | translate
-    }}</mat-header-cell>
-    <mat-cell *matCellDef="let session"
-      ><mat-icon *ngIf="session.infected">check</mat-icon>
-      <mat-icon *ngIf="!session.infected">clear</mat-icon></mat-cell
-    >
-  </ng-container>
-  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-</table>
+
+<ccn-session-table [sessionList]='sessionList'></ccn-session-table>
 
 <mat-paginator
-  (page)="handlePageEvent($event)"
-  [length]="_meta?.total"
-  [pageSize]="_meta?.count"
   showFirstLastButtons
-  [pageIndex]="_meta?.page"
   aria-label="Select page of periodic elements"
+  [length]="_meta?.itemCount"
+  [pageSize]="_meta?.take"
+  [pageIndex]="_meta?.page"
+  (page)="handlePageEvent($event)"
 >
 </mat-paginator>

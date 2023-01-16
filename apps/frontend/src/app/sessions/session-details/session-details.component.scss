@@ -1,5 +1,10 @@
 .session-card {
   max-width: 350px;
+  background-color: #225224;
+
+  &.infection-red {
+    background-color: #381111;
+  }
 }
 
 .note-input {
@@ -19,10 +24,5 @@
   min-height: 40px;
 }
 
-.infection-red {
-  background-color: #381111;
-}
 
-.infection-green {
-  background-color: #225224;
-}
+

@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { Subscription, switchMap, tap } from 'rxjs';
-import { SessionListService } from './session-list.service';
+import { Subscription } from 'rxjs';
+import { SessionListService } from '../session-list.service';
 
 @Component({
   selector: 'ccn-session-list',
@@ -11,15 +10,13 @@ import { SessionListService } from './session-list.service';
   styleUrls: ['./session-list.component.scss'],
 })
 export class SessionListComponent implements OnInit, OnDestroy {
-  displayedColumns: string[] = ['startTime', 'endTime', 'infected'];
-  sessionData!: any;
+  sessionList!: any;
   subscription!: Subscription;
   _meta: any;
   pageEvent: PageEvent = new PageEvent();
   total!: number;
   limit!: number;
   page!: number;
-  dataSource = new MatTableDataSource(this.sessionData);
   sessionNameFilter?: string;
   infected?: boolean;
   sessionBegin?: Date;
@@ -46,7 +43,6 @@ export class SessionListComponent implements OnInit, OnDestroy {
   }
 
   loadSessions() {
-    // TODO: This will be replaced by a service call
     this.subscription = this.sessionListService
       .getSessions(
         this.page,
@@ -56,14 +52,13 @@ export class SessionListComponent implements OnInit, OnDestroy {
         this.sessionEnd?.toDateString(),
         this.sessionNameFilter
       )
-      .subscribe(
-        (data) => {
-          this.sessionData = data.sessions;
+      .subscribe({
+        next: (data) => {
+          this.sessionList = data.data;
           this._meta = data._meta;
-          this.dataSource = new MatTableDataSource(this.sessionData);
         },
-        (err) => console.error(err)
-      );
+        error: (err) => console.error(err),
+      });
   }
 
   applyFilter(event: Event) {
