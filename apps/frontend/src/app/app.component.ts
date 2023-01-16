@@ -38,7 +38,7 @@ export class AppComponent implements OnDestroy, OnInit {
 
   ngOnInit() {
     this.authService.autoLogin();
-    this.adminService.requestIsAdmin();
+    this.adminService.requestIsAdmin().subscribe();
   }
 
   ngOnDestroy(): void {

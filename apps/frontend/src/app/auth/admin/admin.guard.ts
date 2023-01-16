@@ -22,7 +22,6 @@ export class AdminGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    const isAdmin = this.adminService.getIsAdmin();
-    return isAdmin || false;
+    return this.adminService.isAdmin || false;
   }
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { map } from 'rxjs';
 import { ServerService } from '../../shared/server.service';
 
 @Injectable({
@@ -16,22 +17,19 @@ export class AdminService {
 
   getIsAdmin() {
     if (this.isAdmin === null) {
-      this.requestIsAdmin();
-      return this.isAdmin;
+      return this.requestIsAdmin();
     } else {
       return this.isAdmin;
     }
   }
 
   requestIsAdmin() {
-    this.serverSrv.isAdmin().subscribe({
-      next: (result) => {
+    return this.serverSrv.isAdmin().pipe(
+      map((result) => {
         this.isAdmin = result.isAdmin;
-      },
-      error: () => {
-        this.isAdmin = false;
-      },
-    });
+        return result.isAdmin;
+      })
+    );
   }
 
   reset() {
