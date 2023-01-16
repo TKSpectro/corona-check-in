@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ServerService } from '../../../shared/server.service';
@@ -19,7 +18,7 @@ export class IncidenceService {
         this.submitChartData.next(this.chartData);
       },
       error: (error) => {
-        console.log(error.error.message);
+        console.error(error);
       },
     });
   }

@@ -1,17 +1,12 @@
 <div class="wrapper">
-  <button (click)="turnCameraOn = !turnCameraOn">Turn Camera On</button>
-  <div *ngIf="turnCameraOn">
-    <label>
-      Change Camera
-      <select [(ngModel)]="desiredDevice" (ngModelChange)="changeCamera()">
-        <option *ngFor="let device of cameraDevices" [ngValue]="device">
-          {{ device.label }}
-        </option>
-      </select>
-    </label>
-  </div>
-  <div class="qr-camera" *ngIf="turnCameraOn">
+  <div class="qr-camera-wrapper" (click)="toggleCamera()">
+    <mat-icon class="camera-icon" *ngIf="!turnCameraOn"
+      >camera_enhance</mat-icon
+    >
+
     <zxing-scanner
+      *ngIf="turnCameraOn"
+      [enable]="turnCameraOn"
       [(device)]="desiredDevice"
       (camerasFound)="camerasFoundHandler($event)"
       (camerasNotFound)="camerasNotFoundHandler($event)"
@@ -21,5 +16,15 @@
     ></zxing-scanner>
   </div>
 
+  <div *ngIf="turnCameraOn && cameraDevices.length > 1">
+    <mat-form-field class="qr-form-field">
+      <mat-label>Select a camera</mat-label>
+      <mat-select [(ngModel)]="desiredDevice" name="device">
+        <mat-option *ngFor="let device of cameraDevices" [value]="device">
+          {{ device.label }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
   <div *ngIf="noCameraFound"><p>No Camera Found</p></div>
 </div>
