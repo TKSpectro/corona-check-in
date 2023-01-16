@@ -1,6 +1,7 @@
 import { PageOptionsDto } from '@corona-check-in/micro-service-shared';
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Put, Query } from '@nestjs/common';
 import { firstValueFrom } from 'rxjs';
+import { UpdateSessionDto } from './sessions.dto';
 import { SessionsService } from './sessions.service';
 
 @Controller('sessions')
@@ -29,5 +30,10 @@ export class SessionsController {
         sessionEnd
       )
     );
+  }
+
+  @Put('')
+  update(@Body() updateSessionDto: UpdateSessionDto) {
+    return this.sessionsService.updateSession(updateSessionDto);
   }
 }

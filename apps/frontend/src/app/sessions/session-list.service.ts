@@ -1,19 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { ServerService } from '../../shared/server.service';
+import { ServerService } from '../shared/server.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SessionListService {
-  sessionData!: any;
-  submitSessionData = new Subject<any>();
-
   constructor(private serverSrv: ServerService) {}
 
   getSessions(
     page = 0,
-    limit = 10,
+    take = 10,
     infected?: boolean,
     sessionBegin?: string,
     sessionEnd?: string,
@@ -21,7 +18,7 @@ export class SessionListService {
   ) {
     return this.serverSrv.getSessions(
       page,
-      limit,
+      take,
       infected,
       sessionBegin,
       sessionEnd,

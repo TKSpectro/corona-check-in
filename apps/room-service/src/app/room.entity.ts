@@ -1,3 +1,4 @@
+import { Max, Min } from 'class-validator';
 import {
   BaseEntity,
   Column,
@@ -6,7 +7,6 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Max, Min } from 'class-validator';
 import { Faculty } from './faculty.enum';
 
 @Entity()
@@ -17,11 +17,11 @@ export class RoomEntity extends BaseEntity {
   @Column()
   name: string;
 
-  @CreateDateColumn()
-  createdDate: Date;
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 
-  @UpdateDateColumn()
-  updatedDate: Date;
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 
   @Min(1)
   @Max(60)
@@ -39,7 +39,7 @@ export class RoomEntity extends BaseEntity {
   })
   faculty: Faculty;
 
-  @Column({ nullable: true, type: 'bytea' })
+  @Column({ nullable: true, type: 'bytea', select: false })
   qrCode: Uint8Array;
 
   @Column({ nullable: true })

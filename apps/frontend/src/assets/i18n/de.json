@@ -20,6 +20,7 @@
   "INVALID_STARTDATE": "Ungültiges Startdatum",
   "INVALID_ENDDATE": "Ungültiges Enddatum",
   "RESET": "zurücksetzen",
+  "INFECTIONS": "Infezierungen",
   "AUTH": {
     "SIGN_IN_INSTEAD": "Stattdessen anmelden",
     "CREATE_ACCOUNT": "Konto erstellen"
@@ -76,7 +77,6 @@
     "MAX_PARTICIPANTS": "Maximale Teilnehmer",
     "MAX_DURATION": "Maximale Dauer",
     "FACULITY": "Fakultät"
-
   },
   "ERROR_OLD_PASSWORD_WRONG": "Altes Passwort ist falsch",
   "ERROR_PASSWORDS_NOT_MATCHING": "Neues Passwort stimmt nicht überein"

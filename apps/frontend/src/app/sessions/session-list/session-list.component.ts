@@ -1,10 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
-import { AdminService } from '../../auth/admin/admin.service';
-import { SessionListService } from './session-list.service';
+import { SessionListService } from '../session-list.service';
 
 @Component({
   selector: 'ccn-session-list',
@@ -12,21 +10,17 @@ import { SessionListService } from './session-list.service';
   styleUrls: ['./session-list.component.scss'],
 })
 export class SessionListComponent implements OnInit, OnDestroy {
-  displayedColumns: string[] = ['startTime', 'endTime', 'infected', 'actions'];
-  sessionData!: any;
+  sessionList!: any;
   subscription!: Subscription;
   _meta: any;
   pageEvent: PageEvent = new PageEvent();
   total!: number;
   limit!: number;
   page!: number;
-  dataSource = new MatTableDataSource(this.sessionData);
   sessionNameFilter?: string;
   infected?: boolean;
   sessionBegin?: Date;
   sessionEnd?: Date;
-
-  adminService: AdminService;
 
   // Datepicker
   range = new FormGroup({
@@ -42,19 +36,13 @@ export class SessionListComponent implements OnInit, OnDestroy {
     this.loadSessions();
   }
 
-  constructor(
-    private sessionListService: SessionListService,
-    adminService: AdminService
-  ) {
-    this.adminService = adminService;
-  }
+  constructor(private sessionListService: SessionListService) {}
 
   ngOnInit(): void {
     this.loadSessions();
   }
 
   loadSessions() {
-    // TODO: This will be replaced by a service call
     this.subscription = this.sessionListService
       .getSessions(
         this.page,
@@ -64,14 +52,13 @@ export class SessionListComponent implements OnInit, OnDestroy {
         this.sessionEnd?.toDateString(),
         this.sessionNameFilter
       )
-      .subscribe(
-        (data) => {
-          this.sessionData = data.data;
+      .subscribe({
+        next: (data) => {
+          this.sessionList = data.data;
           this._meta = data._meta;
-          this.dataSource = new MatTableDataSource(this.sessionData);
         },
-        (err) => console.error(err)
-      );
+        error: (err) => console.error(err),
+      });
   }
 
   applyFilter(event: Event) {

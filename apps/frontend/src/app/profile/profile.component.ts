@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { ProfileDeleteDialogComponent } from './profile-delete-dialog-component';
+import { ConfirmationDialogComponent } from '../libs';
 import { ProfileService } from './profile.service';
 
 @Component({
@@ -90,8 +90,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   handleDelete() {
-    const dialogRef = this.dialog.open(ProfileDeleteDialogComponent, {
-      data: { id: this.id },
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        title: 'PROFILES.DELETE_USER',
+        description: 'PROFILES.DELETE_USER_WARNING',
+      },
     });
 
     dialogRef.afterClosed().subscribe((result) => {

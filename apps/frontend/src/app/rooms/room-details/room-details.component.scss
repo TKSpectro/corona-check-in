@@ -1,0 +1,100 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+
+  .room-details-wrapper {
+    width: 100%;
+    display: flex;
+    height: 256px;
+  }
+
+  .room-details {
+    flex: 70%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+
+    .info-wrapper {
+      display: flex;
+      font-size: 16px;
+      border-bottom: 1px solid gray;
+
+      > div {
+        flex: 50%;
+        padding: 1em 8px;
+      }
+
+    }
+  }
+
+  .qr-code {
+    flex: 15%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    .qr-code-btn {
+      width: 220px;
+    }
+
+
+    .mat-icon {
+      font-size: 30px;
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  .room-details-tables {
+    display: flex;
+    width: 100%;
+    margin-top: 6em;
+
+    .full-width {
+      width: 100%;
+    }
+
+    :first-child {
+      margin-right: 6px;
+    }
+
+    :last-child {
+      margin-left: 6px;
+    }
+
+    > div {
+      flex: 50%;
+    }
+  }
+}
+
+.mat-title {
+  margin: 0;
+}
+
+.is-mobile {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  margin: 0 0 12px !important;
+  height: 100% !important;
+}
+
+.small {
+  font-size: 14px;
+  padding: 4px 8px !important;
+}
+
+.margin {
+  margin: 1em 0 !important;
+}
+
+.mat-spinner {
+  margin: 1em auto;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  margin-top: 1em;
+}

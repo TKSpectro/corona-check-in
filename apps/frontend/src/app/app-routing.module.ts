@@ -3,10 +3,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent, AuthGuard } from './auth';
 import { DashboardComponent } from './dashboard';
-import { SessionDetailsComponent } from './dashboard/session-details/session-details.component';
-import { SessionListComponent } from './dashboard/session-list/session-list.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ProfileComponent } from './profile';
 import { RoomListComponent } from './rooms';
+import { RoomDetailsComponent } from './rooms/room-details/room-details.component';
+import { RoomsComponent } from './rooms/rooms.component';
+import { SessionDetailsComponent } from './sessions/session-details/session-details.component';
+import { SessionListComponent } from './sessions/session-list/session-list.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -23,8 +26,12 @@ const routes: Routes = [
   },
   {
     path: 'rooms',
+    component: RoomsComponent,
     canActivate: [AuthGuard],
-    component: RoomListComponent,
+    children: [
+      { path: '', component: RoomListComponent },
+      { path: ':id', component: RoomDetailsComponent },
+    ],
   },
   {
     path: 'sessions/:id',
@@ -36,12 +43,8 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     component: SessionListComponent,
   },
-  // TODO: Remove this, as it's just an example for AdminGuard usage
-  // {
-  //   path: 'admin',
-  //   canActivate: [AuthGuard, AdminGuard],
-  //   component: ProfileComponent,
-  // },
+  { path: '404', component: PageNotFoundComponent },
+  { path: '**', redirectTo: '/404' },
 ];
 
 @NgModule({

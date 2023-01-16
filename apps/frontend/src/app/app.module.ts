@@ -18,8 +18,11 @@ import { AuthModule } from './auth';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { DashboardModule } from './dashboard';
 import { SidenavComponent } from './libs';
+import { LibModule } from './libs/lib.module';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ProfileModule } from './profile';
-import { RoomListModule } from './rooms/room-list.module';
+import { RoomsModule } from './rooms/rooms.module';
+import { SessionsModule } from './sessions/sessions.module';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -27,7 +30,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, SidenavComponent],
+  declarations: [AppComponent, SidenavComponent, PageNotFoundComponent],
   imports: [
     BrowserModule,
     RouterModule,
@@ -36,7 +39,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserAnimationsModule,
     NgxChartsModule,
     DashboardModule,
-    RoomListModule,
+    RoomsModule,
+    SessionsModule,
+    LibModule,
     ProfileModule,
     AuthModule,
     AngularMaterialModule,
