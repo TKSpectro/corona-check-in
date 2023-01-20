@@ -20,7 +20,6 @@ export class AppService implements OnModuleInit {
       if (
         !(await this.sessionRepository.findOne({
           where: [
-            { name: `seed-session-${i}` },
             { id: `00000000-0000-0000-0002-0000000000${i < 10 ? 0 : ''}${i}` },
           ],
         }))
@@ -28,7 +27,6 @@ export class AppService implements OnModuleInit {
         try {
           await this.sessionRepository.insert({
             id: `00000000-0000-0000-0002-0000000000${i < 10 ? 0 : ''}${i}`,
-            name: `seed-session-${i}`,
             startTime: `2022-12-${i < 10 ? 0 : ''}${i}T08:00:00`,
             endTime:
               i % 2 === 0 ? `2022-12-${i < 10 ? '0' : ''}${i}T09:30:00` : null,
@@ -45,7 +43,6 @@ export class AppService implements OnModuleInit {
   getSessions(
     pageOptionsDto: PageOptionsDto,
     infected?: string,
-    sessionName?: string,
     sessionBegin?: Date,
     sessionEnd?: Date
   ) {
@@ -54,11 +51,6 @@ export class AppService implements OnModuleInit {
     // This is kinda hacky, infected will be a string even if it's typed as a boolean
     if (infected === 'true' || infected === 'false') {
       queryBuilder.andWhere('infected = :infected', { infected });
-    }
-    if (sessionName) {
-      queryBuilder.andWhere('name like :sessionName', {
-        sessionName: `%${sessionName}%`,
-      });
     }
     if (sessionBegin) {
       queryBuilder.andWhere('startTime >= :sessionBegin', { sessionBegin });

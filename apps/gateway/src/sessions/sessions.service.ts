@@ -11,13 +11,12 @@ export class SessionsService {
   getSessions(
     pageOptionsDto: PageOptionsDto,
     infected?: boolean,
-    sessionName?: string,
     sessionBegin?: Date,
     sessionEnd?: Date
   ) {
     return this.sessionClient.send(
       { role: 'sessions', cmd: 'get-all' },
-      { pageOptionsDto, infected, sessionName, sessionBegin, sessionEnd }
+      { pageOptionsDto, infected, sessionBegin, sessionEnd }
     );
   }
   getSessionById(id: string) {

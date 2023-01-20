@@ -49,7 +49,6 @@ export class SessionDetailsComponent implements OnInit, OnDestroy {
       this.serverSrv
         .updateSession({
           id: this.sessionData.id,
-          name: this.sessionData.name,
           startTime: this.sessionData.startTime,
           endTime: this.sessionData.endTime,
           infected: this.sessionData.infected,

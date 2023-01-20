@@ -25,7 +25,6 @@ export class SessionsController {
       this.sessionsService.getSessions(
         pageOptionsDto,
         infected,
-        sessionName,
         sessionBegin,
         sessionEnd
       )

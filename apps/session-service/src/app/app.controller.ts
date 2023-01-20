@@ -14,20 +14,17 @@ export class AppController {
   getSessions({
     pageOptionsDto,
     infected,
-    sessionName,
     sessionBegin,
     sessionEnd,
   }: {
     pageOptionsDto: PageOptionsDto;
     infected?: string;
-    sessionName?: string;
     sessionBegin?: Date;
     sessionEnd?: Date;
   }) {
     return this.appService.getSessions(
       pageOptionsDto,
       infected,
-      sessionName,
       sessionBegin,
       sessionEnd
     );
