@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { SessionDetailsComponent } from '../../sessions/session-details/session-details.component';
 import { Session } from '../../shared/types';
 
 @Component({
@@ -8,5 +10,12 @@ import { Session } from '../../shared/types';
 })
 export class SessionTableComponent {
   @Input() sessionList: Session[] = [];
-  displayedColumns: string[] = ['startTime', 'endTime', 'infected'];
+  displayedColumns: string[] = ['startTime', 'endTime', 'infected', 'actions'];
+  constructor(public dialog: MatDialog) {}
+
+  openDialog(id: string) {
+    this.dialog.open(SessionDetailsComponent, {
+      data: { id: id },
+    });
+  }
 }

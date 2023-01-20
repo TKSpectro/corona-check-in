@@ -21,6 +21,7 @@
   "INVALID_ENDDATE": "Invalid end date",
   "RESET": "Reset",
   "INFECTIONS": "Infections",
+  "ACTIONS": "Actions",
   "AUTH": {
     "SIGN_IN_INSTEAD": "Sign in instead",
     "CREATE_ACCOUNT": "Create account"
@@ -63,7 +64,7 @@
     "SESSION_OVERVIEW": "Session overview",
     "SESSION_START": "Session start",
     "SESSION_END": "Session end",
-    "INFECTED": "infected",
+    "INFECTED": "Infected",
     "NOTE": "Note"
   },
   "ROOMS": {

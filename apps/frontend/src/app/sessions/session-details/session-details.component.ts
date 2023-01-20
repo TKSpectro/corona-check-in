@@ -1,5 +1,6 @@
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Session } from '../../shared/types';
@@ -17,17 +18,17 @@ export class SessionDetailsComponent implements OnInit, OnDestroy {
 
   constructor(
     private sessionDetailsService: SessionDetailsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    @Inject(MAT_DIALOG_DATA) public data: { id: string }
   ) {}
 
   @ViewChild('autosize') autosize!: CdkTextareaAutosize;
 
   ngOnInit(): void {
-    this.subscription.push(
-      this.route.paramMap.subscribe((params) => {
-        this.id = params.has('id') ? params.get('id') || '' : '';
-      })
-    );
+    if (this.data) {
+      this.id = this.data.id;
+    }
+
     this.sessionDetailsService.getSessionById(this.id);
     this.subscription.push(
       this.sessionDetailsService.submitSessionData.subscribe((data) => {
