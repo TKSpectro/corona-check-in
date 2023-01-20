@@ -67,7 +67,14 @@ export class SessionListComponent implements OnInit, OnDestroy {
   }
 
   toggleInfectionFilter() {
-    this.infected = !this.infected;
+    if (this.infected === undefined) {
+      this.infected = true;
+    } else if (this.infected === true) {
+      this.infected = false;
+    } else if (this.infected === false) {
+      this.infected = undefined;
+    }
+
     this.loadSessions();
   }
 
