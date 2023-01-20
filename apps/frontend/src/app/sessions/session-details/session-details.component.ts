@@ -3,8 +3,8 @@ import { Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ServerService } from '../../shared/server.service';
 import { Session } from '../../shared/types';
-import { SessionDetailsService } from './session-details.service';
 
 @Component({
   selector: 'ccn-session-details',
@@ -17,7 +17,7 @@ export class SessionDetailsComponent implements OnInit, OnDestroy {
   id = '';
 
   constructor(
-    private sessionDetailsService: SessionDetailsService,
+    private serverSrv: ServerService,
     private route: ActivatedRoute,
     @Inject(MAT_DIALOG_DATA) public data: { id: string }
   ) {}
@@ -27,14 +27,17 @@ export class SessionDetailsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (this.data) {
       this.id = this.data.id;
+      this.subscription.push(
+        this.serverSrv.getSessionById(this.id).subscribe({
+          next: (data) => {
+            this.sessionData = data;
+          },
+          error: (error) => {
+            console.log(error.error.message);
+          },
+        })
+      );
     }
-
-    this.sessionDetailsService.getSessionById(this.id);
-    this.subscription.push(
-      this.sessionDetailsService.submitSessionData.subscribe((data) => {
-        this.sessionData = data;
-      })
-    );
   }
 
   ngOnDestroy() {
@@ -43,7 +46,7 @@ export class SessionDetailsComponent implements OnInit, OnDestroy {
 
   saveNote() {
     this.subscription.push(
-      this.sessionDetailsService
+      this.serverSrv
         .updateSession({
           id: this.sessionData.id,
           name: this.sessionData.name,
