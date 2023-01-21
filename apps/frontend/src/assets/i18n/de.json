@@ -19,6 +19,7 @@
   "ENTER_DATERANGE": "Zeitspanne eingeben",
   "INVALID_STARTDATE": "Ungültiges Startdatum",
   "INVALID_ENDDATE": "Ungültiges Enddatum",
+  "ACTIONS": "Aktionen",
   "RESET": "zurücksetzen",
   "INFECTIONS": "Infezierungen",
   "AUTH": {
@@ -64,7 +65,9 @@
     "SESSION_START": "Session-Beginn",
     "SESSION_END": "Session-Ende",
     "INFECTED": "Infiziert",
-    "NOTE": "Notiz"
+    "NOTE": "Notiz",
+    "MARK_INFECTED_TOOLTIP": "Diese Session als infiziert markieren",
+    "MARK_INFECTED_TOOLTIP_DISABLED": "Die Session ist bereits als infiziert markiert"
   },
   "ROOMS": {
     "ROOMS": "Räume",

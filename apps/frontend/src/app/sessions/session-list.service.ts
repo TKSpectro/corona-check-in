@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
 import { ServerService } from '../shared/server.service';
+import { Session } from '../shared/types';
 
 @Injectable({
   providedIn: 'root',
@@ -24,5 +24,16 @@ export class SessionListService {
       sessionEnd,
       sessionName
     );
+  }
+
+  markAsInfected(session: Session) {
+    return this.serverSrv.updateSession({
+      ...session,
+      infected: true,
+    });
+  }
+
+  deleteSession(sessionId: string) {
+    return this.serverSrv.deleteSession(sessionId);
   }
 }
