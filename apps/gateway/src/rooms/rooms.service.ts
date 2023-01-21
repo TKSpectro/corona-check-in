@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { Observable } from 'rxjs';
 import { RoomEntity } from './room.entity';
-import { RoomDto } from './rooms.dto';
+import { findAllQuery, RoomDto } from './rooms.dto';
 import { UpdateRoomDto } from './update-rooms.dto';
 
 @Injectable()
@@ -12,11 +12,11 @@ export class RoomsService {
 
   getRooms(
     pageOptionsDto: PageOptionsDto,
-    roomFilter: string
+    query: findAllQuery
   ): Observable<RoomEntity> {
     return this.roomClient.send<RoomEntity>(
       { role: 'rooms', cmd: 'getRooms' },
-      { pageOptionsDto, roomFilter }
+      { pageOptionsDto, query }
     );
   }
 

@@ -19,3 +19,8 @@ export class RoomDto {
   @IsEnum(Faculty)
   faculty: Faculty;
 }
+
+export interface findAllQuery {
+  name?: string;
+  faculty?: Faculty;
+}

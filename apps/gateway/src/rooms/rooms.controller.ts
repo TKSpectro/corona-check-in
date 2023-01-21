@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { firstValueFrom, Observable } from 'rxjs';
 import { RoomEntity } from './room.entity';
-import { RoomDto } from './rooms.dto';
+import { findAllQuery, RoomDto } from './rooms.dto';
 import { RoomsService } from './rooms.service';
 import { UpdateRoomDto } from './update-rooms.dto';
 
@@ -22,10 +22,10 @@ export class RoomsController {
   @Get()
   async findAll(
     @Query() pageOptionsDto: PageOptionsDto,
-    @Query('roomFilter') roomFilter = ''
+    @Query() query: findAllQuery
   ) {
     return await firstValueFrom(
-      this.roomsService.getRooms(pageOptionsDto, roomFilter)
+      this.roomsService.getRooms(pageOptionsDto, query)
     );
   }
 

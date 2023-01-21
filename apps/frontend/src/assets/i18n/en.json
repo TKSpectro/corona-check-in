@@ -79,5 +79,9 @@
     "FACULITY": "faculty"
   },
   "ERROR_OLD_PASSWORD_WRONG": "Old password is wrong",
-  "ERROR_PASSWORDS_NOT_MATCHING": "New password is not matching"
+  "ERROR_PASSWORDS_NOT_MATCHING": "New password is not matching",
+  "FACULTY": {
+    "AI": "AI-ENG",
+    "SA": "SA-ENG"
+  }
 }
