@@ -92,6 +92,7 @@ services:
       - DB_PORT=5432
       - DB_HOST=postgres
       - REDIS_HOST=redis
+      - SEEDING_ENABLED=true
     ports:
       - '3333:3333'
     networks:
@@ -114,6 +115,7 @@ services:
       - DB_PORT=5432
       - DB_HOST=postgres
       - REDIS_HOST=redis
+      - SEEDING_ENABLED=true
     ports:
       - '8082:3333'
     networks:
@@ -136,6 +138,7 @@ services:
       - DB_PORT=5432
       - DB_HOST=postgres
       - REDIS_HOST=redis
+      - SEEDING_ENABLED=true
     ports:
       - '8083:3333'
     networks:
@@ -158,6 +161,7 @@ services:
       - DB_PORT=5432
       - DB_HOST=postgres
       - REDIS_HOST=redis
+      - SEEDING_ENABLED=true
     ports:
       - '8084:3333'
     networks:
@@ -165,6 +169,29 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.session-service.rule=Host(`session-service.localhost`)
+
+  room-service:
+    container_name: ccn_prod_room_service
+    image: ccn-room-service
+    depends_on:
+      - 'redis'
+      - 'postgres'
+    environment:
+      - DB_VERSION=13-alpine
+      - DB_USERNAME=postgres_user
+      - DB_PASSWORD=postgres_password
+      - DB_DATABASE=ccn
+      - DB_PORT=5432
+      - DB_HOST=postgres
+      - REDIS_HOST=redis
+      - SEEDING_ENABLED=true
+    ports:
+      - '8085:3333'
+    networks:
+      - ccn-network
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.room-service.rule=Host(`room-service.localhost`)
 
 volumes:
   postgres:

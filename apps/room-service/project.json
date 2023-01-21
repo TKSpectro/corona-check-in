@@ -48,6 +48,18 @@
         "jestConfig": "apps/room-service/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          { "command": "nx build room-service" },
+          {
+            "command": "docker build -f ./docker/room-service.dockerfile . -t ccn-room-service"
+          }
+        ],
+        "parallel": false
+      }
     }
   },
   "tags": []
