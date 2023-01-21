@@ -63,6 +63,7 @@ services:
     volumes:
       - '$PWD/monitoring/grafana:/var/lib/grafana'
       - metrics-ui-data:/var/lib/grafana
+      - ./docker/grafana:/etc/grafana/provisioning
     links:
       - prometheus:prometheus
     environment:
@@ -147,7 +148,7 @@ services:
       - traefik.enable=true
       - traefik.http.routers.qr-code-service.rule=Host(`qr-code-service.localhost`)
 
-  session-service:
+  sessionservice:
     container_name: ccn_prod_session_service
     image: ccn-session-service
     depends_on:
