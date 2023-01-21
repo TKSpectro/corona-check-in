@@ -5,6 +5,7 @@ import {
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { environment } from '../environments/environment';
 import { SessionEntity } from './session.entity';
 import { UpdateSessionDto } from './sessions.dto';
 
@@ -16,29 +17,11 @@ export class AppService implements OnModuleInit {
   ) {}
 
   async onModuleInit() {
-    for (let i = 1; i < 26; i++) {
-      if (
-        !(await this.sessionRepository.findOne({
-          where: [
-            { name: `seed-session-${i}` },
-            { id: `00000000-0000-0000-0002-0000000000${i < 10 ? 0 : ''}${i}` },
-          ],
-        }))
-      ) {
-        try {
-          await this.sessionRepository.insert({
-            id: `00000000-0000-0000-0002-0000000000${i < 10 ? 0 : ''}${i}`,
-            name: `seed-session-${i}`,
-            startTime: `2022-12-${i < 10 ? 0 : ''}${i}T08:00:00`,
-            endTime:
-              i % 2 === 0 ? `2022-12-${i < 10 ? '0' : ''}${i}T09:30:00` : null,
-            infected: i % 2 === 0 ? true : false,
-          });
-        } catch (error) {
-          // do nothing
-        }
-      }
-      await new Promise((resolve) => setTimeout(resolve, 10));
+    if (environment.seedEnabled === true) {
+      console.info('[SESSION] Seeding sessions...');
+      await seed();
+    } else {
+      console.info('[SESSION] Seeding disabled.');
     }
   }
 
@@ -84,5 +67,32 @@ export class AppService implements OnModuleInit {
     return await this.sessionRepository.save(
       this.sessionRepository.merge(updateSession, updateSessionDto)
     );
+  }
+}
+
+async function seed() {
+  for (let i = 1; i < 26; i++) {
+    if (
+      !(await this.sessionRepository.findOne({
+        where: [
+          { name: `seed-session-${i}` },
+          { id: `00000000-0000-0000-0002-0000000000${i < 10 ? 0 : ''}${i}` },
+        ],
+      }))
+    ) {
+      try {
+        await this.sessionRepository.insert({
+          id: `00000000-0000-0000-0002-0000000000${i < 10 ? 0 : ''}${i}`,
+          name: `seed-session-${i}`,
+          startTime: `2022-12-${i < 10 ? 0 : ''}${i}T08:00:00`,
+          endTime:
+            i % 2 === 0 ? `2022-12-${i < 10 ? '0' : ''}${i}T09:30:00` : null,
+          infected: i % 2 === 0 ? true : false,
+        });
+      } catch (error) {
+        // do nothing
+      }
+    }
+    await new Promise((resolve) => setTimeout(resolve, 10));
   }
 }
