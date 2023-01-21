@@ -30,7 +30,7 @@ export class AppService {
   async onModuleInit() {
     if (environment.seedEnabled === true) {
       console.info('[ROOM] Seeding rooms...');
-      await seed();
+      await this.#seed();
     } else {
       console.info('[ROOM] Seeding disabled.');
     }
@@ -111,25 +111,25 @@ export class AppService {
   async deleteRoom(id: string): Promise<boolean> {
     return (await this.roomRepository.delete(id)).affected > 0;
   }
-}
 
-async function seed() {
-  for (let i = 0; i < 25; ++i) {
-    if (
-      !(await this.roomRepository.findOne({
-        where: {
+  async #seed() {
+    for (let i = 0; i < 25; ++i) {
+      if (
+        !(await this.roomRepository.findOne({
+          where: {
+            id: `00000000-0000-0000-0002-0000000000${i < 10 ? 0 : ''}${i}`,
+          },
+        }))
+      ) {
+        await this.roomRepository.insert({
           id: `00000000-0000-0000-0002-0000000000${i < 10 ? 0 : ''}${i}`,
-        },
-      }))
-    ) {
-      await this.roomRepository.insert({
-        id: `00000000-0000-0000-0002-0000000000${i < 10 ? 0 : ''}${i}`,
-        name: `room-session-${i}`,
-        maxDuration: randomInt(30, 240),
-        maxParticipants: randomInt(10, 100),
-        qrCode: null,
-        createdQrCode: new Date(),
-      });
+          name: `room-session-${i}`,
+          maxDuration: randomInt(30, 240),
+          maxParticipants: randomInt(10, 100),
+          qrCode: null,
+          createdQrCode: new Date(),
+        });
+      }
     }
   }
 }
