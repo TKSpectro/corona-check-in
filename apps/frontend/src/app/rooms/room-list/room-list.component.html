@@ -1,6 +1,6 @@
 <h2 class="mat-h2">{{ 'ROOMS.ROOMS' | translate }}</h2>
-<div class='filter-input'>
-  <mat-form-field appearance='standard' class='full-width'>
+<div class="filter-input">
+  <mat-form-field appearance="standard" class="full-width">
     <mat-label>Search...</mat-label>
     <input
       matInput
@@ -23,7 +23,9 @@
     <mat-header-cell *matHeaderCellDef>{{
       'ROOMS.UPDATE_ROOM' | translate
     }}</mat-header-cell>
-    <mat-cell *matCellDef="let room">{{ room.updatedAt | date : 'dd.MM.yyyy HH:mm'}}</mat-cell>
+    <mat-cell *matCellDef="let room">{{
+      room.updatedAt | customDate
+    }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="maxParticipants">
     <mat-header-cell *matHeaderCellDef>{{
@@ -41,12 +43,13 @@
     <mat-header-cell *matHeaderCellDef>{{
       'ROOMS.FACULITY' | translate
     }}</mat-header-cell>
-    <mat-cell *matCellDef="let room">{{room.faculty}}</mat-cell>
+    <mat-cell *matCellDef="let room">{{ room.faculty }}</mat-cell>
   </ng-container>
-  <mat-header-row *matHeaderRowDef='displayedColumns'></mat-header-row>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row
-    [routerLink]='row.id'
-    *matRowDef='let row; columns: displayedColumns'></mat-row>
+    [routerLink]="row.id"
+    *matRowDef="let row; columns: displayedColumns"
+  ></mat-row>
 </table>
 
 <mat-paginator
