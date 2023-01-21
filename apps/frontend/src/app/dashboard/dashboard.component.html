@@ -1,26 +1,22 @@
-<ccn-qr-code-scanner></ccn-qr-code-scanner>
+<h1>{{ 'DASHBOARD' | translate }}</h1>
 
-<mat-slider min="1" max="100" step="1" value="50"></mat-slider>
+<mat-grid-list cols="9" rowHeight="160px">
+  <mat-grid-tile
+    [rowspan]="mobileQuery.matches ? 1 : 2"
+    [colspan]="mobileQuery.matches ? 9 : 6"
+  >
+    <ccn-session-card style="width: 100%"></ccn-session-card>
+  </mat-grid-tile>
+  <mat-grid-tile [rowspan]="2" [colspan]="mobileQuery.matches ? 9 : 3">
+    <ccn-qr-code-scanner></ccn-qr-code-scanner>
+  </mat-grid-tile>
+</mat-grid-list>
 
-<label>
-  {{ 'LANGUAGE' | translate }}
-  <select #langSelect (change)="translate.use(langSelect.value)">
-    <option
-      *ngFor="let lang of translate.getLangs()"
-      [value]="lang"
-      [selected]="lang === translate.currentLang"
-    >
-      {{ lang }}
-    </option>
-  </select>
-</label>
+<ccn-session-table
+  [sessionList]="sessionList"
+  style="margin-top: 1em; width: 100%"
+></ccn-session-table>
 
-<div>
-  <input [(ngModel)]="name" />
-  <button (click)="addItemHandler()">{{ 'CLICK' | translate }}</button>
-
-  <div *ngFor="let item of items">{{ item.id }} {{ item.name }}</div>
-</div>
-
-<ccn-incidence></ccn-incidence>
-<p *ngFor="let content of fillerContent">{{ content }}</p>
+<ccn-incidence
+  style="display: grid; margin-top: 1em; height: 300px"
+></ccn-incidence>

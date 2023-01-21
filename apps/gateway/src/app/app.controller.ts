@@ -20,7 +20,7 @@ export class AppController {
   @Get('admin')
   @Roles(UserRole.ADMIN)
   getAdmin() {
-    return 'You are a admin';
+    return { isAdmin: true };
   }
 
   @Get('admin-or-user')

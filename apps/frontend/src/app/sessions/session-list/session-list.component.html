@@ -1,0 +1,72 @@
+<h2 class="mat-h2">{{ 'SESSIONS.SESSIONS' | translate }}</h2>
+<mat-form-field appearance="standard" class="filter-space">
+  <mat-label>Search Name</mat-label>
+  <input
+    matInput
+    (keyup)="applyFilter($event)"
+    placeholder="Search Columns"
+    #input
+  />
+</mat-form-field>
+
+<mat-form-field appearance="standard" class="filter-space">
+  <mat-label>{{ 'ENTER_DATERANGE' | translate }}</mat-label>
+  <mat-date-range-input [rangePicker]="picker">
+    <input
+      matStartDate
+      [(ngModel)]="sessionBegin"
+      placeholder="MM/DD/YYYY"
+      (dateInput)="sessionInputChanged()"
+      (dateChange)="sessionInputChanged()"
+    />
+    <input
+      matEndDate
+      [(ngModel)]="sessionEnd"
+      placeholder="MM/DD/YYYY"
+      (dateInput)="sessionInputChanged()"
+      (dateChange)="sessionInputChanged()"
+    />
+  </mat-date-range-input>
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-date-range-picker #picker></mat-date-range-picker>
+
+  <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">{{
+    'INVALID_STARTDATE' | translate
+  }}</mat-error>
+  <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">{{
+    'INVALID_ENDDATE' | translate
+  }}</mat-error>
+</mat-form-field>
+
+<button
+  mat-stroked-button
+  (click)="toggleInfectionFilter()"
+  class="filter-space filter-button"
+>
+  <mat-icon *ngIf="infected">check</mat-icon>
+  <mat-icon *ngIf="infected === false">clear</mat-icon>
+  <mat-icon *ngIf="infected === undefined">remove</mat-icon>
+  {{ 'SESSIONS.INFECTED' | translate }}
+</button>
+
+<button
+  mat-stroked-button
+  color="warn"
+  (click)="resetFilter()"
+  class="filter-space filter-button"
+>
+  {{ 'RESET' | translate }}
+</button>
+
+
+<ccn-session-table [sessionList]='sessionList'></ccn-session-table>
+
+<mat-paginator
+  showFirstLastButtons
+  aria-label="Select page of periodic elements"
+  [length]="_meta?.itemCount"
+  [pageSize]="_meta?.take"
+  [pageIndex]="_meta?.page"
+  (page)="handlePageEvent($event)"
+>
+</mat-paginator>

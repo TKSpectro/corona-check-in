@@ -42,6 +42,7 @@
     "@zxing/browser": "^0.1.1",
     "@zxing/library": "^0.19.1",
     "@zxing/ngx-scanner": "^3.8.0",
+    "angularx-qrcode": "^14.0.0",
     "bcrypt": "^5.1.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",

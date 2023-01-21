@@ -1,0 +1,15 @@
+table {
+  width: 100%;
+}
+
+
+.mat-row:hover .mat-cell {
+  background-color: #5c5b5b;
+  cursor: pointer;
+
+}
+.filter-input {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1em;
+}

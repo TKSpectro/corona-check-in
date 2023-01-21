@@ -1,57 +1,53 @@
-import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { MediaMatcher } from '@angular/cdk/layout';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
+import { SessionListService } from '../sessions/session-list.service';
 
 @Component({
   selector: 'ccn-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent {
-  name!: string;
-  fillerContent = Array.from(
-    { length: 50 },
-    () =>
-      `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-       labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-       laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-       voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-       cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`
-  );
-  public items!: { id: string; name: string }[];
+export class DashboardComponent implements OnInit, OnDestroy {
+  mobileQuery: MediaQueryList;
+  _mobileQueryListener: () => void;
+  isExpanded!: boolean;
 
-  testJwt =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAdHVyYm9tZWV0Lnh5eiIsInN1YiI6IjAwMDAwMDAwLTAwMDAtMDAwMC0wMDAwLTAwMDAwMDAwMDAwMiIsInJvbGVzIjoidXNlciIsImlhdCI6MTY2ODUzODI0MywiZXhwIjoxNjcxMTMwMjQzfQ.5kGUhp8oWctxBMpA_LQW_uLRzGjuhrRWukooX6siouE';
+  sessionListSub!: Subscription;
+  sessionList = [];
 
-  constructor(private http: HttpClient, public translate: TranslateService) {
+  constructor(
+    public translate: TranslateService,
+    media: MediaMatcher,
+    changeDetectorRef: ChangeDetectorRef,
+    private sessionListService: SessionListService
+  ) {
     translate.addLangs(['en', 'de']);
     const browserLang = translate.getBrowserLang();
     browserLang
       ? translate.use(browserLang.match(/en|fr/) ? browserLang : 'en')
       : '';
 
-    const req = this.http.get<{ id: string; name: string }[]>('/api/items', {
-      headers: { Authorization: `Bearer ${this.testJwt}` },
-    });
+    this.mobileQuery = media.matchMedia('(max-width: 1150px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addEventListener(
+      'change',
+      (event) => (this.isExpanded = !event.matches)
+    );
+  }
 
-    req.subscribe((items) => {
-      this.items = items;
+  ngOnInit(): void {
+    this.sessionListSub = this.sessionListService.getSessions(0, 5).subscribe({
+      next: (data) => {
+        this.sessionList = data.data;
+      },
+      error: (err) => console.error(err),
     });
   }
 
-  addItemHandler() {
-    this.http
-      .post<{ id: string; name: string }>(
-        '/api/items',
-        {
-          name: this.name,
-        },
-        {
-          headers: { Authorization: `Bearer ${this.testJwt}` },
-        }
-      )
-      .subscribe((item) => {
-        this.items.push(item);
-      });
+  ngOnDestroy(): void {
+    this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
+    this.sessionListSub.unsubscribe();
   }
 }
