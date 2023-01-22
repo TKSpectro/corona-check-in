@@ -32,8 +32,27 @@ export class UsersService implements OnModuleInit {
     }
   }
 
-  async find(pageOptionsDto: PageOptionsDto) {
+  async find(pageOptionsDto: PageOptionsDto, query: findAllQueryDto) {
     const queryBuilder = this.userRepository.createQueryBuilder('user');
+
+    if (query.role && Object.values(UserRole).includes(query.role)) {
+      queryBuilder.andWhere('user.role = :role', { role: query.role });
+    }
+
+    if (query.search) {
+      queryBuilder.andWhere(
+        new Brackets((qb) => {
+          qb.where('user.email LIKE :search', { search: `%${query.search}%` })
+            .orWhere('user.firstname LIKE :search', {
+              search: `%${query.search}%`,
+            })
+            .orWhere('user.lastname LIKE :search', {
+              search: `%${query.search}%`,
+            });
+        })
+      );
+    }
+
     return findWithMeta(queryBuilder, pageOptionsDto, 'email');
   }
 
@@ -180,91 +199,5 @@ export class UsersService implements OnModuleInit {
         // console.log(error);
       }
     }
-  }
-
-  async find(pageOptionsDto: PageOptionsDto, query: findAllQueryDto) {
-    const queryBuilder = this.userRepository.createQueryBuilder('user');
-
-    if (query.role && Object.values(UserRole).includes(query.role)) {
-      queryBuilder.andWhere('user.role = :role', { role: query.role });
-    }
-
-    if (query.search) {
-      queryBuilder.andWhere(
-        new Brackets((qb) => {
-          qb.where('user.email LIKE :search', { search: `%${query.search}%` })
-            .orWhere('user.firstname LIKE :search', {
-              search: `%${query.search}%`,
-            })
-            .orWhere('user.lastname LIKE :search', {
-              search: `%${query.search}%`,
-            });
-        })
-      );
-    }
-
-    return findWithMeta(queryBuilder, pageOptionsDto, 'email');
-  }
-
-  async findOne(email: string) {
-    return this.userRepository.findOne({
-      where: { email: email },
-    });
-  }
-
-  async create(user: UserEntity | SignupUserDto) {
-    return this.userRepository.save(user);
-  }
-
-  async update(id: string, data: UpdateUserDto) {
-    const user = await this.userRepository.findOne({ where: { id: id } });
-
-    if (!user) {
-      throw new HttpException({}, HttpStatus.NOT_FOUND);
-    }
-
-    if (user.role !== UserRole.ADMIN) {
-      delete data.role;
-    }
-
-    if (data.newPassword) {
-      if (!data.oldPassword || !compareSync(data.oldPassword, user.password)) {
-        throw new HttpException(
-          'ERROR_OLD_PASSWORD_WRONG',
-          HttpStatus.BAD_REQUEST
-        );
-      }
-
-      if (data.newPassword !== data.newPasswordRepeat) {
-        throw new HttpException(
-          'ERROR_PASSWORDS_NOT_MATCHING',
-          HttpStatus.BAD_REQUEST
-        );
-      }
-
-      data['password'] = hashSync(data.newPassword, 10);
-    }
-
-    Object.assign(user, data);
-
-    return { ...(await user.save()), password: undefined };
-  }
-
-  async delete(id: string) {
-    const user = await this.userRepository.findOne({ where: { id: id } });
-
-    if (!user) {
-      return false;
-    }
-
-    user.deleted = true;
-    user.email = 'deleted-' + user.id;
-    user.firstname = '';
-    user.lastname = '';
-    user.password = '';
-
-    await this.userRepository.save(user);
-
-    return true;
   }
 }
