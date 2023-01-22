@@ -1,6 +1,8 @@
 .session-card {
   max-width: 350px;
   background-color: #225224;
+  margin: -24px;
+  padding: 24px;
 
   &.infection-red {
     background-color: #381111;
@@ -26,4 +28,8 @@
 
 .mat-spinner {
   margin: 1em auto;
+}
+
+.button-space {
+  margin-right: 20px;
 }
