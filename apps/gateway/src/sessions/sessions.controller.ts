@@ -17,7 +17,6 @@ export class SessionsController {
   async getSessions(
     @Query() pageOptionsDto: PageOptionsDto,
     @Query('infected') infected?: boolean,
-    @Query('sessionName') sessionName?: string,
     @Query('sessionBegin') sessionBegin?: Date,
     @Query('sessionEnd') sessionEnd?: Date
   ) {
