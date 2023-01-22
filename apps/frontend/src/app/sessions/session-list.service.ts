@@ -10,7 +10,7 @@ export class SessionListService {
 
   getSessions(
     page = 0,
-    limit = 10,
+    take = 10,
     infected?: boolean,
     sessionBegin?: string,
     sessionEnd?: string,
@@ -18,7 +18,7 @@ export class SessionListService {
   ) {
     return this.serverSrv.getSessions(
       page,
-      limit,
+      take,
       infected,
       sessionBegin,
       sessionEnd,

@@ -41,6 +41,13 @@ export class RoomsService {
     );
   }
 
+  updateQrCode(updateRoomDto: UpdateRoomDto) {
+    return this.roomClient.send<RoomEntity>(
+      { role: 'room', cmd: 'updateQrCode' },
+      updateRoomDto
+    );
+  }
+
   removeRoom(id: string): Observable<RoomEntity> {
     return this.roomClient.send({ role: 'room', cmd: 'deleteRoom' }, id);
   }

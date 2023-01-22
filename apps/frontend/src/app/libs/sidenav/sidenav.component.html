@@ -14,34 +14,38 @@
       <h1
         mat-list-item
         *ngIf="!mobileQuery.matches"
-        class="ims-title"
+        class="primary-color ims-title"
         routerLink="./"
       >
         <span>CoronaCheckIn</span>
       </h1>
       <mat-nav-list [class.is-mobile]="mobileQuery.matches">
-        <a mat-list-item routerLink="./">
-          <mat-icon>home</mat-icon>
+        <a mat-list-item routerLink="/">
+          <mat-icon>dashboard</mat-icon>
           <span>{{ 'DASHBOARD' | translate }}</span></a
         >
         <a mat-list-item routerLink="./">
           <mat-icon>bar_chart</mat-icon>
           <span>{{ 'STATISTICS' | translate }}</span></a
         >
-        <a mat-list-item routerLink="./">
+        <a mat-list-item routerLink="sessions">
           <mat-icon>watch_later</mat-icon>
           <span>{{ 'SESSIONS.SESSION' | translate }}</span></a
         >
         <a mat-list-item routerLink="rooms">
-          <mat-icon>watch_later</mat-icon>
+          <mat-icon>home</mat-icon>
           <span>{{ 'ROOMS.ROOMS' | translate }}</span></a
         >
-        <a mat-list-item routerLink="./profile">
+        <a mat-list-item routerLink="profile">
           <mat-icon>person</mat-icon>
           <span>{{ 'PROFILES.PROFILE' | translate }}</span></a
         >
+        <a mat-list-item *ngIf="adminService.isAdmin" routerLink="./admin">
+          <mat-icon>person</mat-icon>
+          <span>{{ 'onlyAdmin' | translate }}</span></a
+        >
       </mat-nav-list>
-      <h3 mat-list-item routerLink="./profile">
+      <h3 mat-list-item routerLink="profile">
         <span>{{ 'IMPRINT' | translate }}</span>
       </h3>
     </div>

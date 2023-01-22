@@ -1,8 +1,37 @@
 .wrapper {
-  .qr-camera {
-    width: 300px;
-    height: 300px;
-    margin: auto;
-    background-color: bisque;
+  .camera-icon {
+    height: 250px;
+    width: 250px;
+    font-size: 4rem;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    text-decoration: none;
   }
+  .qr-camera-wrapper {
+    display: inline-block;
+    // margin: 15px 15px 4px;
+    margin: auto;
+
+    width: 250px;
+    height: 250px;
+
+    background-color: transparent;
+
+    border-radius: 50%;
+    background-color: rgba(128, 128, 128, 0.5);
+  }
+
+  .qr-form-field {
+    width: 100%;
+    // Have to use margin-bottom because mat-form-field gives us no way to remove the unnecessary padding-bottom
+    margin-bottom: -1.25em;
+  }
+}
+
+// Have to use ng:deep because ngx-scanner doesn't provide any other styling method
+:host zxing-scanner::ng-deep video {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
 }

@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User, UserSignup } from '../auth/user';
-import { UpdateUser } from './types';
+import { PaginationResponse, Room, UpdateUser, Session } from './types';
 
 @Injectable({
   providedIn: 'root',
@@ -20,21 +20,25 @@ export class ServerService {
 
   getSessions(
     page = 0,
-    limit = 10,
+    take = 10,
     infected?: boolean,
     sessionBegin?: string,
     sessionEnd?: string,
     sessionName?: string
   ): Observable<any> {
-    return this.httpClient.get('/api/sessions', {
+    return this.httpClient.get<any>('/api/sessions', {
       params: new HttpParams()
         .set('page', page.toString())
-        .set('limit', limit.toString())
+        .set('take', take.toString())
         .set('infected', infected ?? '')
         .set('sessionBegin', sessionBegin ? sessionBegin : '')
         .set('sessionEnd', sessionEnd ? sessionEnd : '')
         .set('sessionName', sessionName ? sessionName : ''),
     });
+  }
+
+  updateSession(session: Session): Observable<Session> {
+    return this.httpClient.put<Session>(`/api/sessions`, session);
   }
 
   // cross domain problem
@@ -44,6 +48,10 @@ export class ServerService {
 
   signup(user: UserSignup): Observable<{ token: string }> {
     return this.httpClient.post<{ token: string }>('/api/auth/signup', user);
+  }
+
+  isAdmin() {
+    return this.httpClient.get<{ isAdmin: boolean }>('/api/admin');
   }
 
   me(): Observable<User> {
@@ -58,16 +66,20 @@ export class ServerService {
     return this.httpClient.delete<any>(`/api/users/${id}`);
   }
 
-  getRooms(
-    page: number = 0,
-    limit: number = 10,
-    roomFilter?: string
-  ): Observable<any> {
-    return this.httpClient.get('/api/rooms', {
+  getRooms(page: number = 0, limit: number = 10, roomFilter?: string) {
+    return this.httpClient.get<PaginationResponse<Room>>('/api/rooms', {
       params: new HttpParams()
         .set('page', page.toString())
-        .set('limit', limit.toString())
+        .set('take', limit.toString())
         .set('roomFilter', roomFilter ? roomFilter : ''),
     });
+  }
+
+  getRoom(id: string) {
+    return this.httpClient.get<Room>(`/api/rooms/${id}`);
+  }
+
+  updateQrCode(room: Room) {
+    return this.httpClient.put<Room>(`/api/rooms/qr-code`, room);
   }
 }

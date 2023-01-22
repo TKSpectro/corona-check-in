@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { TranslateService } from '@ngx-translate/core';
-import { Subscription } from 'rxjs';
-import { Room } from '../../shared/types';
+import { Meta, Room } from '../../shared/types';
 import { RoomsService } from '../rooms.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'ccn-room-list',
@@ -13,7 +12,6 @@ import { RoomsService } from '../rooms.service';
 export class RoomListComponent implements OnInit {
   displayedColumns: string[] = [
     'name',
-    'created',
     'updated',
     'maxParticipants',
     'maxDuration',
@@ -22,27 +20,24 @@ export class RoomListComponent implements OnInit {
 
   roomList!: Room[];
   subscription!: Subscription;
-  _meta: any;
+  _meta!: Meta;
   pageEvent: PageEvent = new PageEvent();
   total!: number;
   limit!: number;
   page!: number;
   filter?: string;
 
-  constructor(
-    private roomSrv: RoomsService,
-    public translate: TranslateService
-  ) {}
+  constructor(private roomSrv: RoomsService) {}
 
   ngOnInit(): void {
-    this.subscription = this.roomSrv.roomList$.subscribe((data) => {
+    this.subscription = this.roomSrv.getRoomList().subscribe((data) => {
       this.roomList = data.data;
       this._meta = data._meta;
     });
   }
 
   loadRooms() {
-    this.roomSrv.getRooms(this.page, 10, this.filter).subscribe({
+    this.roomSrv.getRoomList(this.page, 10, this.filter).subscribe({
       next: (data) => {
         this.roomList = data.data;
         this._meta = data._meta;

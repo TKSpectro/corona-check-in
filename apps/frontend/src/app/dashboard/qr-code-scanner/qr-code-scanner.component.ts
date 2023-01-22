@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Result } from '@zxing/library';
 
 @Component({
@@ -42,5 +42,9 @@ export class QrCodeScannerComponent {
 
   changeCamera() {
     console.log('changeCamera', this.desiredDevice);
+  }
+
+  toggleCamera() {
+    this.turnCameraOn = !this.turnCameraOn;
   }
 }

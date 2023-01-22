@@ -20,6 +20,7 @@
   "INVALID_STARTDATE": "Invalid start date",
   "INVALID_ENDDATE": "Invalid end date",
   "RESET": "Reset",
+  "INFECTIONS": "Infections",
   "AUTH": {
     "SIGN_IN_INSTEAD": "Sign in instead",
     "CREATE_ACCOUNT": "Create account"
@@ -74,7 +75,7 @@
     "ROOM_DETAILS": "Room Details",
     "UPDATE_ROOM": "Update Room",
     "MAX_PARTICIPANTS": "Max Participants",
-    "MAX_DURATION": "Maximum Duration",
+    "MAX_DURATION": "Max Duration",
     "FACULITY": "faculty"
   },
   "ERROR_OLD_PASSWORD_WRONG": "Old password is wrong",

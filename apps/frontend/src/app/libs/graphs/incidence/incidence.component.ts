@@ -1,7 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { MediaMatcher } from '@angular/cdk/layout';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { curveBumpX } from 'd3-shape';
-import { IncidenceService } from './incidence.service';
 import { Subscription } from 'rxjs';
+import { IncidenceService } from './incidence.service';
 
 @Component({
   selector: 'ccn-incidence',
@@ -12,25 +13,31 @@ export class IncidenceComponent implements OnInit, OnDestroy {
   incidenceChartData!: any;
   subscription!: Subscription;
 
-  view: [number, number] = [700, 300];
-
   // chart options
-  legend = true;
-  showLabels = true;
-  animations = true;
   xAxis = true;
   yAxis = true;
-  showYAxisLabel = true;
-  showXAxisLabel = true;
   xAxisLabel = 'Date';
   yAxisLabel = '7-Day incidence';
   curve = curveBumpX;
 
-  constructor(private incidenceService: IncidenceService) {}
+  mobileQuery: MediaQueryList;
+  _mobileQueryListener: () => void;
+  isExpanded!: boolean;
+
+  constructor(
+    private changeDetectorRef: ChangeDetectorRef,
+    media: MediaMatcher,
+    private incidenceService: IncidenceService
+  ) {
+    this.mobileQuery = media.matchMedia('(max-width: 700px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addEventListener(
+      'change',
+      (event) => (this.isExpanded = !event.matches)
+    );
+  }
 
   ngOnInit(): void {
-    // TODO: This will be replaced by a service call
-
     this.incidenceService.getIncidenceData();
     this.subscription = this.incidenceService.submitChartData.subscribe(
       (data) => {
@@ -41,6 +48,7 @@ export class IncidenceComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+    this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
   }
 
   onSelect(data: any): void {
@@ -53,5 +61,9 @@ export class IncidenceComponent implements OnInit, OnDestroy {
 
   onDeactivate(data: any): void {
     console.log('Deactivate', data);
+  }
+
+  xAxisTickFormatting(value: any) {
+    return new Date(value).toLocaleDateString();
   }
 }

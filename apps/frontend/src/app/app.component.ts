@@ -1,3 +1,4 @@
+import { MediaMatcher } from '@angular/cdk/layout';
 import {
   ChangeDetectorRef,
   Component,
@@ -5,7 +6,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { MediaMatcher } from '@angular/cdk/layout';
+import { AdminService } from './auth/admin/admin.service';
 import { AuthService } from './auth/auth.service';
 import { SidenavComponent } from './libs';
 
@@ -27,7 +28,8 @@ export class AppComponent implements OnDestroy, OnInit {
   constructor(
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
-    private authService: AuthService
+    private authService: AuthService,
+    private adminService: AdminService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 700px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -36,6 +38,7 @@ export class AppComponent implements OnDestroy, OnInit {
 
   ngOnInit() {
     this.authService.autoLogin();
+    this.adminService.requestIsAdmin().subscribe();
   }
 
   ngOnDestroy(): void {

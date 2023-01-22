@@ -1,5 +1,5 @@
 <h2 class="mat-h2">{{ 'SESSIONS.SESSIONS' | translate }}</h2>
-<mat-form-field appearance="fill" class="filter-space">
+<mat-form-field appearance="standard" class="filter-space">
   <mat-label>Search Name</mat-label>
   <input
     matInput
@@ -9,7 +9,7 @@
   />
 </mat-form-field>
 
-<mat-form-field appearance="fill" class="filter-space">
+<mat-form-field appearance="standard" class="filter-space">
   <mat-label>{{ 'ENTER_DATERANGE' | translate }}</mat-label>
   <mat-date-range-input [rangePicker]="picker">
     <input
@@ -39,7 +39,7 @@
 </mat-form-field>
 
 <button
-  mat-raised-button
+  mat-stroked-button
   (click)="toggleInfectionFilter()"
   class="filter-space filter-button"
 >

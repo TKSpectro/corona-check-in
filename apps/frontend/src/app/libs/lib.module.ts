@@ -1,19 +1,20 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SessionTableComponent } from './session-table/session-table.component';
-import { AngularMaterialModule } from '../angular-material.module';
-import { TranslateModule } from '@ngx-translate/core';
-import { SidenavComponent } from './sidenav/sidenav.component';
-import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { NgModule } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { IncidenceComponent } from './graphs/incidence/incidence.component';
+import { TranslateModule } from '@ngx-translate/core';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { CustomDatePipe } from '.';
+import { AngularMaterialModule } from '../angular-material.module';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { IncidenceComponent } from './graphs/incidence/incidence.component';
+import { SessionTableComponent } from './session-table/session-table.component';
 
 @NgModule({
   declarations: [
     SessionTableComponent,
     ConfirmationDialogComponent,
     IncidenceComponent,
+    CustomDatePipe,
   ],
   imports: [
     CommonModule,
@@ -26,6 +27,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     SessionTableComponent,
     ConfirmationDialogComponent,
     IncidenceComponent,
+    CustomDatePipe,
   ],
 })
 export class LibModule {}
