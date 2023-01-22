@@ -1,11 +1,11 @@
 .session-card {
   max-width: 350px;
-  background-color: #225224;
+  border-top: 8px solid #225224;
   margin: -24px;
   padding: 24px;
 
   &.infection-red {
-    background-color: #381111;
+    border-top: 8px solid #381111;
   }
 }
 
