@@ -3,18 +3,17 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 import { AuthModule } from '../auth/auth.module';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
-import { SessionsController } from '../sessions/sessions.controller';
 import { SessionsModule } from '../sessions/sessions.module';
 import { UsersModule } from '../users/users.module';
 
 import { HttpModule } from '@nestjs/axios';
+import { RoomsModule } from '../rooms/rooms.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { HealthModule } from './health/health.module';
 import { MetricsModule } from './metrics/metrics.module';
 import { PrometheusModule } from './prometheus/prometheus.module';
 import { QrCodeModule } from './qr-code/qr-code.module';
-import { RoomsModule } from '../rooms/rooms.module';
 
 @Module({
   imports: [
