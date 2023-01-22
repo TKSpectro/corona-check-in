@@ -6,6 +6,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { AdminService } from './auth/admin/admin.service';
 import { AuthService } from './auth/auth.service';
 import { SidenavComponent } from './libs';
@@ -29,7 +30,8 @@ export class AppComponent implements OnDestroy, OnInit {
     changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher,
     private authService: AuthService,
-    private adminService: AdminService
+    private adminService: AdminService,
+    private t: TranslateService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 700px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -37,6 +39,12 @@ export class AppComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit() {
+    this.t.addLangs(['en', 'de']);
+    this.t.setDefaultLang('en');
+    const localStoredLang = localStorage.getItem('ccn_lang');
+    const browserLang = this.t.getBrowserLang();
+    this.t.use(localStoredLang || browserLang || 'en');
+
     this.authService.autoLogin();
     this.adminService.requestIsAdmin().subscribe();
   }
