@@ -5,7 +5,7 @@
       <mat-label>Search name</mat-label>
       <input
         matInput
-        (blur)="setFilterName($event)"
+        (keyup)="setFilterName($event)"
         placeholder="Search name"
         #input
       />
