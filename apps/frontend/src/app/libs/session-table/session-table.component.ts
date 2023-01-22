@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, HostListener, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SessionDetailsComponent } from '../../sessions/session-details/session-details.component';
 import { Session } from '../../shared/types';
@@ -13,9 +13,12 @@ export class SessionTableComponent {
   displayedColumns: string[] = ['startTime', 'endTime', 'infected', 'actions'];
   constructor(public dialog: MatDialog) {}
 
-  openDialog(id: string) {
+  @HostListener('click', ['$event'])
+  openDialog(id: string, event: any) {
+    event.stopPropagation();
     this.dialog.open(SessionDetailsComponent, {
       data: { id: id },
+      panelClass: 'custom-dialog',
     });
   }
 }

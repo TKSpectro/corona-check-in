@@ -4,7 +4,7 @@
       'SESSIONS.SESSION_START' | translate
     }}</mat-header-cell>
     <mat-cell *matCellDef="let session">{{
-      session.startTime | date : 'dd.MM.yyyy HH:mm:ss'
+      session.startTime | date : 'dd.MM.yyyy HH:mm'
     }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="endTime">
@@ -12,7 +12,7 @@
       'SESSIONS.SESSION_END' | translate
     }}</mat-header-cell>
     <mat-cell *matCellDef="let session">{{
-      session.endTime | date : 'dd.MM.yyyy HH:mm:ss'
+      session.endTime | date : 'dd.MM.yyyy HH:mm'
     }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="infected">
@@ -30,10 +30,10 @@
     }}</mat-header-cell>
     <mat-cell class="center" *matCellDef="let session"
       ><button
-        mat-mini-fab
+        mat-icon-button
         color="basic"
         aria-label="Example icon button with a menu icon"
-        (click)="openDialog(session.id)"
+        (click)="openDialog(session.id, $event)"
       >
         <mat-icon>info</mat-icon>
       </button>
@@ -41,7 +41,7 @@
   </ng-container>
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row
-    (click)="openDialog(row.id)"
+    (click)="openDialog(row.id, $event)"
     *matRowDef="let row; columns: displayedColumns"
   ></mat-row>
 </table>
