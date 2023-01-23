@@ -23,6 +23,8 @@ export class SessionListComponent implements OnInit, OnDestroy {
   sessionBegin?: Date;
   sessionEnd?: Date;
 
+  sessionTableExtraColumns: string[] = ['actions'];
+
   // Datepicker
   range = new FormGroup({
     start: new FormControl<Date | null>(null),

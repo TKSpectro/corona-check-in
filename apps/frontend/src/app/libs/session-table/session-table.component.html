@@ -30,6 +30,7 @@
     }}</mat-header-cell>
     <mat-cell class="center" *matCellDef="let session">
       <button
+        *ngIf="adminService.isAdmin"
         mat-icon-button
         [disabled]="session.infected"
         (click)="markAsInfected(session)"
@@ -44,7 +45,11 @@
           bug_report
         </mat-icon>
       </button>
-      <button mat-icon-button (click)="delete(session)">
+      <button
+        *ngIf="adminService.isAdmin"
+        mat-icon-button
+        (click)="delete(session)"
+      >
         <mat-icon>delete</mat-icon>
       </button>
     </mat-cell>

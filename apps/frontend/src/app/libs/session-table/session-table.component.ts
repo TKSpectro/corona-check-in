@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AdminService } from '../../auth/admin/admin.service';
 import { Session } from '../../shared/types';
 
 @Component({
@@ -9,11 +10,15 @@ import { Session } from '../../shared/types';
 export class SessionTableComponent implements OnInit {
   @Input() sessionList: Session[] = [];
   @Input() extraColumns: string[] = [];
-
-  displayedColumns = ['startTime', 'endTime', 'infected'];
-
   @Output() markAsInfectedEvent = new EventEmitter<Session>();
   @Output() deleteEvent = new EventEmitter<string>();
+
+  displayedColumns = ['startTime', 'endTime', 'infected'];
+  adminService: AdminService;
+
+  constructor(adminService: AdminService) {
+    this.adminService = adminService;
+  }
 
   ngOnInit() {
     this.displayedColumns = this.displayedColumns.concat(this.extraColumns);
