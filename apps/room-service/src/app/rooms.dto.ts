@@ -1,9 +1,5 @@
 import { IsEnum, IsNotEmpty, Max, Min } from 'class-validator';
-
-export enum Faculty {
-  AI = 'Angewandte Informatik',
-  SA = 'Soziale Arbeit',
-}
+import { Faculty } from './faculty.enum';
 
 export class RoomDto {
   @IsNotEmpty()
@@ -17,5 +13,10 @@ export class RoomDto {
   maxDuration: number;
 
   @IsEnum(Faculty)
-  faculty: Faculty;
+  faculty?: Faculty;
+}
+
+export interface findAllQuery {
+  name?: string;
+  faculty?: Faculty;
 }

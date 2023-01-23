@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User, UserSignup } from '../auth/user';
-import { PaginationResponse, Room, UpdateUser, Session } from './types';
+import { PaginationResponse, Room, Session, UpdateUser } from './types';
 
 @Injectable({
   providedIn: 'root',
@@ -66,12 +66,18 @@ export class ServerService {
     return this.httpClient.delete<any>(`/api/users/${id}`);
   }
 
-  getRooms(page: number = 0, limit: number = 10, roomFilter?: string) {
+  getRooms(
+    page: number = 0,
+    limit: number = 10,
+    name?: string,
+    faculty?: string
+  ) {
     return this.httpClient.get<PaginationResponse<Room>>('/api/rooms', {
       params: new HttpParams()
         .set('page', page.toString())
         .set('take', limit.toString())
-        .set('roomFilter', roomFilter ? roomFilter : ''),
+        .set('name', name ? name : '')
+        .set('faculty', faculty ? faculty : ''),
     });
   }
 

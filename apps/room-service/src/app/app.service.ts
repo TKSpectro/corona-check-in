@@ -11,7 +11,7 @@ import { Repository } from 'typeorm';
 import { environment } from '../environments/environment';
 import { Faculty } from './faculty.enum';
 import { RoomEntity } from './room.entity';
-import { RoomDto } from './rooms.dto';
+import { findAllQuery, RoomDto } from './rooms.dto';
 import { UpdateRoomDto } from './update-rooms.dto';
 
 interface qrCodeData {
@@ -36,17 +36,15 @@ export class AppService {
     }
   }
 
-  async getRooms(pageOptionsDto: PageOptionsDto, roomFilter?: string) {
+  async getRooms(pageOptionsDto: PageOptionsDto, query: findAllQuery = {}) {
     const queryBuilder = this.roomRepository.createQueryBuilder();
-    let isFaculty: boolean;
-    for (const key in Faculty) {
-      if (Faculty[key] === roomFilter) {
-        queryBuilder.andWhere('faculty = :faculty', { faculty: Faculty[key] });
-        isFaculty = true;
-      }
+
+    if (query.name) {
+      queryBuilder.andWhere('name like :name', { name: `%${query.name}%` });
     }
-    if (!isFaculty && roomFilter) {
-      queryBuilder.andWhere('name like :name', { name: `%${roomFilter}%` });
+
+    if (query.faculty) {
+      queryBuilder.andWhere('faculty = :faculty', { faculty: query.faculty });
     }
 
     return findWithMeta(queryBuilder, pageOptionsDto);
@@ -123,11 +121,12 @@ export class AppService {
       ) {
         await this.roomRepository.insert({
           id: `00000000-0000-0000-0002-0000000000${i < 10 ? 0 : ''}${i}`,
-          name: `room-session-${i}`,
+          name: `room-${i}`,
           maxDuration: randomInt(30, 240),
           maxParticipants: randomInt(10, 100),
           qrCode: null,
           createdQrCode: new Date(),
+          faculty: i % 2 === 0 ? Faculty.AI : Faculty.SA,
         });
       }
     }

@@ -79,5 +79,9 @@
     "FACULITY": "Fakultät"
   },
   "ERROR_OLD_PASSWORD_WRONG": "Altes Passwort ist falsch",
-  "ERROR_PASSWORDS_NOT_MATCHING": "Neues Passwort stimmt nicht überein"
+  "ERROR_PASSWORDS_NOT_MATCHING": "Neues Passwort stimmt nicht überein",
+  "FACULTY": {
+    "AI": "Angewandte Informatik",
+    "SA": "Soziale Arbeit"
+  }
 }

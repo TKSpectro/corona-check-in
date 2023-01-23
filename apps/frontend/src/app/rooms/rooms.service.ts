@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ServerService } from '../shared/server.service';
 import { of } from 'rxjs';
-import { PaginationResponse, Room } from '../shared/types';
 import { map } from 'rxjs/operators';
+import { ServerService } from '../shared/server.service';
+import { PaginationResponse, Room } from '../shared/types';
 
 @Injectable({
   providedIn: 'root',
@@ -23,16 +23,23 @@ export class RoomsService {
     return this.serverSrv.updateQrCode(room);
   }
 
-  getRoomList(page = 0, take = 10, roomFilter?: string, id?: string) {
+  getRoomList(
+    page = 0,
+    take = 10,
+    name?: string,
+    faculty?: string,
+    id?: string
+  ) {
     if (
       !id &&
-      !roomFilter &&
+      !name &&
+      !faculty &&
       page === this.roomResponse?._meta?.page &&
       this.roomResponse?.data?.length > 0
     ) {
       return of(this.roomResponse);
     }
-    return this.serverSrv.getRooms(page, take, roomFilter).pipe(
+    return this.serverSrv.getRooms(page, take, name, faculty).pipe(
       map((data) => {
         this.roomResponse = { ...data };
         return data;

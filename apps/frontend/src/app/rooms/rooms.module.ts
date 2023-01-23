@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
-import { AngularMaterialModule } from '../angular-material.module';
-import { RoomListComponent } from './room-list/room-list.component';
-import { RoomDetailsComponent } from './room-details/room-details.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink, RouterOutlet } from '@angular/router';
-import { RoomsComponent } from './rooms.component';
-import { LibModule } from '../libs/lib.module';
+import { TranslateModule } from '@ngx-translate/core';
 import { QRCodeModule } from 'angularx-qrcode';
+import { AngularMaterialModule } from '../angular-material.module';
+import { LibModule } from '../libs/lib.module';
+import { RoomDetailsComponent } from './room-details/room-details.component';
+import { RoomListComponent } from './room-list/room-list.component';
+import { RoomsComponent } from './rooms.component';
 
 @NgModule({
   declarations: [RoomListComponent, RoomDetailsComponent, RoomsComponent],
@@ -17,6 +18,8 @@ import { QRCodeModule } from 'angularx-qrcode';
     AngularMaterialModule,
     RouterOutlet,
     RouterLink,
+    FormsModule,
+    ReactiveFormsModule,
     LibModule,
     QRCodeModule,
   ],
