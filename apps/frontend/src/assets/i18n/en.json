@@ -19,6 +19,7 @@
   "ENTER_DATERANGE": "Enter a date range",
   "INVALID_STARTDATE": "Invalid start date",
   "INVALID_ENDDATE": "Invalid end date",
+  "ACTIONS": "Actions",
   "RESET": "Reset",
   "INFECTIONS": "Infections",
   "AUTH": {
@@ -64,7 +65,9 @@
     "SESSION_START": "Session start",
     "SESSION_END": "Session end",
     "INFECTED": "infected",
-    "NOTE": "Note"
+    "NOTE": "Note",
+    "MARK_INFECTED_TOOLTIP": "Mark this session as infected",
+    "MARK_INFECTED_TOOLTIP_DISABLED": "This session is already marked as infected"
   },
   "ROOMS": {
     "ROOMS": "Rooms",

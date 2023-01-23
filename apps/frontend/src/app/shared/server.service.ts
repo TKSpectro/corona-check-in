@@ -41,6 +41,10 @@ export class ServerService {
     return this.httpClient.put<Session>(`/api/sessions`, session);
   }
 
+  deleteSession(id: string): Observable<null> {
+    return this.httpClient.delete<null>(`/api/sessions/${id}`);
+  }
+
   // cross domain problem
   login(user: User): Observable<{ token: string }> {
     return this.httpClient.post<{ token: string }>('/api/auth/login', user);
