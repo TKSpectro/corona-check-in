@@ -11,6 +11,11 @@ import { UpdateSessionDto } from './update-sessions.dto';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
+  @MessagePattern({ role: 'sessions', cmd: 'health' })
+  health() {
+    return true;
+  }
+
   @MessagePattern({ role: 'sessions', cmd: 'get-all' })
   getSessions({
     pageOptionsDto,

@@ -7,7 +7,7 @@ export class NestjsHealthIndicator
   extends BaseHealthIndicator
   implements HealthIndicator
 {
-  public readonly name = 'NestJS';
+  public readonly name = 'NestJS_Health';
   protected readonly help = 'Status of ' + this.name;
   protected readonly promClientService: PrometheusService | undefined;
 
@@ -23,7 +23,7 @@ export class NestjsHealthIndicator
     this.httpHealthIndicator = httpHealthIndicator;
     this.promClientService = promClientService;
     this.url = url || '';
-    // this.registerMetrics();
+    this.registerMetrics();
     this.registerGauges();
   }
 

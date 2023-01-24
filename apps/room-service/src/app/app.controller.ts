@@ -10,6 +10,11 @@ import { UpdateRoomDto } from './update-rooms.dto';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
+  @MessagePattern({ role: 'rooms', cmd: 'health' })
+  health() {
+    return true;
+  }
+
   @MessagePattern({ role: 'rooms', cmd: 'getRooms' })
   getRooms({
     pageOptionsDto,

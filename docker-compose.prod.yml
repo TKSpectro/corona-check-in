@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   postgres:
-    container_name: ccn_postgres
+    container_name: ccn_prod_postgres
     image: postgres:${DB_VERSION}
     environment:
       - POSTGRES_USER=${DB_USERNAME}
@@ -12,18 +12,38 @@ services:
     volumes:
       - postgres:/data/postgres
     networks:
-      - nx-microservice-network
+      - ccn-prod-network
 
   redis:
-    container_name: ccn_redis
+    container_name: ccn_prod_redis
     image: redis
     ports:
       - 6379:6379
     volumes:
       - redis:/data
+    networks:
+      - ccn-prod-network
+
+  traefik:
+    container_name: ccn_prod_traefik
+    image: traefik:latest
+    command:
+      - --providers.docker
+      - --providers.docker.exposedbydefault=false
+
+      - --api.insecure=true
+
+      - --metrics.prometheus=true
+    ports:
+      - '80:80'
+      - '8080:8080'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - ccn-prod-network
 
   prometheus:
-    container_name: ccn_prometheus
+    container_name: ccn_prod_prometheus
     image: prom/prometheus:latest
     volumes:
       - ./docker/prometheus.yml:/etc/prometheus/prometheus.yml
@@ -32,14 +52,18 @@ services:
     ports:
       - '9090:9090'
     networks:
-      - nx-microservice-network
+      - ccn-prod-network
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.prometheus.rule=Host(`prometheus.localhost`)
 
   grafana:
-    container_name: ccn_grafana
+    container_name: ccn_prod_grafana
     image: grafana/grafana:latest
     volumes:
       - '$PWD/monitoring/grafana:/var/lib/grafana'
       - metrics-ui-data:/var/lib/grafana
+      - ./docker/grafana:/etc/grafana/provisioning
     links:
       - prometheus:prometheus
     environment:
@@ -50,11 +74,17 @@ services:
     ports:
       - '3000:3000'
     networks:
-      - nx-microservice-network
+      - ccn-prod-network
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.grafana.rule=Host(`grafana.localhost`)
 
   gateway:
-    container_name: ccn_gateway
+    container_name: ccn_prod_gateway
     image: ccn-gateway
+    depends_on:
+      - 'redis'
+      - 'postgres'
     environment:
       - DB_VERSION=13-alpine
       - DB_USERNAME=postgres_user
@@ -62,10 +92,107 @@ services:
       - DB_DATABASE=ccn
       - DB_PORT=5432
       - DB_HOST=postgres
+      - REDIS_HOST=redis
+      - SEEDING_ENABLED=true
     ports:
-      - '8081:3333'
+      - '3333:3333'
     networks:
-      - nx-microservice-network
+      - ccn-prod-network
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.gateway.rule=Host(`gateway.localhost`)
+
+  incidence-service:
+    container_name: ccn_prod_incidence_service
+    image: ccn-incidence-service
+    depends_on:
+      - 'redis'
+      - 'postgres'
+    environment:
+      - DB_VERSION=13-alpine
+      - DB_USERNAME=postgres_user
+      - DB_PASSWORD=postgres_password
+      - DB_DATABASE=ccn
+      - DB_PORT=5432
+      - DB_HOST=postgres
+      - REDIS_HOST=redis
+      - SEEDING_ENABLED=true
+    ports:
+      - '8082:3333'
+    networks:
+      - ccn-prod-network
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.incidence-service.rule=Host(`incidence-service.localhost`)
+
+  qr-code-service:
+    container_name: ccn_prod_qr_code_service
+    image: ccn-qr-code-service
+    depends_on:
+      - 'redis'
+      - 'postgres'
+    environment:
+      - DB_VERSION=13-alpine
+      - DB_USERNAME=postgres_user
+      - DB_PASSWORD=postgres_password
+      - DB_DATABASE=ccn
+      - DB_PORT=5432
+      - DB_HOST=postgres
+      - REDIS_HOST=redis
+      - SEEDING_ENABLED=true
+    ports:
+      - '8083:3333'
+    networks:
+      - ccn-prod-network
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.qr-code-service.rule=Host(`qr-code-service.localhost`)
+
+  sessionservice:
+    container_name: ccn_prod_session_service
+    image: ccn-session-service
+    depends_on:
+      - 'redis'
+      - 'postgres'
+    environment:
+      - DB_VERSION=13-alpine
+      - DB_USERNAME=postgres_user
+      - DB_PASSWORD=postgres_password
+      - DB_DATABASE=ccn
+      - DB_PORT=5432
+      - DB_HOST=postgres
+      - REDIS_HOST=redis
+      - SEEDING_ENABLED=true
+    ports:
+      - '8084:3333'
+    networks:
+      - ccn-prod-network
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.session-service.rule=Host(`session-service.localhost`)
+
+  room-service:
+    container_name: ccn_prod_room_service
+    image: ccn-room-service
+    depends_on:
+      - 'redis'
+      - 'postgres'
+    environment:
+      - DB_VERSION=13-alpine
+      - DB_USERNAME=postgres_user
+      - DB_PASSWORD=postgres_password
+      - DB_DATABASE=ccn
+      - DB_PORT=5432
+      - DB_HOST=postgres
+      - REDIS_HOST=redis
+      - SEEDING_ENABLED=true
+    ports:
+      - '8085:3333'
+    networks:
+      - ccn-prod-network
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.room-service.rule=Host(`room-service.localhost`)
 
 volumes:
   postgres:
@@ -74,5 +201,4 @@ volumes:
   metrics-ui-data:
 
 networks:
-  nx-microservice-network:
-    driver: bridge
+  ccn-prod-network:
