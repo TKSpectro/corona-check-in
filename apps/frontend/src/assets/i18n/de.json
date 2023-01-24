@@ -69,7 +69,6 @@
     "MARK_INFECTED_TOOLTIP": "Diese Session als infiziert markieren",
     "MARK_INFECTED_TOOLTIP_DISABLED": "Die Session ist bereits als infiziert markiert",
     "CURRENT_SESSION": "Aktuelle Session",
-    "INFECTION_STATUS": "Infektionsstatus",
     "REPORT_INFECTION": "Infektion melden"
   },
   "ROOMS": {
