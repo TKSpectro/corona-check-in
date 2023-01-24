@@ -14,7 +14,7 @@ export class AdminService {
       localStorage.getItem('ccn_token') || ''
     );
 
-    this.isAdmin = decodedToken.role === 'admin';
+    this.isAdmin = decodedToken?.role === 'admin';
 
     return this.isAdmin;
   }
