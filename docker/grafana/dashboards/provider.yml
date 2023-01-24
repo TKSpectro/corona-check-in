@@ -1,0 +1,9 @@
+apiVersion: 1
+
+providers:
+  - name: 'Prometheus'
+    type: file
+    updateIntervalSeconds: 10
+    editable: true
+    options:
+      path: /etc/grafana/provisioning/dashboards

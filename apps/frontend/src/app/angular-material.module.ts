@@ -86,7 +86,15 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     },
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: { appearance: 'standard' },
+    },
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
       useValue: { appearance: 'outline' },
+    },
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: { color: 'accent' },
     },
   ],
 })

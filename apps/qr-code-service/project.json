@@ -50,6 +50,18 @@
         "jestConfig": "apps/qr-code-service/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "deploy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          { "command": "nx build qr-code-service" },
+          {
+            "command": "docker build -f ./docker/qr-code-service.dockerfile . -t ccn-qr-code-service"
+          }
+        ],
+        "parallel": false
+      }
     }
   },
   "tags": []

@@ -1,6 +1,6 @@
 {
   "CLICK": "click the button",
-  "LANGUAGE": "Sprache",
+  "LANGUAGE": "Language",
   "CREATE": "Create",
   "DASHBOARD": "Dashboard",
   "CANCEL": "Cancel",
@@ -22,6 +22,7 @@
   "ACTIONS": "Actions",
   "RESET": "Reset",
   "INFECTIONS": "Infections",
+  "ACTIONS": "Actions",
   "AUTH": {
     "SIGN_IN_INSTEAD": "Sign in instead",
     "CREATE_ACCOUNT": "Create account"
@@ -64,7 +65,7 @@
     "SESSION_OVERVIEW": "Session overview",
     "SESSION_START": "Session start",
     "SESSION_END": "Session end",
-    "INFECTED": "infected",
+    "INFECTED": "Infected",
     "NOTE": "Note",
     "MARK_INFECTED_TOOLTIP": "Mark this session as infected",
     "MARK_INFECTED_TOOLTIP_DISABLED": "This session is already marked as infected",

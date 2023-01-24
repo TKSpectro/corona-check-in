@@ -45,6 +45,22 @@
           <span>{{ 'onlyAdmin' | translate }}</span></a
         >
       </mat-nav-list>
+      <h3 mat-list-item>
+        <span style="margin-right: 6px">{{ 'LANGUAGE' | translate }}</span>
+        <mat-form-field appearance="standard" style="max-width: 50px">
+          <mat-select
+            [formControl]="langSelect"
+            (selectionChange)="handleLanguageChange()"
+          >
+            <mat-select-trigger>
+              {{ langSelect.value | uppercase }}
+            </mat-select-trigger>
+            <mat-option *ngFor="let lang of t.getLangs()" [value]="lang">{{
+              lang | uppercase
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </h3>
       <h3 mat-list-item routerLink="profile">
         <span>{{ 'IMPRINT' | translate }}</span>
       </h3>

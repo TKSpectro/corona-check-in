@@ -18,9 +18,6 @@ export class SessionEntity extends BaseEntity {
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 
-  @Column()
-  name: string;
-
   @Column({ type: 'timestamptz', name: 'starttime' })
   startTime: Date;
 

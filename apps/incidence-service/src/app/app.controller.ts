@@ -7,6 +7,11 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
+  @MessagePattern({ role: 'incidence', cmd: 'health' })
+  health() {
+    return true;
+  }
+
   @Get()
   getData() {
     return this.appService.getData();
