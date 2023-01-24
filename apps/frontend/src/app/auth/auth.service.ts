@@ -23,7 +23,7 @@ export class AuthService {
 
   getToken(): string | null {
     if (!this.token) {
-      this.token = localStorage.getItem('token');
+      this.token = localStorage.getItem('ccn_token');
     }
 
     return this.token;
@@ -33,7 +33,7 @@ export class AuthService {
     return this.serverSrv.login(user).pipe(
       map((result) => {
         this.token = result.token;
-        localStorage.setItem('token', this.token);
+        localStorage.setItem('ccn_token', this.token);
 
         return result;
       })
@@ -44,7 +44,7 @@ export class AuthService {
     this.serverSrv.signup(user).subscribe({
       next: (result) => {
         this.token = result.token;
-        localStorage.setItem('token', this.token);
+        localStorage.setItem('ccn_token', this.token);
 
         this.router.navigate(['/dashboard']);
       },
@@ -56,7 +56,7 @@ export class AuthService {
 
   logout() {
     this.token = '';
-    localStorage.removeItem('token');
+    localStorage.removeItem('ccn_token');
 
     this.adminService.reset();
   }
