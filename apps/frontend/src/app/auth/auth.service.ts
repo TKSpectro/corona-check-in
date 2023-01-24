@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { map } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { ServerService } from '../shared/server.service';
 import { AdminService } from './admin/admin.service';
 import { User, UserSignup } from './user';
@@ -8,13 +8,15 @@ import { User, UserSignup } from './user';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class AuthService implements OnDestroy {
   private token: string | null = null;
+
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private serverSrv: ServerService,
     private router: Router,
-    private adminService: AdminService
+    public adminService: AdminService
   ) {}
 
   autoLogin() {
@@ -30,28 +32,37 @@ export class AuthService {
   }
 
   login(user: User) {
-    return this.serverSrv.login(user).pipe(
-      map((result) => {
-        this.token = result.token;
-        localStorage.setItem('ccn_token', this.token);
+    this.subscriptions.push(
+      this.serverSrv.login(user).subscribe({
+        next: (result) => {
+          this.token = result.token;
+          localStorage.setItem('ccn_token', this.token);
+          this.adminService.autoAdmin();
 
-        return result;
+          this.router.navigate(['/dashboard']);
+        },
+        error: (error) => {
+          console.error(error);
+        },
       })
     );
   }
 
   signup(user: UserSignup) {
-    this.serverSrv.signup(user).subscribe({
-      next: (result) => {
-        this.token = result.token;
-        localStorage.setItem('ccn_token', this.token);
+    this.subscriptions.push(
+      this.serverSrv.signup(user).subscribe({
+        next: (result) => {
+          this.token = result.token;
+          localStorage.setItem('ccn_token', this.token);
+          this.adminService.autoAdmin();
 
-        this.router.navigate(['/dashboard']);
-      },
-      error: (error) => {
-        console.error(error);
-      },
-    });
+          this.router.navigate(['/dashboard']);
+        },
+        error: (error) => {
+          console.error(error);
+        },
+      })
+    );
   }
 
   logout() {
@@ -59,5 +70,9 @@ export class AuthService {
     localStorage.removeItem('ccn_token');
 
     this.adminService.reset();
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 }

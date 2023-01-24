@@ -1,7 +1,5 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { concatMap, Subscription } from 'rxjs';
-import { AdminService } from '../admin/admin.service';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -9,7 +7,7 @@ import { AuthService } from '../auth.service';
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
 })
-export class AuthComponent implements OnDestroy {
+export class AuthComponent {
   email!: string;
   firstname!: string;
   lastname!: string;
@@ -18,19 +16,9 @@ export class AuthComponent implements OnDestroy {
 
   isSignup = false;
 
-  subscription!: Subscription;
-
   isLoggedIn = false;
 
-  constructor(
-    private authSrv: AuthService,
-    private router: Router,
-    private adminSrv: AdminService
-  ) {}
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
+  constructor(private authSrv: AuthService, private router: Router) {}
 
   handleSubmit() {
     if (this.isSignup) {
@@ -42,29 +30,7 @@ export class AuthComponent implements OnDestroy {
         passwordRepeat: this.passwordRepeat,
       });
     } else {
-      this.subscription = this.authSrv
-        .login({ email: this.email, password: this.password })
-        .pipe(
-          concatMap((result) => {
-            this.isLoggedIn = !!result?.token;
-
-            // TODO: Open snackbar with message login data incorrect
-
-            return this.adminSrv.requestIsAdmin();
-          })
-        )
-        .subscribe({
-          next: () => {
-            if (this.isLoggedIn) {
-              this.router.navigate(['/dashboard']);
-            }
-          },
-          error: () => {
-            if (this.isLoggedIn) {
-              this.router.navigate(['/dashboard']);
-            }
-          },
-        });
+      this.authSrv.login({ email: this.email, password: this.password });
     }
   }
 
