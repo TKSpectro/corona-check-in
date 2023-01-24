@@ -12,7 +12,7 @@ services:
     volumes:
       - postgres:/data/postgres
     networks:
-      - ccn-network
+      - ccn-prod-network
 
   redis:
     container_name: ccn_prod_redis
@@ -22,7 +22,7 @@ services:
     volumes:
       - redis:/data
     networks:
-      - ccn-network
+      - ccn-prod-network
 
   traefik:
     container_name: ccn_prod_traefik
@@ -40,7 +40,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
-      - ccn-network
+      - ccn-prod-network
 
   prometheus:
     container_name: ccn_prod_prometheus
@@ -52,7 +52,7 @@ services:
     ports:
       - '9090:9090'
     networks:
-      - ccn-network
+      - ccn-prod-network
     labels:
       - traefik.enable=true
       - traefik.http.routers.prometheus.rule=Host(`prometheus.localhost`)
@@ -74,7 +74,7 @@ services:
     ports:
       - '3000:3000'
     networks:
-      - ccn-network
+      - ccn-prod-network
     labels:
       - traefik.enable=true
       - traefik.http.routers.grafana.rule=Host(`grafana.localhost`)
@@ -97,7 +97,7 @@ services:
     ports:
       - '3333:3333'
     networks:
-      - ccn-network
+      - ccn-prod-network
     labels:
       - traefik.enable=true
       - traefik.http.routers.gateway.rule=Host(`gateway.localhost`)
@@ -120,7 +120,7 @@ services:
     ports:
       - '8082:3333'
     networks:
-      - ccn-network
+      - ccn-prod-network
     labels:
       - traefik.enable=true
       - traefik.http.routers.incidence-service.rule=Host(`incidence-service.localhost`)
@@ -143,7 +143,7 @@ services:
     ports:
       - '8083:3333'
     networks:
-      - ccn-network
+      - ccn-prod-network
     labels:
       - traefik.enable=true
       - traefik.http.routers.qr-code-service.rule=Host(`qr-code-service.localhost`)
@@ -166,7 +166,7 @@ services:
     ports:
       - '8084:3333'
     networks:
-      - ccn-network
+      - ccn-prod-network
     labels:
       - traefik.enable=true
       - traefik.http.routers.session-service.rule=Host(`session-service.localhost`)
@@ -189,7 +189,7 @@ services:
     ports:
       - '8085:3333'
     networks:
-      - ccn-network
+      - ccn-prod-network
     labels:
       - traefik.enable=true
       - traefik.http.routers.room-service.rule=Host(`room-service.localhost`)
@@ -201,4 +201,4 @@ volumes:
   metrics-ui-data:
 
 networks:
-  ccn-network:
+  ccn-prod-network:
