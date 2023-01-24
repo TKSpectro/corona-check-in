@@ -29,22 +29,15 @@
       'ACTIONS' | translate
     }}</mat-header-cell>
     <mat-cell class="center" *matCellDef="let session">
+      <button mat-icon-button (click)="openDialog(session.id, $event)">
+        <mat-icon>info</mat-icon>
+      </button>
       <button
         *ngIf="adminService.isAdmin"
         mat-icon-button
         [disabled]="session.infected"
         (click)="markAsInfected(session)"
       >
-      <mat-cell class="center" *matCellDef="let session"
-        ><button
-          mat-icon-button
-          color="basic"
-          aria-label="Example icon button with a menu icon"
-          (click)="openDialog(session.id, $event)"
-        >
-          <mat-icon>info</mat-icon>
-        </button>
-      </mat-cell>
         <mat-icon
           [matTooltip]="
             session.infected
