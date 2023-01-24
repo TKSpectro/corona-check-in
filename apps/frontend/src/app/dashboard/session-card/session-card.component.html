@@ -1,7 +1,12 @@
 <mat-card class="example-card">
   <mat-card-title>{{ 'SESSIONS.CURRENT_SESSION' | translate }}</mat-card-title>
   <mat-card-content>
-    <button mat-stroked-button style="margin-top: 20px">
+    <button
+      mat-stroked-button
+      style="margin-top: 20px"
+      (click)="markLastSessionsAsInfected()"
+      [disabled]="success"
+    >
       {{ 'SESSIONS.REPORT_INFECTION' | translate }}
     </button>
   </mat-card-content>

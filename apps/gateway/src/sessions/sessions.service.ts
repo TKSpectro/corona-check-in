@@ -34,6 +34,13 @@ export class SessionsService {
     );
   }
 
+  markLastSessionsAsInfected(userId: string) {
+    return this.sessionClient.send(
+      { role: 'session', cmd: 'markLastSessionsAsInfected' },
+      userId
+    );
+  }
+
   updateSession(updateSessionDto: UpdateSessionDto) {
     return this.sessionClient.send<SessionEntity>(
       { role: 'session', cmd: 'update-session' },
