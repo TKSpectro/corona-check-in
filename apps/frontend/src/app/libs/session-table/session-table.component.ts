@@ -1,4 +1,11 @@
-import { Component, HostListener, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SessionDetailsComponent } from '../../sessions/session-details/session-details.component';
 import { AdminService } from '../../auth/admin/admin.service';
@@ -15,7 +22,7 @@ export class SessionTableComponent implements OnInit {
   @Output() markAsInfectedEvent = new EventEmitter<Session>();
   @Output() deleteEvent = new EventEmitter<string>();
 
-  displayedColumns = ['startTime', 'endTime', 'infected', 'actions'];
+  displayedColumns = ['startTime', 'endTime', 'infected'];
   adminService: AdminService;
 
   constructor(adminService: AdminService, public dialog: MatDialog) {
@@ -33,7 +40,7 @@ export class SessionTableComponent implements OnInit {
   delete(session: Session) {
     this.deleteEvent.emit(session.id);
   }
-  
+
   @HostListener('click', ['$event'])
   openDialog(id: string, event: any) {
     event.stopPropagation();
