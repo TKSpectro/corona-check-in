@@ -19,6 +19,7 @@
   "ENTER_DATERANGE": "Enter a date range",
   "INVALID_STARTDATE": "Invalid start date",
   "INVALID_ENDDATE": "Invalid end date",
+  "ACTIONS": "Actions",
   "RESET": "Reset",
   "INFECTIONS": "Infections",
   "ACTIONS": "Actions",
@@ -65,7 +66,9 @@
     "SESSION_START": "Session start",
     "SESSION_END": "Session end",
     "INFECTED": "Infected",
-    "NOTE": "Note"
+    "NOTE": "Note",
+    "MARK_INFECTED_TOOLTIP": "Mark this session as infected",
+    "MARK_INFECTED_TOOLTIP_DISABLED": "This session is already marked as infected"
   },
   "ROOMS": {
     "ROOMS": "Rooms",
@@ -80,5 +83,9 @@
     "FACULITY": "faculty"
   },
   "ERROR_OLD_PASSWORD_WRONG": "Old password is wrong",
-  "ERROR_PASSWORDS_NOT_MATCHING": "New password is not matching"
+  "ERROR_PASSWORDS_NOT_MATCHING": "New password is not matching",
+  "FACULTY": {
+    "AI": "Applied Computer Science",
+    "SA": "Social Work"
+  }
 }

@@ -4,7 +4,7 @@
       'SESSIONS.SESSION_START' | translate
     }}</mat-header-cell>
     <mat-cell *matCellDef="let session">{{
-      session.startTime | date : 'dd.MM.yyyy HH:mm'
+      session.startTime | customDate
     }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="endTime">
@@ -12,7 +12,7 @@
       'SESSIONS.SESSION_END' | translate
     }}</mat-header-cell>
     <mat-cell *matCellDef="let session">{{
-      session.endTime | date : 'dd.MM.yyyy HH:mm'
+      session.endTime | customDate
     }}</mat-cell>
   </ng-container>
   <ng-container matColumnDef="infected">
@@ -28,14 +28,39 @@
     <mat-header-cell class="center" *matHeaderCellDef>{{
       'ACTIONS' | translate
     }}</mat-header-cell>
-    <mat-cell class="center" *matCellDef="let session"
-      ><button
+    <mat-cell class="center" *matCellDef="let session">
+      <button
+        *ngIf="adminService.isAdmin"
         mat-icon-button
-        color="basic"
-        aria-label="Example icon button with a menu icon"
-        (click)="openDialog(session.id, $event)"
+        [disabled]="session.infected"
+        (click)="markAsInfected(session)"
       >
-        <mat-icon>info</mat-icon>
+      <mat-cell class="center" *matCellDef="let session"
+        ><button
+          mat-icon-button
+          color="basic"
+          aria-label="Example icon button with a menu icon"
+          (click)="openDialog(session.id, $event)"
+        >
+          <mat-icon>info</mat-icon>
+        </button>
+      </mat-cell>
+        <mat-icon
+          [matTooltip]="
+            session.infected
+              ? ('SESSIONS.MARK_INFECTED_TOOLTIP_DISABLED' | translate)
+              : ('SESSIONS.MARK_INFECTED_TOOLTIP' | translate)
+          "
+        >
+          bug_report
+        </mat-icon>
+      </button>
+      <button
+        *ngIf="adminService.isAdmin"
+        mat-icon-button
+        (click)="delete(session)"
+      >
+        <mat-icon>delete</mat-icon>
       </button>
     </mat-cell>
   </ng-container>

@@ -35,9 +35,9 @@ export class RoomEntity extends BaseEntity {
   @Column({
     type: 'enum',
     enum: Faculty,
-    default: Faculty.AI,
+    nullable: true,
   })
-  faculty: Faculty;
+  faculty?: Faculty;
 
   @Column({ nullable: true, type: 'bytea', select: false })
   qrCode: Uint8Array;

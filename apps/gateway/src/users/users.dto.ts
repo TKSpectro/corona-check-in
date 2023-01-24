@@ -25,3 +25,8 @@ export class UpdateUserDto {
   @IsIn(Object.values(UserRole))
   role: UserRole;
 }
+
+export interface findAllQueryDto {
+  search?: string;
+  role?: UserRole;
+}

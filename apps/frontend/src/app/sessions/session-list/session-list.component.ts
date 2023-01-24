@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
+import { Session } from '../../shared/types';
 import { SessionListService } from '../session-list.service';
 
 @Component({
@@ -11,7 +12,7 @@ import { SessionListService } from '../session-list.service';
 })
 export class SessionListComponent implements OnInit, OnDestroy {
   sessionList!: any;
-  subscription!: Subscription;
+  subscriptions: Subscription[] = [];
   _meta: any;
   pageEvent: PageEvent = new PageEvent();
   total!: number;
@@ -20,6 +21,8 @@ export class SessionListComponent implements OnInit, OnDestroy {
   infected?: boolean;
   sessionBegin?: Date;
   sessionEnd?: Date;
+
+  sessionTableExtraColumns: string[] = ['actions'];
 
   // Datepicker
   range = new FormGroup({
@@ -42,21 +45,23 @@ export class SessionListComponent implements OnInit, OnDestroy {
   }
 
   loadSessions() {
-    this.subscription = this.sessionListService
-      .getSessions(
-        this.page,
-        10,
-        this.infected,
-        this.sessionBegin?.toDateString(),
-        this.sessionEnd?.toDateString()
-      )
-      .subscribe({
-        next: (data) => {
-          this.sessionList = data.data;
-          this._meta = data._meta;
-        },
-        error: (err) => console.error(err),
-      });
+    this.subscriptions.push(
+      this.sessionListService
+        .getSessions(
+          this.page,
+          10,
+          this.infected,
+          this.sessionBegin?.toDateString(),
+          this.sessionEnd?.toDateString()
+        )
+        .subscribe({
+          next: (data) => {
+            this.sessionList = data.data;
+            this._meta = data._meta;
+          },
+          error: (err) => console.error(err),
+        })
+    );
   }
 
   toggleInfectionFilter() {
@@ -84,7 +89,29 @@ export class SessionListComponent implements OnInit, OnDestroy {
     this.loadSessions();
   }
 
+  markAsInfected(session: Session) {
+    this.subscriptions.push(
+      this.sessionListService.markAsInfected(session).subscribe({
+        next: () => {
+          this.loadSessions();
+        },
+        error: (err) => console.error(err),
+      })
+    );
+  }
+
+  deleteSession(sessionId: string) {
+    this.subscriptions.push(
+      this.sessionListService.deleteSession(sessionId).subscribe({
+        next: () => {
+          this.loadSessions();
+        },
+        error: (err) => console.error(err),
+      })
+    );
+  }
+
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.subscriptions.forEach((s) => s.unsubscribe());
   }
 }

@@ -49,7 +49,12 @@
   <mat-icon>replay</mat-icon>
 </button>
 
-<ccn-session-table [sessionList]="sessionList"></ccn-session-table>
+<ccn-session-table
+  [sessionList]="sessionList"
+  [extraColumns]="['actions']"
+  (markAsInfectedEvent)="markAsInfected($event)"
+  (deleteEvent)="deleteSession($event)"
+></ccn-session-table>
 
 <mat-paginator
   showFirstLastButtons
