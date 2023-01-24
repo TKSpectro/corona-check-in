@@ -33,7 +33,11 @@
       <p *ngIf="!sessionData.infected">{{ 'NO' | translate }}</p>
     </div>
 
-    <mat-form-field appearance="fill" class="note-input">
+    <mat-form-field
+      appearance="fill"
+      class="note-input"
+      *ngIf="!adminService.isAdmin"
+    >
       <mat-label>{{ 'SESSIONS.NOTE' | translate }}</mat-label>
       <textarea
         matInput

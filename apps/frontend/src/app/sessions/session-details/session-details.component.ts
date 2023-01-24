@@ -3,6 +3,7 @@ import { Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AdminService } from '../../auth/admin/admin.service';
 import { ServerService } from '../../shared/server.service';
 import { Session } from '../../shared/types';
 
@@ -16,11 +17,15 @@ export class SessionDetailsComponent implements OnInit, OnDestroy {
   subscription: Subscription[] = [];
   id = '';
 
+  adminService: AdminService;
+
   constructor(
     private serverSrv: ServerService,
-    private route: ActivatedRoute,
+    adminService: AdminService,
     @Inject(MAT_DIALOG_DATA) public data: { id: string }
-  ) {}
+  ) {
+    this.adminService = adminService;
+  }
 
   @ViewChild('autosize') autosize!: CdkTextareaAutosize;
 
