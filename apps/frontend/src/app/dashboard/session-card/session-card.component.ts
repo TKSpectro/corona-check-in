@@ -1,7 +1,4 @@
-import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-
-import { MatIconRegistry } from '@angular/material/icon';
+import { Component } from '@angular/core';
 
 enum risks {
   LOW = 'niedrig',
@@ -15,7 +12,4 @@ enum risks {
   templateUrl: './session-card.component.html',
   styleUrls: ['./session-card.component.scss'],
 })
-export class SessionCardComponent {
-  lastUpdate = '01.11.2022 16:35:40';
-  infectionRisk = risks.MEDIUM;
-}
+export class SessionCardComponent {}

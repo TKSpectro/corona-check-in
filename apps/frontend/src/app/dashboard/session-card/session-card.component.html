@@ -1,10 +1,27 @@
 <mat-card class="example-card">
-  <mat-card-title>Infektionsstatus</mat-card-title>
+  <mat-card-title
+    >{{ 'SESSIONS.CURRENT_SESSION' | translate }}: 24.01.2023
+    14:31</mat-card-title
+  >
   <mat-card-content>
-    <div>
-      Aktuelles Risiko:
-      <div class="warning-text">{{ infectionRisk }}</div>
-    </div>
-    <p>Letzte Aktualisierung: {{ lastUpdate }}</p>
+    <p>{{ 'SESSIONS.INFECTION_STATUS' | translate }}:</p>
+
+    <mat-form-field appearance="fill" class="note-input">
+      <mat-label>{{ 'SESSIONS.NOTE' | translate }}</mat-label>
+      <textarea
+        matInput
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="1"
+        cdkAutosizeMaxRows="5"
+      ></textarea>
+    </mat-form-field>
+    <mat-card-actions>
+      <button mat-stroked-button>
+        {{ 'SAVE' | translate }}
+      </button>
+      <button mat-stroked-button>
+        {{ 'SESSIONS.REPORT_INFECTION' | translate }}
+      </button>
+    </mat-card-actions>
   </mat-card-content>
 </mat-card>
