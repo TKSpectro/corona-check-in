@@ -18,7 +18,6 @@ export class SessionListComponent implements OnInit, OnDestroy {
   total!: number;
   limit!: number;
   page!: number;
-  sessionNameFilter?: string;
   infected?: boolean;
   sessionBegin?: Date;
   sessionEnd?: Date;
@@ -53,8 +52,7 @@ export class SessionListComponent implements OnInit, OnDestroy {
           10,
           this.infected,
           this.sessionBegin?.toDateString(),
-          this.sessionEnd?.toDateString(),
-          this.sessionNameFilter
+          this.sessionEnd?.toDateString()
         )
         .subscribe({
           next: (data) => {
@@ -66,13 +64,15 @@ export class SessionListComponent implements OnInit, OnDestroy {
     );
   }
 
-  applyFilter(event: Event) {
-    this.sessionNameFilter = (event.target as HTMLInputElement).value;
-    this.loadSessions();
-  }
-
   toggleInfectionFilter() {
-    this.infected = !this.infected;
+    if (this.infected === undefined) {
+      this.infected = true;
+    } else if (this.infected === true) {
+      this.infected = false;
+    } else if (this.infected === false) {
+      this.infected = undefined;
+    }
+
     this.loadSessions();
   }
 

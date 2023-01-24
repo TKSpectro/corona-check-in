@@ -1,9 +1,11 @@
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AdminService } from '../../auth/admin/admin.service';
+import { ServerService } from '../../shared/server.service';
 import { Session } from '../../shared/types';
-import { SessionDetailsService } from './session-details.service';
 
 @Component({
   selector: 'ccn-session-details',
@@ -15,25 +17,32 @@ export class SessionDetailsComponent implements OnInit, OnDestroy {
   subscription: Subscription[] = [];
   id = '';
 
+  adminService: AdminService;
+
   constructor(
-    private sessionDetailsService: SessionDetailsService,
-    private route: ActivatedRoute
-  ) {}
+    private serverSrv: ServerService,
+    adminService: AdminService,
+    @Inject(MAT_DIALOG_DATA) public data: { id: string }
+  ) {
+    this.adminService = adminService;
+  }
 
   @ViewChild('autosize') autosize!: CdkTextareaAutosize;
 
   ngOnInit(): void {
-    this.subscription.push(
-      this.route.paramMap.subscribe((params) => {
-        this.id = params.has('id') ? params.get('id') || '' : '';
-      })
-    );
-    this.sessionDetailsService.getSessionById(this.id);
-    this.subscription.push(
-      this.sessionDetailsService.submitSessionData.subscribe((data) => {
-        this.sessionData = data;
-      })
-    );
+    if (this.data) {
+      this.id = this.data.id;
+      this.subscription.push(
+        this.serverSrv.getSessionById(this.id).subscribe({
+          next: (data) => {
+            this.sessionData = data;
+          },
+          error: (error) => {
+            console.log(error.error.message);
+          },
+        })
+      );
+    }
   }
 
   ngOnDestroy() {
@@ -42,10 +51,9 @@ export class SessionDetailsComponent implements OnInit, OnDestroy {
 
   saveNote() {
     this.subscription.push(
-      this.sessionDetailsService
+      this.serverSrv
         .updateSession({
           id: this.sessionData.id,
-          name: this.sessionData.name,
           startTime: this.sessionData.startTime,
           endTime: this.sessionData.endTime,
           infected: this.sessionData.infected,

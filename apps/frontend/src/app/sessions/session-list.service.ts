@@ -13,16 +13,14 @@ export class SessionListService {
     take = 10,
     infected?: boolean,
     sessionBegin?: string,
-    sessionEnd?: string,
-    sessionName?: string
+    sessionEnd?: string
   ) {
     return this.serverSrv.getSessions(
       page,
       take,
       infected,
       sessionBegin,
-      sessionEnd,
-      sessionName
+      sessionEnd
     );
   }
 

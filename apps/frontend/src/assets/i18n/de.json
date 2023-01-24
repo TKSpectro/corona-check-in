@@ -22,6 +22,7 @@
   "ACTIONS": "Aktionen",
   "RESET": "zurücksetzen",
   "INFECTIONS": "Infezierungen",
+  "ACTIONS": "Aktionen",
   "AUTH": {
     "SIGN_IN_INSTEAD": "Stattdessen anmelden",
     "CREATE_ACCOUNT": "Konto erstellen"
