@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { map } from 'rxjs';
 import { ServerService } from '../shared/server.service';
 import { AdminService } from './admin/admin.service';
 import { User, UserSignup } from './user';
@@ -14,7 +13,7 @@ export class AuthService {
   constructor(
     private serverSrv: ServerService,
     private router: Router,
-    private adminService: AdminService
+    public adminService: AdminService
   ) {}
 
   autoLogin() {
@@ -30,14 +29,18 @@ export class AuthService {
   }
 
   login(user: User) {
-    return this.serverSrv.login(user).pipe(
-      map((result) => {
+    this.serverSrv.login(user).subscribe({
+      next: (result) => {
         this.token = result.token;
         localStorage.setItem('ccn_token', this.token);
+        this.adminService.autoAdmin();
 
-        return result;
-      })
-    );
+        this.router.navigate(['/dashboard']);
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
   }
 
   signup(user: UserSignup) {
@@ -45,6 +48,7 @@ export class AuthService {
       next: (result) => {
         this.token = result.token;
         localStorage.setItem('ccn_token', this.token);
+        this.adminService.autoAdmin();
 
         this.router.navigate(['/dashboard']);
       },
