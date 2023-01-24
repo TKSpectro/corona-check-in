@@ -1,4 +1,7 @@
-import { PageOptionsDto } from '@corona-check-in/micro-service-shared';
+import {
+  PageOptionsDto,
+  UserRole,
+} from '@corona-check-in/micro-service-shared';
 import {
   Body,
   Controller,
@@ -12,7 +15,6 @@ import {
   Request,
 } from '@nestjs/common';
 import { Roles } from '../auth/decorators/roles.decorator';
-import { UserRole } from './user.entity';
 import { findAllQueryDto, UpdateUserDto } from './users.dto';
 import { UsersService } from './users.service';
 

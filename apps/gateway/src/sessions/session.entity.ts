@@ -8,4 +8,6 @@ export class SessionEntity {
   infected: boolean;
 
   note: string;
+
+  userId: string;
 }

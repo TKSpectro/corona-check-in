@@ -1,7 +1,7 @@
+import { UserRole } from '@corona-check-in/micro-service-shared';
 import { Controller, Get, Request } from '@nestjs/common';
 import { AuthService } from '../auth/auth.service';
 import { Roles } from '../auth/decorators/roles.decorator';
-import { UserRole } from '../users/user.entity';
 
 import { AppService } from './app.service';
 

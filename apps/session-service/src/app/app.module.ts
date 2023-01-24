@@ -1,3 +1,4 @@
+import { UserEntity } from '@corona-check-in/micro-service-shared';
 import { Module } from '@nestjs/common';
 
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -19,6 +20,7 @@ import { SessionEntity } from './session.entity';
       autoLoadEntities: true,
     }),
     TypeOrmModule.forFeature([SessionEntity]),
+    TypeOrmModule.forFeature([UserEntity]),
   ],
   controllers: [AppController],
   providers: [AppService],

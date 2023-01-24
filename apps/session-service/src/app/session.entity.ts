@@ -29,4 +29,7 @@ export class SessionEntity extends BaseEntity {
 
   @Column({ nullable: true })
   note: string;
+
+  @Column({ type: 'uuid' })
+  userId: string;
 }

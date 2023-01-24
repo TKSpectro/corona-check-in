@@ -1,6 +1,7 @@
 import {
   findWithMeta,
   PageOptionsDto,
+  UserEntity,
 } from '@corona-check-in/micro-service-shared';
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -14,7 +15,9 @@ import { UpdateSessionDto } from './update-sessions.dto';
 export class AppService implements OnModuleInit {
   constructor(
     @InjectRepository(SessionEntity)
-    private readonly sessionRepository: Repository<SessionEntity>
+    private readonly sessionRepository: Repository<SessionEntity>,
+    @InjectRepository(UserEntity)
+    private readonly userRepository: Repository<UserEntity>
   ) {}
 
   async onModuleInit() {
@@ -48,7 +51,7 @@ export class AppService implements OnModuleInit {
     return findWithMeta(queryBuilder, pageOptionsDto);
   }
 
-  getSessionById(id: string) {
+  async getSessionById(id: string) {
     return this.sessionRepository.findOne({ where: { id } });
   }
 
@@ -84,6 +87,7 @@ export class AppService implements OnModuleInit {
             endTime:
               i % 2 === 0 ? `2022-12-${i < 10 ? '0' : ''}${i}T09:30:00` : null,
             infected: i % 2 === 0 ? true : false,
+            userId: '00000000-0000-0000-0000-000000000002',
           });
         } catch (error) {
           // do nothing
