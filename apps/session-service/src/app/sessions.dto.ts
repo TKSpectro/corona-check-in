@@ -1,9 +1,6 @@
 import { IsNotEmpty, IsOptional } from 'class-validator';
 
-export class UpdateSessionDto {
-  @IsNotEmpty()
-  id: string;
-
+export class SessionDto {
   @IsNotEmpty()
   startTime: Date;
 

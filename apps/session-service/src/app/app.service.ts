@@ -6,7 +6,8 @@ import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { SessionEntity } from './session.entity';
-import { UpdateSessionDto } from './sessions.dto';
+import { SessionDto } from './sessions.dto';
+import { UpdateSessionDto } from './update-sessions.dto';
 
 @Injectable()
 export class AppService implements OnModuleInit {
@@ -66,6 +67,10 @@ export class AppService implements OnModuleInit {
     return this.sessionRepository.findOne({ where: { id } });
   }
 
+  async createSession(createSessionDto: SessionDto): Promise<SessionEntity> {
+    return await this.sessionRepository.save(createSessionDto);
+  }
+
   async updateSession(
     updateSessionDto: UpdateSessionDto
   ): Promise<SessionEntity> {
@@ -76,5 +81,9 @@ export class AppService implements OnModuleInit {
     return await this.sessionRepository.save(
       this.sessionRepository.merge(updateSession, updateSessionDto)
     );
+  }
+
+  async deleteSession(id: string): Promise<boolean> {
+    return (await this.sessionRepository.delete(id)).affected > 0;
   }
 }

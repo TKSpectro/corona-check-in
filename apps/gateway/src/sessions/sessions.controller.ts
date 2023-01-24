@@ -1,19 +1,29 @@
 import { PageOptionsDto } from '@corona-check-in/micro-service-shared';
-import { Body, Controller, Get, Param, Put, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common';
 import { firstValueFrom } from 'rxjs';
-import { UpdateSessionDto } from './sessions.dto';
+import { UpdateSessionDto } from './update-sessions.dto';
+import { SessionDto } from './sessions.dto';
 import { SessionsService } from './sessions.service';
 
 @Controller('sessions')
 export class SessionsController {
   constructor(private readonly sessionsService: SessionsService) {}
 
-  @Get('/:id')
+  @Get(':id')
   getSessionById(@Param('id') id: string) {
     return this.sessionsService.getSessionById(id);
   }
 
-  @Get('')
+  @Get()
   async getSessions(
     @Query() pageOptionsDto: PageOptionsDto,
     @Query('infected') infected?: boolean,
@@ -30,8 +40,18 @@ export class SessionsController {
     );
   }
 
-  @Put('')
-  update(@Body() updateSessionDto: UpdateSessionDto) {
+  @Post()
+  createSession(@Body() sessionDto: SessionDto) {
+    return this.sessionsService.createSession(sessionDto);
+  }
+
+  @Put()
+  updateSession(@Body() updateSessionDto: UpdateSessionDto) {
     return this.sessionsService.updateSession(updateSessionDto);
+  }
+
+  @Delete(':id')
+  removeSession(@Param('id') id: string) {
+    return this.sessionsService.removeSession(id);
   }
 }

@@ -2,7 +2,8 @@ import { PageOptionsDto } from '@corona-check-in/micro-service-shared';
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { SessionEntity } from './session.entity';
-import { UpdateSessionDto } from './sessions.dto';
+import { SessionDto } from './sessions.dto';
+import { UpdateSessionDto } from './update-sessions.dto';
 
 @Injectable()
 export class SessionsService {
@@ -21,15 +22,29 @@ export class SessionsService {
   }
   getSessionById(id: string) {
     return this.sessionClient.send(
-      { role: 'sessions', cmd: 'get-by-id' },
+      { role: 'session', cmd: 'get-by-id' },
       { id }
+    );
+  }
+
+  createSession(createSessionDto: SessionDto) {
+    return this.sessionClient.send<SessionEntity>(
+      { role: 'session', cmd: 'create-session' },
+      createSessionDto
     );
   }
 
   updateSession(updateSessionDto: UpdateSessionDto) {
     return this.sessionClient.send<SessionEntity>(
-      { role: 'sessions', cmd: 'update-session' },
+      { role: 'session', cmd: 'update-session' },
       updateSessionDto
+    );
+  }
+
+  removeSession(id: string) {
+    return this.sessionClient.send(
+      { role: 'session', cmd: 'delete-session' },
+      id
     );
   }
 }
