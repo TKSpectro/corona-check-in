@@ -1,50 +1,65 @@
-<h2 class='mat-h2'>{{ 'SESSIONS.SESSION_OVERVIEW' | translate }}</h2>
+<div
+  *ngIf="sessionData"
+  class="session-card"
+  [ngClass]="{ 'infection-red': sessionData.infected }"
+>
+  <h2 mat-dialog-title class="mat-h2">
+    {{ 'SESSIONS.SESSION_OVERVIEW' | translate }}
+  </h2>
+  <mat-dialog-content>
+    <div class="column-left">
+      <p>{{ 'SESSIONS.SESSION_START' | translate }}:</p>
+    </div>
+    <div class="column-right">
+      <p>
+        {{ sessionData.startTime | date : 'dd.MM.yyyy HH:mm' }}
+      </p>
+    </div>
 
-<div *ngIf='sessionData'>
-  <mat-card
-    class='session-card'
-    [ngClass]="{'infection-red': sessionData.infected}"
-  >
-    <mat-card-content>
-      <div class='column-left'>
-        <p>{{ 'SESSIONS.SESSION_START' | translate }}:</p>
-      </div>
-      <div class='column-right'>
-        <p>
-          {{ sessionData.startTime | date: 'dd.MM.yyyy HH:mm:ss' }}
-        </p>
-      </div>
+    <div class="column-left">
+      <p>{{ 'SESSIONS.SESSION_END' | translate }}:</p>
+    </div>
+    <div class="column-right">
+      <p>
+        {{ sessionData.endTime | date : 'dd.MM.yyyy HH:mm' }}
+      </p>
+    </div>
 
-      <div class='column-left'>
-        <p>{{ 'SESSIONS.SESSION_END' | translate }}:</p>
-      </div>
-      <div class='column-right'>
-        <p>
-          {{ sessionData.endTime | date: 'dd.MM.yyyy HH:mm:ss' }}
-        </p>
-      </div>
+    <div class="column-left">
+      <p>{{ 'SESSIONS.INFECTED' | translate }}:</p>
+    </div>
+    <div class="column-right">
+      <p *ngIf="sessionData.infected">{{ 'YES' | translate }}</p>
+      <p *ngIf="!sessionData.infected">{{ 'NO' | translate }}</p>
+    </div>
 
-      <div class='column-left'>
-        <p>{{ 'SESSIONS.INFECTED' | translate }}:</p>
-      </div>
-      <div class='column-right'>
-        <p *ngIf='sessionData.infected'>{{ 'YES' | translate }}</p>
-        <p *ngIf='!sessionData.infected'>{{ 'NO' | translate }}</p>
-      </div>
-
-      <mat-form-field appearance='fill' class='note-input'>
-        <mat-label>{{ 'SESSIONS.NOTE' | translate }}</mat-label>
-        <textarea
-          matInput
-          cdkTextareaAutosize
-          cdkAutosizeMinRows='1'
-          cdkAutosizeMaxRows='5'
-          [(ngModel)]='sessionData.note'
-        ></textarea>
-      </mat-form-field>
-      <button mat-raised-button (click)='saveNote()'>
-        {{ 'SAVE' | translate }}
-      </button>
-    </mat-card-content>
-  </mat-card>
+    <mat-form-field
+      appearance="fill"
+      class="note-input"
+      *ngIf="!adminService.isAdmin"
+    >
+      <mat-label>{{ 'SESSIONS.NOTE' | translate }}</mat-label>
+      <textarea
+        matInput
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="1"
+        cdkAutosizeMaxRows="5"
+        [(ngModel)]="sessionData.note"
+      ></textarea>
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-stroked-button mat-dialog-close class="button-space">
+      {{ 'CANCEL' | translate }}
+    </button>
+    <button
+      mat-stroked-button
+      mat-dialog-close
+      cdkFocusInitial
+      (click)="saveNote()"
+    >
+      {{ 'SAVE' | translate }}
+    </button>
+  </mat-dialog-actions>
 </div>
+<mat-spinner *ngIf="!sessionData"></mat-spinner>

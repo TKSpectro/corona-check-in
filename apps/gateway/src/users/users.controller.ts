@@ -13,7 +13,7 @@ import {
 } from '@nestjs/common';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { UserRole } from './user.entity';
-import { UpdateUserDto } from './users.dto';
+import { findAllQueryDto, UpdateUserDto } from './users.dto';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -22,8 +22,11 @@ export class UsersController {
 
   @Get('')
   @Roles(UserRole.ADMIN)
-  async getUsers(@Query() pageOptionsDto: PageOptionsDto) {
-    return this.userService.find(pageOptionsDto);
+  async getUsers(
+    @Query() pageOptionsDto: PageOptionsDto,
+    @Query() query?: findAllQueryDto
+  ) {
+    return this.userService.find(pageOptionsDto, query);
   }
 
   @Put(':id')

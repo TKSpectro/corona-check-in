@@ -1,13 +1,4 @@
 <h2 class="mat-h2">{{ 'SESSIONS.SESSIONS' | translate }}</h2>
-<mat-form-field appearance="standard" class="filter-space">
-  <mat-label>Search Name</mat-label>
-  <input
-    matInput
-    (keyup)="applyFilter($event)"
-    placeholder="Search Columns"
-    #input
-  />
-</mat-form-field>
 
 <mat-form-field appearance="standard" class="filter-space">
   <mat-label>{{ 'ENTER_DATERANGE' | translate }}</mat-label>
@@ -43,9 +34,9 @@
   (click)="toggleInfectionFilter()"
   class="filter-space filter-button"
 >
-  <mat-icon *ngIf="infected">check</mat-icon>
-  <mat-icon *ngIf="infected === false">clear</mat-icon>
-  <mat-icon *ngIf="infected === undefined">remove</mat-icon>
+  <mat-icon class="fix-icon" *ngIf="infected">check</mat-icon>
+  <mat-icon class="fix-icon" *ngIf="infected === false">clear</mat-icon>
+  <mat-icon class="fix-icon" *ngIf="infected === undefined">remove</mat-icon>
   {{ 'SESSIONS.INFECTED' | translate }}
 </button>
 
@@ -55,11 +46,15 @@
   (click)="resetFilter()"
   class="filter-space filter-button"
 >
-  {{ 'RESET' | translate }}
+  <mat-icon>replay</mat-icon>
 </button>
 
-
-<ccn-session-table [sessionList]='sessionList'></ccn-session-table>
+<ccn-session-table
+  [sessionList]="sessionList"
+  [extraColumns]="['actions']"
+  (markAsInfectedEvent)="markAsInfected($event)"
+  (deleteEvent)="deleteSession($event)"
+></ccn-session-table>
 
 <mat-paginator
   showFirstLastButtons

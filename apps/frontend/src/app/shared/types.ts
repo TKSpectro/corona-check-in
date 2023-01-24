@@ -33,7 +33,6 @@ export interface Room {
 
 export interface Session {
   id: string;
-  name: string;
   startTime: Date;
   endTime?: Date;
   infected: boolean;

@@ -3,7 +3,7 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 import { AppService } from './app.service';
 import { RoomEntity } from './room.entity';
-import { RoomDto } from './rooms.dto';
+import { findAllQuery, RoomDto } from './rooms.dto';
 import { UpdateRoomDto } from './update-rooms.dto';
 
 @Controller()
@@ -18,12 +18,12 @@ export class AppController {
   @MessagePattern({ role: 'rooms', cmd: 'getRooms' })
   getRooms({
     pageOptionsDto,
-    roomFilter,
+    query,
   }: {
     pageOptionsDto: PageOptionsDto;
-    roomFilter?: string;
+    query?: findAllQuery;
   }) {
-    return this.appService.getRooms(pageOptionsDto, roomFilter);
+    return this.appService.getRooms(pageOptionsDto, query);
   }
 
   @MessagePattern({ role: 'room', cmd: 'getRoom' })

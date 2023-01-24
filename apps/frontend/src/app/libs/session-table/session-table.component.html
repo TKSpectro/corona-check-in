@@ -24,6 +24,42 @@
       <mat-icon *ngIf="!session.infected">clear</mat-icon></mat-cell
     >
   </ng-container>
+  <ng-container matColumnDef="actions">
+    <mat-header-cell class="center" *matHeaderCellDef>{{
+      'ACTIONS' | translate
+    }}</mat-header-cell>
+    <mat-cell class="center" *matCellDef="let session">
+      <button mat-icon-button (click)="openDialog(session.id, $event)">
+        <mat-icon>{{ 'adminService.isAdmin' ? 'info' : 'edit' }}</mat-icon>
+      </button>
+      <button
+        *ngIf="adminService.isAdmin"
+        mat-icon-button
+        [disabled]="session.infected"
+        (click)="markAsInfected(session)"
+      >
+        <mat-icon
+          [matTooltip]="
+            session.infected
+              ? ('SESSIONS.MARK_INFECTED_TOOLTIP_DISABLED' | translate)
+              : ('SESSIONS.MARK_INFECTED_TOOLTIP' | translate)
+          "
+        >
+          bug_report
+        </mat-icon>
+      </button>
+      <button
+        *ngIf="adminService.isAdmin"
+        mat-icon-button
+        (click)="delete(session)"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  <mat-row
+    (click)="openDialog(row.id, $event)"
+    *matRowDef="let row; columns: displayedColumns"
+  ></mat-row>
 </table>
