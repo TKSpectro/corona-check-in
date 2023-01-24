@@ -36,15 +36,17 @@ export class AppComponent implements OnDestroy, OnInit {
     this.mobileQuery = media.matchMedia('(max-width: 700px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addEventListener('change', this._mobileQueryListener);
+
+    this.t.addLangs(['en', 'de']);
+    this.t.setDefaultLang('en');
+
+    const localStoredLang = localStorage.getItem('ccn_lang');
+    const browserLang = this.t.getBrowserLang();
+
+    this.t.use(localStoredLang || browserLang || this.t.defaultLang);
   }
 
   ngOnInit() {
-    this.t.addLangs(['en', 'de']);
-    const localStoredLang = localStorage.getItem('ccn_lang');
-    const browserLang = this.t.getBrowserLang();
-    this.t.setDefaultLang(localStoredLang || browserLang || 'en');
-    this.t.use(localStoredLang || browserLang || 'en');
-
     this.authService.autoLogin();
     this.adminService.requestIsAdmin().subscribe();
   }

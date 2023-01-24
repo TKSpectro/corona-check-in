@@ -1,5 +1,5 @@
 import { MediaMatcher } from '@angular/cdk/layout';
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { AdminService } from '../../auth/admin/admin.service';
@@ -9,13 +9,13 @@ import { AdminService } from '../../auth/admin/admin.service';
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss'],
 })
-export class SidenavComponent implements OnInit, OnDestroy {
+export class SidenavComponent implements OnDestroy {
   mobileQuery: MediaQueryList;
   _mobileQueryListener: () => void;
   isExpanded!: boolean;
   adminService: AdminService;
 
-  langSelect = new FormControl('');
+  langSelect = new FormControl(this.t.currentLang);
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
@@ -30,10 +30,6 @@ export class SidenavComponent implements OnInit, OnDestroy {
       (event) => (this.isExpanded = !event.matches)
     );
     this.adminService = adminService;
-  }
-
-  ngOnInit(): void {
-    this.langSelect.setValue(this.t.currentLang);
   }
 
   public toggleSideNav(toggleSideNav: boolean): void {

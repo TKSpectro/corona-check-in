@@ -23,12 +23,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     changeDetectorRef: ChangeDetectorRef,
     private sessionListService: SessionListService
   ) {
-    translate.addLangs(['en', 'de']);
-    const browserLang = translate.getBrowserLang();
-    browserLang
-      ? translate.use(browserLang.match(/en|fr/) ? browserLang : 'en')
-      : '';
-
     this.mobileQuery = media.matchMedia('(max-width: 1150px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addEventListener(
