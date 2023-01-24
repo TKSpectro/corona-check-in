@@ -40,9 +40,9 @@ export class AppComponent implements OnDestroy, OnInit {
 
   ngOnInit() {
     this.t.addLangs(['en', 'de']);
-    this.t.setDefaultLang('en');
     const localStoredLang = localStorage.getItem('ccn_lang');
     const browserLang = this.t.getBrowserLang();
+    this.t.setDefaultLang(localStoredLang || browserLang || 'en');
     this.t.use(localStoredLang || browserLang || 'en');
 
     this.authService.autoLogin();
