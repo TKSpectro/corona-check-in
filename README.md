@@ -94,3 +94,11 @@ It will also produce a preview deploy for commit in every pull request.
 The pipeline is defined in [.github/workflows/ci.yml](.github/workflows/ci.yml)
 
 We extensively use the nx affected command to only run tests and linting for the currently changed code. To save time and resources.
+
+## Monitoring
+
+We are using Prometheus and Grafana to get metrics about the backend (micro-services) and display some nice graphs.
+
+The most important one is the list for every service and its current status (online/offline)
+
+To get these metrics we have implemented health check via NestJS and Terminus.
