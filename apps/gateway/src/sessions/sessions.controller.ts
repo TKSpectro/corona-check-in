@@ -45,6 +45,11 @@ export class SessionsController {
     return this.sessionsService.createSession(sessionDto);
   }
 
+  @Post('markLastSessionsAsInfected')
+  markLastSessionsAsInfected(@Body() userId: string) {
+    return this.sessionsService.markLastSessionsAsInfected(userId);
+  }
+
   @Put()
   updateSession(@Body() updateSessionDto: UpdateSessionDto) {
     return this.sessionsService.updateSession(updateSessionDto);

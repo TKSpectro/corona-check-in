@@ -68,7 +68,9 @@
     "INFECTED": "Infiziert",
     "NOTE": "Notiz",
     "MARK_INFECTED_TOOLTIP": "Diese Session als infiziert markieren",
-    "MARK_INFECTED_TOOLTIP_DISABLED": "Die Session ist bereits als infiziert markiert"
+    "MARK_INFECTED_TOOLTIP_DISABLED": "Die Session ist bereits als infiziert markiert",
+    "CURRENT_SESSION": "Aktuelle Session",
+    "REPORT_INFECTION": "Infektion melden"
   },
   "ROOMS": {
     "ROOMS": "Räume",

@@ -68,7 +68,9 @@
     "INFECTED": "Infected",
     "NOTE": "Note",
     "MARK_INFECTED_TOOLTIP": "Mark this session as infected",
-    "MARK_INFECTED_TOOLTIP_DISABLED": "This session is already marked as infected"
+    "MARK_INFECTED_TOOLTIP_DISABLED": "This session is already marked as infected",
+    "CURRENT_SESSION": "Current session",
+    "REPORT_INFECTION": "Report infection"
   },
   "ROOMS": {
     "ROOMS": "Rooms",

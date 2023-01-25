@@ -1,10 +1,13 @@
 <mat-card class="example-card">
-  <mat-card-title>Infektionsstatus</mat-card-title>
+  <mat-card-title>{{ 'SESSIONS.CURRENT_SESSION' | translate }}</mat-card-title>
   <mat-card-content>
-    <div>
-      Aktuelles Risiko:
-      <div class="warning-text">{{ infectionRisk }}</div>
-    </div>
-    <p>Letzte Aktualisierung: {{ lastUpdate }}</p>
+    <button
+      mat-stroked-button
+      style="margin-top: 20px"
+      (click)="markLastSessionsAsInfected()"
+      [disabled]="success"
+    >
+      {{ 'SESSIONS.REPORT_INFECTION' | translate }}
+    </button>
   </mat-card-content>
 </mat-card>

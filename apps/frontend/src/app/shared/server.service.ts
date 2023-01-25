@@ -43,6 +43,13 @@ export class ServerService {
     return this.httpClient.delete<null>(`/api/sessions/${id}`);
   }
 
+  markLastSessionsAsInfected(userId: string) {
+    return this.httpClient.post<{ success: boolean }>(
+      '/api/sessions/markLastSessionsAsInfected',
+      userId
+    );
+  }
+
   // cross domain problem
   login(user: User): Observable<{ token: string }> {
     return this.httpClient.post<{ token: string }>('/api/auth/login', user);
