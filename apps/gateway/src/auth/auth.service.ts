@@ -1,7 +1,7 @@
+import { UserEntity } from '@corona-check-in/micro-service-shared';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { compareSync, hashSync } from 'bcrypt';
-import { UserEntity } from '../users/user.entity';
 import { UsersService } from '../users/users.service';
 import { SignupUserDto } from './auth.dto';
 

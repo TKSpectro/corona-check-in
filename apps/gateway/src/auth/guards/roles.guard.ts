@@ -1,6 +1,6 @@
+import { UserRole } from '@corona-check-in/micro-service-shared';
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { UserRole } from '../../users/user.entity';
 import { ROLES_KEY } from '../decorators/roles.decorator';
 
 @Injectable()

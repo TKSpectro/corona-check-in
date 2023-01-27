@@ -1,5 +1,5 @@
+import { UserRole } from '@corona-check-in/micro-service-shared';
 import { IsEmail, IsIn, IsNotEmpty, IsOptional } from 'class-validator';
-import { UserRole } from './user.entity';
 
 export class UpdateUserDto {
   @IsNotEmpty()

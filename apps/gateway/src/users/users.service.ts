@@ -1,6 +1,8 @@
 import {
   findWithMeta,
   PageOptionsDto,
+  UserEntity,
+  UserRole,
 } from '@corona-check-in/micro-service-shared';
 import {
   HttpException,
@@ -13,7 +15,6 @@ import { compareSync, hashSync } from 'bcrypt';
 import { Brackets, Repository } from 'typeorm';
 import { SignupUserDto } from '../auth/auth.dto';
 import { environment } from '../environments/environment';
-import { UserEntity, UserRole } from './user.entity';
 import { findAllQueryDto, UpdateUserDto } from './users.dto';
 
 @Injectable()

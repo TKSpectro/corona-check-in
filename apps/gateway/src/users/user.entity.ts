@@ -1,46 +1,48 @@
-import {
-  BaseEntity,
-  Column,
-  Entity,
-  Index,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+// import {
+//   BaseEntity,
+//   Column,
+//   Entity,
+//   Index,
+//   PrimaryGeneratedColumn,
+// } from 'typeorm';
 
-export enum UserRole {
-  ADMIN = 'admin',
-  USER = 'user',
-}
+// export enum UserRole {
+//   ADMIN = 'admin',
+//   USER = 'user',
+// }
 
-@Entity()
-export class UserEntity extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+// @Entity()
+// export class UserEntity extends BaseEntity {
+//   @PrimaryGeneratedColumn('uuid')
+//   id: string;
 
-  @Column({
-    unique: true,
-    nullable: false,
-  })
-  @Index()
-  email: string;
+//   @Column({
+//     unique: true,
+//     nullable: false,
+//   })
+//   @Index()
+//   email: string;
 
-  @Column()
-  firstname: string;
+//   @Column()
+//   firstname: string;
 
-  @Column()
-  lastname: string;
+//   @Column()
+//   lastname: string;
 
-  @Column({
-    nullable: false,
-  })
-  password: string;
+//   @Column({
+//     nullable: false,
+//   })
+//   password: string;
 
-  @Column({
-    type: 'enum',
-    enum: UserRole,
-    default: UserRole.USER,
-  })
-  role: UserRole;
+//   @Column({
+//     type: 'enum',
+//     enum: UserRole,
+//     default: UserRole.USER,
+//   })
+//   role: UserRole;
 
-  @Column({ nullable: false, default: false })
-  deleted: boolean;
-}
+//   @Column({ nullable: false, default: false })
+//   deleted: boolean;
+// }
+
+export default {};

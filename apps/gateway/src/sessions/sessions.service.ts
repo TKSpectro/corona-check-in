@@ -20,6 +20,7 @@ export class SessionsService {
       { pageOptionsDto, infected, sessionBegin, sessionEnd }
     );
   }
+
   getSessionById(id: string) {
     return this.sessionClient.send(
       { role: 'session', cmd: 'get-by-id' },
@@ -27,7 +28,7 @@ export class SessionsService {
     );
   }
 
-  createSession(createSessionDto: SessionDto) {
+  createSession(createSessionDto: SessionDto & { userId: string }) {
     return this.sessionClient.send<SessionEntity>(
       { role: 'session', cmd: 'create-session' },
       createSessionDto

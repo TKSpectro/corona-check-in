@@ -8,11 +8,12 @@ import {
   Post,
   Put,
   Query,
+  Request,
 } from '@nestjs/common';
 import { firstValueFrom } from 'rxjs';
-import { UpdateSessionDto } from './update-sessions.dto';
 import { SessionDto } from './sessions.dto';
 import { SessionsService } from './sessions.service';
+import { UpdateSessionDto } from './update-sessions.dto';
 
 @Controller('sessions')
 export class SessionsController {
@@ -41,8 +42,11 @@ export class SessionsController {
   }
 
   @Post()
-  createSession(@Body() sessionDto: SessionDto) {
-    return this.sessionsService.createSession(sessionDto);
+  createSession(@Body() sessionDto: SessionDto, @Request() req) {
+    return this.sessionsService.createSession({
+      ...sessionDto,
+      userId: req.user.sub,
+    });
   }
 
   @Post('markLastSessionsAsInfected')

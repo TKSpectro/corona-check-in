@@ -1,8 +1,8 @@
+import { UserRole } from '@corona-check-in/micro-service-shared';
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { environment } from '../../environments/environment';
-import { UserRole } from '../../users/user.entity';
 
 export interface JwtPayload {
   email: string;
