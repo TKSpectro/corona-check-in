@@ -1,4 +1,7 @@
-import { PageOptionsDto } from '@corona-check-in/micro-service-shared';
+import {
+  PageOptionsDto,
+  UserRole,
+} from '@corona-check-in/micro-service-shared';
 import {
   Body,
   Controller,
@@ -14,6 +17,7 @@ import { firstValueFrom } from 'rxjs';
 import { SessionDto } from './sessions.dto';
 import { SessionsService } from './sessions.service';
 import { UpdateSessionDto } from './update-sessions.dto';
+import { Roles } from '../auth/decorators/roles.decorator';
 
 @Controller('sessions')
 export class SessionsController {
@@ -41,9 +45,18 @@ export class SessionsController {
     );
   }
 
+  @Roles(UserRole.ADMIN)
   @Post()
   createSession(@Body() sessionDto: SessionDto, @Request() req) {
     return this.sessionsService.createSession({
+      ...sessionDto,
+      userId: req.user.sub,
+    });
+  }
+
+  @Post('scan')
+  scanQrCode(@Body() sessionDto: SessionDto, @Request() req) {
+    return this.sessionsService.scanQrCode({
       ...sessionDto,
       userId: req.user.sub,
     });

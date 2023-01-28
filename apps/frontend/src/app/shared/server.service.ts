@@ -2,7 +2,13 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User, UserSignup } from '../auth/user';
-import { PaginationResponse, Room, Session, UpdateUser } from './types';
+import {
+  PaginationResponse,
+  Room,
+  ScanQrCodeBody,
+  Session,
+  UpdateUser,
+} from './types';
 
 @Injectable({
   providedIn: 'root',
@@ -96,5 +102,9 @@ export class ServerService {
 
   updateQrCode(room: Room) {
     return this.httpClient.put<Room>(`/api/rooms/qr-code`, room);
+  }
+
+  scanQrCode(scanBody: ScanQrCodeBody) {
+    return this.httpClient.post<Session>('/api/sessions/scan', scanBody);
   }
 }

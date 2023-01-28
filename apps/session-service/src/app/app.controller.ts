@@ -46,6 +46,11 @@ export class AppController {
     return this.appService.createSession(createSessionDto);
   }
 
+  @MessagePattern({ role: 'session', cmd: 'scan-code' })
+  scanQrCode(createSessionDto: SessionDto): Promise<SessionEntity> {
+    return this.appService.createSessionFromQrCode(createSessionDto);
+  }
+
   @MessagePattern({ role: 'session', cmd: 'update-session' })
   updateSession(updateSessionDto: UpdateSessionDto): Promise<SessionEntity> {
     return this.appService.updateSession(updateSessionDto);

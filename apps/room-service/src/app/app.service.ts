@@ -115,12 +115,12 @@ export class AppService {
       if (
         !(await this.roomRepository.findOne({
           where: {
-            id: `00000000-0000-0000-0002-0000000000${i < 10 ? 0 : ''}${i}`,
+            id: `00000000-0000-0000-0000-0000000000${i < 10 ? 0 : ''}${i}`,
           },
         }))
       ) {
         await this.roomRepository.insert({
-          id: `00000000-0000-0000-0002-0000000000${i < 10 ? 0 : ''}${i}`,
+          id: `00000000-0000-0000-0000-0000000000${i < 10 ? 0 : ''}${i}`,
           name: `room-${i}`,
           maxDuration: randomInt(30, 240),
           maxParticipants: randomInt(10, 100),

@@ -18,13 +18,13 @@ export class SessionEntity extends BaseEntity {
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 
-  @Column({ type: 'timestamptz', name: 'starttime' })
+  @CreateDateColumn({ name: 'starttime' })
   startTime: Date;
 
   @Column({ nullable: true, type: 'timestamptz', name: 'endtime' })
   endTime: Date;
 
-  @Column({ type: 'bool' })
+  @Column({ default: false, type: 'bool' })
   infected: boolean;
 
   @Column({ nullable: true })
@@ -32,4 +32,7 @@ export class SessionEntity extends BaseEntity {
 
   @Column({ type: 'uuid' })
   userId: string;
+
+  @Column({ type: 'uuid' })
+  roomId: string;
 }

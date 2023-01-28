@@ -34,6 +34,12 @@ export class SessionsService {
       createSessionDto
     );
   }
+  scanQrCode(createSessionDto: SessionDto & { userId: string }) {
+    return this.sessionClient.send<SessionEntity>(
+      { role: 'session', cmd: 'scan-code' },
+      createSessionDto
+    );
+  }
 
   markLastSessionsAsInfected(userId: string) {
     return this.sessionClient.send(
