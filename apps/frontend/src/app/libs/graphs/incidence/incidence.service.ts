@@ -18,7 +18,14 @@ export class IncidenceService {
         this.submitChartData.next(this.chartData);
       },
       error: (error) => {
-        console.error(error);
+        // TODO: This can only be done in the component, as the translation service is not available here
+        // this.snackBar.open(
+        //   this.t.instant('INCIDENCES.LOAD_ERROR' + '\n' + error.error.message),
+        //   undefined,
+        //   {
+        //     panelClass: 'snackbar-error',
+        //   }
+        // );
       },
     });
   }

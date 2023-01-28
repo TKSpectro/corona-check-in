@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
 import { Result } from '@zxing/library';
 
 @Component({
@@ -12,6 +14,8 @@ export class QrCodeScannerComponent {
   cameraDevices: MediaDeviceInfo[] = [];
   desiredDevice!: MediaDeviceInfo;
 
+  constructor(private snackBar: MatSnackBar, private t: TranslateService) {}
+
   camerasFoundHandler($event: MediaDeviceInfo[]) {
     if ($event.length > 0) {
       this.cameraDevices = $event;
@@ -22,8 +26,14 @@ export class QrCodeScannerComponent {
     }
   }
 
-  camerasNotFoundHandler($event: any) {
-    console.error('camerasNotFoundHandler', $event);
+  camerasNotFoundHandler($event: string) {
+    this.snackBar.open(
+      this.t.instant('DASHBOARDS.CAMERA_NOT_FOUND_ERROR'),
+      undefined,
+      {
+        panelClass: 'snackbar-error',
+      }
+    );
   }
 
   scanSuccessHandler($event: string) {

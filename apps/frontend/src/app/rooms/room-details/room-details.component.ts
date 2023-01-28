@@ -1,11 +1,13 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { SessionListService } from '../../sessions/session-list.service';
 import { mergeMap } from 'rxjs/operators';
-import { RoomsService } from '../rooms.service';
+import { SessionListService } from '../../sessions/session-list.service';
 import { Room } from '../../shared/types';
+import { RoomsService } from '../rooms.service';
 
 @Component({
   selector: 'ccn-room-details',
@@ -23,6 +25,8 @@ export class RoomDetailsComponent implements OnInit, OnDestroy {
   qrCode = '';
 
   constructor(
+    private t: TranslateService,
+    private snackBar: MatSnackBar,
     private route: ActivatedRoute,
     private changeDetectorRef: ChangeDetectorRef,
     private sessionListService: SessionListService,
@@ -55,7 +59,17 @@ export class RoomDetailsComponent implements OnInit, OnDestroy {
               name: this.room.createdQrCode,
             });
           },
-          error: (err) => console.error(err),
+          error: (error) => {
+            this.snackBar.open(
+              this.t.instant('ROOMS.LOAD_ROOM_DETAILS_ERROR') +
+                '\n' +
+                error.error.message,
+              undefined,
+              {
+                panelClass: 'snackbar-error',
+              }
+            );
+          },
         })
       );
       return;
@@ -75,7 +89,17 @@ export class RoomDetailsComponent implements OnInit, OnDestroy {
             });
           }
         },
-        error: (err) => console.error(err),
+        error: (error) => {
+          this.snackBar.open(
+            this.t.instant('ROOMS.LOAD_ROOM_LIST_ERROR') +
+              '\n' +
+              error.error.message,
+            undefined,
+            {
+              panelClass: 'snackbar-error',
+            }
+          );
+        },
       })
     );
   }
@@ -94,7 +118,17 @@ export class RoomDetailsComponent implements OnInit, OnDestroy {
           next: (data) => {
             this.infectedSessionList = data.data;
           },
-          error: (err) => console.error(err),
+          error: (error) => {
+            this.snackBar.open(
+              this.t.instant('ROOMS.LOAD_SESSIONS_ERROR') +
+                '\n' +
+                error.error.message,
+              undefined,
+              {
+                panelClass: 'snackbar-error',
+              }
+            );
+          },
         })
     );
   }

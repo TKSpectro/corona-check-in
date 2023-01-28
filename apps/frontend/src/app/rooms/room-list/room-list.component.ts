@@ -2,6 +2,8 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { Meta, Room } from '../../shared/types';
 import { RoomsService } from '../rooms.service';
@@ -37,6 +39,8 @@ export class RoomListComponent implements OnInit, OnDestroy {
   facultyList = ['', 'AI', 'SA'];
 
   constructor(
+    private t: TranslateService,
+    private snackBar: MatSnackBar,
     private roomSrv: RoomsService,
     media: MediaMatcher,
     changeDetectorRef: ChangeDetectorRef
@@ -70,7 +74,17 @@ export class RoomListComponent implements OnInit, OnDestroy {
           this.roomList = data.data;
           this._meta = data._meta;
         },
-        error: (err) => console.error(err),
+        error: (error) => {
+          this.snackBar.open(
+            this.t.instant('ROOMS.LOAD_ROOM_LIST_ERROR') +
+              '\n' +
+              error.error.message,
+            undefined,
+            {
+              panelClass: 'snackbar-error',
+            }
+          );
+        },
       });
   }
 

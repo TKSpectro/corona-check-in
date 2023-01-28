@@ -25,7 +25,11 @@
   "ACTIONS": "Aktionen",
   "AUTH": {
     "SIGN_IN_INSTEAD": "Stattdessen anmelden",
-    "CREATE_ACCOUNT": "Konto erstellen"
+    "CREATE_ACCOUNT": "Konto erstellen",
+    "LOGIN_SUCCESS": "Anmeldung erfolgreich",
+    "LOGIN_ERROR": "Anmelden fehlgeschlagen",
+    "SIGNUP_SUCCESS": "Registrierung erfolgreich",
+    "SIGNUP_ERROR": "Registrierung fehlgeschlagen"
   },
   "PROFILES": {
     "PROFILE": "Profil",
@@ -47,7 +51,8 @@
     "PROFILE_UPDATE_SUCCESS": "Profil erfolgreich aktualisiert",
     "LOGOUT_SUCCESS": "Erfolgreich ausgeloggt",
     "PROFILE_DELETE_SUCCESS": "Profil erfolgreich gelöscht",
-    "PROFILE_DELETE_ERROR": "Profil konnte nicht gelöscht werden"
+    "PROFILE_DELETE_ERROR": "Profil konnte nicht gelöscht werden",
+    "LOAD_PROFILE_ERROR": "Profil konnte nicht geladen werden"
   },
   "YES": "Ja",
   "NO": "Nein",
@@ -70,7 +75,10 @@
     "MARK_INFECTED_TOOLTIP": "Diese Session als infiziert markieren",
     "MARK_INFECTED_TOOLTIP_DISABLED": "Die Session ist bereits als infiziert markiert",
     "CURRENT_SESSION": "Aktuelle Session",
-    "REPORT_INFECTION": "Infektion melden"
+    "REPORT_INFECTION": "Infektion melden",
+    "LOAD_SESSIONS_ERROR": "Sessions konnten nicht geladen werden",
+    "MARK_INFECTED_ERROR": "Session konnte nicht als infiziert markiert werden",
+    "DELETE_SESSION_ERROR": "Session konnte nicht gelöscht werden"
   },
   "ROOMS": {
     "ROOMS": "Räume",
@@ -82,7 +90,16 @@
     "UPDATE_ROOM": "Raum bearbeiten",
     "MAX_PARTICIPANTS": "Maximale Teilnehmer",
     "MAX_DURATION": "Maximale Dauer",
-    "FACULITY": "Fakultät"
+    "FACULITY": "Fakultät",
+    "LOAD_ROOM_LIST_ERROR": "Raumliste konnte nicht geladen werden",
+    "LOAD_ROOM_DETAILS_ERROR": "Raumdetails konnten nicht geladen werden",
+    "LOAD_SESSIONS_ERROR": "Sessions konnten nicht geladen werden"
+  },
+  "DASHBOARDS": {
+    "SESSIONS_ERROR": "Sessions konnten nicht geladen werden",
+    "ME_ERROR": "Nutzer konnte nicht geladen werden",
+    "MARK_INFECTED_ERROR": "Letzte Sessions konnten nicht als infiziert markiert werden",
+    "CAMERA_NOT_FOUND_ERROR": "Keine Kamera gefunden"
   },
   "ERROR_OLD_PASSWORD_WRONG": "Altes Passwort ist falsch",
   "ERROR_PASSWORDS_NOT_MATCHING": "Neues Passwort stimmt nicht überein",

@@ -37,14 +37,27 @@ export class ProfileComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.profileService.getProfileData();
     this.subscriptions.push(
-      this.profileService.submitProfileData.subscribe((data) => {
-        this.id = data.id as string;
-        this.firstname = data.firstname as string;
-        this.lastname = data.lastname as string;
-        this.email = data.email as string;
-        this.firstname = data.firstname as string;
-        this.lastname = data.lastname as string;
-      })
+      this.profileService.submitProfileData.subscribe(
+        (data) => {
+          this.id = data.id as string;
+          this.firstname = data.firstname as string;
+          this.lastname = data.lastname as string;
+          this.email = data.email as string;
+          this.firstname = data.firstname as string;
+          this.lastname = data.lastname as string;
+        },
+        (error) => {
+          this.snackBar.open(
+            this.t.instant(
+              'PROFILES.LOAD_PROFILE_ERROR' + '\n' + error.error.message
+            ),
+            undefined,
+            {
+              panelClass: 'snackbar-error',
+            }
+          );
+        }
+      )
     );
   }
 

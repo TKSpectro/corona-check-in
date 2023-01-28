@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Session, User } from '../../shared/types';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { ServerService } from '../../shared/server.service';
+import { User } from '../../shared/types';
 
 @Component({
   selector: 'ccn-session-card',
@@ -13,7 +15,11 @@ export class SessionCardComponent implements OnInit {
   profileData!: User;
   success = false;
 
-  constructor(private serverSrv: ServerService) {}
+  constructor(
+    private t: TranslateService,
+    private snackBar: MatSnackBar,
+    private serverSrv: ServerService
+  ) {}
 
   ngOnInit(): void {
     this.getProfileData();
@@ -25,7 +31,13 @@ export class SessionCardComponent implements OnInit {
         this.profileData = result;
       },
       error: (error) => {
-        console.error(error);
+        this.snackBar.open(
+          this.t.instant('DASHBOARDS.ME_ERROR') + '\n' + error.error.message,
+          undefined,
+          {
+            panelClass: 'snackbar-error',
+          }
+        );
       },
     });
   }
@@ -39,7 +51,17 @@ export class SessionCardComponent implements OnInit {
             next: (data) => {
               this.success = data.success;
             },
-            error: (err) => console.error(err),
+            error: (error) => {
+              this.snackBar.open(
+                this.t.instant('DASHBOARDS.MARK_INFECTED_ERROR') +
+                  '\n' +
+                  error.error.message,
+                undefined,
+                {
+                  panelClass: 'snackbar-error',
+                }
+              );
+            },
           })
       );
     }

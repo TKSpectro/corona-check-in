@@ -42,7 +42,14 @@ export class AuthService implements OnDestroy {
           this.router.navigate(['/dashboard']);
         },
         error: (error) => {
-          console.error(error);
+          // TODO: This can only be done in the component, as the translation service is not available here
+          // this.snackBar.open(
+          //   this.t.instant('AUTH.LOGIN_ERROR' + '\n' + error.error.message),
+          //   undefined,
+          //   {
+          //     panelClass: 'snackbar-error',
+          //   }
+          // );
         },
       })
     );
@@ -59,7 +66,14 @@ export class AuthService implements OnDestroy {
           this.router.navigate(['/dashboard']);
         },
         error: (error) => {
-          console.error(error);
+          // TODO: This can only be done in the component, as the translation service is not available here
+          // this.snackBar.open(
+          //   this.t.instant('AUTH.SIGNUP_ERROR' + '\n' + error.error.message),
+          //   undefined,
+          //   {
+          //     panelClass: 'snackbar-error',
+          //   }
+          // );
         },
       })
     );
