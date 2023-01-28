@@ -20,8 +20,10 @@
       'SESSIONS.INFECTED' | translate
     }}</mat-header-cell>
     <mat-cell class="center" *matCellDef="let session">
-      <mat-icon *ngIf="session.infected">check</mat-icon>
-      <mat-icon *ngIf="!session.infected">clear</mat-icon></mat-cell
+      <mat-icon *ngIf="session.infected" class="icon-red">mood_bad</mat-icon>
+      <mat-icon *ngIf="!session.infected" color="accent"
+        >mood</mat-icon
+      ></mat-cell
     >
   </ng-container>
   <ng-container matColumnDef="actions">
