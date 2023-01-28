@@ -12,4 +12,7 @@ export class SessionDto {
 
   @IsOptional()
   note: string;
+
+  @IsOptional()
+  userId: string;
 }

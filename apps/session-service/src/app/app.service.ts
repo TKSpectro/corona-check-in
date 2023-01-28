@@ -51,7 +51,7 @@ export class AppService implements OnModuleInit {
     return findWithMeta(queryBuilder, pageOptionsDto);
   }
 
-  async getSessionById(id: string) {
+  getSessionById(id: string) {
     return this.sessionRepository.findOne({ where: { id } });
   }
 
