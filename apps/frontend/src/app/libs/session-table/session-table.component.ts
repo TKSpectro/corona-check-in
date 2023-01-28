@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SessionDetailsComponent } from '../../sessions/session-details/session-details.component';
 import { AdminService } from '../../auth/admin/admin.service';
 import { Session } from '../../shared/types';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'ccn-session-table',
@@ -42,11 +43,43 @@ export class SessionTableComponent implements OnInit {
   }
 
   @HostListener('click', ['$event'])
-  openDialog(id: string, event: any) {
+  openSessionDetailsDialog(id: string, event: any) {
     event.stopPropagation();
     this.dialog.open(SessionDetailsComponent, {
       data: { id: id },
       panelClass: 'custom-dialog',
+    });
+  }
+
+  handleDelete(session: Session, event: any) {
+    event.stopPropagation();
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        title: 'SESSIONS.DELETE_SESSION',
+        description: 'SESSIONS.DELETE_SESSION_WARNING',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) {
+        this.delete(session);
+      }
+    });
+  }
+
+  handleInfectionMarking(session: Session, event: any) {
+    event.stopPropagation();
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        title: 'SESSIONS.MARK_SESSION_INFECTED',
+        description: 'SESSIONS.MARK_SESSION_INFECTED_WARNING',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) {
+        this.markAsInfected(session);
+      }
     });
   }
 }
