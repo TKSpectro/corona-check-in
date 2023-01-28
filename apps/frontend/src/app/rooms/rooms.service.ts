@@ -28,14 +28,16 @@ export class RoomsService {
     take = 10,
     name?: string,
     faculty?: string,
-    id?: string
+    id?: string,
+    force = false
   ) {
     if (
       !id &&
       !name &&
       !faculty &&
       page === this.roomResponse?._meta?.page &&
-      this.roomResponse?.data?.length > 0
+      this.roomResponse?.data?.length > 0 &&
+      !force
     ) {
       return of(this.roomResponse);
     }
@@ -45,5 +47,17 @@ export class RoomsService {
         return data;
       })
     );
+  }
+
+  createRoom(room: Room) {
+    return this.serverSrv.createRoom(room);
+  }
+
+  updateRoom(room: Room) {
+    return this.serverSrv.updateRoom(room);
+  }
+
+  deleteRoom(id: string) {
+    return this.serverSrv.deleteRoom(id);
   }
 }

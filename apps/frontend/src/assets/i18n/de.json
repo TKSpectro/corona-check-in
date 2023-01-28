@@ -77,17 +77,27 @@
     "ROOM": "Raum",
     "ALL_ROOMS": "Alle Räume",
     "CREATE_ROOM": "Raum erstellen",
+    "CREATE_ROOM_SUCCESS": "Raum erfolgreich erstellt",
+    "CREATE_ROOM_ERROR": "Raum konnte nicht erstellt werden",
+    "UPDATE_ROOM": "Raum bearbeiten",
+    "UPDATE_ROOM_SUCCESS": "Raum erfolgreich aktualisiert",
+    "UPDATE_ROOM_ERROR": "Raum konnte nicht aktualisiert werden",
     "DELETE_ROOM": "Raum löschen",
     "ROOM_DETAILS": "Raum-Details",
-    "UPDATE_ROOM": "Raum bearbeiten",
+    "NAME": "Name",
     "MAX_PARTICIPANTS": "Maximale Teilnehmer",
     "MAX_DURATION": "Maximale Dauer",
-    "FACULITY": "Fakultät"
+    "FACULTY": "Fakultät"
   },
   "ERROR_OLD_PASSWORD_WRONG": "Altes Passwort ist falsch",
   "ERROR_PASSWORDS_NOT_MATCHING": "Neues Passwort stimmt nicht überein",
   "FACULTY": {
     "AI": "Angewandte Informatik",
     "SA": "Soziale Arbeit"
+  },
+  "ERRORS": {
+    "REQUIRED": "Pflichtfeld",
+    "MINIMUM": "Mindestens {{min}}",
+    "MAXIMUM": "Maximal {{max}}"
   }
 }

@@ -3,6 +3,8 @@ export enum UserRole {
   USER = 'user',
 }
 
+export const FacultyList = ['', 'AI', 'SA'] as const;
+
 export interface User {
   id?: string;
   email?: string;

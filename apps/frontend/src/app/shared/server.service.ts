@@ -94,6 +94,18 @@ export class ServerService {
     return this.httpClient.get<Room>(`/api/rooms/${id}`);
   }
 
+  createRoom(room: Room) {
+    return this.httpClient.post<Room>(`/api/rooms`, room);
+  }
+
+  updateRoom(room: Room) {
+    return this.httpClient.put<Room>(`/api/rooms`, room);
+  }
+
+  deleteRoom(id: string) {
+    return this.httpClient.delete<Room>(`/api/rooms/${id}`);
+  }
+
   updateQrCode(room: Room) {
     return this.httpClient.put<Room>(`/api/rooms/qr-code`, room);
   }

@@ -9,9 +9,15 @@ import { LibModule } from '../libs/lib.module';
 import { RoomDetailsComponent } from './room-details/room-details.component';
 import { RoomListComponent } from './room-list/room-list.component';
 import { RoomsComponent } from './rooms.component';
+import { RoomFormComponent } from './room-form/room-form.component';
 
 @NgModule({
-  declarations: [RoomListComponent, RoomDetailsComponent, RoomsComponent],
+  declarations: [
+    RoomListComponent,
+    RoomDetailsComponent,
+    RoomsComponent,
+    RoomFormComponent,
+  ],
   imports: [
     CommonModule,
     TranslateModule,

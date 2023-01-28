@@ -24,16 +24,16 @@ $success: mat.get-color-from-palette(mat.$green-palette, 500);
 $warning: mat.get-color-from-palette(mat.$yellow-palette, 500);
 $error: mat.get-color-from-palette(mat.$red-palette, 500);
 
-
-.primary-color{
+.primary-color {
   color: mat.get-color-from-palette(mat.$pink-palette, 500);
 }
 
 .snackbar-success {
   background-color: $success;
+  white-space: pre-wrap;
 }
 
 .snackbar-error {
   background-color: $error;
+  white-space: pre-wrap;
 }
-
