@@ -2,7 +2,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
@@ -41,6 +41,8 @@ export class RoomListComponent implements OnInit, OnDestroy {
   page!: number;
   filterName?: string;
   filterFaculty = new FormControl('');
+
+  formDialogRef?: MatDialogRef<RoomFormComponent>;
 
   constructor(
     private roomSrv: RoomsService,
@@ -115,10 +117,18 @@ export class RoomListComponent implements OnInit, OnDestroy {
 
   openFormDialog(event: Event, id?: string) {
     event.stopPropagation();
-    this.dialog.open(RoomFormComponent, {
+    this.formDialogRef = this.dialog.open(RoomFormComponent, {
       data: { id: id },
       panelClass: 'custom-dialog',
     });
+
+    this.subscriptions.push(
+      this.formDialogRef.afterClosed().subscribe((result) => {
+        if (result) {
+          this.loadRooms(true);
+        }
+      })
+    );
   }
 
   openDeleteDialog(event: Event, id: string) {

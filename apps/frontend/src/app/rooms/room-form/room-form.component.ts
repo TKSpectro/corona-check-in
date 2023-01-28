@@ -1,36 +1,32 @@
-import { DialogRef } from '@angular/cdk/dialog';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { AdminService } from '../../auth/admin/admin.service';
-import { ServerService } from '../../shared/server.service';
 import { FacultyList, Room } from '../../shared/types';
+import { RoomsService } from '../rooms.service';
 @Component({
   selector: 'ccn-room-form',
   templateUrl: './room-form.component.html',
   styleUrls: ['./room-form.component.scss'],
 })
 export class RoomFormComponent implements OnInit, OnDestroy {
-  room!: Room;
   subscriptions: Subscription[] = [];
-  id = '';
-  isUpdate = false;
   facultyList = FacultyList;
 
-  adminService: AdminService;
+  room!: Room;
+  id = '';
+  isUpdate = false;
 
   constructor(
-    private serverService: ServerService,
-    adminService: AdminService,
     @Inject(MAT_DIALOG_DATA) public data: { id?: string },
-    private dialogRef: DialogRef<RoomFormComponent>,
+    private dialogRef: MatDialogRef<RoomFormComponent>,
     private snackBar: MatSnackBar,
-    private t: TranslateService
+    private t: TranslateService,
+    private roomSrv: RoomsService,
+    public adminService: AdminService
   ) {
-    this.adminService = adminService;
-
     if (this.data?.id) {
       this.isUpdate = true;
     } else {
@@ -52,7 +48,7 @@ export class RoomFormComponent implements OnInit, OnDestroy {
     if (this.isUpdate && this.data.id) {
       this.id = this.data.id;
       this.subscriptions.push(
-        this.serverService.getRoom(this.id).subscribe({
+        this.roomSrv.getRoomDetails(this.id).subscribe({
           next: (data) => {
             this.room = data;
           },
@@ -67,9 +63,10 @@ export class RoomFormComponent implements OnInit, OnDestroy {
   saveRoom() {
     if (this.isUpdate) {
       this.subscriptions.push(
-        this.serverService.updateRoom(this.room).subscribe({
+        this.roomSrv.updateRoom(this.room).subscribe({
           next: () => {
-            this.dialogRef.close();
+            this.dialogRef.close(this.room);
+
             this.snackBar.open(
               this.t.instant('ROOMS.UPDATE_ROOM_SUCCESS'),
               undefined,
@@ -93,9 +90,10 @@ export class RoomFormComponent implements OnInit, OnDestroy {
       );
     } else {
       this.subscriptions.push(
-        this.serverService.createRoom(this.room).subscribe({
-          next: () => {
-            this.dialogRef.close();
+        this.roomSrv.createRoom(this.room).subscribe({
+          next: (room) => {
+            this.dialogRef.close(this.room);
+
             this.snackBar.open(
               this.t.instant('ROOMS.CREATE_ROOM_SUCCESS'),
               undefined,
