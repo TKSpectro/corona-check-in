@@ -11,7 +11,7 @@ import {
   OnModuleInit,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { MoreThan, Repository } from 'typeorm';
 import { environment } from '../environments/environment';
 import { SessionEntity } from './session.entity';
 import { SessionDto } from './sessions.dto';
@@ -82,17 +82,21 @@ export class AppService implements OnModuleInit {
     if (room.createdQrCode !== createSessionDto.createdQrCode) {
       throw new HttpException('QrCode must be updated', HttpStatus.BAD_REQUEST);
     }
+
+    let startTime = new Date();
+    startTime = new Date(startTime.setDate(startTime.getDate() - 5));
+
     const sessions = await this.sessionRepository.find({
       where: {
         roomId: createSessionDto.roomId,
         userId: createSessionDto.userId,
+        startTime: MoreThan(startTime),
       },
     });
     if (sessions.length <= 0) {
       // User has no session in this room, so he scanned to enter
       return await this.sessionRepository.save(createSessionDto);
     }
-
     for (const session of sessions) {
       const maxEndTime = new Date(
         session.startTime.getTime() + room.maxDuration * 60000
@@ -105,6 +109,12 @@ export class AppService implements OnModuleInit {
         session.endTime = new Date();
       }
       await this.updateSession(session);
+      if (session.infected) {
+        throw new HttpException(
+          'User is infected and not allowed to enter the room.',
+          HttpStatus.BAD_REQUEST
+        );
+      }
     }
     return await this.sessionRepository.save(createSessionDto);
   }
