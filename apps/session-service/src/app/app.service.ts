@@ -18,8 +18,6 @@ import { SessionDto } from './sessions.dto';
 import { UpdateSessionDto } from './update-sessions.dto';
 import { ClientProxy } from '@nestjs/microservices';
 import { lastValueFrom, timeout } from 'rxjs';
-import { RoomEntity } from '../../../room-service/src/app/room.entity';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class AppService implements OnModuleInit {
@@ -75,10 +73,7 @@ export class AppService implements OnModuleInit {
   ): Promise<SessionEntity> {
     const room = await lastValueFrom(
       this.roomSrv
-        .send<RoomEntity>(
-          { role: 'room', cmd: 'getRoom' },
-          createSessionDto.roomId
-        )
+        .send({ role: 'room', cmd: 'getRoom' }, createSessionDto.roomId)
         .pipe(timeout(5000))
     );
     if (!room) {
@@ -140,7 +135,7 @@ export class AppService implements OnModuleInit {
             id: `00000000-0000-0000-0002-0000000000${i < 10 ? 0 : ''}${i}`,
             endTime:
               i % 2 === 0 ? `2022-12-${i < 10 ? '0' : ''}${i}T09:30:00` : null,
-            infected: i % 2 === 0 ? true : false,
+            infected: i % 2 === 0,
             userId: '00000000-0000-0000-0000-000000000002',
             roomId: '00000000-0000-0000-0000-000000000000',
           });
