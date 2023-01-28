@@ -1,7 +1,9 @@
 import {
   findWithMeta,
   PageOptionsDto,
+  RequestUser,
   UserEntity,
+  UserRole,
 } from '@corona-check-in/micro-service-shared';
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -10,6 +12,26 @@ import { environment } from '../environments/environment';
 import { SessionEntity } from './session.entity';
 import { SessionDto } from './sessions.dto';
 import { UpdateSessionDto } from './update-sessions.dto';
+
+const selectWithoutNote = [
+  'session.id',
+  'session.createdAt',
+  'session.updatedAt',
+  'session.startTime',
+  'session.endTime',
+  'session.infected',
+  'session.userId',
+  // TODO: Add this back in when we have a room service
+  // 'session.roomId',
+];
+
+// This is some really hacky code to work around the weird select behavior of typeorm
+// If you use the queryBuilder.select() method, it will add the table name to the select key
+// And for .find() it will need an object with everything set to true (setting it to false will just do nothing)
+const selectWithoutNoteObj = selectWithoutNote.reduce(
+  (a, v) => ({ ...a, [v.replace('session.', '')]: true }),
+  {}
+);
 
 @Injectable()
 export class AppService implements OnModuleInit {
@@ -31,11 +53,12 @@ export class AppService implements OnModuleInit {
 
   getSessions(
     pageOptionsDto: PageOptionsDto,
+    user: RequestUser,
     infected?: string,
     sessionBegin?: Date,
     sessionEnd?: Date
   ) {
-    const queryBuilder = this.sessionRepository.createQueryBuilder();
+    const queryBuilder = this.sessionRepository.createQueryBuilder('session');
 
     // This is kinda hacky, infected will be a string even if it's typed as a boolean
     if (infected === 'true' || infected === 'false') {
@@ -48,11 +71,24 @@ export class AppService implements OnModuleInit {
       queryBuilder.andWhere('endTime <= :sessionEnd', { sessionEnd });
     }
 
+    if (user.role === UserRole.USER) {
+      queryBuilder.andWhere('userId = :userId', { userId: user.sub });
+    }
+    if (user.role === UserRole.ADMIN) {
+      queryBuilder.select(selectWithoutNote);
+    }
+
     return findWithMeta(queryBuilder, pageOptionsDto);
   }
 
-  async getSessionById(id: string) {
-    return this.sessionRepository.findOne({ where: { id } });
+  async getSessionById(id: string, user: RequestUser) {
+    return this.sessionRepository.findOne({
+      select: { ...selectWithoutNoteObj, note: user.role !== UserRole.ADMIN },
+      where: {
+        id: id,
+        userId: user.role === UserRole.USER ? user.sub : undefined,
+      },
+    });
   }
 
   async createSession(createSessionDto: SessionDto): Promise<SessionEntity> {
