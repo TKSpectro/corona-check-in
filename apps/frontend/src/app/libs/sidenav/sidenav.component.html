@@ -20,27 +20,32 @@
         <span>CoronaCheckIn</span>
       </h1>
       <mat-nav-list [class.is-mobile]="mobileQuery.matches">
-        <a mat-list-item routerLink="/">
+        <a mat-list-item routerLink="/dashboard" routerLinkActive="active-link">
           <mat-icon>dashboard</mat-icon>
           <span>{{ 'DASHBOARD' | translate }}</span></a
         >
-        <a mat-list-item routerLink="./">
+        <a mat-list-item routerLinkActive="active-link">
           <mat-icon>bar_chart</mat-icon>
           <span>{{ 'STATISTICS' | translate }}</span></a
         >
-        <a mat-list-item routerLink="sessions">
+        <a mat-list-item routerLink="sessions" routerLinkActive="active-link">
           <mat-icon>watch_later</mat-icon>
           <span>{{ 'SESSIONS.SESSION' | translate }}</span></a
         >
-        <a mat-list-item routerLink="rooms">
+        <a mat-list-item routerLink="rooms" routerLinkActive="active-link">
           <mat-icon>home</mat-icon>
           <span>{{ 'ROOMS.ROOMS' | translate }}</span></a
         >
-        <a mat-list-item routerLink="profile">
+        <a mat-list-item routerLink="profile" routerLinkActive="active-link">
           <mat-icon>person</mat-icon>
           <span>{{ 'PROFILES.PROFILE' | translate }}</span></a
         >
-        <a mat-list-item *ngIf="adminService.isAdmin" routerLink="./admin">
+        <a
+          mat-list-item
+          *ngIf="adminService.isAdmin"
+          routerLink="./admin"
+          routerLinkActive="active-link"
+        >
           <mat-icon>person</mat-icon>
           <span>{{ 'onlyAdmin' | translate }}</span></a
         >
