@@ -9,7 +9,7 @@ export enum Order {
 export class PageOptionsDto {
   @IsEnum(Order)
   @IsOptional()
-  readonly order?: Order = Order.ASC;
+  order?: Order = Order.ASC;
 
   @Type(() => Number)
   @IsInt()

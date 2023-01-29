@@ -1,6 +1,12 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
@@ -18,7 +24,7 @@ import { RoomsService } from '../rooms.service';
   templateUrl: './room-list.component.html',
   styleUrls: ['./room-list.component.scss'],
 })
-export class RoomListComponent implements OnInit, OnDestroy {
+export class RoomListComponent implements OnInit, OnDestroy, AfterViewInit {
   subscriptions: Subscription[] = [];
   mobileQuery: MediaQueryList;
   _mobileQueryListener: () => void;
@@ -51,7 +57,8 @@ export class RoomListComponent implements OnInit, OnDestroy {
     changeDetectorRef: ChangeDetectorRef,
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private t: TranslateService
+    private t: TranslateService,
+    private changeDetectorRefs: ChangeDetectorRef
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 1150px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -65,7 +72,16 @@ export class RoomListComponent implements OnInit, OnDestroy {
     }
   }
 
+  ngAfterViewInit(): void {}
+
   ngOnInit(): void {
+    this.roomSrv.roomSubject.subscribe({
+      next: (data) => {
+        if (data) {
+          data ? this.loadRooms(true) : '';
+        }
+      },
+    });
     this.isDesktop = !this.mobileQuery.matches;
     this.subscriptions.push(
       this.roomSrv.getRoomList().subscribe((data) => {
@@ -88,7 +104,8 @@ export class RoomListComponent implements OnInit, OnDestroy {
         )
         .subscribe({
           next: (data) => {
-            this.roomList = data.data;
+            console.log('loadRoom=', data);
+            this.roomList = [...data.data];
             this._meta = data._meta;
           },
           error: (err) => console.error(err),
@@ -125,6 +142,9 @@ export class RoomListComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.formDialogRef.afterClosed().subscribe((result) => {
         if (result) {
+          if (this._meta) {
+            this.page = 0;
+          }
           this.loadRooms(true);
         }
       })

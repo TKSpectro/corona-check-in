@@ -1,5 +1,6 @@
 import {
   findWithMeta,
+  Order,
   PageOptionsDto,
 } from '@corona-check-in/micro-service-shared';
 import { Inject, Injectable } from '@nestjs/common';
@@ -46,8 +47,8 @@ export class AppService {
     if (query.faculty) {
       queryBuilder.andWhere('faculty = :faculty', { faculty: query.faculty });
     }
-
-    return findWithMeta(queryBuilder, pageOptionsDto);
+    pageOptionsDto.order = Order.DESC;
+    return findWithMeta(queryBuilder, pageOptionsDto, 'updated_at');
   }
 
   async getRoom(id: string): Promise<RoomEntity> {
