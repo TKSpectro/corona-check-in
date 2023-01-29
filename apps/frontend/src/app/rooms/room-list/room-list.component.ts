@@ -1,12 +1,6 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { HttpErrorResponse } from '@angular/common/http';
-import {
-  AfterViewInit,
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { PageEvent } from '@angular/material/paginator';
@@ -24,7 +18,7 @@ import { RoomsService } from '../rooms.service';
   templateUrl: './room-list.component.html',
   styleUrls: ['./room-list.component.scss'],
 })
-export class RoomListComponent implements OnInit, OnDestroy, AfterViewInit {
+export class RoomListComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   mobileQuery: MediaQueryList;
   _mobileQueryListener: () => void;
@@ -57,8 +51,7 @@ export class RoomListComponent implements OnInit, OnDestroy, AfterViewInit {
     changeDetectorRef: ChangeDetectorRef,
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private t: TranslateService,
-    private changeDetectorRefs: ChangeDetectorRef
+    private t: TranslateService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 1150px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -71,8 +64,6 @@ export class RoomListComponent implements OnInit, OnDestroy, AfterViewInit {
       this.displayedColumns.push('actions');
     }
   }
-
-  ngAfterViewInit(): void {}
 
   ngOnInit(): void {
     this.roomSrv.roomSubject.subscribe({
@@ -104,7 +95,6 @@ export class RoomListComponent implements OnInit, OnDestroy, AfterViewInit {
         )
         .subscribe({
           next: (data) => {
-            console.log('loadRoom=', data);
             this.roomList = [...data.data];
             this._meta = data._meta;
           },
