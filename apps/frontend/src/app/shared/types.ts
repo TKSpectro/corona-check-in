@@ -52,3 +52,8 @@ export type PaginationResponse<T> = {
   data: T[];
   _meta: Meta;
 };
+
+export interface ScanQrCodeBody {
+  roomId: string;
+  createdQrCode: Date;
+}

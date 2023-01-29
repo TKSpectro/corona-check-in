@@ -25,15 +25,17 @@ libs/
 
 ### With Docker Production Setup
 
+:warning: **If you are using Docker Desktop (Windows/macOS)**: You need to add the root directory of this project to the shared directories in the Docker Desktop settings. Otherwise the docker containers will not be able to access the pre=configured grafana files. The settings can be found in the Docker Desktop settings under Resources -> File Sharing.
+
 ```bash
 cp .env.example .env
 # If you want pre-generated data, set SEEDING_ENABLED=true in the .env file
 
 # Build the docker images
-docker:prod:build
+npm run docker:prod:build
 
 # Run the docker containers (docker-compose.prod.yml)
-docker:prod
+npm run docker:prod
 ```
 
 Webapp (Angular) is available at <http://localhost:8080>
@@ -41,6 +43,8 @@ Backend (NestJS Gateway) is available at <http://localhost:3333>
 
 Prometheus is available at <http://localhost:9090>
 Grafana is available at <http://localhost:3000>
+
+Grafana Login is admin/admin
 
 ### Without Docker Production Setup (Should be used for development as well)
 

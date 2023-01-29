@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
+import { ClientsModule, Transport } from '@nestjs/microservices';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { environment } from '../environments/environment';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { RoomEntity } from './room.entity';
-import { ClientsModule, Transport } from '@nestjs/microservices';
-import { environment } from '../environments/environment';
 
 @Module({
   imports: [
@@ -12,10 +12,7 @@ import { environment } from '../environments/environment';
       {
         name: 'qr-code-service',
         transport: Transport.REDIS,
-        options: {
-          host: 'localhost',
-          port: 6379,
-        },
+        options: environment.redis,
       },
     ]),
     TypeOrmModule.forRoot({

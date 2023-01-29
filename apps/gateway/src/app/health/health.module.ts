@@ -23,40 +23,28 @@ import { HealthService } from './health.service';
       {
         name: 'sessions-service',
         transport: Transport.REDIS,
-        options: {
-          host: environment.redis.host,
-          port: parseInt(environment.redis.port as string),
-        },
+        options: environment.redis,
       },
     ]),
     ClientsModule.register([
       {
         name: 'rooms-service',
         transport: Transport.REDIS,
-        options: {
-          host: environment.redis.host,
-          port: parseInt(environment.redis.port as string),
-        },
+        options: environment.redis,
       },
     ]),
     ClientsModule.register([
       {
         name: 'qr-code-service',
         transport: Transport.REDIS,
-        options: {
-          host: environment.redis.host,
-          port: parseInt(environment.redis.port as string),
-        },
+        options: environment.redis,
       },
     ]),
     ClientsModule.register([
       {
         name: 'incidence-service',
         transport: Transport.REDIS,
-        options: {
-          host: environment.redis.host,
-          port: parseInt(environment.redis.port as string),
-        },
+        options: environment.redis,
       },
     ]),
   ],

@@ -7,6 +7,7 @@ import { SessionsModule } from '../sessions/sessions.module';
 import { UsersModule } from '../users/users.module';
 
 import { HttpModule } from '@nestjs/axios';
+import { environment } from '../environments/environment';
 import { RoomsModule } from '../rooms/rooms.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -24,10 +25,7 @@ import { QrCodeModule } from './qr-code/qr-code.module';
       {
         name: 'incidence-service',
         transport: Transport.REDIS,
-        options: {
-          host: process.env.REDIS_HOST || 'localhost',
-          port: 6379,
-        },
+        options: environment.redis,
       },
     ]),
     SessionsModule,
