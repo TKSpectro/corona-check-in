@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
-import { RoomsService } from './rooms.service';
-import { RoomsController } from './rooms.controller';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { environment } from '../environments/environment';
+import { RoomsController } from './rooms.controller';
+import { RoomsService } from './rooms.service';
 
 @Module({
   imports: [
@@ -9,7 +10,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
       {
         name: 'rooms-service',
         transport: Transport.REDIS,
-        options: { host: 'localhost', port: 6379 },
+        options: environment.redis,
       },
     ]),
   ],

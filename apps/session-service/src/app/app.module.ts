@@ -1,12 +1,12 @@
 import { UserEntity } from '@corona-check-in/micro-service-shared';
 import { Module } from '@nestjs/common';
 
+import { ClientsModule, Transport } from '@nestjs/microservices';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { environment } from '../environments/environment';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { SessionEntity } from './session.entity';
-import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
   imports: [
@@ -14,10 +14,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
       {
         name: 'room-service',
         transport: Transport.REDIS,
-        options: {
-          host: 'localhost',
-          port: 6379,
-        },
+        options: environment.redis,
       },
     ]),
     TypeOrmModule.forRoot({
