@@ -30,7 +30,7 @@ export class SessionEntity extends BaseEntity {
   @Column({ nullable: true })
   note: string;
 
-  @Column({ type: 'uuid' })
+  @Column({ type: 'uuid', name: 'userid' })
   userId: string;
 
   @Column({ type: 'uuid' })

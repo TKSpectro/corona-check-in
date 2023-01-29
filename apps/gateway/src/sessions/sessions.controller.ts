@@ -24,12 +24,13 @@ export class SessionsController {
   constructor(private readonly sessionsService: SessionsService) {}
 
   @Get(':id')
-  getSessionById(@Param('id') id: string) {
-    return this.sessionsService.getSessionById(id);
+  getSessionById(@Request() req, @Param('id') id: string) {
+    return this.sessionsService.getSessionById(id, req.user);
   }
 
   @Get()
   async getSessions(
+    @Request() req,
     @Query() pageOptionsDto: PageOptionsDto,
     @Query('infected') infected?: boolean,
     @Query('sessionBegin') sessionBegin?: Date,
@@ -38,6 +39,7 @@ export class SessionsController {
     return await firstValueFrom(
       this.sessionsService.getSessions(
         pageOptionsDto,
+        req.user,
         infected,
         sessionBegin,
         sessionEnd
