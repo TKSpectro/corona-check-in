@@ -14,4 +14,5 @@ export const baseEnvironment = {
     retryDelay: 200,
   },
   seedEnabled: process.env['SEEDING_ENABLED'] === 'true' ? true : false,
+  serviceTimeout: parseInt(process.env['SERVICE_TIMEOUT']) || 2000,
 };

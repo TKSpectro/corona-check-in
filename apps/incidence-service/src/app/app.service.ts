@@ -2,10 +2,11 @@ import {
   PageOptionsDto,
   RequestUser,
 } from '@corona-check-in/micro-service-shared';
-import { Inject, Injectable } from '@nestjs/common';
+import { HttpException, Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { DateTime } from 'luxon';
 import { lastValueFrom, timeout } from 'rxjs';
+import { environment } from '../environments/environment';
 
 @Injectable()
 export class AppService {
@@ -27,6 +28,18 @@ export class AppService {
     };
     const startTime = DateTime.now().minus({ months: 2, days: 1 });
 
+    if (roomId) {
+      const room = await lastValueFrom(
+        this.roomClient
+          .send({ role: 'room', cmd: 'getRoom' }, roomId)
+          .pipe(timeout(environment.serviceTimeout))
+      );
+
+      if (!room) {
+        throw new HttpException('Room not found', 404);
+      }
+    }
+
     const { data: sessions } = await lastValueFrom(
       this.sessionClient
         .send(
@@ -39,7 +52,7 @@ export class AppService {
             roomId,
           }
         )
-        .pipe(timeout(5000))
+        .pipe(timeout(environment.serviceTimeout))
     );
 
     const incidences = {};
