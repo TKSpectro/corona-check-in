@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { environment } from '../environments/environment';
 import { IncidenceController } from './incidence.controller';
 import { IncidenceService } from './incidence.service';
 
@@ -9,10 +10,7 @@ import { IncidenceService } from './incidence.service';
       {
         name: 'incidence-service',
         transport: Transport.REDIS,
-        options: {
-          host: process.env.REDIS_HOST || 'localhost',
-          port: 6379,
-        },
+        options: environment.redis,
       },
     ]),
   ],
