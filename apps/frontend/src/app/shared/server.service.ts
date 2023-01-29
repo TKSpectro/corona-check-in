@@ -25,7 +25,7 @@ export class ServerService {
   }
 
   getCurrentSession(): Observable<any> {
-    return this.httpClient.get<Session>('/api/sessions/GetCurrentSession');
+    return this.httpClient.get<Session>('/api/sessions/get-current-session');
   }
 
   getSessions(

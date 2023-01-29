@@ -18,6 +18,7 @@ export class SessionCardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getProfileData();
+    this.getCurrentSession();
   }
 
   ngOnDestroy() {

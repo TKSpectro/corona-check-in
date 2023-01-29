@@ -70,7 +70,8 @@
     "MARK_INFECTED_TOOLTIP": "Diese Session als infiziert markieren",
     "MARK_INFECTED_TOOLTIP_DISABLED": "Die Session ist bereits als infiziert markiert",
     "CURRENT_SESSION": "Aktuelle Session",
-    "REPORT_INFECTION": "Infektion melden"
+    "REPORT_INFECTION": "Infektion melden",
+    "NO_CURRENT_OR_LAST_SESSION": "Noch keine Sessions vorhanden. Über den QR-Code-Scanner können Sie in einen Raum einchecken."
   },
   "ROOMS": {
     "ROOMS": "Räume",

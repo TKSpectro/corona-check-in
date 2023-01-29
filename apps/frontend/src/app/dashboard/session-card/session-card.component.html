@@ -1,5 +1,10 @@
 <mat-card class="example-card">
-  <mat-card-title>{{ 'SESSIONS.CURRENT_SESSION' | translate }}</mat-card-title>
+  <mat-card-title *ngIf="!sessionData.endTime">{{
+    'SESSIONS.CURRENT_SESSION' | translate
+  }}</mat-card-title>
+  <mat-card-title *ngIf="sessionData.endTime">{{
+    'SESSIONS.LAST_SESSION' | translate
+  }}</mat-card-title>
   <mat-card-content>
     <div *ngIf="sessionData">
       <div class="column-left">
@@ -10,7 +15,7 @@
           {{ sessionData.startTime | date : 'dd.MM.yyyy HH:mm' }}
         </p>
       </div>
-      <mat-form-field appearance="fill" class="note-input">
+      <mat-form-field appearance="fill">
         <mat-label>{{ 'SESSIONS.NOTE' | translate }}</mat-label>
         <textarea
           matInput
@@ -20,14 +25,18 @@
           [(ngModel)]="sessionData.note"
         ></textarea>
       </mat-form-field>
+      <button
+        mat-stroked-button
+        style="margin-top: 20px"
+        (click)="markLastSessionsAsInfected()"
+        [disabled]="sessionMarkedAsInfected"
+      >
+        {{ 'SESSIONS.REPORT_INFECTION' | translate }}
+      </button>
     </div>
-    <button
-      mat-stroked-button
-      style="margin-top: 20px"
-      (click)="markLastSessionsAsInfected()"
-      [disabled]="sessionMarkedAsInfected"
-    >
-      {{ 'SESSIONS.REPORT_INFECTION' | translate }}
-    </button>
+
+    <div *ngIf="!sessionData">
+      {{ 'SESSIONS.NO_CURRENT_OR_LAST_SESSION' | translate }}
+    </div>
   </mat-card-content>
 </mat-card>

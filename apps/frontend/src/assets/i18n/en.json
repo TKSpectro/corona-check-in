@@ -59,7 +59,7 @@
     "SESSIONS": "Sessions",
     "ALL SESSIONS": "All sessions",
     "SESSION": "Session",
-    "LAST_SESSION": "Last Sessions",
+    "LAST_SESSION": "Last Session",
     "UPDATE_SESSION": "Update Session",
     "DELETE_SESSION": "Delete Session",
     "SESSION_OVERVIEW": "Session overview",
@@ -70,7 +70,8 @@
     "MARK_INFECTED_TOOLTIP": "Mark this session as infected",
     "MARK_INFECTED_TOOLTIP_DISABLED": "This session is already marked as infected",
     "CURRENT_SESSION": "Current session",
-    "REPORT_INFECTION": "Report infection"
+    "REPORT_INFECTION": "Report infection",
+    "NO_CURRENT_OR_LAST_SESSION": "You don't have any sessions. You can check into a room via the QR code scanner."
   },
   "ROOMS": {
     "ROOMS": "Rooms",
