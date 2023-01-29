@@ -12,14 +12,15 @@ import {
   Injectable,
   OnModuleInit,
 } from '@nestjs/common';
+import { ClientProxy } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
+import { randomUUID } from 'crypto';
+import { lastValueFrom, timeout } from 'rxjs';
 import { MoreThan, Repository } from 'typeorm';
 import { environment } from '../environments/environment';
 import { SessionEntity } from './session.entity';
 import { SessionDto } from './sessions.dto';
 import { UpdateSessionDto } from './update-sessions.dto';
-import { ClientProxy } from '@nestjs/microservices';
-import { lastValueFrom, timeout } from 'rxjs';
 
 const selectWithoutNote = [
   'session.id',
@@ -54,7 +55,7 @@ export class AppService implements OnModuleInit {
   async onModuleInit() {
     if (environment.seedEnabled === true) {
       console.info('[SESSION] Seeding sessions...');
-      await this.#seed();
+      await this.#massRandomSeed();
     } else {
       console.info('[SESSION] Seeding disabled.');
     }
@@ -65,7 +66,8 @@ export class AppService implements OnModuleInit {
     user: RequestUser,
     infected?: string,
     sessionBegin?: Date,
-    sessionEnd?: Date
+    sessionEnd?: Date,
+    roomId?: string
   ) {
     const queryBuilder = this.sessionRepository.createQueryBuilder('session');
 
@@ -78,6 +80,9 @@ export class AppService implements OnModuleInit {
     }
     if (sessionEnd) {
       queryBuilder.andWhere('endTime <= :sessionEnd', { sessionEnd });
+    }
+    if (roomId) {
+      queryBuilder.andWhere('roomId = :roomId', { roomId });
     }
 
     if (user.role === UserRole.USER) {
@@ -190,6 +195,67 @@ export class AppService implements OnModuleInit {
         }
       }
       await new Promise((resolve) => setTimeout(resolve, 10));
+    }
+  }
+
+  // seed sessions for the last 2 months with a random amount of infections per day and with a random amount of sessions per day
+  async #massRandomSeed() {
+    if (
+      !(await this.sessionRepository.findOne({
+        where: [{ id: `00000000-0000-0000-0000-0000000000aa` }],
+      }))
+    ) {
+      try {
+        await this.sessionRepository.insert({
+          id: `00000000-0000-0000-0000-0000000000aa`,
+          startTime: `2022-12-31T09:30:00`,
+          endTime: `2022-12-31T09:30:00`,
+          infected: false,
+          userId: '00000000-0000-0000-0000-000000000002',
+          roomId: '00000000-0000-0000-0000-000000000000',
+        });
+
+        const today = new Date();
+        const twoMonthsAgo = new Date();
+        twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
+
+        const days = Math.round(
+          (today.getTime() - twoMonthsAgo.getTime()) / (1000 * 3600 * 24)
+        );
+
+        for (let i = 0; i < days; i++) {
+          const date = new Date();
+          date.setDate(date.getDate() - i);
+          const infections = Math.floor(Math.random() * 10);
+
+          for (let j = 0; j < infections; j++) {
+            const session = new SessionEntity();
+            session.id = randomUUID();
+            session.startTime = date;
+            session.endTime = date;
+            session.infected = true;
+            session.userId = '00000000-0000-0000-0000-000000000002';
+            session.roomId = '00000000-0000-0000-0000-000000000000';
+            await this.sessionRepository.save(session);
+          }
+
+          const room2Infections = Math.floor(Math.random() * 50);
+          for (let j = 0; j < room2Infections; j++) {
+            const session = new SessionEntity();
+            session.id = randomUUID();
+            session.startTime = date;
+            session.endTime = date;
+            session.infected = true;
+            session.userId = '00000000-0000-0000-0000-000000000002';
+            session.roomId = '00000000-0000-0000-0000-000000000001';
+            await this.sessionRepository.save(session);
+          }
+
+          await new Promise((resolve) => setTimeout(resolve, 5));
+        }
+      } catch (error) {
+        // do nothing
+      }
     }
   }
 

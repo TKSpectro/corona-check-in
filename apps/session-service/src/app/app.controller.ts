@@ -26,19 +26,22 @@ export class AppController {
     infected,
     sessionBegin,
     sessionEnd,
+    roomId,
   }: {
     pageOptionsDto: PageOptionsDto;
     user: RequestUser;
     infected?: string;
     sessionBegin?: Date;
     sessionEnd?: Date;
+    roomId?: string;
   }) {
     return this.appService.getSessions(
       pageOptionsDto,
       user,
       infected,
       sessionBegin,
-      sessionEnd
+      sessionEnd,
+      roomId
     );
   }
 
