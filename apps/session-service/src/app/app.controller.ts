@@ -1,4 +1,7 @@
-import { PageOptionsDto } from '@corona-check-in/micro-service-shared';
+import {
+  PageOptionsDto,
+  RequestUser,
+} from '@corona-check-in/micro-service-shared';
 import { Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 
@@ -19,17 +22,20 @@ export class AppController {
   @MessagePattern({ role: 'sessions', cmd: 'get-all' })
   getSessions({
     pageOptionsDto,
+    user,
     infected,
     sessionBegin,
     sessionEnd,
   }: {
     pageOptionsDto: PageOptionsDto;
+    user: RequestUser;
     infected?: string;
     sessionBegin?: Date;
     sessionEnd?: Date;
   }) {
     return this.appService.getSessions(
       pageOptionsDto,
+      user,
       infected,
       sessionBegin,
       sessionEnd
@@ -37,8 +43,8 @@ export class AppController {
   }
 
   @MessagePattern({ role: 'session', cmd: 'get-by-id' })
-  getSessionById({ id }: { id: string }) {
-    return this.appService.getSessionById(id);
+  getSessionById({ id, user }: { id: string; user: RequestUser }) {
+    return this.appService.getSessionById(id, user);
   }
 
   @MessagePattern({ role: 'session', cmd: 'create-session' })
