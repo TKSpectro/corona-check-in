@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Session, User } from '../../shared/types';
 import { Subscription } from 'rxjs';
 import { ServerService } from '../../shared/server.service';
@@ -8,15 +8,33 @@ import { ServerService } from '../../shared/server.service';
   templateUrl: './session-card.component.html',
   styleUrls: ['./session-card.component.scss'],
 })
-export class SessionCardComponent implements OnInit {
+export class SessionCardComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
+  sessionData!: Session;
   profileData!: User;
-  success = false;
+  sessionMarkedAsInfected = false;
 
   constructor(private serverSrv: ServerService) {}
 
   ngOnInit(): void {
     this.getProfileData();
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
+  }
+
+  getCurrentSession() {
+    this.subscriptions.push(
+      this.serverSrv.getCurrentSession().subscribe({
+        next: (data) => {
+          this.sessionData = data;
+        },
+        error: (error) => {
+          console.log(error.error.message);
+        },
+      })
+    );
   }
 
   getProfileData() {
@@ -37,7 +55,7 @@ export class SessionCardComponent implements OnInit {
           .markLastSessionsAsInfected(this.profileData.id)
           .subscribe({
             next: (data) => {
-              this.success = data.success;
+              this.sessionMarkedAsInfected = data.success;
             },
             error: (err) => console.error(err),
           })

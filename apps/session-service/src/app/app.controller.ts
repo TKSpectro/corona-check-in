@@ -47,6 +47,11 @@ export class AppController {
     return this.appService.getSessionById(id, user);
   }
 
+  @MessagePattern({ role: 'session', cmd: 'get-current-session' })
+  getCurrentSession({ user }: { user: RequestUser }) {
+    return this.appService.getCurrentSession(user);
+  }
+
   @MessagePattern({ role: 'session', cmd: 'create-session' })
   createSession(createSessionDto: SessionDto): Promise<SessionEntity> {
     return this.appService.createSession(createSessionDto);

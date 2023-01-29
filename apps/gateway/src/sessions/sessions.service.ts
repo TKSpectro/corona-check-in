@@ -32,6 +32,13 @@ export class SessionsService {
     );
   }
 
+  getCurrentSession(user: RequestUser) {
+    return this.sessionClient.send(
+      { role: 'session', cmd: 'get-current-session' },
+      { user }
+    );
+  }
+
   createSession(createSessionDto: SessionDto & { userId: string }) {
     return this.sessionClient.send<SessionEntity>(
       { role: 'session', cmd: 'create-session' },

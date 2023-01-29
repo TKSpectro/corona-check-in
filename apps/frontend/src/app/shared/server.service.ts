@@ -24,6 +24,10 @@ export class ServerService {
     return this.httpClient.get<any>('/api/sessions/' + id);
   }
 
+  getCurrentSession(): Observable<any> {
+    return this.httpClient.get<Session>('/api/sessions/GetCurrentSession');
+  }
+
   getSessions(
     page = 0,
     take = 10,

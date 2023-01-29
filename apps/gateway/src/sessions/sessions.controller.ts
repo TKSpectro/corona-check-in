@@ -23,6 +23,11 @@ import { Roles } from '../auth/decorators/roles.decorator';
 export class SessionsController {
   constructor(private readonly sessionsService: SessionsService) {}
 
+  @Get('get-current-session')
+  getCurrentSession(@Request() req) {
+    return this.sessionsService.getCurrentSession(req.user);
+  }
+
   @Get(':id')
   getSessionById(@Request() req, @Param('id') id: string) {
     return this.sessionsService.getSessionById(id, req.user);
