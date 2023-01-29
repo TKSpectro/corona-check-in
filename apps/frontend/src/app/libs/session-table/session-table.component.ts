@@ -1,8 +1,8 @@
 import {
   Component,
-  HostListener,
   EventEmitter,
   Input,
+  OnDestroy,
   OnInit,
   Output,
 } from '@angular/core';
@@ -11,18 +11,20 @@ import { SessionDetailsComponent } from '../../sessions/session-details/session-
 import { AdminService } from '../../auth/admin/admin.service';
 import { Session } from '../../shared/types';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'ccn-session-table',
   templateUrl: './session-table.component.html',
   styleUrls: ['./session-table.component.scss'],
 })
-export class SessionTableComponent implements OnInit {
+export class SessionTableComponent implements OnInit, OnDestroy {
   @Input() sessionList: Session[] = [];
   @Input() extraColumns: string[] = [];
   @Output() markAsInfectedEvent = new EventEmitter<Session>();
   @Output() deleteEvent = new EventEmitter<string>();
 
+  subscriptions: Subscription[] = [];
   displayedColumns = ['startTime', 'endTime', 'infected'];
   adminService: AdminService;
 
@@ -34,6 +36,10 @@ export class SessionTableComponent implements OnInit {
     this.displayedColumns = this.displayedColumns.concat(this.extraColumns);
   }
 
+  ngOnDestroy() {
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
+  }
+
   markAsInfected(session: Session) {
     this.markAsInfectedEvent.emit(session);
   }
@@ -42,7 +48,6 @@ export class SessionTableComponent implements OnInit {
     this.deleteEvent.emit(session.id);
   }
 
-  @HostListener('click', ['$event'])
   openSessionDetailsDialog(id: string, event: any) {
     event.stopPropagation();
     this.dialog.open(SessionDetailsComponent, {
@@ -60,11 +65,13 @@ export class SessionTableComponent implements OnInit {
       },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result === true) {
-        this.delete(session);
-      }
-    });
+    this.subscriptions.push(
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result === true) {
+          this.delete(session);
+        }
+      })
+    );
   }
 
   handleInfectionMarking(session: Session, event: any) {
@@ -76,10 +83,12 @@ export class SessionTableComponent implements OnInit {
       },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result === true) {
-        this.markAsInfected(session);
-      }
-    });
+    this.subscriptions.push(
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result === true) {
+          this.markAsInfected(session);
+        }
+      })
+    );
   }
 }
