@@ -106,3 +106,5 @@ We are using Prometheus and Grafana to get metrics about the backend (micro-serv
 The most important one is the list for every service and its current status (online/offline)
 
 To get these metrics we have implemented health check via NestJS and Terminus.
+
+![Grafana Dashboard](/docs/grafana-dashboard.png)
