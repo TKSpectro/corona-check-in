@@ -32,7 +32,7 @@
     }}</mat-header-cell>
     <mat-cell class="center" *matCellDef="let session">
       <button mat-icon-button (click)="openDialog(session.id, $event)">
-        <mat-icon>{{ 'adminService.isAdmin' ? 'info' : 'edit' }}</mat-icon>
+        <mat-icon>{{ adminService.isAdmin ? 'info' : 'edit' }}</mat-icon>
       </button>
       <button
         *ngIf="adminService.isAdmin"
