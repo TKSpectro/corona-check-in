@@ -25,6 +25,8 @@ libs/
 
 ### With Docker Production Setup
 
+:warning: **If you are using Docker Desktop (Windows/macOS)**: You need to add the root directory of this project to the shared directories in the Docker Desktop settings. Otherwise the docker containers will not be able to access the pre=configured grafana files. The settings can be found in the Docker Desktop settings under Resources -> File Sharing.
+
 ```bash
 cp .env.example .env
 # If you want pre-generated data, set SEEDING_ENABLED=true in the .env file
