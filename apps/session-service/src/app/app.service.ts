@@ -15,6 +15,7 @@ import {
 import { ClientProxy } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
 import { randomUUID } from 'crypto';
+import { DateTime } from 'luxon';
 import { lastValueFrom, timeout } from 'rxjs';
 import { MoreThan, Repository } from 'typeorm';
 import { environment } from '../environments/environment';
@@ -55,7 +56,10 @@ export class AppService implements OnModuleInit {
   async onModuleInit() {
     if (environment.seedEnabled === true) {
       console.info('[SESSION] Seeding sessions...');
-      await this.#massRandomSeed();
+      if (environment.seedMassRandom === true) {
+        await this.#massRandomSeed();
+      }
+
       await this.#seed();
     } else {
       console.info('[SESSION] Seeding disabled.');
@@ -121,7 +125,10 @@ export class AppService implements OnModuleInit {
     if (!room) {
       throw new HttpException('Room not found', HttpStatus.BAD_REQUEST);
     }
-    if (room.createdQrCode !== createSessionDto.createdQrCode) {
+    if (
+      new Date(room.createdQrCode).toISOString() !==
+      new Date(createSessionDto.createdQrCode).toISOString()
+    ) {
       throw new HttpException('QrCode must be updated', HttpStatus.BAD_REQUEST);
     }
 
@@ -189,8 +196,17 @@ export class AppService implements OnModuleInit {
         try {
           await this.sessionRepository.insert({
             id: `00000000-0000-0000-0002-0000000000${i < 10 ? 0 : ''}${i}`,
+            startTime: DateTime.now()
+              .minus({ days: i })
+              .set({ hour: 8, minute: 0 })
+              .toISO(),
             endTime:
-              i % 2 === 0 ? `2022-12-${i < 10 ? '0' : ''}${i}T09:30:00` : null,
+              i % 2 === 0
+                ? DateTime.now()
+                    .minus({ days: i })
+                    .set({ hour: 9, minute: 30 })
+                    .toISO()
+                : null,
             infected: i % 2 === 0,
             userId: '00000000-0000-0000-0000-000000000002',
             roomId: '00000000-0000-0000-0000-000000000000',
