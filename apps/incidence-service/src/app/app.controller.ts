@@ -13,11 +13,6 @@ export class AppController {
     return true;
   }
 
-  // @MessagePattern({ role: 'incidence', cmd: 'get' })
-  // getIncidence() {
-  //   return this.appService.getIncidence();
-  // }
-
   @MessagePattern({ role: 'incidence', cmd: 'get-7-day-average' })
   get7DayAverage({ user }: { user: RequestUser }) {
     return this.appService.get7DayAverage({ user });
