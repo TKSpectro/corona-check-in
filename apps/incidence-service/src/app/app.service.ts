@@ -31,7 +31,7 @@ export class AppService {
     if (roomId) {
       const room = await lastValueFrom(
         this.roomClient
-          .send({ role: 'room', cmd: 'getRoom' }, roomId)
+          .send({ role: 'room', cmd: 'get-by-id' }, roomId)
           .pipe(timeout(environment.serviceTimeout))
       );
 
@@ -43,7 +43,7 @@ export class AppService {
     const { data: sessions } = await lastValueFrom(
       this.sessionClient
         .send(
-          { role: 'sessions', cmd: 'get-all' },
+          { role: 'session', cmd: 'get-all' },
           {
             pageOptionsDto,
             user,

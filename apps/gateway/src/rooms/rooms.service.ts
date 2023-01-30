@@ -17,7 +17,7 @@ export class RoomsService {
   ): Observable<RoomEntity> {
     return this.roomClient
       .send<RoomEntity>(
-        { role: 'rooms', cmd: 'getRooms' },
+        { role: 'room', cmd: 'get-all' },
         { pageOptionsDto, query }
       )
       .pipe(timeout(environment.serviceTimeout));
@@ -25,31 +25,31 @@ export class RoomsService {
 
   getRoom(id: string): Observable<RoomEntity> {
     return this.roomClient
-      .send<RoomEntity>({ role: 'room', cmd: 'getRoom' }, id)
+      .send<RoomEntity>({ role: 'room', cmd: 'get-by-id' }, id)
       .pipe(timeout(environment.serviceTimeout));
   }
 
   createRoom(createRoomDto: RoomDto) {
     return this.roomClient
-      .send<RoomEntity>({ role: 'room', cmd: 'createRoom' }, createRoomDto)
+      .send<RoomEntity>({ role: 'room', cmd: 'create' }, createRoomDto)
       .pipe(timeout(environment.serviceTimeout));
   }
 
   update(updateRoomDto: UpdateRoomDto) {
     return this.roomClient
-      .send<RoomEntity>({ role: 'room', cmd: 'updateRoom' }, updateRoomDto)
+      .send<RoomEntity>({ role: 'room', cmd: 'update' }, updateRoomDto)
       .pipe(timeout(environment.serviceTimeout));
   }
 
   updateQrCode(updateRoomDto: UpdateRoomDto) {
     return this.roomClient
-      .send<RoomEntity>({ role: 'room', cmd: 'updateQrCode' }, updateRoomDto)
+      .send<RoomEntity>({ role: 'room', cmd: 'update-qr-code' }, updateRoomDto)
       .pipe(timeout(environment.serviceTimeout));
   }
 
   removeRoom(id: string): Observable<RoomEntity> {
     return this.roomClient
-      .send({ role: 'room', cmd: 'deleteRoom' }, id)
+      .send({ role: 'room', cmd: 'delete' }, id)
       .pipe(timeout(environment.serviceTimeout));
   }
 }

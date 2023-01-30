@@ -30,7 +30,7 @@ export class SessionsServiceHealthIndicator
   public async isHealthy(): Promise<HealthIndicatorResult> {
     const isUp = await lastValueFrom(
       this.sessionClient
-        .send({ role: 'sessions', cmd: 'health' }, {})
+        .send({ role: 'session', cmd: 'health' }, {})
         .pipe(timeout(environment.serviceTimeout))
     );
 
