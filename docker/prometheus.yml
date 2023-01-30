@@ -10,12 +10,6 @@ scrape_configs:
     static_configs:
       - targets:
           - 'gateway:3333'
-  - job_name: 'traefik'
-    scrape_interval: 5s
-    scrape_timeout: 5s
-    static_configs:
-      - targets:
-          - 'traefik:8080'
   - job_name: 'prometheus'
     scrape_interval: 5s
     scrape_timeout: 5s

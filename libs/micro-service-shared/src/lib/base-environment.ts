@@ -9,7 +9,9 @@ export const baseEnvironment = {
   },
   redis: {
     host: process.env['REDIS_HOST'] || 'localhost',
-    port: process.env['REDIS_PORT'] || 6379,
+    port: parseInt(process.env['REDIS_PORT']) || 6379,
+    retryAttempts: 3,
+    retryDelay: 200,
   },
   seedEnabled: process.env['SEEDING_ENABLED'] === 'true' ? true : false,
 };
