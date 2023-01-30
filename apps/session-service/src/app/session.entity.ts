@@ -33,6 +33,6 @@ export class SessionEntity extends BaseEntity {
   @Column({ type: 'uuid', name: 'userid' })
   userId: string;
 
-  @Column({ type: 'uuid' })
+  @Column({ type: 'uuid', name: 'roomid' })
   roomId: string;
 }

@@ -17,7 +17,7 @@ export class ServerService {
   constructor(private httpClient: HttpClient) {}
 
   getIncidenceData(): Observable<any> {
-    return this.httpClient.get<any>('/api/incidence');
+    return this.httpClient.get<any>('/api/incidences/7-day-average');
   }
 
   getSessionById(id: string): Observable<any> {

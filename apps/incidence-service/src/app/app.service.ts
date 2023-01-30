@@ -1,35 +1,97 @@
-import { Injectable } from '@nestjs/common';
+import {
+  PageOptionsDto,
+  RequestUser,
+} from '@corona-check-in/micro-service-shared';
+import { HttpException, Inject, Injectable } from '@nestjs/common';
+import { ClientProxy } from '@nestjs/microservices';
 import { DateTime } from 'luxon';
+import { lastValueFrom, timeout } from 'rxjs';
+import { environment } from '../environments/environment';
 
 @Injectable()
 export class AppService {
-  getData(): { message: string } {
-    return { message: 'Welcome to incidence-service!' };
-  }
+  constructor(
+    @Inject('room-service') private roomClient: ClientProxy,
+    @Inject('session-service') private sessionClient: ClientProxy
+  ) {}
 
-  getIncidence() {
-    const today = DateTime.now();
+  async get7DayAverage({
+    user,
+    roomId,
+  }: {
+    user: RequestUser;
+    roomId?: string;
+  }) {
+    const pageOptionsDto: PageOptionsDto = {
+      page: 0,
+      take: 99999,
+    };
+    const startTime = DateTime.now().minus({ months: 2, days: 1 });
 
-    const requestData = [];
-    for (let i = 20; i > 0; i--) {
-      requestData.push({
-        date: today.minus({ weeks: i }),
-        value: Math.floor(Math.random() * 100),
-      });
+    if (roomId) {
+      const room = await lastValueFrom(
+        this.roomClient
+          .send({ role: 'room', cmd: 'getRoom' }, roomId)
+          .pipe(timeout(environment.serviceTimeout))
+      );
+
+      if (!room) {
+        throw new HttpException('Room not found', 404);
+      }
     }
 
-    const multi = [
+    const { data: sessions } = await lastValueFrom(
+      this.sessionClient
+        .send(
+          { role: 'sessions', cmd: 'get-all' },
+          {
+            pageOptionsDto,
+            user,
+            infected: 'true',
+            sessionBegin: startTime.toJSDate(),
+            roomId,
+          }
+        )
+        .pipe(timeout(environment.serviceTimeout))
+    );
+
+    const incidences = {};
+
+    // Get the 7 day incidence average calculated from the average of the last 7 days
+    sessions.forEach((session) => {
+      const date = DateTime.fromISO(session.startTime).toISODate();
+      if (!incidences[date]) {
+        incidences[date] = 0;
+      }
+      incidences[date]++;
+    });
+
+    const incidenceArray = Object.keys(incidences)
+      .map((key) => {
+        return {
+          date: key,
+          incidence: incidences[key],
+        };
+      })
+      .sort((a, b) => {
+        return a.date > b.date ? 1 : -1;
+      });
+
+    // const incidenceAverage =
+    //   incidenceArray.reduce((acc, cur) => {
+    //     return acc + cur.incidence;
+    //   }, 0) / incidenceArray.length;
+
+    return [
       {
-        name: 'Fachhochschule Erfurt',
-        series: requestData.map((item) => {
+        name: roomId || 'Fachhochschule Erfurt',
+        series: incidenceArray.map((item) => {
           return {
             name: item.date,
-            value: item.value,
+            value: item.incidence,
           };
         }),
       },
     ];
-
-    return multi;
   }
 }
