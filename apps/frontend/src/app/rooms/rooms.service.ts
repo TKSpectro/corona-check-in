@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { of, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ServerService } from '../shared/server.service';
 import { PaginationResponse, Room } from '../shared/types';
@@ -9,6 +9,7 @@ import { PaginationResponse, Room } from '../shared/types';
 })
 export class RoomsService {
   private roomResponse!: PaginationResponse<Room>;
+  roomSubject = new Subject<Room>();
 
   constructor(private serverSrv: ServerService) {}
 
@@ -28,14 +29,16 @@ export class RoomsService {
     take = 10,
     name?: string,
     faculty?: string,
-    id?: string
+    id?: string,
+    force = false
   ) {
     if (
       !id &&
       !name &&
       !faculty &&
       page === this.roomResponse?._meta?.page &&
-      this.roomResponse?.data?.length > 0
+      this.roomResponse?.data?.length > 0 &&
+      !force
     ) {
       return of(this.roomResponse);
     }
@@ -45,5 +48,23 @@ export class RoomsService {
         return data;
       })
     );
+  }
+
+  createRoom(room: Room) {
+    return this.serverSrv.createRoom(room).pipe(
+      map((data) => {
+        this.roomSubject.next(data);
+        this.roomResponse.data.push(data);
+        return data;
+      })
+    );
+  }
+
+  updateRoom(room: Room) {
+    return this.serverSrv.updateRoom(room);
+  }
+
+  deleteRoom(id: string) {
+    return this.serverSrv.deleteRoom(id);
   }
 }

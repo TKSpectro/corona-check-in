@@ -18,4 +18,7 @@ export class SessionDto {
 
   @IsNotEmpty()
   roomId: boolean;
+
+  @IsOptional()
+  userId: string;
 }

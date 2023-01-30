@@ -1,8 +1,8 @@
 import { IsEnum, IsNotEmpty, Max, Min } from 'class-validator';
 
 export enum Faculty {
-  AI = 'Angewandte Informatik',
-  SA = 'Soziale Arbeit',
+  AI = 'AI',
+  SA = 'SA',
 }
 
 export class RoomDto {
@@ -10,7 +10,7 @@ export class RoomDto {
   name: string;
 
   @Min(1)
-  @Max(60)
+  @Max(200)
   maxParticipants: number;
 
   @Min(1)

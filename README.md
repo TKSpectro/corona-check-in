@@ -106,3 +106,11 @@ We are using Prometheus and Grafana to get metrics about the backend (micro-serv
 The most important one is the list for every service and its current status (online/offline)
 
 To get these metrics we have implemented health check via NestJS and Terminus.
+
+![Grafana Dashboard](/docs/grafana-dashboard.png)
+
+## Postman
+
+We provide a Postman Collection to test the API. You can find it in the docs folder ([ccn-collection](/docs/ccn.postman_collection.json)).
+
+To use it you need to import it into Postman, by clicking on the import button in the top left corner (when there already is an active workspace) or in the Menu under File/Import... and selecting the provided file. After that you have to use one of the *Auth/Login* Routes to get your first JWT set.

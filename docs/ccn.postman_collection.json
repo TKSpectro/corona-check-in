@@ -1,0 +1,778 @@
+{
+	"info": {
+		"_postman_id": "72e02759-754b-40d4-a029-67fea58e06e6",
+		"name": "ccn",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17425384"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Signup",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Refresh token\", function () {",
+									"    const token = JSON.parse(pm.response.text()).token;",
+									"    // const refresh = JSON.parse(pm.response.text()).token.refresh;",
+									"",
+									"    pm.collectionVariables.set(\"token\", token);",
+									"    // pm.collectionVariables.set(\"refresh_token\", refresh);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"test2@turbomeet.xyz\",\n    \"password\": \"password\",\n    \"passwordRepeat\": \"password\",\n    \"firstname\": \"firstTest\",\n    \"lastname\": \"lastTest\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/signup",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Refresh token\", function () {",
+									"    const token = JSON.parse(pm.response.text()).token;",
+									"    // const refresh = JSON.parse(pm.response.text()).token.refresh;",
+									"",
+									"    pm.collectionVariables.set(\"token\", token);",
+									"    // pm.collectionVariables.set(\"refresh_token\", refresh);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"admin@turbomeet.xyz\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Refresh token\", function () {",
+									"    const token = JSON.parse(pm.response.text()).token;",
+									"    // const refresh = JSON.parse(pm.response.text()).token.refresh;",
+									"",
+									"    pm.collectionVariables.set(\"token\", token);",
+									"    // pm.collectionVariables.set(\"refresh_token\", refresh);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"user@turbomeet.xyz\",\n    \"password\": \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Me",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/me",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Health/Metrics",
+			"item": [
+				{
+					"name": "Metrics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/metrics",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"metrics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/health",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"health"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sessions",
+			"item": [
+				{
+					"name": "GetAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/sessions/?page=0&order=ASC",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"sessions",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "order",
+									"value": "ASC"
+								},
+								{
+									"key": "take",
+									"value": "5",
+									"disabled": true
+								},
+								{
+									"key": "infected",
+									"value": "true",
+									"disabled": true
+								},
+								{
+									"key": "sessionName",
+									"value": "test",
+									"disabled": true
+								},
+								{
+									"key": "sessionBegin",
+									"value": "2022-12-10T08:00:00.000Z",
+									"disabled": true
+								},
+								{
+									"key": "sessionEnd",
+									"value": "2022-12-10T09:30:00.000Z",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOne",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/sessions/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"sessions",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "00000000-0000-0000-0002-000000000002"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create (only admin)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"test\",\n    \"startTime\": \"2023-01-24 17:50:02.344699\",\n    \"infected\": false,\n    \"roomId\": \"00000000-0000-0000-0000-000000000000\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/sessions/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"sessions",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Scan QR-Code (for user) -> (update createdQrCode to the current one for this room)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"roomId\": \"00000000-0000-0000-0000-000000000000\",\n    \"createdQrCode\": \"2023-01-29T18:03:58.809Z\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/sessions/scan",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"sessions",
+								"scan"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update (only admin)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"00000000-0000-0000-0002-000000000001\",\n    \"name\":\"test\",\n    \"startTime\": \"2023-01-24 17:50:02.344699\",\n    \"infected\": true,\n    \"roomId\": \"00000000-0000-0000-0002-000000000001\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/sessions",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"sessions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rooms",
+			"item": [
+				{
+					"name": "GetAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/rooms/?page=0&order=ASC",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"rooms",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "order",
+									"value": "ASC"
+								},
+								{
+									"key": "take",
+									"value": "5",
+									"disabled": true
+								},
+								{
+									"key": "infected",
+									"value": "true",
+									"disabled": true
+								},
+								{
+									"key": "sessionName",
+									"value": "test",
+									"disabled": true
+								},
+								{
+									"key": "sessionBegin",
+									"value": "2022-12-10T08:00:00.000Z",
+									"disabled": true
+								},
+								{
+									"key": "sessionEnd",
+									"value": "2022-12-10T09:30:00.000Z",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOne",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/rooms/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"rooms",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "00000000-0000-0000-0002-000000000000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \n    \"name\": \"my-new-room\",\n    \"maxParticipants\": 10,\n    \"maxDuration\": 60,\n    \"faculty\": \"AI\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/rooms",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"rooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \n    \"id\": \"00000000-0000-0000-0002-000000000001\",\n    \"name\": \"update-room\",\n    \"maxParticipants\": 10,\n    \"maxDuration\": 60\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/rooms",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"rooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/rooms/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"rooms",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "00000000-0000-0000-0002-000000000024"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Re-Generate QR-Code",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"room-111\",\n    \"maxParticipants\": 10,\n    \"maxDuration\": 60,\n    \"id\": \"00000000-0000-0000-0002-000000000001\",\n    \"createdQrCode\": \"2023-01-14T15:09:28.621Z\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/rooms/qr-code",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"rooms",
+								"qr-code"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Incidences",
+			"item": [
+				{
+					"name": "7 day average",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"test\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/incidences/7-day-average",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"incidences",
+								"7-day-average"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "7day average for room",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"test\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/incidences/7-day-average-for-room/:roomId",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"incidences",
+								"7-day-average-for-room",
+								":roomId"
+							],
+							"variable": [
+								{
+									"key": "roomId",
+									"value": "00000000-0000-0000-0000-000000000000"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "GetAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users/?page=0&order=ASC",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "order",
+									"value": "ASC"
+								},
+								{
+									"key": "take",
+									"value": "5",
+									"disabled": true
+								},
+								{
+									"key": "role",
+									"value": "admin",
+									"disabled": true
+								},
+								{
+									"key": "search",
+									"value": "user",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"user@turbomeet.xyz\",\n    \"firstname\": \"test\",\n    \"lastname\": \"testlast\",\n    \"oldPassword\": \"password\",\n    \"newPassword\": \"password\",\n    \"newPasswordRepeat\": \"password\",\n    \"role\": \"admin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "00000000-0000-0000-0000-000000000002"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users/:id",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "00000000-0000-0000-0000-000000000003"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "url",
+			"value": "localhost:3333/api",
+			"type": "string"
+		}
+	]
+}

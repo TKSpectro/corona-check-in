@@ -49,7 +49,6 @@ services:
       - GF_SERVER_ROOT_URL=http://localhost:3000
       - GF_SERVER_DOMAIN=localhost
       - GF_SERVER_SERVE_FROM_SUB_PATH=true
-      - GF_SECURITY_ADMIN_PASSWORD=admin
     ports:
       - '3000:3000'
     networks:
