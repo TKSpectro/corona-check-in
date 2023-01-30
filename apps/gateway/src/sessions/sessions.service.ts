@@ -21,7 +21,7 @@ export class SessionsService {
     sessionBegin?: Date,
     sessionEnd?: Date
   ) {
-    return lastValueFrom(
+    return await lastValueFrom(
       this.sessionClient
         .send(
           { role: 'session', cmd: 'get-all' },

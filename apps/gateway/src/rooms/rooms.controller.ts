@@ -4,6 +4,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   Param,
   Post,
   Put,
@@ -18,6 +19,7 @@ export class RoomsController {
   constructor(private readonly roomsService: RoomsService) {}
 
   @Get()
+  @HttpCode(200)
   async findAll(
     @Query() pageOptionsDto: PageOptionsDto,
     @Query() query: findAllQuery
@@ -26,26 +28,31 @@ export class RoomsController {
   }
 
   @Get(':id')
+  @HttpCode(200)
   async findOne(@Param('id') id: string) {
     return this.roomsService.getRoom(id);
   }
 
   @Post()
+  @HttpCode(201)
   async create(@Body() createRoomDto: RoomDto) {
     return this.roomsService.createRoom(createRoomDto);
   }
 
   @Put()
+  @HttpCode(200)
   async update(@Body() updateRoomDto: UpdateRoomDto) {
     return this.roomsService.update(updateRoomDto);
   }
 
   @Put('qr-code')
+  @HttpCode(200)
   async updateQrCode(@Body() updateRoomDto: UpdateRoomDto) {
     return this.roomsService.updateQrCode(updateRoomDto);
   }
 
   @Delete(':id')
+  @HttpCode(204)
   async remove(@Param('id') id: string) {
     return this.roomsService.removeRoom(id);
   }

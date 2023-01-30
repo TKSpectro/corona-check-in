@@ -24,6 +24,7 @@ export class UsersController {
 
   @Get('')
   @Roles(UserRole.ADMIN)
+  @HttpCode(200)
   async getUsers(
     @Query() pageOptionsDto: PageOptionsDto,
     @Query() query?: findAllQueryDto

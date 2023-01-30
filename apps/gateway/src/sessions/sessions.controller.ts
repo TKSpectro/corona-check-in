@@ -7,6 +7,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   Param,
   Post,
   Put,
@@ -22,12 +23,8 @@ import { UpdateSessionDto } from './update-sessions.dto';
 export class SessionsController {
   constructor(private readonly sessionsService: SessionsService) {}
 
-  @Get(':id')
-  getSessionById(@Request() req, @Param('id') id: string) {
-    return this.sessionsService.getSessionById(id, req.user);
-  }
-
   @Get()
+  @HttpCode(200)
   async getSessions(
     @Request() req,
     @Query() pageOptionsDto: PageOptionsDto,
@@ -35,7 +32,7 @@ export class SessionsController {
     @Query('sessionBegin') sessionBegin?: Date,
     @Query('sessionEnd') sessionEnd?: Date
   ) {
-    this.sessionsService.getSessions(
+    return this.sessionsService.getSessions(
       pageOptionsDto,
       req.user,
       infected,
@@ -44,8 +41,15 @@ export class SessionsController {
     );
   }
 
+  @Get(':id')
+  @HttpCode(200)
+  getSessionById(@Request() req, @Param('id') id: string) {
+    return this.sessionsService.getSessionById(id, req.user);
+  }
+
   @Roles(UserRole.ADMIN)
   @Post()
+  @HttpCode(201)
   async createSession(@Body() sessionDto: SessionDto, @Request() req) {
     return this.sessionsService.createSession({
       ...sessionDto,
@@ -54,6 +58,7 @@ export class SessionsController {
   }
 
   @Post('scan')
+  @HttpCode(201)
   async scanQrCode(@Body() sessionDto: SessionDto, @Request() req) {
     return this.sessionsService.scanQrCode({
       ...sessionDto,
@@ -62,16 +67,19 @@ export class SessionsController {
   }
 
   @Post('markLastSessionsAsInfected')
+  @HttpCode(200)
   async markLastSessionsAsInfected(@Body() userId: string) {
     return this.sessionsService.markLastSessionsAsInfected(userId);
   }
 
   @Put()
+  @HttpCode(200)
   async updateSession(@Body() updateSessionDto: UpdateSessionDto) {
     return this.sessionsService.updateSession(updateSessionDto);
   }
 
   @Delete(':id')
+  @HttpCode(204)
   async removeSession(@Param('id') id: string) {
     return this.sessionsService.removeSession(id);
   }
