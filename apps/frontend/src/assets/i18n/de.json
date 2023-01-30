@@ -22,7 +22,6 @@
   "ACTIONS": "Aktionen",
   "RESET": "zurücksetzen",
   "INFECTIONS": "Infezierungen",
-  "ACTIONS": "Aktionen",
   "AUTH": {
     "SIGN_IN_INSTEAD": "Stattdessen anmelden",
     "CREATE_ACCOUNT": "Konto erstellen",
@@ -98,7 +97,7 @@
     "NAME": "Name",
     "MAX_PARTICIPANTS": "Maximale Teilnehmer",
     "MAX_DURATION": "Maximale Dauer",
-    "FACULTY": "Fakultät"
+    "FACULTY": "Fakultät",
     "LOAD_ROOM_LIST_ERROR": "Raumliste konnte nicht geladen werden",
     "LOAD_ROOM_DETAILS_ERROR": "Raumdetails konnten nicht geladen werden",
     "LOAD_SESSIONS_ERROR": "Sessions konnten nicht geladen werden"

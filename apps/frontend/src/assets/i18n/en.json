@@ -22,7 +22,6 @@
   "ACTIONS": "Actions",
   "RESET": "Reset",
   "INFECTIONS": "Infections",
-  "ACTIONS": "Actions",
   "AUTH": {
     "SIGN_IN_INSTEAD": "Sign in instead",
     "CREATE_ACCOUNT": "Create account",
@@ -98,7 +97,7 @@
     "NAME": "Name",
     "MAX_PARTICIPANTS": "Max Participants",
     "MAX_DURATION": "Max Duration",
-    "FACULTY": "Faculty"
+    "FACULTY": "Faculty",
     "LOAD_ROOM_LIST_ERROR": "Could not load rooms",
     "LOAD_ROOM_DETAILS_ERROR": "Could not load room details",
     "LOAD_SESSIONS_ERROR": "Could not load sessions"
