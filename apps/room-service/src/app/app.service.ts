@@ -7,7 +7,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
 import { randomInt } from 'crypto';
-import { lastValueFrom } from 'rxjs';
+import { lastValueFrom, timeout } from 'rxjs';
 import { Repository } from 'typeorm';
 import { environment } from '../environments/environment';
 import { Faculty } from './faculty.enum';
@@ -59,12 +59,14 @@ export class AppService {
     const room: RoomEntity = await this.roomRepository.save(createRoomDto);
     if (room) {
       const qrCode = await lastValueFrom(
-        this.qrCodeSrv.send<qrCodeData>(
-          { role: 'qr-code', cmd: 'generate' },
-          {
-            roomId: room.id,
-          }
-        )
+        this.qrCodeSrv
+          .send<qrCodeData>(
+            { role: 'qr-code', cmd: 'generate' },
+            {
+              roomId: room.id,
+            }
+          )
+          .pipe(timeout(environment.serviceTimeout))
       );
       room.qrCode = qrCode.qrCode;
       room.createdQrCode = qrCode.generatedAt;
@@ -76,12 +78,14 @@ export class AppService {
 
   async updateRoom(updateRoomDto: UpdateRoomDto): Promise<RoomEntity> {
     const newCode = await lastValueFrom(
-      this.qrCodeSrv.send<qrCodeData>(
-        { role: 'qr-code', cmd: 'generate' },
-        {
-          roomId: updateRoomDto.id,
-        }
-      )
+      this.qrCodeSrv
+        .send<qrCodeData>(
+          { role: 'qr-code', cmd: 'generate' },
+          {
+            roomId: updateRoomDto.id,
+          }
+        )
+        .pipe(timeout(environment.serviceTimeout))
     );
     const updateRoom = await this.roomRepository.findOne({
       where: { id: updateRoomDto.id },

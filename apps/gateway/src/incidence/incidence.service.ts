@@ -2,6 +2,7 @@ import { RequestUser } from '@corona-check-in/micro-service-shared';
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { timeout } from 'rxjs';
+import { environment } from '../environments/environment';
 
 @Injectable()
 export class IncidenceService {
@@ -11,7 +12,7 @@ export class IncidenceService {
   get7DayAverage(user: RequestUser) {
     return this.incidenceClient
       .send({ role: 'incidence', cmd: 'get-7-day-average' }, { user })
-      .pipe(timeout(5000));
+      .pipe(timeout(environment.serviceTimeout));
   }
 
   get7DayAverageForRoom(user: RequestUser, roomId: string) {
@@ -20,6 +21,6 @@ export class IncidenceService {
         { role: 'incidence', cmd: 'get-7-day-average-for-room' },
         { user, roomId }
       )
-      .pipe(timeout(5000));
+      .pipe(timeout(environment.serviceTimeout));
   }
 }
