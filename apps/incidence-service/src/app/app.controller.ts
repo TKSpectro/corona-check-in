@@ -14,12 +14,12 @@ export class AppController {
   }
 
   @MessagePattern({ role: 'incidence', cmd: 'get-7-day-average' })
-  get7DayAverage({ user }: { user: RequestUser }) {
+  async get7DayAverage({ user }: { user: RequestUser }) {
     return this.appService.get7DayAverage({ user });
   }
 
   @MessagePattern({ role: 'incidence', cmd: 'get-7-day-average-for-room' })
-  get7DayAverageForRoom({
+  async get7DayAverageForRoom({
     user,
     roomId,
   }: {

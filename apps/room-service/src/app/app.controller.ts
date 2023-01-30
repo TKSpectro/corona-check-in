@@ -2,7 +2,6 @@ import { PageOptionsDto } from '@corona-check-in/micro-service-shared';
 import { Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 import { AppService } from './app.service';
-import { RoomEntity } from './room.entity';
 import { findAllQuery, RoomDto } from './rooms.dto';
 import { UpdateRoomDto } from './update-rooms.dto';
 
@@ -16,7 +15,7 @@ export class AppController {
   }
 
   @MessagePattern({ role: 'room', cmd: 'get-all' })
-  getRooms({
+  async getRooms({
     pageOptionsDto,
     query,
   }: {
@@ -27,27 +26,27 @@ export class AppController {
   }
 
   @MessagePattern({ role: 'room', cmd: 'get-by-id' })
-  getRoom(id: string): Promise<RoomEntity> {
+  async getRoom(id: string) {
     return this.appService.getRoom(id);
   }
 
   @MessagePattern({ role: 'room', cmd: 'create' })
-  createRoom(createRoomDto: RoomDto): Promise<RoomEntity> {
+  async createRoom(createRoomDto: RoomDto) {
     return this.appService.createRoom(createRoomDto);
   }
 
   @MessagePattern({ role: 'room', cmd: 'update' })
-  updateRoom(updateRoomDto: UpdateRoomDto): Promise<RoomEntity> {
+  async updateRoom(updateRoomDto: UpdateRoomDto) {
     return this.appService.updateRoom(updateRoomDto);
   }
 
   @MessagePattern({ role: 'room', cmd: 'update-qr-code' })
-  updateQrCode(updateRoomDto: UpdateRoomDto): Promise<RoomEntity> {
+  async updateQrCode(updateRoomDto: UpdateRoomDto) {
     return this.appService.updateQrCode(updateRoomDto);
   }
 
   @MessagePattern({ role: 'room', cmd: 'delete' })
-  deleteRoom(id: string): Promise<boolean> {
+  async deleteRoom(id: string) {
     return this.appService.deleteRoom(id);
   }
 }
