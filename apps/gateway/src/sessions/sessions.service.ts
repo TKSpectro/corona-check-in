@@ -32,7 +32,7 @@ export class SessionsService {
     );
   }
 
-  createSession(createSessionDto: SessionDto & { userId: string }) {
+  createSession(createSessionDto: SessionDto) {
     return this.sessionClient.send<SessionEntity>(
       { role: 'session', cmd: 'create-session' },
       createSessionDto
