@@ -4,6 +4,7 @@ import { FormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { AdminService } from '../../auth/admin/admin.service';
 import { AuthService } from '../../auth/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'ccn-sidenav',
@@ -17,6 +18,7 @@ export class SidenavComponent implements OnDestroy, OnInit {
   adminService: AdminService;
   isLogged = false;
   langSelect = new FormControl(this.t.currentLang);
+  subscriprion = new Subscription();
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
@@ -36,7 +38,7 @@ export class SidenavComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.isLoggedIn$.subscribe((isLogged) => {
+    this.subscriprion = this.authService.isLoggedIn$.subscribe((isLogged) => {
       this.isLogged = isLogged;
     });
   }
@@ -54,5 +56,6 @@ export class SidenavComponent implements OnDestroy, OnInit {
 
   ngOnDestroy(): void {
     this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
+    this.subscriprion.unsubscribe();
   }
 }
