@@ -56,6 +56,7 @@ export class AppService implements OnModuleInit {
     if (environment.seedEnabled === true) {
       console.info('[SESSION] Seeding sessions...');
       await this.#massRandomSeed();
+      await this.#seed();
     } else {
       console.info('[SESSION] Seeding disabled.');
     }
@@ -172,6 +173,10 @@ export class AppService implements OnModuleInit {
     );
   }
 
+  async deleteSession(id: string): Promise<boolean> {
+    return (await this.sessionRepository.delete(id)).affected > 0;
+  }
+
   async #seed() {
     for (let i = 1; i < 26; i++) {
       if (
@@ -257,9 +262,5 @@ export class AppService implements OnModuleInit {
         // do nothing
       }
     }
-  }
-
-  async deleteSession(id: string): Promise<boolean> {
-    return (await this.sessionRepository.delete(id)).affected > 0;
   }
 }
