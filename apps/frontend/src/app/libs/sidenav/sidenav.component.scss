@@ -1,3 +1,5 @@
+@use '@angular/material' as mat;
+
 .main-container {
   flex: 1;
   height: 100%;
@@ -28,6 +30,10 @@
 
         &.is-mobile {
           width: 100%;
+        }
+
+        .active-link {
+          color: mat.get-color-from-palette(mat.$green-palette, A200);
         }
       }
 
