@@ -67,6 +67,9 @@
     "LAST_SESSION": "Last Sessions",
     "UPDATE_SESSION": "Update Session",
     "DELETE_SESSION": "Delete Session",
+    "DELETE_SESSION_WARNING": "Are you sure you want to delete this session? This action cannot be undone.",
+    "MARK_SESSION_INFECTED": "Mark Session as infected",
+    "MARK_SESSION_INFECTED_WARNING": "Are you sure you want to mark this session as infected? This action cannot be undone.",
     "SESSION_OVERVIEW": "Session overview",
     "SESSION_START": "Session start",
     "SESSION_END": "Session end",
@@ -85,12 +88,17 @@
     "ROOM": "Room",
     "ALL_ROOMS": "All Rooms",
     "CREATE_ROOM": "Create room",
+    "CREATE_ROOM_SUCCESS": "Room created successfully",
+    "CREATE_ROOM_ERROR": "Could not create room",
+    "UPDATE_ROOM": "Update room",
+    "UPDATE_ROOM_SUCCESS": "Room updated successfully",
+    "UPDATE_ROOM_ERROR": "Could not update room",
     "DELETE_ROOM": "Delete Room",
     "ROOM_DETAILS": "Room Details",
-    "UPDATE_ROOM": "Update Room",
+    "NAME": "Name",
     "MAX_PARTICIPANTS": "Max Participants",
     "MAX_DURATION": "Max Duration",
-    "FACULITY": "faculty",
+    "FACULTY": "Faculty"
     "LOAD_ROOM_LIST_ERROR": "Could not load rooms",
     "LOAD_ROOM_DETAILS_ERROR": "Could not load room details",
     "LOAD_SESSIONS_ERROR": "Could not load sessions"
@@ -106,5 +114,10 @@
   "FACULTY": {
     "AI": "Applied Computer Science",
     "SA": "Social Work"
+  },
+  "ERRORS": {
+    "REQUIRED": "This field is required",
+    "MINIMUM": "Should be at least {{min}}",
+    "MAXIMUM": "Should be at most {{max}}"
   }
 }

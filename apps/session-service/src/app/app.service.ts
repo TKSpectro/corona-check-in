@@ -1,15 +1,46 @@
 import {
   findWithMeta,
   PageOptionsDto,
+  RequestUser,
   UserEntity,
+  UserRole,
 } from '@corona-check-in/micro-service-shared';
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Inject,
+  Injectable,
+  OnModuleInit,
+} from '@nestjs/common';
+import { ClientProxy } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { randomUUID } from 'crypto';
+import { lastValueFrom, timeout } from 'rxjs';
+import { MoreThan, Repository } from 'typeorm';
 import { environment } from '../environments/environment';
 import { SessionEntity } from './session.entity';
 import { SessionDto } from './sessions.dto';
 import { UpdateSessionDto } from './update-sessions.dto';
+
+const selectWithoutNote = [
+  'session.id',
+  'session.createdAt',
+  'session.updatedAt',
+  'session.startTime',
+  'session.endTime',
+  'session.infected',
+  'session.userId',
+  // TODO: Add this back in when we have a room service
+  // 'session.roomId',
+];
+
+// This is some really hacky code to work around the weird select behavior of typeorm
+// If you use the queryBuilder.select() method, it will add the table name to the select key
+// And for .find() it will need an object with everything set to true (setting it to false will just do nothing)
+const selectWithoutNoteObj = selectWithoutNote.reduce(
+  (a, v) => ({ ...a, [v.replace('session.', '')]: true }),
+  {}
+);
 
 @Injectable()
 export class AppService implements OnModuleInit {
@@ -17,12 +48,14 @@ export class AppService implements OnModuleInit {
     @InjectRepository(SessionEntity)
     private readonly sessionRepository: Repository<SessionEntity>,
     @InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>
+    private readonly userRepository: Repository<UserEntity>,
+    @Inject('room-service') private roomSrv: ClientProxy
   ) {}
 
   async onModuleInit() {
     if (environment.seedEnabled === true) {
       console.info('[SESSION] Seeding sessions...');
+      await this.#massRandomSeed();
       await this.#seed();
     } else {
       console.info('[SESSION] Seeding disabled.');
@@ -31,11 +64,13 @@ export class AppService implements OnModuleInit {
 
   getSessions(
     pageOptionsDto: PageOptionsDto,
+    user: RequestUser,
     infected?: string,
     sessionBegin?: Date,
-    sessionEnd?: Date
+    sessionEnd?: Date,
+    roomId?: string
   ) {
-    const queryBuilder = this.sessionRepository.createQueryBuilder();
+    const queryBuilder = this.sessionRepository.createQueryBuilder('session');
 
     // This is kinda hacky, infected will be a string even if it's typed as a boolean
     if (infected === 'true' || infected === 'false') {
@@ -47,15 +82,82 @@ export class AppService implements OnModuleInit {
     if (sessionEnd) {
       queryBuilder.andWhere('endTime <= :sessionEnd', { sessionEnd });
     }
+    if (roomId) {
+      queryBuilder.andWhere('roomId = :roomId', { roomId });
+    }
+
+    if (user.role === UserRole.USER) {
+      queryBuilder.andWhere('userId = :userId', { userId: user.sub });
+    }
+    if (user.role === UserRole.ADMIN) {
+      queryBuilder.select(selectWithoutNote);
+    }
 
     return findWithMeta(queryBuilder, pageOptionsDto);
   }
 
-  async getSessionById(id: string) {
-    return this.sessionRepository.findOne({ where: { id } });
+  async getSessionById(id: string, user: RequestUser) {
+    return this.sessionRepository.findOne({
+      select: { ...selectWithoutNoteObj, note: user.role !== UserRole.ADMIN },
+      where: {
+        id: id,
+        userId: user.role === UserRole.USER ? user.sub : undefined,
+      },
+    });
   }
 
   async createSession(createSessionDto: SessionDto): Promise<SessionEntity> {
+    return await this.sessionRepository.save(createSessionDto);
+  }
+
+  async createSessionFromQrCode(
+    createSessionDto: SessionDto
+  ): Promise<SessionEntity> {
+    const room = await lastValueFrom(
+      this.roomSrv
+        .send({ role: 'room', cmd: 'getRoom' }, createSessionDto.roomId)
+        .pipe(timeout(5000))
+    );
+    if (!room) {
+      throw new HttpException('Room not found', HttpStatus.BAD_REQUEST);
+    }
+    if (room.createdQrCode !== createSessionDto.createdQrCode) {
+      throw new HttpException('QrCode must be updated', HttpStatus.BAD_REQUEST);
+    }
+
+    let startTime = new Date();
+    startTime = new Date(startTime.setDate(startTime.getDate() - 5));
+
+    const sessions = await this.sessionRepository.find({
+      where: {
+        roomId: createSessionDto.roomId,
+        userId: createSessionDto.userId,
+        startTime: MoreThan(startTime),
+      },
+    });
+    if (sessions.length <= 0) {
+      // User has no session in this room, so he scanned to enter
+      return await this.sessionRepository.save(createSessionDto);
+    }
+    for (const session of sessions) {
+      const maxEndTime = new Date(
+        session.startTime.getTime() + room.maxDuration * 60000
+      );
+      if (maxEndTime <= new Date()) {
+        // Session is an old session which the user did not close
+        session.endTime = maxEndTime;
+      } else {
+        // Session is the current session and the user scanned to leave
+        session.endTime = new Date();
+      }
+      await this.updateSession(session);
+      if (session.infected) {
+        throw new HttpException(
+          'User is infected and not allowed to enter the room.',
+          HttpStatus.BAD_REQUEST
+        );
+      }
+    }
     return await this.sessionRepository.save(createSessionDto);
   }
 
@@ -71,6 +173,10 @@ export class AppService implements OnModuleInit {
     );
   }
 
+  async deleteSession(id: string): Promise<boolean> {
+    return (await this.sessionRepository.delete(id)).affected > 0;
+  }
+
   async #seed() {
     for (let i = 1; i < 26; i++) {
       if (
@@ -83,11 +189,11 @@ export class AppService implements OnModuleInit {
         try {
           await this.sessionRepository.insert({
             id: `00000000-0000-0000-0002-0000000000${i < 10 ? 0 : ''}${i}`,
-            startTime: `2022-12-${i < 10 ? 0 : ''}${i}T08:00:00`,
             endTime:
               i % 2 === 0 ? `2022-12-${i < 10 ? '0' : ''}${i}T09:30:00` : null,
-            infected: i % 2 === 0 ? true : false,
+            infected: i % 2 === 0,
             userId: '00000000-0000-0000-0000-000000000002',
+            roomId: '00000000-0000-0000-0000-000000000000',
           });
         } catch (error) {
           // do nothing
@@ -97,7 +203,64 @@ export class AppService implements OnModuleInit {
     }
   }
 
-  async deleteSession(id: string): Promise<boolean> {
-    return (await this.sessionRepository.delete(id)).affected > 0;
+  // seed sessions for the last 2 months with a random amount of infections per day and with a random amount of sessions per day
+  async #massRandomSeed() {
+    if (
+      !(await this.sessionRepository.findOne({
+        where: [{ id: `00000000-0000-0000-0000-0000000000aa` }],
+      }))
+    ) {
+      try {
+        await this.sessionRepository.insert({
+          id: `00000000-0000-0000-0000-0000000000aa`,
+          startTime: `2022-12-31T09:30:00`,
+          endTime: `2022-12-31T09:30:00`,
+          infected: false,
+          userId: '00000000-0000-0000-0000-000000000002',
+          roomId: '00000000-0000-0000-0000-000000000000',
+        });
+
+        const today = new Date();
+        const twoMonthsAgo = new Date();
+        twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
+
+        const days = Math.round(
+          (today.getTime() - twoMonthsAgo.getTime()) / (1000 * 3600 * 24)
+        );
+
+        for (let i = 0; i < days; i++) {
+          const date = new Date();
+          date.setDate(date.getDate() - i);
+          const infections = Math.floor(Math.random() * 10);
+
+          for (let j = 0; j < infections; j++) {
+            const session = new SessionEntity();
+            session.id = randomUUID();
+            session.startTime = date;
+            session.endTime = date;
+            session.infected = true;
+            session.userId = '00000000-0000-0000-0000-000000000002';
+            session.roomId = '00000000-0000-0000-0000-000000000000';
+            await this.sessionRepository.save(session);
+          }
+
+          const room2Infections = Math.floor(Math.random() * 50);
+          for (let j = 0; j < room2Infections; j++) {
+            const session = new SessionEntity();
+            session.id = randomUUID();
+            session.startTime = date;
+            session.endTime = date;
+            session.infected = true;
+            session.userId = '00000000-0000-0000-0000-000000000002';
+            session.roomId = '00000000-0000-0000-0000-000000000001';
+            await this.sessionRepository.save(session);
+          }
+
+          await new Promise((resolve) => setTimeout(resolve, 5));
+        }
+      } catch (error) {
+        // do nothing
+      }
+    }
   }
 }

@@ -1,20 +1,20 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { environment } from '../environments/environment';
-import { SessionsController } from './sessions.controller';
-import { SessionsService } from './sessions.service';
+import { IncidenceController } from './incidence.controller';
+import { IncidenceService } from './incidence.service';
 
 @Module({
   imports: [
     ClientsModule.register([
       {
-        name: 'sessions-service',
+        name: 'incidence-service',
         transport: Transport.REDIS,
         options: environment.redis,
       },
     ]),
   ],
-  providers: [SessionsService],
-  controllers: [SessionsController],
+  controllers: [IncidenceController],
+  providers: [IncidenceService],
 })
-export class SessionsModule {}
+export class IncidenceModule {}

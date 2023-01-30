@@ -31,15 +31,26 @@
     </mat-form-field>
   </div>
 
-  <button mat-raised-button (click)="resetFilter()">
-    <mat-icon>replay</mat-icon>
-  </button>
+  <div>
+    <button
+      mat-raised-button
+      *ngIf="adminSrv.getIsAdmin()"
+      (click)="openFormDialog($event)"
+    >
+      <mat-icon>add</mat-icon>
+    </button>
+
+    <button mat-raised-button (click)="resetFilter()">
+      <mat-icon>replay</mat-icon>
+    </button>
+  </div>
 </div>
 <table mat-table [dataSource]="roomList" class="mat-elevation-z8">
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
     <mat-cell *matCellDef="let room">{{ room.name }}</mat-cell>
   </ng-container>
+
   <ng-container matColumnDef="updated">
     <mat-header-cell *matHeaderCellDef>{{
       'ROOMS.UPDATE_ROOM' | translate
@@ -48,21 +59,24 @@
       room.updatedAt | customDate
     }}</mat-cell>
   </ng-container>
+
   <ng-container matColumnDef="maxParticipants">
     <mat-header-cell *matHeaderCellDef>{{
       'ROOMS.MAX_PARTICIPANTS' | translate
     }}</mat-header-cell>
     <mat-cell *matCellDef="let room">{{ room.maxParticipants }}</mat-cell>
   </ng-container>
+
   <ng-container matColumnDef="maxDuration">
     <mat-header-cell *matHeaderCellDef>{{
       'ROOMS.MAX_DURATION' | translate
     }}</mat-header-cell>
     <mat-cell *matCellDef="let room">{{ room.maxDuration }} min.</mat-cell>
   </ng-container>
+
   <ng-container matColumnDef="faculty">
     <mat-header-cell *matHeaderCellDef>{{
-      'ROOMS.FACULITY' | translate
+      'ROOMS.FACULTY' | translate
     }}</mat-header-cell>
     <mat-cell *matCellDef="let room">{{
       isDesktop
@@ -70,10 +84,33 @@
         : room.faculty
     }}</mat-cell>
   </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <mat-header-cell class="center" *matHeaderCellDef>{{
+      'ACTIONS' | translate
+    }}</mat-header-cell>
+    <mat-cell *matCellDef="let room">
+      <button
+        *ngIf="adminSrv.isAdmin"
+        mat-icon-button
+        (click)="openFormDialog($event, room.id)"
+      >
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button
+        *ngIf="adminSrv.isAdmin"
+        mat-icon-button
+        (click)="openDeleteDialog($event, room.id)"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row
-    [routerLink]="row.id"
     *matRowDef="let row; columns: displayedColumns"
+    [routerLink]="row.id"
   ></mat-row>
 </table>
 

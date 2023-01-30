@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { SessionListService } from '../sessions/session-list.service';
+import { ScanQrCodeBody } from '../shared/types';
 
 @Component({
   selector: 'ccn-dashboard',
@@ -55,5 +56,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
     this.sessionListSub.unsubscribe();
+  }
+
+  onScan($event: ScanQrCodeBody) {
+    this.sessionListService.scanQrCode($event).subscribe({
+      next: (data) => {
+        console.log(data);
+      },
+      error: (err) => console.error(err),
+    });
   }
 }

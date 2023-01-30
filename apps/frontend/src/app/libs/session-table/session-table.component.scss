@@ -1,3 +1,5 @@
+@use '@angular/material' as mat;
+
 table {
   width: 100%;
 }
@@ -9,4 +11,8 @@ table {
 .mat-row:hover .mat-cell {
   background-color: #5c5b5b;
   cursor: pointer;
+}
+
+.icon-red {
+  color: mat.get-color-from-palette(mat.$pink-palette, 500);
 }

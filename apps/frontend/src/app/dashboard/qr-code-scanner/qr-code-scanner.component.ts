@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Result } from '@zxing/library';
+import { ScanQrCodeBody } from '../../shared/types';
 
 @Component({
   selector: 'ccn-qr-code-scanner',
@@ -13,6 +14,8 @@ export class QrCodeScannerComponent {
   noCameraFound = false;
   cameraDevices: MediaDeviceInfo[] = [];
   desiredDevice!: MediaDeviceInfo;
+
+  @Output() scanEvent = new EventEmitter<ScanQrCodeBody>();
 
   constructor(private snackBar: MatSnackBar, private t: TranslateService) {}
 
@@ -46,7 +49,10 @@ export class QrCodeScannerComponent {
 
   scanCompleteHandler($event: Result) {
     if ($event) {
-      console.log('scanCompleteHandler', $event);
+      const roomDetails: ScanQrCodeBody = JSON.parse($event.getText());
+      roomDetails.createdQrCode = new Date(roomDetails.createdQrCode);
+      this.scanEvent.emit(roomDetails);
+      this.turnCameraOn = !this.turnCameraOn;
     }
   }
 
