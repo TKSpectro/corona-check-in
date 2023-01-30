@@ -2,9 +2,9 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 import { AdminService } from '../../auth/admin/admin.service';
 import { AuthService } from '../../auth/auth.service';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'ccn-sidenav',
@@ -16,9 +16,9 @@ export class SidenavComponent implements OnDestroy, OnInit {
   _mobileQueryListener: () => void;
   isExpanded!: boolean;
   adminService: AdminService;
-  isLogged = false;
+  isLoggedIn = false;
   langSelect = new FormControl(this.t.currentLang);
-  subscriprion = new Subscription();
+  subscription = new Subscription();
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
@@ -34,12 +34,12 @@ export class SidenavComponent implements OnDestroy, OnInit {
       (event) => (this.isExpanded = !event.matches)
     );
     this.adminService = adminService;
-    this.isLogged = !!this.authService.autoLogin();
+    this.isLoggedIn = !!this.authService.autoLogin();
   }
 
   ngOnInit(): void {
-    this.subscriprion = this.authService.isLoggedIn$.subscribe((isLogged) => {
-      this.isLogged = isLogged;
+    this.subscription = this.authService.isLoggedIn$.subscribe((isLoggedIn) => {
+      this.isLoggedIn = isLoggedIn;
     });
   }
 
@@ -56,6 +56,6 @@ export class SidenavComponent implements OnDestroy, OnInit {
 
   ngOnDestroy(): void {
     this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
-    this.subscriprion.unsubscribe();
+    this.subscription.unsubscribe();
   }
 }

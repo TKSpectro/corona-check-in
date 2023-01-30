@@ -3,7 +3,7 @@
   [class.is-mobile]="mobileQuery.matches"
 >
   <mat-sidenav
-    *ngIf='isLogged'
+    *ngIf="isLoggedIn"
     class="sidenav"
     [opened]="!mobileQuery.matches || isExpanded"
     [class.is-mobile]="mobileQuery.matches"
