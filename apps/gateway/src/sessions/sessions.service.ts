@@ -4,6 +4,8 @@ import {
 } from '@corona-check-in/micro-service-shared';
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
+import { timeout } from 'rxjs';
+import { environment } from '../environments/environment';
 import { SessionEntity } from './session.entity';
 import { SessionDto } from './sessions.dto';
 import { UpdateSessionDto } from './update-sessions.dto';
@@ -19,50 +21,55 @@ export class SessionsService {
     sessionBegin?: Date,
     sessionEnd?: Date
   ) {
-    return this.sessionClient.send(
-      { role: 'sessions', cmd: 'get-all' },
-      { pageOptionsDto, user, infected, sessionBegin, sessionEnd }
-    );
+    return this.sessionClient
+      .send(
+        { role: 'sessions', cmd: 'get-all' },
+        { pageOptionsDto, user, infected, sessionBegin, sessionEnd }
+      )
+      .pipe(timeout(environment.serviceTimeout));
   }
 
   getSessionById(id: string, user: RequestUser) {
-    return this.sessionClient.send(
-      { role: 'session', cmd: 'get-by-id' },
-      { id, user }
-    );
+    return this.sessionClient
+      .send({ role: 'session', cmd: 'get-by-id' }, { id, user })
+      .pipe(timeout(environment.serviceTimeout));
   }
 
   createSession(createSessionDto: SessionDto) {
-    return this.sessionClient.send<SessionEntity>(
-      { role: 'session', cmd: 'create-session' },
-      createSessionDto
-    );
+    return this.sessionClient
+      .send<SessionEntity>(
+        { role: 'session', cmd: 'create-session' },
+        createSessionDto
+      )
+      .pipe(timeout(environment.serviceTimeout));
   }
   scanQrCode(createSessionDto: SessionDto & { userId: string }) {
-    return this.sessionClient.send<SessionEntity>(
-      { role: 'session', cmd: 'scan-code' },
-      createSessionDto
-    );
+    return this.sessionClient
+      .send<SessionEntity>(
+        { role: 'session', cmd: 'scan-code' },
+        createSessionDto
+      )
+      .pipe(timeout(environment.serviceTimeout));
   }
 
   markLastSessionsAsInfected(userId: string) {
-    return this.sessionClient.send(
-      { role: 'session', cmd: 'markLastSessionsAsInfected' },
-      userId
-    );
+    return this.sessionClient
+      .send({ role: 'session', cmd: 'markLastSessionsAsInfected' }, userId)
+      .pipe(timeout(environment.serviceTimeout));
   }
 
   updateSession(updateSessionDto: UpdateSessionDto) {
-    return this.sessionClient.send<SessionEntity>(
-      { role: 'session', cmd: 'update-session' },
-      updateSessionDto
-    );
+    return this.sessionClient
+      .send<SessionEntity>(
+        { role: 'session', cmd: 'update-session' },
+        updateSessionDto
+      )
+      .pipe(timeout(environment.serviceTimeout));
   }
 
   removeSession(id: string) {
-    return this.sessionClient.send(
-      { role: 'session', cmd: 'delete-session' },
-      id
-    );
+    return this.sessionClient
+      .send({ role: 'session', cmd: 'delete-session' }, id)
+      .pipe(timeout(environment.serviceTimeout));
   }
 }

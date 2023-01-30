@@ -120,7 +120,7 @@ export class AppService implements OnModuleInit {
     const room = await lastValueFrom(
       this.roomSrv
         .send({ role: 'room', cmd: 'getRoom' }, createSessionDto.roomId)
-        .pipe(timeout(5000))
+        .pipe(timeout(environment.serviceTimeout))
     );
     if (!room) {
       throw new HttpException('Room not found', HttpStatus.BAD_REQUEST);

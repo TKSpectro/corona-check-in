@@ -1,6 +1,7 @@
 import { ClientProxy } from '@nestjs/microservices';
 import { HealthIndicatorResult } from '@nestjs/terminus';
 import { lastValueFrom, timeout } from 'rxjs';
+import { environment } from '../../environments/environment';
 import { PrometheusService } from '../prometheus/prometheus.service';
 import { BaseHealthIndicator } from './base-health.indicator';
 import { HealthIndicator } from './health-indicator.interface';
@@ -26,7 +27,7 @@ export class RoomsServiceHealthIndicator
     const isUp = await lastValueFrom(
       this.roomClient
         .send({ role: 'rooms', cmd: 'health' }, {})
-        .pipe(timeout(5000))
+        .pipe(timeout(environment.serviceTimeout))
     );
 
     const res: HealthIndicatorResult = {
