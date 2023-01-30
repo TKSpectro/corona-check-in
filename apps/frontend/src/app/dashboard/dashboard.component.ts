@@ -63,7 +63,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
       next: (data) => {
         console.log(data);
       },
-      error: (err) => console.error(err),
+      error: (error) => {
+        this.snackBar.open(
+          this.t.instant(
+            'PROFILES.LOAD_PROFILE_ERROR' + '\n' + error.error.message
+          ),
+          undefined,
+          {
+            panelClass: 'snackbar-error',
+          }
+        );
+      },
     });
   }
 }
