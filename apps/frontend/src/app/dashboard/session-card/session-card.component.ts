@@ -2,6 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Session, User } from '../../shared/types';
 import { Subscription } from 'rxjs';
 import { ServerService } from '../../shared/server.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from '../../libs';
 
 @Component({
   selector: 'ccn-session-card',
@@ -13,8 +15,9 @@ export class SessionCardComponent implements OnInit, OnDestroy {
   sessionData!: Session;
   profileData!: User;
   sessionMarkedAsInfected = false;
+  sessionLoaded = false;
 
-  constructor(private serverSrv: ServerService) {}
+  constructor(private serverSrv: ServerService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.getProfileData();
@@ -30,6 +33,7 @@ export class SessionCardComponent implements OnInit, OnDestroy {
       this.serverSrv.getCurrentSession().subscribe({
         next: (data) => {
           this.sessionData = data;
+          this.sessionLoaded = true;
         },
         error: (error) => {
           console.log(error.error.message);
@@ -49,18 +53,47 @@ export class SessionCardComponent implements OnInit, OnDestroy {
     });
   }
 
+  saveNote() {
+    this.subscriptions.push(
+      this.serverSrv
+        .updateSession({
+          id: this.sessionData.id,
+          startTime: this.sessionData.startTime,
+          endTime: this.sessionData.endTime,
+          infected: this.sessionData.infected,
+          note: this.sessionData.note,
+        })
+        .subscribe((data) => {
+          this.sessionData = data;
+        })
+    );
+  }
+
   markLastSessionsAsInfected() {
-    if (this.profileData.id) {
-      this.subscriptions.push(
-        this.serverSrv
-          .markLastSessionsAsInfected(this.profileData.id)
-          .subscribe({
-            next: (data) => {
-              this.sessionMarkedAsInfected = data.success;
-            },
-            error: (err) => console.error(err),
-          })
-      );
-    }
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        title: 'SESSIONS.REPORT_INFECTION',
+        description: 'SESSIONS.REPORT_INFECTION_WARNING',
+      },
+    });
+
+    this.subscriptions.push(
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result === true) {
+          if (this.profileData.id) {
+            this.subscriptions.push(
+              this.serverSrv
+                .markLastSessionsAsInfected(this.profileData.id)
+                .subscribe({
+                  next: (data) => {
+                    this.sessionMarkedAsInfected = data.success;
+                  },
+                  error: (err) => console.error(err),
+                })
+            );
+          }
+        }
+      })
+    );
   }
 }

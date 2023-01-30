@@ -74,6 +74,7 @@
     "MARK_INFECTED_TOOLTIP_DISABLED": "This session is already marked as infected",
     "CURRENT_SESSION": "Current session",
     "REPORT_INFECTION": "Report infection",
+    "REPORT_INFECTION_WARNING": "Do you want to report yourself as infected? Your sessions of the last 5 days will be marked as infected.",
     "NO_CURRENT_OR_LAST_SESSION": "You don't have any sessions. You can check into a room via the QR code scanner."
   },
   "ROOMS": {
