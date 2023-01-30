@@ -3,7 +3,7 @@ import {
   Order,
   PageOptionsDto,
 } from '@corona-check-in/micro-service-shared';
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
 import { randomInt } from 'crypto';
@@ -52,11 +52,17 @@ export class AppService {
   }
 
   async getRoom(id: string): Promise<RoomEntity> {
-    return this.roomRepository.findOne({ where: { id } });
+    const room = await this.roomRepository.findOne({ where: { id } });
+    if (!room) {
+      throw new NotFoundException('Room not found');
+    }
+
+    return room;
   }
 
   async createRoom(createRoomDto: RoomDto): Promise<RoomEntity> {
     const room: RoomEntity = await this.roomRepository.save(createRoomDto);
+
     if (room) {
       const qrCode = await lastValueFrom(
         this.qrCodeSrv
@@ -68,11 +74,15 @@ export class AppService {
           )
           .pipe(timeout(environment.serviceTimeout))
       );
+
       room.qrCode = qrCode.qrCode;
       room.createdQrCode = qrCode.generatedAt;
+
+      await this.roomRepository.update(room.id, room);
+
+      room.qrCode = null;
     }
-    await this.roomRepository.update(room.id, room);
-    room.qrCode = null;
+
     return room;
   }
 
@@ -87,15 +97,23 @@ export class AppService {
         )
         .pipe(timeout(environment.serviceTimeout))
     );
+
     const updateRoom = await this.roomRepository.findOne({
       where: { id: updateRoomDto.id },
     });
+    if (!updateRoom) {
+      throw new NotFoundException('Room not found');
+    }
+
     updateRoom.qrCode = newCode.qrCode;
     updateRoom.createdQrCode = newCode.generatedAt;
+
     const room = await this.roomRepository.save(
       this.roomRepository.merge(updateRoom, updateRoomDto)
     );
+
     room.qrCode = null;
+
     return room;
   }
 
@@ -103,16 +121,27 @@ export class AppService {
     const updateRoom = await this.roomRepository.findOne({
       where: { id: updateRoomDto.id },
     });
+    if (!updateRoom) {
+      throw new NotFoundException('Room not found');
+    }
+
     updateRoom.createdQrCode = updateRoomDto.createdQrCode;
     const room = await this.roomRepository.save(
       this.roomRepository.merge(updateRoom, updateRoomDto)
     );
+
     room.qrCode = null;
+
     return room;
   }
 
-  async deleteRoom(id: string): Promise<boolean> {
-    return (await this.roomRepository.delete(id)).affected > 0;
+  async deleteRoom(id: string) {
+    const room = await this.roomRepository.findOne({ where: { id } });
+    if (!room) {
+      throw new NotFoundException('Room not found');
+    }
+
+    return this.roomRepository.remove(room);
   }
 
   async #seed() {

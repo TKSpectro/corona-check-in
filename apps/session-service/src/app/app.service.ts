@@ -10,6 +10,7 @@ import {
   HttpStatus,
   Inject,
   Injectable,
+  NotFoundException,
   OnModuleInit,
 } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
@@ -65,7 +66,7 @@ export class AppService implements OnModuleInit {
     }
   }
 
-  getSessions(
+  async getSessions(
     pageOptionsDto: PageOptionsDto,
     user: RequestUser,
     infected?: string,
@@ -100,13 +101,18 @@ export class AppService implements OnModuleInit {
   }
 
   async getSessionById(id: string, user: RequestUser) {
-    return this.sessionRepository.findOne({
+    const session = await this.sessionRepository.findOne({
       select: { ...selectWithoutNoteObj, note: user.role !== UserRole.ADMIN },
       where: {
         id: id,
         userId: user.role === UserRole.USER ? user.sub : undefined,
       },
     });
+    if (!session) {
+      throw new NotFoundException('Session not found');
+    }
+
+    return session;
   }
 
   async createSession(createSessionDto: SessionDto): Promise<SessionEntity> {
@@ -122,8 +128,9 @@ export class AppService implements OnModuleInit {
         .pipe(timeout(environment.serviceTimeout))
     );
     if (!room) {
-      throw new HttpException('Room not found', HttpStatus.BAD_REQUEST);
+      throw new NotFoundException('Room not found');
     }
+
     if (
       new Date(room.createdQrCode).toISOString() !==
       new Date(createSessionDto.createdQrCode).toISOString()
@@ -173,14 +180,22 @@ export class AppService implements OnModuleInit {
     const updateSession = await this.sessionRepository.findOne({
       where: { id: updateSessionDto.id },
     });
+    if (!updateSession) {
+      throw new NotFoundException('Session not found');
+    }
 
     return this.sessionRepository.save(
       this.sessionRepository.merge(updateSession, updateSessionDto)
     );
   }
 
-  async deleteSession(id: string): Promise<boolean> {
-    return (await this.sessionRepository.delete(id)).affected > 0;
+  async deleteSession(id: string) {
+    const session = await this.sessionRepository.findOne({ where: { id } });
+    if (!session) {
+      throw new NotFoundException('Session not found');
+    }
+
+    return await this.sessionRepository.remove(session);
   }
 
   async #seed() {

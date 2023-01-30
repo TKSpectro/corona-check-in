@@ -2,7 +2,7 @@ import {
   PageOptionsDto,
   RequestUser,
 } from '@corona-check-in/micro-service-shared';
-import { HttpException, Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { DateTime } from 'luxon';
 import { lastValueFrom, timeout } from 'rxjs';
@@ -36,7 +36,7 @@ export class AppService {
       );
 
       if (!room) {
-        throw new HttpException('Room not found', 404);
+        throw new NotFoundException('Room not found');
       }
     }
 

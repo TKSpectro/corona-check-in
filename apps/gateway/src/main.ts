@@ -3,6 +3,7 @@
  * This is only a minimal backend to get started.
  */
 
+import { SneakyErrorInterceptor } from '@corona-check-in/micro-service-shared';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
@@ -16,6 +17,8 @@ async function bootstrap() {
   const port = process.env.PORT || 3333;
 
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
+
+  app.useGlobalInterceptors(new SneakyErrorInterceptor());
 
   await app.listen(port);
   Logger.log(
