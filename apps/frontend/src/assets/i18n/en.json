@@ -80,17 +80,27 @@
     "ROOM": "Room",
     "ALL_ROOMS": "All Rooms",
     "CREATE_ROOM": "Create room",
+    "CREATE_ROOM_SUCCESS": "Room created successfully",
+    "CREATE_ROOM_ERROR": "Could not create room",
+    "UPDATE_ROOM": "Update room",
+    "UPDATE_ROOM_SUCCESS": "Room updated successfully",
+    "UPDATE_ROOM_ERROR": "Could not update room",
     "DELETE_ROOM": "Delete Room",
     "ROOM_DETAILS": "Room Details",
-    "UPDATE_ROOM": "Update Room",
+    "NAME": "Name",
     "MAX_PARTICIPANTS": "Max Participants",
     "MAX_DURATION": "Max Duration",
-    "FACULITY": "faculty"
+    "FACULTY": "Faculty"
   },
   "ERROR_OLD_PASSWORD_WRONG": "Old password is wrong",
   "ERROR_PASSWORDS_NOT_MATCHING": "New password is not matching",
   "FACULTY": {
     "AI": "Applied Computer Science",
     "SA": "Social Work"
+  },
+  "ERRORS": {
+    "REQUIRED": "This field is required",
+    "MINIMUM": "Should be at least {{min}}",
+    "MAXIMUM": "Should be at most {{max}}"
   }
 }
