@@ -14,12 +14,12 @@ import { UpdateSessionDto } from './update-sessions.dto';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @MessagePattern({ role: 'sessions', cmd: 'health' })
+  @MessagePattern({ role: 'session', cmd: 'health' })
   health() {
     return true;
   }
 
-  @MessagePattern({ role: 'sessions', cmd: 'get-all' })
+  @MessagePattern({ role: 'session', cmd: 'get-all' })
   getSessions({
     pageOptionsDto,
     user,
@@ -50,7 +50,7 @@ export class AppController {
     return this.appService.getSessionById(id, user);
   }
 
-  @MessagePattern({ role: 'session', cmd: 'create-session' })
+  @MessagePattern({ role: 'session', cmd: 'create' })
   createSession(createSessionDto: SessionDto): Promise<SessionEntity> {
     return this.appService.createSession(createSessionDto);
   }
@@ -60,12 +60,12 @@ export class AppController {
     return this.appService.createSessionFromQrCode(createSessionDto);
   }
 
-  @MessagePattern({ role: 'session', cmd: 'update-session' })
+  @MessagePattern({ role: 'session', cmd: 'update' })
   updateSession(updateSessionDto: UpdateSessionDto): Promise<SessionEntity> {
     return this.appService.updateSession(updateSessionDto);
   }
 
-  @MessagePattern({ role: 'session', cmd: 'delete-session' })
+  @MessagePattern({ role: 'session', cmd: 'delete' })
   deleteSession(id: string): Promise<boolean> {
     return this.appService.deleteSession(id);
   }

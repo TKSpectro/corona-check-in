@@ -23,7 +23,7 @@ export class SessionsService {
   ) {
     return this.sessionClient
       .send(
-        { role: 'sessions', cmd: 'get-all' },
+        { role: 'session', cmd: 'get-all' },
         { pageOptionsDto, user, infected, sessionBegin, sessionEnd }
       )
       .pipe(timeout(environment.serviceTimeout));
@@ -37,10 +37,7 @@ export class SessionsService {
 
   createSession(createSessionDto: SessionDto) {
     return this.sessionClient
-      .send<SessionEntity>(
-        { role: 'session', cmd: 'create-session' },
-        createSessionDto
-      )
+      .send<SessionEntity>({ role: 'session', cmd: 'create' }, createSessionDto)
       .pipe(timeout(environment.serviceTimeout));
   }
   scanQrCode(createSessionDto: SessionDto & { userId: string }) {
@@ -54,22 +51,19 @@ export class SessionsService {
 
   markLastSessionsAsInfected(userId: string) {
     return this.sessionClient
-      .send({ role: 'session', cmd: 'markLastSessionsAsInfected' }, userId)
+      .send({ role: 'session', cmd: 'mark-last-sessions-as-infected' }, userId)
       .pipe(timeout(environment.serviceTimeout));
   }
 
   updateSession(updateSessionDto: UpdateSessionDto) {
     return this.sessionClient
-      .send<SessionEntity>(
-        { role: 'session', cmd: 'update-session' },
-        updateSessionDto
-      )
+      .send<SessionEntity>({ role: 'session', cmd: 'update' }, updateSessionDto)
       .pipe(timeout(environment.serviceTimeout));
   }
 
   removeSession(id: string) {
     return this.sessionClient
-      .send({ role: 'session', cmd: 'delete-session' }, id)
+      .send({ role: 'session', cmd: 'delete' }, id)
       .pipe(timeout(environment.serviceTimeout));
   }
 }

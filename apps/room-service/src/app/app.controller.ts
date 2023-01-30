@@ -10,12 +10,12 @@ import { UpdateRoomDto } from './update-rooms.dto';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @MessagePattern({ role: 'rooms', cmd: 'health' })
+  @MessagePattern({ role: 'room', cmd: 'health' })
   health() {
     return true;
   }
 
-  @MessagePattern({ role: 'rooms', cmd: 'getRooms' })
+  @MessagePattern({ role: 'room', cmd: 'get-all' })
   getRooms({
     pageOptionsDto,
     query,
@@ -26,27 +26,27 @@ export class AppController {
     return this.appService.getRooms(pageOptionsDto, query);
   }
 
-  @MessagePattern({ role: 'room', cmd: 'getRoom' })
+  @MessagePattern({ role: 'room', cmd: 'get-by-id' })
   getRoom(id: string): Promise<RoomEntity> {
     return this.appService.getRoom(id);
   }
 
-  @MessagePattern({ role: 'room', cmd: 'createRoom' })
+  @MessagePattern({ role: 'room', cmd: 'create' })
   createRoom(createRoomDto: RoomDto): Promise<RoomEntity> {
     return this.appService.createRoom(createRoomDto);
   }
 
-  @MessagePattern({ role: 'room', cmd: 'updateRoom' })
+  @MessagePattern({ role: 'room', cmd: 'update' })
   updateRoom(updateRoomDto: UpdateRoomDto): Promise<RoomEntity> {
     return this.appService.updateRoom(updateRoomDto);
   }
 
-  @MessagePattern({ role: 'room', cmd: 'updateQrCode' })
+  @MessagePattern({ role: 'room', cmd: 'update-qr-code' })
   updateQrCode(updateRoomDto: UpdateRoomDto): Promise<RoomEntity> {
     return this.appService.updateQrCode(updateRoomDto);
   }
 
-  @MessagePattern({ role: 'room', cmd: 'deleteRoom' })
+  @MessagePattern({ role: 'room', cmd: 'delete' })
   deleteRoom(id: string): Promise<boolean> {
     return this.appService.deleteRoom(id);
   }

@@ -26,7 +26,7 @@ export class RoomsServiceHealthIndicator
   public async isHealthy(): Promise<HealthIndicatorResult> {
     const isUp = await lastValueFrom(
       this.roomClient
-        .send({ role: 'rooms', cmd: 'health' }, {})
+        .send({ role: 'room', cmd: 'health' }, {})
         .pipe(timeout(environment.serviceTimeout))
     );
 
