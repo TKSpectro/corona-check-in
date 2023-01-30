@@ -51,6 +51,6 @@ export class AuthService {
   }
 
   async me(reqUser: { email: string; sub: string; roles: string }) {
-    return await this.usersService.findOne(reqUser.email);
+    return this.usersService.findOne(reqUser.email);
   }
 }

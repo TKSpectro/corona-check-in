@@ -6,7 +6,6 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 
 import { AppService } from './app.service';
-import { SessionEntity } from './session.entity';
 import { SessionDto } from './sessions.dto';
 import { UpdateSessionDto } from './update-sessions.dto';
 
@@ -20,7 +19,7 @@ export class AppController {
   }
 
   @MessagePattern({ role: 'session', cmd: 'get-all' })
-  getSessions({
+  async getSessions({
     pageOptionsDto,
     user,
     infected,
@@ -46,27 +45,27 @@ export class AppController {
   }
 
   @MessagePattern({ role: 'session', cmd: 'get-by-id' })
-  getSessionById({ id, user }: { id: string; user: RequestUser }) {
+  async getSessionById({ id, user }: { id: string; user: RequestUser }) {
     return this.appService.getSessionById(id, user);
   }
 
   @MessagePattern({ role: 'session', cmd: 'create' })
-  createSession(createSessionDto: SessionDto): Promise<SessionEntity> {
+  async createSession(createSessionDto: SessionDto) {
     return this.appService.createSession(createSessionDto);
   }
 
   @MessagePattern({ role: 'session', cmd: 'scan-code' })
-  scanQrCode(createSessionDto: SessionDto): Promise<SessionEntity> {
+  async scanQrCode(createSessionDto: SessionDto) {
     return this.appService.createSessionFromQrCode(createSessionDto);
   }
 
   @MessagePattern({ role: 'session', cmd: 'update' })
-  updateSession(updateSessionDto: UpdateSessionDto): Promise<SessionEntity> {
+  async updateSession(updateSessionDto: UpdateSessionDto) {
     return this.appService.updateSession(updateSessionDto);
   }
 
   @MessagePattern({ role: 'session', cmd: 'delete' })
-  deleteSession(id: string): Promise<boolean> {
+  async deleteSession(id: string) {
     return this.appService.deleteSession(id);
   }
 }

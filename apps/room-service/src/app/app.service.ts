@@ -52,7 +52,7 @@ export class AppService {
   }
 
   async getRoom(id: string): Promise<RoomEntity> {
-    return await this.roomRepository.findOne({ where: { id } });
+    return this.roomRepository.findOne({ where: { id } });
   }
 
   async createRoom(createRoomDto: RoomDto): Promise<RoomEntity> {

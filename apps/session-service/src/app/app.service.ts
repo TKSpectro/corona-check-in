@@ -31,8 +31,7 @@ const selectWithoutNote = [
   'session.endTime',
   'session.infected',
   'session.userId',
-  // TODO: Add this back in when we have a room service
-  // 'session.roomId',
+  'session.roomId',
 ];
 
 // This is some really hacky code to work around the weird select behavior of typeorm
@@ -111,7 +110,7 @@ export class AppService implements OnModuleInit {
   }
 
   async createSession(createSessionDto: SessionDto): Promise<SessionEntity> {
-    return await this.sessionRepository.save(createSessionDto);
+    return this.sessionRepository.save(createSessionDto);
   }
 
   async createSessionFromQrCode(
@@ -144,7 +143,7 @@ export class AppService implements OnModuleInit {
     });
     if (sessions.length <= 0) {
       // User has no session in this room, so he scanned to enter
-      return await this.sessionRepository.save(createSessionDto);
+      return this.sessionRepository.save(createSessionDto);
     }
     for (const session of sessions) {
       const maxEndTime = new Date(
@@ -165,7 +164,7 @@ export class AppService implements OnModuleInit {
         );
       }
     }
-    return await this.sessionRepository.save(createSessionDto);
+    return this.sessionRepository.save(createSessionDto);
   }
 
   async updateSession(
@@ -175,7 +174,7 @@ export class AppService implements OnModuleInit {
       where: { id: updateSessionDto.id },
     });
 
-    return await this.sessionRepository.save(
+    return this.sessionRepository.save(
       this.sessionRepository.merge(updateSession, updateSessionDto)
     );
   }

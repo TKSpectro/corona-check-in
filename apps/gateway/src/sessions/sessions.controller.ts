@@ -13,11 +13,10 @@ import {
   Query,
   Request,
 } from '@nestjs/common';
-import { firstValueFrom } from 'rxjs';
+import { Roles } from '../auth/decorators/roles.decorator';
 import { SessionDto } from './sessions.dto';
 import { SessionsService } from './sessions.service';
 import { UpdateSessionDto } from './update-sessions.dto';
-import { Roles } from '../auth/decorators/roles.decorator';
 
 @Controller('sessions')
 export class SessionsController {
@@ -36,20 +35,18 @@ export class SessionsController {
     @Query('sessionBegin') sessionBegin?: Date,
     @Query('sessionEnd') sessionEnd?: Date
   ) {
-    return await firstValueFrom(
-      this.sessionsService.getSessions(
-        pageOptionsDto,
-        req.user,
-        infected,
-        sessionBegin,
-        sessionEnd
-      )
+    this.sessionsService.getSessions(
+      pageOptionsDto,
+      req.user,
+      infected,
+      sessionBegin,
+      sessionEnd
     );
   }
 
   @Roles(UserRole.ADMIN)
   @Post()
-  createSession(@Body() sessionDto: SessionDto, @Request() req) {
+  async createSession(@Body() sessionDto: SessionDto, @Request() req) {
     return this.sessionsService.createSession({
       ...sessionDto,
       userId: req.user.sub,
@@ -57,7 +54,7 @@ export class SessionsController {
   }
 
   @Post('scan')
-  scanQrCode(@Body() sessionDto: SessionDto, @Request() req) {
+  async scanQrCode(@Body() sessionDto: SessionDto, @Request() req) {
     return this.sessionsService.scanQrCode({
       ...sessionDto,
       userId: req.user.sub,
@@ -65,17 +62,17 @@ export class SessionsController {
   }
 
   @Post('markLastSessionsAsInfected')
-  markLastSessionsAsInfected(@Body() userId: string) {
+  async markLastSessionsAsInfected(@Body() userId: string) {
     return this.sessionsService.markLastSessionsAsInfected(userId);
   }
 
   @Put()
-  updateSession(@Body() updateSessionDto: UpdateSessionDto) {
+  async updateSession(@Body() updateSessionDto: UpdateSessionDto) {
     return this.sessionsService.updateSession(updateSessionDto);
   }
 
   @Delete(':id')
-  removeSession(@Param('id') id: string) {
+  async removeSession(@Param('id') id: string) {
     return this.sessionsService.removeSession(id);
   }
 }

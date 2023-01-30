@@ -9,8 +9,6 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
-import { firstValueFrom, Observable } from 'rxjs';
-import { RoomEntity } from './room.entity';
 import { findAllQuery, RoomDto } from './rooms.dto';
 import { RoomsService } from './rooms.service';
 import { UpdateRoomDto } from './update-rooms.dto';
@@ -24,33 +22,31 @@ export class RoomsController {
     @Query() pageOptionsDto: PageOptionsDto,
     @Query() query: findAllQuery
   ) {
-    return await firstValueFrom(
-      this.roomsService.getRooms(pageOptionsDto, query)
-    );
+    return this.roomsService.getRooms(pageOptionsDto, query);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: string) {
     return this.roomsService.getRoom(id);
   }
 
   @Post()
-  create(@Body() createRoomDto: RoomDto): Observable<RoomEntity> {
+  async create(@Body() createRoomDto: RoomDto) {
     return this.roomsService.createRoom(createRoomDto);
   }
 
   @Put()
-  update(@Body() updateRoomDto: UpdateRoomDto) {
+  async update(@Body() updateRoomDto: UpdateRoomDto) {
     return this.roomsService.update(updateRoomDto);
   }
 
   @Put('qr-code')
-  updateQrCode(@Body() updateRoomDto: UpdateRoomDto) {
+  async updateQrCode(@Body() updateRoomDto: UpdateRoomDto) {
     return this.roomsService.updateQrCode(updateRoomDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string) {
     return this.roomsService.removeRoom(id);
   }
 }
