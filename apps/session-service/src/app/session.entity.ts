@@ -12,13 +12,13 @@ export class SessionEntity extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @CreateDateColumn({ name: 'created_at' })
+  @CreateDateColumn({ type: 'timestamptz', name: 'created_at' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updated_at' })
+  @UpdateDateColumn({ type: 'timestamptz', name: 'updated_at' })
   updatedAt: Date;
 
-  @CreateDateColumn({ name: 'starttime' })
+  @CreateDateColumn({ type: 'timestamptz', name: 'starttime' })
   startTime: Date;
 
   @Column({ nullable: true, type: 'timestamptz', name: 'endtime' })

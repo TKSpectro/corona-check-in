@@ -17,10 +17,10 @@ export class RoomEntity extends BaseEntity {
   @Column()
   name: string;
 
-  @CreateDateColumn({ name: 'created_at' })
+  @CreateDateColumn({ type: 'timestamptz', name: 'created_at' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updated_at' })
+  @UpdateDateColumn({ type: 'timestamptz', name: 'updated_at' })
   updatedAt: Date;
 
   @Min(1)
@@ -42,6 +42,6 @@ export class RoomEntity extends BaseEntity {
   @Column({ nullable: true, type: 'bytea', select: false })
   qrCode: Uint8Array;
 
-  @Column({ nullable: true })
+  @Column({ type: 'timestamptz', nullable: true, name: 'createdqrcode' })
   createdQrCode: Date;
 }
