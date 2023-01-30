@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ServerService } from '../shared/server.service';
-import { Session } from '../shared/types';
+import { ScanQrCodeBody, Session } from '../shared/types';
 
 @Injectable({
   providedIn: 'root',
@@ -33,5 +33,9 @@ export class SessionListService {
 
   deleteSession(sessionId: string) {
     return this.serverSrv.deleteSession(sessionId);
+  }
+
+  scanQrCode(scanBody: ScanQrCodeBody) {
+    return this.serverSrv.scanQrCode(scanBody);
   }
 }

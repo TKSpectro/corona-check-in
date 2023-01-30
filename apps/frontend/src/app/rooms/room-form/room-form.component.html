@@ -1,0 +1,104 @@
+<form #f="ngForm">
+  <div *ngIf="(isUpdate && room) || !isUpdate" class="session-card">
+    <h2 mat-dialog-title class="mat-h2">
+      {{ (isUpdate ? 'ROOMS.UPDATE_ROOM' : 'ROOMS.CREATE_ROOM') | translate }}
+    </h2>
+    <mat-dialog-content class="dialog-content">
+      <mat-form-field>
+        <mat-label>{{ 'ROOMS.NAME' | translate }}</mat-label>
+        <input
+          matInput
+          type="text"
+          name="name"
+          [(ngModel)]="room.name"
+          required
+        />
+        <mat-error
+          *ngIf="f.form.get('name')?.touched && !f?.form?.get('name')?.valid"
+        >
+          {{ 'ERRORS.REQUIRED' | translate }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ 'ROOMS.MAX_DURATION' | translate }}</mat-label>
+        <input
+          matInput
+          name="maxDuration"
+          type="number"
+          min="1"
+          [(ngModel)]="room.maxDuration"
+          required
+        />
+        <mat-error
+          *ngIf="
+            f.form.get('maxDuration')?.touched &&
+            f.form?.get('maxDuration')?.value < 1
+          "
+        >
+          {{ 'ERRORS.MINIMUM' | translate : { min: 1 } }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ 'ROOMS.MAX_PARTICIPANTS' | translate }}</mat-label>
+        <input
+          matInput
+          name="maxParticipants"
+          type="number"
+          min="1"
+          max="200"
+          [(ngModel)]="room.maxParticipants"
+          required=""
+        />
+        <mat-error
+          *ngIf="
+            f.form.get('maxParticipants')?.touched &&
+            f.form?.get('maxParticipants')?.value < 1
+          "
+        >
+          {{ 'ERRORS.MINIMUM' | translate : { min: 1 } }}
+        </mat-error>
+        <mat-error
+          *ngIf="
+            f.form.get('maxParticipants')?.touched &&
+            f.form?.get('maxParticipants')?.value > 200
+          "
+        >
+          {{ 'ERRORS.MAXIMUM' | translate : { max: 200 } }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>{{ 'ROOMS.FACULTY' | translate }}</mat-label>
+        <mat-select [(ngModel)]="room.faculty" name="faculty" required>
+          <mat-select-trigger>
+            {{
+              (room.faculty ? 'FACULTY.' : '') + room.faculty || '' | translate
+            }}
+          </mat-select-trigger>
+          <mat-option *ngFor="let faculty of facultyList" [value]="faculty">{{
+            (faculty ? 'FACULTY.' : '') + faculty || '' | translate
+          }}</mat-option>
+        </mat-select>
+        <mat-error
+          *ngIf="
+            f.form.get('faculty')?.touched && !f?.form?.get('faculty')?.valid
+          "
+        >
+          {{ 'ERRORS.REQUIRED' | translate }}
+        </mat-error>
+      </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+      <button mat-stroked-button mat-dialog-close class="button-space">
+        {{ 'CANCEL' | translate }}
+      </button>
+      <button mat-stroked-button [disabled]="!f.valid" (click)="saveRoom()">
+        {{ 'SAVE' | translate }}
+      </button>
+    </mat-dialog-actions>
+  </div>
+</form>
+
+<mat-spinner *ngIf="!room && isUpdate"></mat-spinner>

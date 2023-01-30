@@ -10,4 +10,6 @@ export class SessionEntity {
   note: string;
 
   userId: string;
+
+  roomId: string;
 }

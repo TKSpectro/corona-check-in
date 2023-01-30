@@ -24,24 +24,6 @@ services:
     networks:
       - ccn-prod-network
 
-  traefik:
-    container_name: ccn_prod_traefik
-    image: traefik:latest
-    command:
-      - --providers.docker
-      - --providers.docker.exposedbydefault=false
-
-      - --api.insecure=true
-
-      - --metrics.prometheus=true
-    ports:
-      - '80:80'
-      - '8080:8080'
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    networks:
-      - ccn-prod-network
-
   prometheus:
     container_name: ccn_prod_prometheus
     image: prom/prometheus:latest
@@ -53,9 +35,6 @@ services:
       - '9090:9090'
     networks:
       - ccn-prod-network
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.prometheus.rule=Host(`prometheus.localhost`)
 
   grafana:
     container_name: ccn_prod_grafana
@@ -70,14 +49,10 @@ services:
       - GF_SERVER_ROOT_URL=http://localhost:3000
       - GF_SERVER_DOMAIN=localhost
       - GF_SERVER_SERVE_FROM_SUB_PATH=true
-      - GF_SECURITY_ADMIN_PASSWORD=admin
     ports:
       - '3000:3000'
     networks:
       - ccn-prod-network
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.grafana.rule=Host(`grafana.localhost`)
 
   gateway:
     container_name: ccn_prod_gateway
@@ -98,9 +73,6 @@ services:
       - '3333:3333'
     networks:
       - ccn-prod-network
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.gateway.rule=Host(`gateway.localhost`)
 
   incidence-service:
     container_name: ccn_prod_incidence_service
@@ -121,9 +93,6 @@ services:
       - '8082:3333'
     networks:
       - ccn-prod-network
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.incidence-service.rule=Host(`incidence-service.localhost`)
 
   qr-code-service:
     container_name: ccn_prod_qr_code_service
@@ -144,9 +113,6 @@ services:
       - '8083:3333'
     networks:
       - ccn-prod-network
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.qr-code-service.rule=Host(`qr-code-service.localhost`)
 
   sessionservice:
     container_name: ccn_prod_session_service
@@ -167,9 +133,6 @@ services:
       - '8084:3333'
     networks:
       - ccn-prod-network
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.session-service.rule=Host(`session-service.localhost`)
 
   room-service:
     container_name: ccn_prod_room_service
@@ -190,9 +153,6 @@ services:
       - '8085:3333'
     networks:
       - ccn-prod-network
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.room-service.rule=Host(`room-service.localhost`)
 
 volumes:
   postgres:

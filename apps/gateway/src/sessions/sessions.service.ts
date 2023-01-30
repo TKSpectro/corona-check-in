@@ -1,4 +1,7 @@
-import { PageOptionsDto } from '@corona-check-in/micro-service-shared';
+import {
+  PageOptionsDto,
+  RequestUser,
+} from '@corona-check-in/micro-service-shared';
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { SessionEntity } from './session.entity';
@@ -11,26 +14,33 @@ export class SessionsService {
 
   getSessions(
     pageOptionsDto: PageOptionsDto,
+    user: RequestUser,
     infected?: boolean,
     sessionBegin?: Date,
     sessionEnd?: Date
   ) {
     return this.sessionClient.send(
       { role: 'sessions', cmd: 'get-all' },
-      { pageOptionsDto, infected, sessionBegin, sessionEnd }
+      { pageOptionsDto, user, infected, sessionBegin, sessionEnd }
     );
   }
 
-  getSessionById(id: string) {
+  getSessionById(id: string, user: RequestUser) {
     return this.sessionClient.send(
       { role: 'session', cmd: 'get-by-id' },
-      { id }
+      { id, user }
     );
   }
 
-  createSession(createSessionDto: SessionDto & { userId: string }) {
+  createSession(createSessionDto: SessionDto) {
     return this.sessionClient.send<SessionEntity>(
       { role: 'session', cmd: 'create-session' },
+      createSessionDto
+    );
+  }
+  scanQrCode(createSessionDto: SessionDto & { userId: string }) {
+    return this.sessionClient.send<SessionEntity>(
+      { role: 'session', cmd: 'scan-code' },
       createSessionDto
     );
   }

@@ -51,8 +51,8 @@ export class RoomDetailsComponent implements OnInit, OnDestroy {
           next: (data) => {
             this.room = data;
             this.qrCode = JSON.stringify({
-              id: this.room.id,
-              name: this.room.createdQrCode,
+              roomId: this.room.id,
+              createdQrCode: this.room.createdQrCode,
             });
           },
           error: (err) => console.error(err),
@@ -70,8 +70,8 @@ export class RoomDetailsComponent implements OnInit, OnDestroy {
           if (selectedRoom) {
             this.room = selectedRoom;
             this.qrCode = JSON.stringify({
-              id: this.room.id,
-              name: this.room.createdQrCode,
+              roomId: this.room.id,
+              createdQrCode: this.room.createdQrCode,
             });
           }
         },
@@ -99,10 +99,6 @@ export class RoomDetailsComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy(): void {
-    this.subscription.forEach((sub) => sub.unsubscribe());
-  }
-
   renewCode() {
     const newDate = new Date();
     this.qrCode = JSON.stringify({
@@ -114,5 +110,9 @@ export class RoomDetailsComponent implements OnInit, OnDestroy {
       // TODO: show success message
       console.log(data);
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.forEach((sub) => sub.unsubscribe());
   }
 }

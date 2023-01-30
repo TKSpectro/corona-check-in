@@ -25,15 +25,17 @@ libs/
 
 ### With Docker Production Setup
 
+:warning: **If you are using Docker Desktop (Windows/macOS)**: You need to add the root directory of this project to the shared directories in the Docker Desktop settings. Otherwise the docker containers will not be able to access the pre=configured grafana files. The settings can be found in the Docker Desktop settings under Resources -> File Sharing.
+
 ```bash
 cp .env.example .env
 # If you want pre-generated data, set SEEDING_ENABLED=true in the .env file
 
 # Build the docker images
-docker:prod:build
+npm run docker:prod:build
 
 # Run the docker containers (docker-compose.prod.yml)
-docker:prod
+npm run docker:prod
 ```
 
 Webapp (Angular) is available at <http://localhost:8080>
@@ -41,6 +43,8 @@ Backend (NestJS Gateway) is available at <http://localhost:3333>
 
 Prometheus is available at <http://localhost:9090>
 Grafana is available at <http://localhost:3000>
+
+Grafana Login is admin/admin
 
 ### Without Docker Production Setup (Should be used for development as well)
 
@@ -102,3 +106,11 @@ We are using Prometheus and Grafana to get metrics about the backend (micro-serv
 The most important one is the list for every service and its current status (online/offline)
 
 To get these metrics we have implemented health check via NestJS and Terminus.
+
+![Grafana Dashboard](/docs/grafana-dashboard.png)
+
+## Postman
+
+We provide a Postman Collection to test the API. You can find it in the docs folder ([ccn-collection](/docs/ccn.postman_collection.json)).
+
+To use it you need to import it into Postman, by clicking on the import button in the top left corner (when there already is an active workspace) or in the Menu under File/Import... and selecting the provided file. After that you have to use one of the *Auth/Login* Routes to get your first JWT set.

@@ -3,6 +3,8 @@ export enum UserRole {
   USER = 'user',
 }
 
+export const FacultyList = ['', 'AI', 'SA'] as const;
+
 export interface User {
   id?: string;
   email?: string;
@@ -52,3 +54,8 @@ export type PaginationResponse<T> = {
   data: T[];
   _meta: Meta;
 };
+
+export interface ScanQrCodeBody {
+  roomId: string;
+  createdQrCode: Date;
+}
