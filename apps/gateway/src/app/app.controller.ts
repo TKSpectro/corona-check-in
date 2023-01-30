@@ -8,7 +8,7 @@ export class AppController {
   constructor(private authService: AuthService) {}
 
   @Get('me')
-  getProfile(@Request() req) {
+  async getProfile(@Request() req) {
     return this.authService.me(req.user);
   }
 
