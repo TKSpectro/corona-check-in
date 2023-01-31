@@ -65,3 +65,7 @@
 mat-icon {
   padding-right: 10px;
 }
+
+.active{
+  color: mat.get-color-from-palette(mat.$green-palette, A200);
+}
