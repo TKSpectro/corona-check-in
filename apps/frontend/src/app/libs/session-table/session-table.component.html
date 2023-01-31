@@ -53,13 +53,6 @@
           bug_report
         </mat-icon>
       </button>
-      <button
-        *ngIf="adminService.isAdmin"
-        mat-icon-button
-        (click)="handleDelete(session, $event)"
-      >
-        <mat-icon>delete</mat-icon>
-      </button>
     </mat-cell>
   </ng-container>
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
