@@ -116,14 +116,10 @@ export class AppService implements OnModuleInit {
   }
 
   async getCurrentSession(user: RequestUser) {
-    const queryBuilder = this.sessionRepository.createQueryBuilder('session');
-    queryBuilder.andWhere('userId = :userId', { userId: user.sub });
-    queryBuilder.andWhere('endTime == null');
-    queryBuilder.orderBy('created_at', 'DESC');
     return this.sessionRepository.findOne({
       select: { ...selectWithoutNoteObj, note: user.role !== UserRole.ADMIN },
       where: { userId: user.sub },
-      order: { createdAt: 'DESC' },
+      order: { startTime: 'DESC' },
     });
   }
 
@@ -187,6 +183,10 @@ export class AppService implements OnModuleInit {
   }
 
   async markLastSessionsAsInfected(user: RequestUser): Promise<boolean> {
+    // TODO: function needs to be implemented
+    // should mark all sessions of the last 5 days from user as infected
+    // should return positive http-status on success
+    // should throw exception on error
     return true;
   }
 

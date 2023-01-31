@@ -50,12 +50,12 @@ export class AppController {
   }
 
   @MessagePattern({ role: 'session', cmd: 'get-current-session' })
-  getCurrentSession({ user }: { user: RequestUser }) {
+  async getCurrentSession({ user }: { user: RequestUser }) {
     return this.appService.getCurrentSession(user);
   }
 
   @MessagePattern({ role: 'session', cmd: 'mark-last-sessions-as-infected' })
-  markLastSessionsAsInfected({ user }: { user: RequestUser }) {
+  async markLastSessionsAsInfected({ user }: { user: RequestUser }) {
     return this.appService.markLastSessionsAsInfected(user);
   }
 

@@ -23,16 +23,6 @@ import { UpdateSessionDto } from './update-sessions.dto';
 export class SessionsController {
   constructor(private readonly sessionsService: SessionsService) {}
 
-  @Get('get-current-session')
-  getCurrentSession(@Request() req) {
-    return this.sessionsService.getCurrentSession(req.user);
-  }
-
-  @Get('mark-last-sessions-as-infected')
-  markLastSessionsAsInfected(@Request() req) {
-    return this.sessionsService.markLastSessionsAsInfected(req.user);
-  }
-
   @Get()
   @HttpCode(200)
   async getSessions(
@@ -51,9 +41,21 @@ export class SessionsController {
     );
   }
 
+  @Get('get-current-session')
+  @HttpCode(200)
+  async getCurrentSession(@Request() req) {
+    return this.sessionsService.getCurrentSession(req.user);
+  }
+
+  @Get('mark-last-sessions-as-infected')
+  @HttpCode(200)
+  async markLastSessionsAsInfected(@Request() req) {
+    return this.sessionsService.markLastSessionsAsInfected(req.user);
+  }
+
   @Get(':id')
   @HttpCode(200)
-  getSessionById(@Request() req, @Param('id') id: string) {
+  async getSessionById(@Request() req, @Param('id') id: string) {
     return this.sessionsService.getSessionById(id, req.user);
   }
 
@@ -75,7 +77,6 @@ export class SessionsController {
       userId: req.user.sub,
     });
   }
-
 
   @Put()
   @HttpCode(200)
