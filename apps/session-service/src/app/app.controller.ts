@@ -52,6 +52,11 @@ export class AppController {
     return this.appService.getCurrentSession(user);
   }
 
+  @MessagePattern({ role: 'session', cmd: 'mark-last-sessions-as-infected' })
+  markLastSessionsAsInfected({ user }: { user: RequestUser }) {
+    return this.appService.markLastSessionsAsInfected(user);
+  }
+
   @MessagePattern({ role: 'session', cmd: 'create-session' })
   createSession(createSessionDto: SessionDto): Promise<SessionEntity> {
     return this.appService.createSession(createSessionDto);

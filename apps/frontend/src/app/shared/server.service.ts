@@ -53,10 +53,9 @@ export class ServerService {
     return this.httpClient.delete<null>(`/api/sessions/${id}`);
   }
 
-  markLastSessionsAsInfected(userId: string) {
-    return this.httpClient.post<{ success: boolean }>(
-      '/api/sessions/markLastSessionsAsInfected',
-      userId
+  markLastSessionsAsInfected() {
+    return this.httpClient.get<boolean>(
+      '/api/sessions/mark-last-sessions-as-infected'
     );
   }
 

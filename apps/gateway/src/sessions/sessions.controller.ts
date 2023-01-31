@@ -28,6 +28,11 @@ export class SessionsController {
     return this.sessionsService.getCurrentSession(req.user);
   }
 
+  @Get('mark-last-sessions-as-infected')
+  markLastSessionsAsInfected(@Request() req) {
+    return this.sessionsService.markLastSessionsAsInfected(req.user);
+  }
+
   @Get(':id')
   getSessionById(@Request() req, @Param('id') id: string) {
     return this.sessionsService.getSessionById(id, req.user);
@@ -67,11 +72,6 @@ export class SessionsController {
       ...sessionDto,
       userId: req.user.sub,
     });
-  }
-
-  @Post('markLastSessionsAsInfected')
-  markLastSessionsAsInfected(@Body() userId: string) {
-    return this.sessionsService.markLastSessionsAsInfected(userId);
   }
 
   @Put()

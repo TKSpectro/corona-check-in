@@ -50,7 +50,9 @@
             mat-stroked-button
             color="warn"
             (click)="markLastSessionsAsInfected()"
-            [disabled]="sessionMarkedAsInfected"
+            [disabled]="
+              sessionMarkedAsInfected || sessionData.infected === true
+            "
           >
             {{ 'SESSIONS.REPORT_INFECTION' | translate }}
           </button>

@@ -52,10 +52,10 @@ export class SessionsService {
     );
   }
 
-  markLastSessionsAsInfected(userId: string) {
+  markLastSessionsAsInfected(user: RequestUser) {
     return this.sessionClient.send(
-      { role: 'session', cmd: 'markLastSessionsAsInfected' },
-      userId
+      { role: 'session', cmd: 'mark-last-sessions-as-infected' },
+      user
     );
   }
 

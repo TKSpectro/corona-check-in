@@ -13,14 +13,12 @@ import { ConfirmationDialogComponent } from '../../libs';
 export class SessionCardComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   sessionData!: Session;
-  profileData!: User;
   sessionMarkedAsInfected = false;
   sessionLoaded = false;
 
   constructor(private serverSrv: ServerService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.getProfileData();
     this.getCurrentSession();
   }
 
@@ -40,17 +38,6 @@ export class SessionCardComponent implements OnInit, OnDestroy {
         },
       })
     );
-  }
-
-  getProfileData() {
-    this.serverSrv.me().subscribe({
-      next: (result) => {
-        this.profileData = result;
-      },
-      error: (error) => {
-        console.error(error);
-      },
-    });
   }
 
   saveNote() {
@@ -80,18 +67,14 @@ export class SessionCardComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       dialogRef.afterClosed().subscribe((result) => {
         if (result === true) {
-          if (this.profileData.id) {
-            this.subscriptions.push(
-              this.serverSrv
-                .markLastSessionsAsInfected(this.profileData.id)
-                .subscribe({
-                  next: (data) => {
-                    this.sessionMarkedAsInfected = data.success;
-                  },
-                  error: (err) => console.error(err),
-                })
-            );
-          }
+          this.subscriptions.push(
+            this.serverSrv.markLastSessionsAsInfected().subscribe({
+              next: (data) => {
+                this.sessionMarkedAsInfected = data;
+              },
+              error: (err) => console.error(err),
+            })
+          );
         }
       })
     );

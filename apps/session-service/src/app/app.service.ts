@@ -167,6 +167,10 @@ export class AppService implements OnModuleInit {
     return await this.sessionRepository.save(createSessionDto);
   }
 
+  async markLastSessionsAsInfected(user: RequestUser): Promise<boolean> {
+    return true;
+  }
+
   async updateSession(
     updateSessionDto: UpdateSessionDto
   ): Promise<SessionEntity> {
