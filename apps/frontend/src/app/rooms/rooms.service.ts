@@ -34,14 +34,15 @@ export class RoomsService {
   ) {
     if (
       !id &&
-      !name &&
-      !faculty &&
+      name === void 0 &&
+      faculty === void 0 &&
       page === this.roomResponse?._meta?.page &&
       this.roomResponse?.data?.length > 0 &&
       !force
     ) {
       return of(this.roomResponse);
     }
+
     return this.serverSrv.getRooms(page, take, name, faculty).pipe(
       map((data) => {
         this.roomResponse = { ...data };
