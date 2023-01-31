@@ -24,7 +24,7 @@ export class RoomEntity extends BaseEntity {
   updatedAt: Date;
 
   @Min(1)
-  @Max(60)
+  @Max(200)
   @Column()
   maxParticipants: number;
 
