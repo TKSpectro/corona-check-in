@@ -17,33 +17,37 @@ const routes: Routes = [
     path: 'dashboard',
     canActivate: [AuthGuard],
     component: DashboardComponent,
+    title: 'Dashboard',
   },
   { path: 'auth', component: AuthComponent },
   {
     path: 'profile',
     canActivate: [AuthGuard],
     component: ProfileComponent,
+    title: 'Profile',
   },
   {
     path: 'rooms',
     component: RoomsComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: '', component: RoomListComponent },
-      { path: ':id', component: RoomDetailsComponent },
+      { path: '', component: RoomListComponent, title: 'Rooms' },
+      { path: ':id', component: RoomDetailsComponent, title: 'Room Details' },
     ],
   },
   {
     path: 'sessions/:id',
     canActivate: [AuthGuard],
     component: SessionDetailsComponent,
+    title: 'Session Details',
   },
   {
     path: 'sessions',
     canActivate: [AuthGuard],
     component: SessionListComponent,
+    title: 'Sessions',
   },
-  { path: '404', component: PageNotFoundComponent },
+  { path: '404', component: PageNotFoundComponent, title: 'Page Not Found' },
   { path: '**', redirectTo: '/404' },
 ];
 
