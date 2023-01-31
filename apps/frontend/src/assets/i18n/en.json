@@ -1,5 +1,4 @@
 {
-  "CLICK": "click the button",
   "LANGUAGE": "Language",
   "CREATE": "Create",
   "DASHBOARD": "Dashboard",
@@ -53,8 +52,8 @@
     "PROFILE_DELETE_ERROR": "Could not delete your account",
     "LOAD_PROFILE_ERROR": "Could not load profile"
   },
-  "YES": "yes",
-  "NO": "no",
+  "YES": "Yes",
+  "NO": "No",
   "CASES": {
     "CASES": "Cases",
     "ALL_CASES": "All Cases"
