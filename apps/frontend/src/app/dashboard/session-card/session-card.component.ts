@@ -41,7 +41,15 @@ export class SessionCardComponent implements OnInit, OnDestroy {
           this.sessionLoaded = true;
         },
         error: (error) => {
-          console.log(error.error.message);
+          this.snackBar.open(
+            this.t.instant('DASHBOARDS.NOTE_UPDATE_ERROR') +
+              '\n' +
+              error.error.message,
+            undefined,
+            {
+              panelClass: 'snackbar-error',
+            }
+          );
         },
       })
     );
@@ -57,8 +65,28 @@ export class SessionCardComponent implements OnInit, OnDestroy {
           infected: this.sessionData.infected,
           note: this.sessionData.note,
         })
-        .subscribe((data) => {
-          this.sessionData = data;
+        .subscribe({
+          next: (data) => {
+            this.sessionData = data;
+            this.snackBar.open(
+              this.t.instant('DASHBOARDS.NOTE_UPDATE_SUCCESS'),
+              undefined,
+              {
+                panelClass: 'snackbar-success',
+              }
+            );
+          },
+          error: (error) => {
+            this.snackBar.open(
+              this.t.instant('DASHBOARDS.NOTE_UPDATE_ERROR') +
+                '\n' +
+                error.error.message,
+              undefined,
+              {
+                panelClass: 'snackbar-error',
+              }
+            );
+          },
         })
     );
   }
@@ -78,6 +106,13 @@ export class SessionCardComponent implements OnInit, OnDestroy {
             this.serverSrv.markLastSessionsAsInfected().subscribe({
               next: (data) => {
                 this.sessionMarkedAsInfected = data;
+                this.snackBar.open(
+                  this.t.instant('DASHBOARDS.MARK_INFECTED_SUCCESS'),
+                  undefined,
+                  {
+                    panelClass: 'snackbar-success',
+                  }
+                );
               },
               error: (error) => {
                 this.snackBar.open(

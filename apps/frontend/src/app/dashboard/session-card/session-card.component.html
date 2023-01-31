@@ -31,32 +31,40 @@
           </div>
         </div>
 
-        <mat-form-field appearance="fill" class="note">
-          <mat-label>{{ 'SESSIONS.NOTE' | translate }}</mat-label>
-          <textarea
-            matInput
-            cdkTextareaAutosize
-            cdkAutosizeMinRows="1"
-            cdkAutosizeMaxRows="5"
-            [(ngModel)]="sessionData.note"
-          ></textarea>
-        </mat-form-field>
+        <form #f="ngForm">
+          <mat-form-field appearance="fill" class="note">
+            <mat-label>{{ 'SESSIONS.NOTE' | translate }}</mat-label>
+            <textarea
+              matInput
+              cdkTextareaAutosize
+              cdkAutosizeMinRows="1"
+              cdkAutosizeMaxRows="5"
+              [(ngModel)]="sessionData.note"
+              name="note"
+            ></textarea>
+          </mat-form-field>
 
-        <div class="button-row">
-          <button mat-stroked-button color="accent" (click)="saveNote()">
-            {{ 'SAVE' | translate }}
-          </button>
-          <button
-            mat-stroked-button
-            color="warn"
-            (click)="markLastSessionsAsInfected()"
-            [disabled]="
-              sessionMarkedAsInfected || sessionData.infected === true
-            "
-          >
-            {{ 'SESSIONS.REPORT_INFECTION' | translate }}
-          </button>
-        </div>
+          <div class="button-row">
+            <button
+              mat-stroked-button
+              color="accent"
+              (click)="saveNote()"
+              [disabled]="!f.form.get('note')?.dirty"
+            >
+              {{ 'SAVE' | translate }}
+            </button>
+            <button
+              mat-stroked-button
+              color="warn"
+              (click)="markLastSessionsAsInfected()"
+              [disabled]="
+                sessionMarkedAsInfected || sessionData.infected === true
+              "
+            >
+              {{ 'SESSIONS.REPORT_INFECTION' | translate }}
+            </button>
+          </div>
+        </form>
       </mat-card-content>
     </div>
     <ng-template #elseBlock>

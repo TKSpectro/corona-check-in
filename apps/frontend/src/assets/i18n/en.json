@@ -107,8 +107,12 @@
   "DASHBOARDS": {
     "SESSIONS_ERROR": "Could not load sessions",
     "ME_ERROR": "Could not load user",
+    "MARK_INFECTED_SUCCESS": "Marked last sessions successfully as infected",
     "MARK_INFECTED_ERROR": "Could not mark last sessions as infected",
-    "CAMERA_NOT_FOUND_ERROR": "No cameras found"
+    "CAMERA_NOT_FOUND_ERROR": "No cameras found",
+    "NOTE_UPDATE_SUCCESS": "Note updated successfully",
+    "NOTE_UPDATE_ERROR": "Could not update note",
+    "LOAD_LAST_SESSION_ERROR": "Could not load last session"
   },
   "ERROR_OLD_PASSWORD_WRONG": "Old password is wrong",
   "ERROR_PASSWORDS_NOT_MATCHING": "New password is not matching",
