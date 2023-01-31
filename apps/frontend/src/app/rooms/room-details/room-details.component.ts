@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
+import { AdminService } from '../../auth/admin/admin.service';
 import { SessionListService } from '../../sessions/session-list.service';
 import { Room } from '../../shared/types';
 import { RoomsService } from '../rooms.service';
@@ -31,7 +32,8 @@ export class RoomDetailsComponent implements OnInit, OnDestroy {
     private changeDetectorRef: ChangeDetectorRef,
     private sessionListService: SessionListService,
     private roomsSrv: RoomsService,
-    private media: MediaMatcher
+    private media: MediaMatcher,
+    public adminSrv: AdminService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 900px)');
   }
