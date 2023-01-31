@@ -54,6 +54,14 @@ services:
     networks:
       - ccn-prod-network
 
+  frontend:
+    container_name: ccn_prod_frontend
+    image: ccn-frontend
+    ports:
+      - '4200:80'
+    networks:
+      - ccn-prod-network
+
   gateway:
     container_name: ccn_prod_gateway
     image: ccn-gateway
@@ -88,7 +96,7 @@ services:
       - DB_PORT=5432
       - DB_HOST=postgres
       - REDIS_HOST=redis
-      - SEEDING_ENABLED=true
+      - SEEDING_ENABLED=${SEEDING_ENABLED}
     ports:
       - '8082:3333'
     networks:
@@ -129,6 +137,7 @@ services:
       - DB_HOST=postgres
       - REDIS_HOST=redis
       - SEEDING_ENABLED=true
+      - SEEDING_MASS_SESSIONS_ENABLED=${SEEDING_MASS_SESSIONS_ENABLED}
     ports:
       - '8084:3333'
     networks:

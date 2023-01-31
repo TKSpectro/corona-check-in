@@ -49,7 +49,7 @@
         "passWithNoTests": true
       }
     },
-    "deploy": {
+    "build_docker": {
       "executor": "nx:run-commands",
       "options": {
         "commands": [
