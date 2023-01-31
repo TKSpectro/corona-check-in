@@ -45,13 +45,13 @@ export class RoomListComponent implements OnInit, OnDestroy {
   formDialogRef?: MatDialogRef<RoomFormComponent>;
 
   constructor(
+    private t: TranslateService,
+    private snackBar: MatSnackBar,
     private roomSrv: RoomsService,
     public adminSrv: AdminService,
     media: MediaMatcher,
     changeDetectorRef: ChangeDetectorRef,
-    public dialog: MatDialog,
-    private snackBar: MatSnackBar,
-    private t: TranslateService
+    public dialog: MatDialog
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 1150px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -98,7 +98,17 @@ export class RoomListComponent implements OnInit, OnDestroy {
             this.roomList = [...data.data];
             this._meta = data._meta;
           },
-          error: (err) => console.error(err),
+          error: (error) => {
+            this.snackBar.open(
+              this.t.instant('ROOMS.LOAD_ROOM_LIST_ERROR') +
+                '\n' +
+                error.error.message,
+              undefined,
+              {
+                panelClass: 'snackbar-error',
+              }
+            );
+          },
         })
     );
   }

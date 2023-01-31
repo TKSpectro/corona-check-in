@@ -27,7 +27,7 @@ export class ProfileService {
         this.submitProfileData.next(this.profileData);
       },
       error: (error) => {
-        console.error(error);
+        this.submitProfileData.error(error);
       },
     });
 

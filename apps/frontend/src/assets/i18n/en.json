@@ -22,10 +22,13 @@
   "ACTIONS": "Actions",
   "RESET": "Reset",
   "INFECTIONS": "Infections",
-  "ACTIONS": "Actions",
   "AUTH": {
     "SIGN_IN_INSTEAD": "Sign in instead",
-    "CREATE_ACCOUNT": "Create account"
+    "CREATE_ACCOUNT": "Create account",
+    "LOGIN_SUCCESS": "Login successful",
+    "LOGIN_ERROR": "Login failed",
+    "SIGNUP_SUCCESS": "Registration successful",
+    "SIGNUP_ERROR": "Registration failed"
   },
   "PROFILES": {
     "PROFILE": "Profile",
@@ -47,7 +50,8 @@
     "PROFILE_UPDATE_SUCCESS": "Profile updated successfully",
     "LOGOUT_SUCCESS": "You have been logged out successfully",
     "PROFILE_DELETE_SUCCESS": "Your account has been deleted successfully",
-    "PROFILE_DELETE_ERROR": "Could not delete your account"
+    "PROFILE_DELETE_ERROR": "Could not delete your account",
+    "LOAD_PROFILE_ERROR": "Could not load profile"
   },
   "YES": "yes",
   "NO": "no",
@@ -73,7 +77,10 @@
     "MARK_INFECTED_TOOLTIP": "Mark this session as infected",
     "MARK_INFECTED_TOOLTIP_DISABLED": "This session is already marked as infected",
     "CURRENT_SESSION": "Current session",
-    "REPORT_INFECTION": "Report infection"
+    "REPORT_INFECTION": "Report infection",
+    "LOAD_SESSIONS_ERROR": "Could not load sessions",
+    "MARK_INFECTED_ERROR": "Could not mark session as infected",
+    "DELETE_SESSION_ERROR": "Could not delete session"
   },
   "ROOMS": {
     "ROOMS": "Rooms",
@@ -90,7 +97,16 @@
     "NAME": "Name",
     "MAX_PARTICIPANTS": "Max Participants",
     "MAX_DURATION": "Max Duration",
-    "FACULTY": "Faculty"
+    "FACULTY": "Faculty",
+    "LOAD_ROOM_LIST_ERROR": "Could not load rooms",
+    "LOAD_ROOM_DETAILS_ERROR": "Could not load room details",
+    "LOAD_SESSIONS_ERROR": "Could not load sessions"
+  },
+  "DASHBOARDS": {
+    "SESSIONS_ERROR": "Could not load sessions",
+    "ME_ERROR": "Could not load user",
+    "MARK_INFECTED_ERROR": "Could not mark last sessions as infected",
+    "CAMERA_NOT_FOUND_ERROR": "No cameras found"
   },
   "ERROR_OLD_PASSWORD_WRONG": "Old password is wrong",
   "ERROR_PASSWORDS_NOT_MATCHING": "New password is not matching",
