@@ -13,6 +13,7 @@ export class AuthService implements OnDestroy {
   private loginSubject = new Subject<boolean>();
   private subscriptions: Subscription[] = [];
   private isLoggedIn = false;
+  authStatusSubject = new Subject<boolean>();
 
   constructor(
     private serverSrv: ServerService,
