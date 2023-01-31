@@ -124,7 +124,7 @@ export class AppService implements OnModuleInit {
   ): Promise<SessionEntity> {
     const room = await lastValueFrom(
       this.roomSrv
-        .send({ role: 'room', cmd: 'get-all' }, createSessionDto.roomId)
+        .send({ role: 'room', cmd: 'get-by-id' }, createSessionDto.roomId)
         .pipe(timeout(environment.serviceTimeout))
     );
     if (!room) {
