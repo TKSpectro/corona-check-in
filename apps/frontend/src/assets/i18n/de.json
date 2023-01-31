@@ -93,6 +93,7 @@
     "UPDATE_ROOM_SUCCESS": "Raum erfolgreich aktualisiert",
     "UPDATE_ROOM_ERROR": "Raum konnte nicht aktualisiert werden",
     "DELETE_ROOM": "Raum löschen",
+    "DELETE_ROOM_WARNING": "Sind Sie sicher, dass Sie diesen Raum löschen wollen? Dieser Vorgang kann nicht rückgängig gemacht werden.",
     "ROOM_DETAILS": "Raum-Details",
     "NAME": "Name",
     "MAX_PARTICIPANTS": "Maximale Teilnehmer",

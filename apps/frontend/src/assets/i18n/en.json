@@ -93,6 +93,7 @@
     "UPDATE_ROOM_SUCCESS": "Room updated successfully",
     "UPDATE_ROOM_ERROR": "Could not update room",
     "DELETE_ROOM": "Delete Room",
+    "DELETE_ROOM_WARNING": "Are you sure you want to delete this room? This action cannot be undone.",
     "ROOM_DETAILS": "Room Details",
     "NAME": "Name",
     "MAX_PARTICIPANTS": "Max Participants",
