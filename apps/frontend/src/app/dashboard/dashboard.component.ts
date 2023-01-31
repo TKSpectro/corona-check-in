@@ -1,5 +1,6 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { SessionListService } from '../sessions/session-list.service';
@@ -19,7 +20,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   sessionList = [];
 
   constructor(
-    public translate: TranslateService,
+    public t: TranslateService,
+    private snackBar: MatSnackBar,
     media: MediaMatcher,
     changeDetectorRef: ChangeDetectorRef,
     private sessionListService: SessionListService
@@ -37,7 +39,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
       next: (data) => {
         this.sessionList = data.data;
       },
-      error: (err) => console.error(err),
+      error: (error) => {
+        this.snackBar.open(
+          this.t.instant('DASHBOARDS.SESSIONS_ERROR') +
+            '\n' +
+            error.error.message,
+          undefined,
+          {
+            panelClass: 'snackbar-error',
+          }
+        );
+      },
     });
   }
 
@@ -51,7 +63,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
       next: (data) => {
         console.log(data);
       },
-      error: (err) => console.error(err),
+      error: (error) => {
+        this.snackBar.open(
+          this.t.instant(
+            'PROFILES.LOAD_PROFILE_ERROR' + '\n' + error.error.message
+          ),
+          undefined,
+          {
+            panelClass: 'snackbar-error',
+          }
+        );
+      },
     });
   }
 }

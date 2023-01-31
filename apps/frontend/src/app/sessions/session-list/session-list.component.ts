@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { Session } from '../../shared/types';
 import { SessionListService } from '../session-list.service';
@@ -38,7 +40,11 @@ export class SessionListComponent implements OnInit, OnDestroy {
     this.loadSessions();
   }
 
-  constructor(private sessionListService: SessionListService) {}
+  constructor(
+    private t: TranslateService,
+    private snackBar: MatSnackBar,
+    private sessionListService: SessionListService
+  ) {}
 
   ngOnInit(): void {
     this.loadSessions();
@@ -59,7 +65,17 @@ export class SessionListComponent implements OnInit, OnDestroy {
             this.sessionList = data.data;
             this._meta = data._meta;
           },
-          error: (err) => console.error(err),
+          error: (error) => {
+            this.snackBar.open(
+              this.t.instant('SESSIONS.LOAD_SESSIONS_ERROR') +
+                '\n' +
+                error.error.message,
+              undefined,
+              {
+                panelClass: 'snackbar-error',
+              }
+            );
+          },
         })
     );
   }
@@ -95,7 +111,17 @@ export class SessionListComponent implements OnInit, OnDestroy {
         next: () => {
           this.loadSessions();
         },
-        error: (err) => console.error(err),
+        error: (error) => {
+          this.snackBar.open(
+            this.t.instant('SESSIONS.MARK_INFECTED_ERROR') +
+              '\n' +
+              error.error.message,
+            undefined,
+            {
+              panelClass: 'snackbar-error',
+            }
+          );
+        },
       })
     );
   }
@@ -106,7 +132,17 @@ export class SessionListComponent implements OnInit, OnDestroy {
         next: () => {
           this.loadSessions();
         },
-        error: (err) => console.error(err),
+        error: (error) => {
+          this.snackBar.open(
+            this.t.instant('SESSIONS.DELETE_SESSION_ERROR') +
+              '\n' +
+              error.error.message,
+            undefined,
+            {
+              panelClass: 'snackbar-error',
+            }
+          );
+        },
       })
     );
   }
