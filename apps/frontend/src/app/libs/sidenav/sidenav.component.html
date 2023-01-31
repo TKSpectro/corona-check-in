@@ -28,12 +28,6 @@
         >
         <a mat-list-item
            *ngIf="isLoggedIn"
-           routerLinkActive="active-link">
-          <mat-icon>bar_chart</mat-icon>
-          <span>{{ 'STATISTICS' | translate }}</span></a
-        >
-        <a mat-list-item
-           *ngIf="isLoggedIn"
            routerLink="sessions" routerLinkActive="active-link">
           <mat-icon>watch_later</mat-icon>
           <span>{{ 'SESSIONS.SESSION' | translate }}</span></a
@@ -67,15 +61,15 @@
           <mat-icon>home</mat-icon>
           <span>{{ 'LOGIN' | translate }}</span></a
         >
-        <a
-          mat-list-item
-          *ngIf="adminService.isAdmin"
-          routerLink="./admin"
-          routerLinkActive="active-link"
-        >
-          <mat-icon>person</mat-icon>
-          <span>{{ 'onlyAdmin' | translate }}</span></a
-        >
+<!--        <a-->
+<!--          mat-list-item-->
+<!--          *ngIf="adminService.isAdmin"-->
+<!--          routerLink="./admin"-->
+<!--          routerLinkActive="active-link"-->
+<!--        >-->
+<!--          <mat-icon>person</mat-icon>-->
+<!--          <span>{{ 'onlyAdmin' | translate }}</span></a-->
+<!--        >-->
       </mat-nav-list>
       <h3 mat-list-item>
         <span style="margin-right: 6px">{{ 'LANGUAGE' | translate }}</span>
