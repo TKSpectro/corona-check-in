@@ -2,17 +2,12 @@
 <div class="filter-row">
   <div>
     <mat-form-field appearance="standard" class="filter-space">
-      <mat-label>Search name</mat-label>
-      <input
-        matInput
-        (keyup)="setFilterName($event)"
-        placeholder="Search name"
-        #input
-      />
+      <mat-label>{{ 'ROOMS.NAME' | translate }}</mat-label>
+      <input matInput (keyup)="setFilterName($event)" #input />
     </mat-form-field>
 
     <mat-form-field appearance="standard" class="filter-space">
-      <mat-label>faculty</mat-label>
+      <mat-label>{{ 'ROOMS.FACULTY' | translate }}</mat-label>
       <mat-select [formControl]="filterFaculty" (selectionChange)="loadRooms()">
         <mat-select-trigger>
           {{
