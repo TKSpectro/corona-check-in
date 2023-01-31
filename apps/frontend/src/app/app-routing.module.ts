@@ -19,7 +19,7 @@ const routes: Routes = [
     component: DashboardComponent,
     title: 'Dashboard',
   },
-  { path: 'auth', component: AuthComponent },
+  { path: 'auth', component: AuthComponent, title: 'Auth' },
   {
     path: 'profile',
     canActivate: [AuthGuard],
