@@ -19,15 +19,17 @@
           </div>
         </div>
 
-        <div class="content" *ngIf="sessionData.endTime">
+        <div *ngIf="sessionData.endTime">
           <mat-divider></mat-divider>
-          <div class="column-left">
-            <p>{{ 'SESSIONS.SESSION_END' | translate }}:</p>
-          </div>
-          <div class="column-right">
-            <p>
-              {{ sessionData.endTime | date : 'dd.MM.yyyy HH:mm' }}
-            </p>
+          <div class="content">
+            <div class="column-left">
+              <p>{{ 'SESSIONS.SESSION_END' | translate }}:</p>
+            </div>
+            <div class="column-right">
+              <p>
+                {{ sessionData.endTime | date : 'dd.MM.yyyy HH:mm' }}
+              </p>
+            </div>
           </div>
         </div>
 
