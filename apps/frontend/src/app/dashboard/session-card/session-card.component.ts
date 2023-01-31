@@ -3,7 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { ServerService } from '../../shared/server.service';
-import { User } from '../../shared/types';
+import { Session } from '../../shared/types';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../libs';
 
@@ -21,8 +21,9 @@ export class SessionCardComponent implements OnInit, OnDestroy {
   constructor(
     private t: TranslateService,
     private snackBar: MatSnackBar,
-    private serverSrv: ServerService
-  , public dialog: MatDialog) {}
+    private serverSrv: ServerService,
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.getCurrentSession();
@@ -79,16 +80,16 @@ export class SessionCardComponent implements OnInit, OnDestroy {
                 this.sessionMarkedAsInfected = data;
               },
               error: (error) => {
-              this.snackBar.open(
-                this.t.instant('DASHBOARDS.MARK_INFECTED_ERROR') +
-                  '\n' +
-                  error.error.message,
-                undefined,
-                {
-                  panelClass: 'snackbar-error',
-                }
-              );
-            },
+                this.snackBar.open(
+                  this.t.instant('DASHBOARDS.MARK_INFECTED_ERROR') +
+                    '\n' +
+                    error.error.message,
+                  undefined,
+                  {
+                    panelClass: 'snackbar-error',
+                  }
+                );
+              },
             })
           );
         }
