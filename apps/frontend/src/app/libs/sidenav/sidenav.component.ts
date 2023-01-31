@@ -18,7 +18,8 @@ export class SidenavComponent implements OnDestroy, OnInit {
   adminService: AdminService;
   isLoggedIn = false;
   langSelect = new FormControl(this.t.currentLang);
-  subscription = new Subscription();
+  subscription: Subscription[] = [];
+  isSignup = false;
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
@@ -38,9 +39,16 @@ export class SidenavComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit(): void {
-    this.subscription = this.authService.isLoggedIn$.subscribe((isLoggedIn) => {
-      this.isLoggedIn = isLoggedIn;
-    });
+    this.subscription.push(
+      this.authService.isLoggedIn$.subscribe((isLoggedIn) => {
+        this.isLoggedIn = isLoggedIn;
+      })
+    );
+    this.subscription.push(
+      this.authService.authStatusSubject.subscribe((status) => {
+        this.isSignup = status;
+      })
+    );
   }
 
   public toggleSideNav(toggleSideNav: boolean): void {
@@ -56,6 +64,10 @@ export class SidenavComponent implements OnDestroy, OnInit {
 
   ngOnDestroy(): void {
     this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
-    this.subscription.unsubscribe();
+    this.subscription.forEach((sub) => sub.unsubscribe());
+  }
+
+  changeAuthState(status: boolean) {
+    this.authService.authStatusSubject.next(status);
   }
 }
