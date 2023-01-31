@@ -10,16 +10,19 @@ import {
   HttpStatus,
   Inject,
   Injectable,
+  NotFoundException,
   OnModuleInit,
 } from '@nestjs/common';
+import { ClientProxy } from '@nestjs/microservices';
 import { InjectRepository } from '@nestjs/typeorm';
+import { randomUUID } from 'crypto';
+import { DateTime } from 'luxon';
+import { lastValueFrom, timeout } from 'rxjs';
 import { MoreThan, Repository } from 'typeorm';
 import { environment } from '../environments/environment';
 import { SessionEntity } from './session.entity';
 import { SessionDto } from './sessions.dto';
 import { UpdateSessionDto } from './update-sessions.dto';
-import { ClientProxy } from '@nestjs/microservices';
-import { lastValueFrom, timeout } from 'rxjs';
 
 const selectWithoutNote = [
   'session.id',
@@ -29,8 +32,7 @@ const selectWithoutNote = [
   'session.endTime',
   'session.infected',
   'session.userId',
-  // TODO: Add this back in when we have a room service
-  // 'session.roomId',
+  'session.roomId',
 ];
 
 // This is some really hacky code to work around the weird select behavior of typeorm
@@ -54,18 +56,23 @@ export class AppService implements OnModuleInit {
   async onModuleInit() {
     if (environment.seedEnabled === true) {
       console.info('[SESSION] Seeding sessions...');
+      if (environment.seedMassRandom === true) {
+        await this.#massRandomSeed();
+      }
+
       await this.#seed();
     } else {
       console.info('[SESSION] Seeding disabled.');
     }
   }
 
-  getSessions(
+  async getSessions(
     pageOptionsDto: PageOptionsDto,
     user: RequestUser,
     infected?: string,
     sessionBegin?: Date,
-    sessionEnd?: Date
+    sessionEnd?: Date,
+    roomId?: string
   ) {
     const queryBuilder = this.sessionRepository.createQueryBuilder('session');
 
@@ -79,6 +86,9 @@ export class AppService implements OnModuleInit {
     if (sessionEnd) {
       queryBuilder.andWhere('endTime <= :sessionEnd', { sessionEnd });
     }
+    if (roomId) {
+      queryBuilder.andWhere('roomId = :roomId', { roomId });
+    }
 
     if (user.role === UserRole.USER) {
       queryBuilder.andWhere('userId = :userId', { userId: user.sub });
@@ -91,13 +101,18 @@ export class AppService implements OnModuleInit {
   }
 
   async getSessionById(id: string, user: RequestUser) {
-    return this.sessionRepository.findOne({
+    const session = await this.sessionRepository.findOne({
       select: { ...selectWithoutNoteObj, note: user.role !== UserRole.ADMIN },
       where: {
         id: id,
         userId: user.role === UserRole.USER ? user.sub : undefined,
       },
     });
+    if (!session) {
+      throw new NotFoundException('Session not found');
+    }
+
+    return session;
   }
 
   async getCurrentSession(user: RequestUser) {
@@ -113,7 +128,7 @@ export class AppService implements OnModuleInit {
   }
 
   async createSession(createSessionDto: SessionDto): Promise<SessionEntity> {
-    return await this.sessionRepository.save(createSessionDto);
+    return this.sessionRepository.save(createSessionDto);
   }
 
   async createSessionFromQrCode(
@@ -121,13 +136,17 @@ export class AppService implements OnModuleInit {
   ): Promise<SessionEntity> {
     const room = await lastValueFrom(
       this.roomSrv
-        .send({ role: 'room', cmd: 'getRoom' }, createSessionDto.roomId)
-        .pipe(timeout(5000))
+        .send({ role: 'room', cmd: 'get-all' }, createSessionDto.roomId)
+        .pipe(timeout(environment.serviceTimeout))
     );
     if (!room) {
-      throw new HttpException('Room not found', HttpStatus.BAD_REQUEST);
+      throw new NotFoundException('Room not found');
     }
-    if (room.createdQrCode !== createSessionDto.createdQrCode) {
+
+    if (
+      new Date(room.createdQrCode).toISOString() !==
+      new Date(createSessionDto.createdQrCode).toISOString()
+    ) {
       throw new HttpException('QrCode must be updated', HttpStatus.BAD_REQUEST);
     }
 
@@ -143,7 +162,7 @@ export class AppService implements OnModuleInit {
     });
     if (sessions.length <= 0) {
       // User has no session in this room, so he scanned to enter
-      return await this.sessionRepository.save(createSessionDto);
+      return this.sessionRepository.save(createSessionDto);
     }
     for (const session of sessions) {
       const maxEndTime = new Date(
@@ -164,7 +183,7 @@ export class AppService implements OnModuleInit {
         );
       }
     }
-    return await this.sessionRepository.save(createSessionDto);
+    return this.sessionRepository.save(createSessionDto);
   }
 
   async markLastSessionsAsInfected(user: RequestUser): Promise<boolean> {
@@ -177,10 +196,22 @@ export class AppService implements OnModuleInit {
     const updateSession = await this.sessionRepository.findOne({
       where: { id: updateSessionDto.id },
     });
+    if (!updateSession) {
+      throw new NotFoundException('Session not found');
+    }
 
-    return await this.sessionRepository.save(
+    return this.sessionRepository.save(
       this.sessionRepository.merge(updateSession, updateSessionDto)
     );
+  }
+
+  async deleteSession(id: string) {
+    const session = await this.sessionRepository.findOne({ where: { id } });
+    if (!session) {
+      throw new NotFoundException('Session not found');
+    }
+
+    return await this.sessionRepository.remove(session);
   }
 
   async #seed() {
@@ -195,8 +226,17 @@ export class AppService implements OnModuleInit {
         try {
           await this.sessionRepository.insert({
             id: `00000000-0000-0000-0002-0000000000${i < 10 ? 0 : ''}${i}`,
+            startTime: DateTime.now()
+              .minus({ days: i })
+              .set({ hour: 8, minute: 0 })
+              .toISO(),
             endTime:
-              i % 2 === 0 ? `2022-12-${i < 10 ? '0' : ''}${i}T09:30:00` : null,
+              i % 2 === 0
+                ? DateTime.now()
+                    .minus({ days: i })
+                    .set({ hour: 9, minute: 30 })
+                    .toISO()
+                : null,
             infected: i % 2 === 0,
             userId: '00000000-0000-0000-0000-000000000002',
             roomId: '00000000-0000-0000-0000-000000000000',
@@ -209,7 +249,64 @@ export class AppService implements OnModuleInit {
     }
   }
 
-  async deleteSession(id: string): Promise<boolean> {
-    return (await this.sessionRepository.delete(id)).affected > 0;
+  // seed sessions for the last 2 months with a random amount of infections per day and with a random amount of sessions per day
+  async #massRandomSeed() {
+    if (
+      !(await this.sessionRepository.findOne({
+        where: [{ id: `00000000-0000-0000-0000-0000000000aa` }],
+      }))
+    ) {
+      try {
+        await this.sessionRepository.insert({
+          id: `00000000-0000-0000-0000-0000000000aa`,
+          startTime: `2022-12-31T09:30:00`,
+          endTime: `2022-12-31T09:30:00`,
+          infected: false,
+          userId: '00000000-0000-0000-0000-000000000002',
+          roomId: '00000000-0000-0000-0000-000000000000',
+        });
+
+        const today = new Date();
+        const twoMonthsAgo = new Date();
+        twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
+
+        const days = Math.round(
+          (today.getTime() - twoMonthsAgo.getTime()) / (1000 * 3600 * 24)
+        );
+
+        for (let i = 0; i < days; i++) {
+          const date = new Date();
+          date.setDate(date.getDate() - i);
+          const infections = Math.floor(Math.random() * 10);
+
+          for (let j = 0; j < infections; j++) {
+            const session = new SessionEntity();
+            session.id = randomUUID();
+            session.startTime = date;
+            session.endTime = date;
+            session.infected = true;
+            session.userId = '00000000-0000-0000-0000-000000000002';
+            session.roomId = '00000000-0000-0000-0000-000000000000';
+            await this.sessionRepository.save(session);
+          }
+
+          const room2Infections = Math.floor(Math.random() * 50);
+          for (let j = 0; j < room2Infections; j++) {
+            const session = new SessionEntity();
+            session.id = randomUUID();
+            session.startTime = date;
+            session.endTime = date;
+            session.infected = true;
+            session.userId = '00000000-0000-0000-0000-000000000002';
+            session.roomId = '00000000-0000-0000-0000-000000000001';
+            await this.sessionRepository.save(session);
+          }
+
+          await new Promise((resolve) => setTimeout(resolve, 5));
+        }
+      } catch (error) {
+        // do nothing
+      }
+    }
   }
 }

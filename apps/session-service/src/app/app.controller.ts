@@ -6,7 +6,6 @@ import { Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 
 import { AppService } from './app.service';
-import { SessionEntity } from './session.entity';
 import { SessionDto } from './sessions.dto';
 import { UpdateSessionDto } from './update-sessions.dto';
 
@@ -14,36 +13,39 @@ import { UpdateSessionDto } from './update-sessions.dto';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @MessagePattern({ role: 'sessions', cmd: 'health' })
+  @MessagePattern({ role: 'session', cmd: 'health' })
   health() {
     return true;
   }
 
-  @MessagePattern({ role: 'sessions', cmd: 'get-all' })
-  getSessions({
+  @MessagePattern({ role: 'session', cmd: 'get-all' })
+  async getSessions({
     pageOptionsDto,
     user,
     infected,
     sessionBegin,
     sessionEnd,
+    roomId,
   }: {
     pageOptionsDto: PageOptionsDto;
     user: RequestUser;
     infected?: string;
     sessionBegin?: Date;
     sessionEnd?: Date;
+    roomId?: string;
   }) {
     return this.appService.getSessions(
       pageOptionsDto,
       user,
       infected,
       sessionBegin,
-      sessionEnd
+      sessionEnd,
+      roomId
     );
   }
 
   @MessagePattern({ role: 'session', cmd: 'get-by-id' })
-  getSessionById({ id, user }: { id: string; user: RequestUser }) {
+  async getSessionById({ id, user }: { id: string; user: RequestUser }) {
     return this.appService.getSessionById(id, user);
   }
 
@@ -57,23 +59,23 @@ export class AppController {
     return this.appService.markLastSessionsAsInfected(user);
   }
 
-  @MessagePattern({ role: 'session', cmd: 'create-session' })
-  createSession(createSessionDto: SessionDto): Promise<SessionEntity> {
+  @MessagePattern({ role: 'session', cmd: 'create' })
+  async createSession(createSessionDto: SessionDto) {
     return this.appService.createSession(createSessionDto);
   }
 
   @MessagePattern({ role: 'session', cmd: 'scan-code' })
-  scanQrCode(createSessionDto: SessionDto): Promise<SessionEntity> {
+  async scanQrCode(createSessionDto: SessionDto) {
     return this.appService.createSessionFromQrCode(createSessionDto);
   }
 
-  @MessagePattern({ role: 'session', cmd: 'update-session' })
-  updateSession(updateSessionDto: UpdateSessionDto): Promise<SessionEntity> {
+  @MessagePattern({ role: 'session', cmd: 'update' })
+  async updateSession(updateSessionDto: UpdateSessionDto) {
     return this.appService.updateSession(updateSessionDto);
   }
 
-  @MessagePattern({ role: 'session', cmd: 'delete-session' })
-  deleteSession(id: string): Promise<boolean> {
+  @MessagePattern({ role: 'session', cmd: 'delete' })
+  async deleteSession(id: string) {
     return this.appService.deleteSession(id);
   }
 }

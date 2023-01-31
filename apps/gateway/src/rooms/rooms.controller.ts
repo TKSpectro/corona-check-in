@@ -4,13 +4,12 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
   Param,
   Post,
   Put,
   Query,
 } from '@nestjs/common';
-import { firstValueFrom, Observable } from 'rxjs';
-import { RoomEntity } from './room.entity';
 import { findAllQuery, RoomDto } from './rooms.dto';
 import { RoomsService } from './rooms.service';
 import { UpdateRoomDto } from './update-rooms.dto';
@@ -20,37 +19,41 @@ export class RoomsController {
   constructor(private readonly roomsService: RoomsService) {}
 
   @Get()
+  @HttpCode(200)
   async findAll(
     @Query() pageOptionsDto: PageOptionsDto,
     @Query() query: findAllQuery
   ) {
-    return await firstValueFrom(
-      this.roomsService.getRooms(pageOptionsDto, query)
-    );
+    return this.roomsService.getRooms(pageOptionsDto, query);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  @HttpCode(200)
+  async findOne(@Param('id') id: string) {
     return this.roomsService.getRoom(id);
   }
 
   @Post()
-  create(@Body() createRoomDto: RoomDto): Observable<RoomEntity> {
+  @HttpCode(201)
+  async create(@Body() createRoomDto: RoomDto) {
     return this.roomsService.createRoom(createRoomDto);
   }
 
   @Put()
-  update(@Body() updateRoomDto: UpdateRoomDto) {
+  @HttpCode(200)
+  async update(@Body() updateRoomDto: UpdateRoomDto) {
     return this.roomsService.update(updateRoomDto);
   }
 
   @Put('qr-code')
-  updateQrCode(@Body() updateRoomDto: UpdateRoomDto) {
+  @HttpCode(200)
+  async updateQrCode(@Body() updateRoomDto: UpdateRoomDto) {
     return this.roomsService.updateQrCode(updateRoomDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  @HttpCode(204)
+  async remove(@Param('id') id: string) {
     return this.roomsService.removeRoom(id);
   }
 }

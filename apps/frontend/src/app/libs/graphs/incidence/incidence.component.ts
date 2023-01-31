@@ -64,6 +64,10 @@ export class IncidenceComponent implements OnInit, OnDestroy {
   }
 
   xAxisTickFormatting(value: any) {
-    return new Date(value).toLocaleDateString();
+    return new Date(value).toLocaleDateString(undefined, {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    });
   }
 }

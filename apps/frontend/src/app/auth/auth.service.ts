@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { ServerService } from '../shared/server.service';
 import { AdminService } from './admin/admin.service';
 import { User, UserSignup } from './user';
@@ -10,14 +10,19 @@ import { User, UserSignup } from './user';
 })
 export class AuthService implements OnDestroy {
   private token: string | null = null;
-
+  private loginSubject = new Subject<boolean>();
   private subscriptions: Subscription[] = [];
+  private isLoggedIn = false;
 
   constructor(
     private serverSrv: ServerService,
     private router: Router,
     public adminService: AdminService
   ) {}
+
+  public get isLoggedIn$() {
+    return this.loginSubject.asObservable();
+  }
 
   autoLogin() {
     return this.token;
@@ -38,7 +43,8 @@ export class AuthService implements OnDestroy {
           this.token = result.token;
           localStorage.setItem('ccn_token', this.token);
           this.adminService.autoAdmin();
-
+          this.isLoggedIn = true;
+          this.loginSubject.next(this.isLoggedIn);
           this.router.navigate(['/dashboard']);
         },
         error: (error) => {
@@ -55,7 +61,7 @@ export class AuthService implements OnDestroy {
           this.token = result.token;
           localStorage.setItem('ccn_token', this.token);
           this.adminService.autoAdmin();
-
+          this.loginSubject.next(this.isLoggedIn);
           this.router.navigate(['/dashboard']);
         },
         error: (error) => {
@@ -68,7 +74,8 @@ export class AuthService implements OnDestroy {
   logout() {
     this.token = '';
     localStorage.removeItem('ccn_token');
-
+    this.isLoggedIn = false;
+    this.loginSubject.next(this.isLoggedIn);
     this.adminService.reset();
   }
 

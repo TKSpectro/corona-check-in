@@ -24,6 +24,7 @@ export class UsersController {
 
   @Get('')
   @Roles(UserRole.ADMIN)
+  @HttpCode(200)
   async getUsers(
     @Query() pageOptionsDto: PageOptionsDto,
     @Query() query?: findAllQueryDto
@@ -42,7 +43,7 @@ export class UsersController {
       throw new HttpException({ message: 'Forbidden' }, 403);
     }
 
-    return await this.userService.update(id, data);
+    return this.userService.update(id, data);
   }
 
   @Delete(':id')
@@ -52,8 +53,6 @@ export class UsersController {
       throw new HttpException({ message: 'Forbidden' }, 403);
     }
 
-    await this.userService.delete(id);
-
-    return;
+    return this.userService.delete(id);
   }
 }

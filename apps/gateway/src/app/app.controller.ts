@@ -3,17 +3,12 @@ import { Controller, Get, Request } from '@nestjs/common';
 import { AuthService } from '../auth/auth.service';
 import { Roles } from '../auth/decorators/roles.decorator';
 
-import { AppService } from './app.service';
-
 @Controller()
 export class AppController {
-  constructor(
-    private readonly appService: AppService,
-    private authService: AuthService
-  ) {}
+  constructor(private authService: AuthService) {}
 
   @Get('me')
-  getProfile(@Request() req) {
+  async getProfile(@Request() req) {
     return this.authService.me(req.user);
   }
 
@@ -27,10 +22,5 @@ export class AppController {
   @Roles(UserRole.ADMIN, UserRole.USER)
   getAdminOrUser() {
     return 'You are a admin or user';
-  }
-
-  @Get('/incidence')
-  getIncidenceData() {
-    return this.appService.getIncidenceData();
   }
 }

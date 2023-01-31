@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 import { User, UserSignup } from '../auth/user';
 import {
   PaginationResponse,
@@ -17,11 +18,13 @@ export class ServerService {
   constructor(private httpClient: HttpClient) {}
 
   getIncidenceData(): Observable<any> {
-    return this.httpClient.get<any>('/api/incidence');
+    return this.httpClient.get<any>(
+      environment.backendUrl + '/incidences/7-day-average'
+    );
   }
 
   getSessionById(id: string): Observable<any> {
-    return this.httpClient.get<any>('/api/sessions/' + id);
+    return this.httpClient.get<any>(environment.backendUrl + '/sessions/' + id);
   }
 
   getCurrentSession(): Observable<any> {
@@ -35,7 +38,7 @@ export class ServerService {
     sessionBegin?: string,
     sessionEnd?: string
   ): Observable<any> {
-    return this.httpClient.get<any>('/api/sessions', {
+    return this.httpClient.get<any>(environment.backendUrl + '/sessions', {
       params: new HttpParams()
         .set('page', page.toString())
         .set('take', take.toString())
@@ -46,42 +49,58 @@ export class ServerService {
   }
 
   updateSession(session: Session): Observable<Session> {
-    return this.httpClient.put<Session>(`/api/sessions`, session);
+    return this.httpClient.put<Session>(
+      `${environment.backendUrl}/sessions`,
+      session
+    );
   }
 
   deleteSession(id: string): Observable<null> {
-    return this.httpClient.delete<null>(`/api/sessions/${id}`);
+    return this.httpClient.delete<null>(
+      `${environment.backendUrl}/sessions/${id}`
+    );
   }
 
   markLastSessionsAsInfected() {
     return this.httpClient.get<boolean>(
-      '/api/sessions/mark-last-sessions-as-infected'
+      environment.backendUrl + '/sessions/mark-last-sessions-as-infected'
     );
   }
 
   // cross domain problem
   login(user: User): Observable<{ token: string }> {
-    return this.httpClient.post<{ token: string }>('/api/auth/login', user);
+    return this.httpClient.post<{ token: string }>(
+      environment.backendUrl + '/auth/login',
+      user
+    );
   }
 
   signup(user: UserSignup): Observable<{ token: string }> {
-    return this.httpClient.post<{ token: string }>('/api/auth/signup', user);
+    return this.httpClient.post<{ token: string }>(
+      environment.backendUrl + '/auth/signup',
+      user
+    );
   }
 
   isAdmin() {
-    return this.httpClient.get<{ isAdmin: boolean }>('/api/admin');
+    return this.httpClient.get<{ isAdmin: boolean }>(
+      environment.backendUrl + '/admin'
+    );
   }
 
   me(): Observable<User> {
-    return this.httpClient.get<User>('/api/me');
+    return this.httpClient.get<User>(environment.backendUrl + '/me');
   }
 
   updateUser(id: string, user: UpdateUser): Observable<User> {
-    return this.httpClient.put<User>(`/api/users/${id}`, user);
+    return this.httpClient.put<User>(
+      `${environment.backendUrl}/users/${id}`,
+      user
+    );
   }
 
   deleteUser(id: string): Observable<any> {
-    return this.httpClient.delete<any>(`/api/users/${id}`);
+    return this.httpClient.delete<any>(`${environment.backendUrl}/users/${id}`);
   }
 
   getRooms(
@@ -90,36 +109,47 @@ export class ServerService {
     name?: string,
     faculty?: string
   ) {
-    return this.httpClient.get<PaginationResponse<Room>>('/api/rooms', {
-      params: new HttpParams()
-        .set('page', page.toString())
-        .set('take', limit.toString())
-        .set('name', name ? name : '')
-        .set('faculty', faculty ? faculty : ''),
-    });
+    return this.httpClient.get<PaginationResponse<Room>>(
+      environment.backendUrl + '/rooms',
+      {
+        params: new HttpParams()
+          .set('page', page.toString())
+          .set('take', limit.toString())
+          .set('name', name ? name : '')
+          .set('faculty', faculty ? faculty : ''),
+      }
+    );
   }
 
   getRoom(id: string) {
-    return this.httpClient.get<Room>(`/api/rooms/${id}`);
+    return this.httpClient.get<Room>(`${environment.backendUrl}/rooms/${id}`);
   }
 
   createRoom(room: Room) {
-    return this.httpClient.post<Room>(`/api/rooms`, room);
+    return this.httpClient.post<Room>(`${environment.backendUrl}/rooms`, room);
   }
 
   updateRoom(room: Room) {
-    return this.httpClient.put<Room>(`/api/rooms`, room);
+    return this.httpClient.put<Room>(`${environment.backendUrl}/rooms`, room);
   }
 
   deleteRoom(id: string) {
-    return this.httpClient.delete<Room>(`/api/rooms/${id}`);
+    return this.httpClient.delete<Room>(
+      `${environment.backendUrl}/rooms/${id}`
+    );
   }
 
   updateQrCode(room: Room) {
-    return this.httpClient.put<Room>(`/api/rooms/qr-code`, room);
+    return this.httpClient.put<Room>(
+      `${environment.backendUrl}/rooms/qr-code`,
+      room
+    );
   }
 
   scanQrCode(scanBody: ScanQrCodeBody) {
-    return this.httpClient.post<Session>('/api/sessions/scan', scanBody);
+    return this.httpClient.post<Session>(
+      environment.backendUrl + '/sessions/scan',
+      scanBody
+    );
   }
 }

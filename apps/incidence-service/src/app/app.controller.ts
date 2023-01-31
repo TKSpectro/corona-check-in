@@ -1,4 +1,5 @@
-import { Controller, Get } from '@nestjs/common';
+import { RequestUser } from '@corona-check-in/micro-service-shared';
+import { Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 
 import { AppService } from './app.service';
@@ -12,13 +13,19 @@ export class AppController {
     return true;
   }
 
-  @Get()
-  getData() {
-    return this.appService.getData();
+  @MessagePattern({ role: 'incidence', cmd: 'get-7-day-average' })
+  async get7DayAverage({ user }: { user: RequestUser }) {
+    return this.appService.get7DayAverage({ user });
   }
 
-  @MessagePattern({ role: 'incidence', cmd: 'get' })
-  getIncidence() {
-    return this.appService.getIncidence();
+  @MessagePattern({ role: 'incidence', cmd: 'get-7-day-average-for-room' })
+  async get7DayAverageForRoom({
+    user,
+    roomId,
+  }: {
+    user: RequestUser;
+    roomId: string;
+  }) {
+    return this.appService.get7DayAverage({ user, roomId });
   }
 }

@@ -21,9 +21,7 @@ async function bootstrap() {
 
   // Have to use a custom filter to convert HttpExceptions to RpcExceptions
   app.useGlobalFilters(new RpcValidationFilter());
-  app.useGlobalPipes(
-    new ValidationPipe({ whitelist: true, enableDebugMessages: true })
-  );
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
 
   await app.listen();
 }

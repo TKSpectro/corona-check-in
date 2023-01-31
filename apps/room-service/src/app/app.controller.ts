@@ -2,7 +2,6 @@ import { PageOptionsDto } from '@corona-check-in/micro-service-shared';
 import { Controller } from '@nestjs/common';
 import { MessagePattern } from '@nestjs/microservices';
 import { AppService } from './app.service';
-import { RoomEntity } from './room.entity';
 import { findAllQuery, RoomDto } from './rooms.dto';
 import { UpdateRoomDto } from './update-rooms.dto';
 
@@ -10,13 +9,13 @@ import { UpdateRoomDto } from './update-rooms.dto';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @MessagePattern({ role: 'rooms', cmd: 'health' })
+  @MessagePattern({ role: 'room', cmd: 'health' })
   health() {
     return true;
   }
 
-  @MessagePattern({ role: 'rooms', cmd: 'getRooms' })
-  getRooms({
+  @MessagePattern({ role: 'room', cmd: 'get-all' })
+  async getRooms({
     pageOptionsDto,
     query,
   }: {
@@ -26,28 +25,28 @@ export class AppController {
     return this.appService.getRooms(pageOptionsDto, query);
   }
 
-  @MessagePattern({ role: 'room', cmd: 'getRoom' })
-  getRoom(id: string): Promise<RoomEntity> {
+  @MessagePattern({ role: 'room', cmd: 'get-by-id' })
+  async getRoom(id: string) {
     return this.appService.getRoom(id);
   }
 
-  @MessagePattern({ role: 'room', cmd: 'createRoom' })
-  createRoom(createRoomDto: RoomDto): Promise<RoomEntity> {
+  @MessagePattern({ role: 'room', cmd: 'create' })
+  async createRoom(createRoomDto: RoomDto) {
     return this.appService.createRoom(createRoomDto);
   }
 
-  @MessagePattern({ role: 'room', cmd: 'updateRoom' })
-  updateRoom(updateRoomDto: UpdateRoomDto): Promise<RoomEntity> {
+  @MessagePattern({ role: 'room', cmd: 'update' })
+  async updateRoom(updateRoomDto: UpdateRoomDto) {
     return this.appService.updateRoom(updateRoomDto);
   }
 
-  @MessagePattern({ role: 'room', cmd: 'updateQrCode' })
-  updateQrCode(updateRoomDto: UpdateRoomDto): Promise<RoomEntity> {
+  @MessagePattern({ role: 'room', cmd: 'update-qr-code' })
+  async updateQrCode(updateRoomDto: UpdateRoomDto) {
     return this.appService.updateQrCode(updateRoomDto);
   }
 
-  @MessagePattern({ role: 'room', cmd: 'deleteRoom' })
-  deleteRoom(id: string): Promise<boolean> {
+  @MessagePattern({ role: 'room', cmd: 'delete' })
+  async deleteRoom(id: string) {
     return this.appService.deleteRoom(id);
   }
 }

@@ -6,7 +6,7 @@ import { QRCodeData } from './qr-code.types';
 export class QrCodeController {
   constructor(private qrCodeSrc: QrCodeService) {}
   @Post('')
-  generateQRCode(@Body() qrCodeData: QRCodeData) {
+  async generateQRCode(@Body() qrCodeData: QRCodeData) {
     return this.qrCodeSrc.generate(qrCodeData);
   }
 }
