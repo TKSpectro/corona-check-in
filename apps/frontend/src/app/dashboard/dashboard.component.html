@@ -5,12 +5,13 @@
     [rowspan]="mobileQuery.matches ? 1 : 2"
     [colspan]="mobileQuery.matches ? 9 : 6"
   >
-    <ccn-session-card style="width: 100%"></ccn-session-card>
+    <ccn-session-card
+      [refreshCurrentSession]="scanSubject"
+      style="width: 100%"
+    ></ccn-session-card>
   </mat-grid-tile>
   <mat-grid-tile [rowspan]="2" [colspan]="mobileQuery.matches ? 9 : 3">
-    <ccn-qr-code-scanner
-      (scanEvent)="onScan($event)"
-    ></ccn-qr-code-scanner>
+    <ccn-qr-code-scanner (scanEvent)="onScan($event)"></ccn-qr-code-scanner>
   </mat-grid-tile>
 </mat-grid-list>
 

@@ -2,7 +2,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { SessionListService } from '../sessions/session-list.service';
 import { ScanQrCodeBody } from '../shared/types';
 
@@ -18,6 +18,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   sessionListSub!: Subscription;
   sessionList = [];
+
+  scanSubject: Subject<boolean> = new Subject();
 
   constructor(
     public t: TranslateService,
@@ -62,6 +64,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.sessionListService.scanQrCode($event).subscribe({
       next: (data) => {
         console.log(data);
+        this.scanSubject.next(true);
       },
       error: (error) => {
         this.snackBar.open(
