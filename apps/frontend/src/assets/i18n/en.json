@@ -62,7 +62,7 @@
     "SESSIONS": "Sessions",
     "ALL SESSIONS": "All sessions",
     "SESSION": "Session",
-    "LAST_SESSION": "Last Sessions",
+    "LAST_SESSION": "Last Session",
     "UPDATE_SESSION": "Update Session",
     "DELETE_SESSION": "Delete Session",
     "DELETE_SESSION_WARNING": "Are you sure you want to delete this session? This action cannot be undone.",
@@ -79,7 +79,9 @@
     "REPORT_INFECTION": "Report infection",
     "LOAD_SESSIONS_ERROR": "Could not load sessions",
     "MARK_INFECTED_ERROR": "Could not mark session as infected",
-    "DELETE_SESSION_ERROR": "Could not delete session"
+    "DELETE_SESSION_ERROR": "Could not delete session",
+    "REPORT_INFECTION_WARNING": "Do you want to report yourself as infected? Your sessions of the last 5 days will be marked as infected.",
+    "NO_CURRENT_OR_LAST_SESSION": "You don't have any sessions. You can check into a room via the QR code scanner."
   },
   "ROOMS": {
     "ROOMS": "Rooms",
@@ -105,8 +107,12 @@
   "DASHBOARDS": {
     "SESSIONS_ERROR": "Could not load sessions",
     "ME_ERROR": "Could not load user",
+    "MARK_INFECTED_SUCCESS": "Marked last sessions successfully as infected",
     "MARK_INFECTED_ERROR": "Could not mark last sessions as infected",
-    "CAMERA_NOT_FOUND_ERROR": "No cameras found"
+    "CAMERA_NOT_FOUND_ERROR": "No cameras found",
+    "NOTE_UPDATE_SUCCESS": "Note updated successfully",
+    "NOTE_UPDATE_ERROR": "Could not update note",
+    "LOAD_LAST_SESSION_ERROR": "Could not load last session"
   },
   "ERROR_OLD_PASSWORD_WRONG": "Old password is wrong",
   "ERROR_PASSWORDS_NOT_MATCHING": "New password is not matching",

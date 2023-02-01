@@ -115,6 +115,14 @@ export class AppService implements OnModuleInit {
     return session;
   }
 
+  async getCurrentSession(user: RequestUser) {
+    return this.sessionRepository.findOne({
+      select: { ...selectWithoutNoteObj, note: user.role !== UserRole.ADMIN },
+      where: { userId: user.sub },
+      order: { startTime: 'DESC' },
+    });
+  }
+
   async createSession(createSessionDto: SessionDto): Promise<SessionEntity> {
     return this.sessionRepository.save(createSessionDto);
   }
@@ -172,6 +180,14 @@ export class AppService implements OnModuleInit {
       }
     }
     return this.sessionRepository.save(createSessionDto);
+  }
+
+  async markLastSessionsAsInfected(user: RequestUser): Promise<boolean> {
+    // TODO: function needs to be implemented
+    // should mark all sessions of the last 5 days from user as infected
+    // should return positive http-status on success
+    // should throw exception on error
+    return true;
   }
 
   async updateSession(

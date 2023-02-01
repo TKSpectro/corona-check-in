@@ -41,9 +41,21 @@ export class SessionsController {
     );
   }
 
+  @Get('get-current-session')
+  @HttpCode(200)
+  async getCurrentSession(@Request() req) {
+    return this.sessionsService.getCurrentSession(req.user);
+  }
+
+  @Get('mark-last-sessions-as-infected')
+  @HttpCode(200)
+  async markLastSessionsAsInfected(@Request() req) {
+    return this.sessionsService.markLastSessionsAsInfected(req.user);
+  }
+
   @Get(':id')
   @HttpCode(200)
-  getSessionById(@Request() req, @Param('id') id: string) {
+  async getSessionById(@Request() req, @Param('id') id: string) {
     return this.sessionsService.getSessionById(id, req.user);
   }
 
@@ -64,12 +76,6 @@ export class SessionsController {
       ...sessionDto,
       userId: req.user.sub,
     });
-  }
-
-  @Post('markLastSessionsAsInfected')
-  @HttpCode(200)
-  async markLastSessionsAsInfected(@Body() userId: string) {
-    return this.sessionsService.markLastSessionsAsInfected(userId);
   }
 
   @Put()

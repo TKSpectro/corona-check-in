@@ -49,6 +49,16 @@ export class AppController {
     return this.appService.getSessionById(id, user);
   }
 
+  @MessagePattern({ role: 'session', cmd: 'get-current-session' })
+  async getCurrentSession({ user }: { user: RequestUser }) {
+    return this.appService.getCurrentSession(user);
+  }
+
+  @MessagePattern({ role: 'session', cmd: 'mark-last-sessions-as-infected' })
+  async markLastSessionsAsInfected({ user }: { user: RequestUser }) {
+    return this.appService.markLastSessionsAsInfected(user);
+  }
+
   @MessagePattern({ role: 'session', cmd: 'create' })
   async createSession(createSessionDto: SessionDto) {
     return this.appService.createSession(createSessionDto);

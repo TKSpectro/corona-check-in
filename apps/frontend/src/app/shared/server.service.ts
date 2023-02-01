@@ -27,6 +27,10 @@ export class ServerService {
     return this.httpClient.get<any>(environment.backendUrl + '/sessions/' + id);
   }
 
+  getCurrentSession(): Observable<any> {
+    return this.httpClient.get<Session>('/api/sessions/get-current-session');
+  }
+
   getSessions(
     page = 0,
     take = 10,
@@ -57,10 +61,9 @@ export class ServerService {
     );
   }
 
-  markLastSessionsAsInfected(userId: string) {
-    return this.httpClient.post<{ success: boolean }>(
-      environment.backendUrl + '/sessions/markLastSessionsAsInfected',
-      userId
+  markLastSessionsAsInfected() {
+    return this.httpClient.get<boolean>(
+      environment.backendUrl + '/sessions/mark-last-sessions-as-infected'
     );
   }
 

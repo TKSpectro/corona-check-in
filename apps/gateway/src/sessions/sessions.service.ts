@@ -42,6 +42,14 @@ export class SessionsService {
     );
   }
 
+  async getCurrentSession(user: RequestUser) {
+    return lastValueFrom(
+      this.sessionClient
+        .send({ role: 'session', cmd: 'get-current-session' }, { user })
+        .pipe(timeout(environment.serviceTimeout))
+    );
+  }
+
   async createSession(createSessionDto: SessionDto) {
     return lastValueFrom(
       this.sessionClient
@@ -64,13 +72,10 @@ export class SessionsService {
     );
   }
 
-  async markLastSessionsAsInfected(userId: string) {
+  async markLastSessionsAsInfected(user: RequestUser) {
     return lastValueFrom(
       this.sessionClient
-        .send(
-          { role: 'session', cmd: 'mark-last-sessions-as-infected' },
-          userId
-        )
+        .send({ role: 'session', cmd: 'mark-last-sessions-as-infected' }, user)
         .pipe(timeout(environment.serviceTimeout))
     );
   }

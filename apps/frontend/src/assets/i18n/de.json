@@ -80,7 +80,9 @@
     "REPORT_INFECTION": "Infektion melden",
     "LOAD_SESSIONS_ERROR": "Sessions konnten nicht geladen werden",
     "MARK_INFECTED_ERROR": "Session konnte nicht als infiziert markiert werden",
-    "DELETE_SESSION_ERROR": "Session konnte nicht gelöscht werden"
+    "DELETE_SESSION_ERROR": "Session konnte nicht gelöscht werden",
+    "REPORT_INFECTION_WARNING": "Wollen Sie sich als infiziert melden? Dadurch werden Ihre Sessions der letzten 5 Tage als infiziert markiert.",
+    "NO_CURRENT_OR_LAST_SESSION": "Noch keine Sessions vorhanden. Über den QR-Code-Scanner können Sie in einen Raum einchecken."
   },
   "ROOMS": {
     "ROOMS": "Räume",
@@ -106,8 +108,12 @@
   "DASHBOARDS": {
     "SESSIONS_ERROR": "Sessions konnten nicht geladen werden",
     "ME_ERROR": "Nutzer konnte nicht geladen werden",
+    "MARK_INFECTED_SUCCESS": "Letzte Sessions erfolgreich als infiziert markiert",
     "MARK_INFECTED_ERROR": "Letzte Sessions konnten nicht als infiziert markiert werden",
-    "CAMERA_NOT_FOUND_ERROR": "Keine Kamera gefunden"
+    "CAMERA_NOT_FOUND_ERROR": "Keine Kamera gefunden",
+    "NOTE_UPDATE_SUCCESS": "Notiz erfolgreich aktualisiert",
+    "NOTE_UPDATE_ERROR": "Notiz konnte nicht aktualisiert werden",
+    "LOAD_LAST_SESSION_ERROR": "Letzte Session konnte nicht geladen werden"
   },
   "ERROR_OLD_PASSWORD_WRONG": "Altes Passwort ist falsch",
   "ERROR_PASSWORDS_NOT_MATCHING": "Neues Passwort stimmt nicht überein",
