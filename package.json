@@ -11,8 +11,9 @@
     "build": "nx build",
     "test": "nx test",
     "lint:all": "nx run-many --target=lint --parallel=100",
-    "docker:prod": "docker compose -f docker-compose.prod.yml up",
-    "docker:prod:build": "nx run-many --target=build_docker --all=true --parallel=100"
+    "docker:run": "docker compose -f docker-compose.prod.yml up",
+    "docker:build:deploy": "nx run-many --target=build_docker --all=true --parallel=100",
+    "docker:build": "nx run frontend:build_docker --args=\"--configuration=development\" && nx run-many --target=build_docker --all=true --parallel=100 --exclude=frontend"
   },
   "private": true,
   "dependencies": {

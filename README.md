@@ -30,12 +30,15 @@ libs/
 ```bash
 cp .env.example .env
 # If you want pre-generated data, set SEEDING_ENABLED=true in the .env file
+# If you want mass sessions (for better statistics), set SEEDING_MASS_SESSIONS_ENABLED=true in the .env file
 
-# Build the docker images
-npm run docker:prod:build
+# If you are building for localhost you should use
+npm run docker:build
+# If you are building for our deployment you should use
+npm run docker:build:deploy
 
 # Run the docker containers (docker-compose.prod.yml)
-npm run docker:prod
+npm run docker:run
 ```
 
 Webapp (Angular) is available at <http://localhost:8080>
