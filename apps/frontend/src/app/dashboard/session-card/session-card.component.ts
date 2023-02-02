@@ -1,8 +1,8 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
-import { Subject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { ConfirmationDialogComponent } from '../../libs';
 import { ServerService } from '../../shared/server.service';
 import { Session } from '../../shared/types';
@@ -18,8 +18,6 @@ export class SessionCardComponent implements OnInit, OnDestroy {
   sessionMarkedAsInfected = false;
   sessionLoaded = false;
 
-  @Input() refreshCurrentSession!: Subject<boolean>;
-
   constructor(
     private t: TranslateService,
     private snackBar: MatSnackBar,
@@ -29,12 +27,6 @@ export class SessionCardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getCurrentSession();
-
-    this.refreshCurrentSession.subscribe((v) => {
-      if (v) {
-        this.getCurrentSession();
-      }
-    });
   }
 
   ngOnDestroy() {

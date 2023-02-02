@@ -1,10 +1,17 @@
 import { MediaMatcher } from '@angular/cdk/layout';
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
-import { Subject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { SessionListService } from '../sessions/session-list.service';
 import { ScanQrCodeBody } from '../shared/types';
+import { SessionCardComponent } from './session-card/session-card.component';
 
 @Component({
   selector: 'ccn-dashboard',
@@ -19,7 +26,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   sessionListSub!: Subscription;
   sessionList = [];
 
-  scanSubject: Subject<boolean> = new Subject();
+  @ViewChild(SessionCardComponent) sessionCardChild!: SessionCardComponent;
 
   constructor(
     public t: TranslateService,
@@ -62,9 +69,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   onScan($event: ScanQrCodeBody) {
     this.sessionListService.scanQrCode($event).subscribe({
-      next: (data) => {
-        console.log(data);
-        this.scanSubject.next(true);
+      next: () => {
+        this.sessionCardChild.getCurrentSession();
       },
       error: (error) => {
         this.snackBar.open(
