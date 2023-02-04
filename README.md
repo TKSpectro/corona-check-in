@@ -1,7 +1,5 @@
 # corona-check-in
 
-This is a simple web app to check in to a location and check out of a location. It is designed to be used in a COVID-19 contact tracing scenario.
-
 ## General
 
 We use Nx to manage the monorepo. The web app is built with Angular and the backend is built with NestJS.
@@ -86,9 +84,9 @@ npm run start:backend
 
 - [Angular](https://angular.io/)
 - [Angular Material](https://material.angular.io/)
-- [ngx-translate]()
+- [ngx-translate](https://github.com/ngx-translate/core)
 - [@swimlane/ngx-charts](https://swimlane.gitbook.io/ngx-charts/)
-- [@zxing (QR Code Scanner)]()
+- [@zxing (QR Code Scanner)](https://github.com/zxing/zxing)
 
 ## Continuous Integration | Continuous Deployment
 
