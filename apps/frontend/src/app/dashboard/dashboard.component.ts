@@ -70,6 +70,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   onScan($event: ScanQrCodeBody) {
     this.sessionListService.scanQrCode($event).subscribe({
       next: () => {
+        // TODO: pass id to session card and check if the session there
         this.sessionCardChild.getCurrentSession();
       },
       error: (error) => {
