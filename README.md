@@ -88,6 +88,12 @@ npm run start:backend
 - [@swimlane/ngx-charts](https://swimlane.gitbook.io/ngx-charts/)
 - [@zxing (QR Code Scanner)](https://github.com/zxing/zxing)
 
+Responsive Design is done for 3 different screen sizes:
+
+- Mobile 414x896
+- Tablet 820x1180 | 1180x820
+- Desktop 1920x1080
+
 ## Continuous Integration | Continuous Deployment
 
 We use GitHub Actions to run linting and unit tests on every push (on master) and on every push in a pull request.
