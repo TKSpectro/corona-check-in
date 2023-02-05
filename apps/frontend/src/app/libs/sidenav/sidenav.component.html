@@ -20,57 +20,77 @@
         <span>CoronaCheckIn</span>
       </h1>
       <mat-nav-list [class.is-mobile]="mobileQuery.matches">
-        <a mat-list-item
-           *ngIf="isLoggedIn"
-           routerLink="/dashboard" routerLinkActive="active-link">
+        <a
+          mat-list-item
+          *ngIf="isLoggedIn"
+          routerLink="/dashboard"
+          routerLinkActive="active-link"
+        >
           <mat-icon>dashboard</mat-icon>
           <span>{{ 'DASHBOARD' | translate }}</span></a
         >
-        <a mat-list-item
-           *ngIf="isLoggedIn"
-           routerLink="sessions" routerLinkActive="active-link">
+        <a
+          mat-list-item
+          *ngIf="isLoggedIn"
+          routerLink="sessions"
+          routerLinkActive="active-link"
+        >
           <mat-icon>watch_later</mat-icon>
           <span>{{ 'SESSIONS.SESSION' | translate }}</span></a
         >
-        <a mat-list-item
-           *ngIf="isLoggedIn"
-           routerLink="rooms" routerLinkActive="active-link">
+        <a
+          mat-list-item
+          *ngIf="isLoggedIn"
+          routerLink="rooms"
+          routerLinkActive="active-link"
+        >
           <mat-icon>home</mat-icon>
           <span>{{ 'ROOMS.ROOMS' | translate }}</span></a
         >
-        <a mat-list-item
-           *ngIf="isLoggedIn"
-           routerLink="profile" routerLinkActive="active-link">
+        <a
+          mat-list-item
+          *ngIf="isLoggedIn"
+          routerLink="profile"
+          routerLinkActive="active-link"
+        >
           <mat-icon>person</mat-icon>
           <span>{{ 'PROFILES.PROFILE' | translate }}</span></a
         >
-        <a mat-list-item
-           *ngIf="!isLoggedIn"
-           [class.active] = "isSignup"
-           (click)='changeAuthState(true)'
-           routerLink="auth"
-           >
+        <a
+          mat-list-item
+          *ngIf="!isLoggedIn"
+          [class.active]="isSignup"
+          (click)="changeAuthState(true)"
+          routerLink="auth"
+        >
           <mat-icon>home</mat-icon>
           <span>{{ 'REGISTER' | translate }}</span></a
         >
-        <a mat-list-item
-           *ngIf="!isLoggedIn "
-           [class.active] = "!isSignup"
-           (click)='changeAuthState(false)'
-           routerLink="auth">
+        <a
+          mat-list-item
+          *ngIf="!isLoggedIn"
+          [class.active]="!isSignup"
+          (click)="changeAuthState(false)"
+          routerLink="auth"
+        >
           <mat-icon>home</mat-icon>
           <span>{{ 'LOGIN' | translate }}</span></a
         >
-<!--        <a-->
-<!--          mat-list-item-->
-<!--          *ngIf="adminService.isAdmin"-->
-<!--          routerLink="./admin"-->
-<!--          routerLinkActive="active-link"-->
-<!--        >-->
-<!--          <mat-icon>person</mat-icon>-->
-<!--          <span>{{ 'onlyAdmin' | translate }}</span></a-->
-<!--        >-->
+        <!--        <a-->
+        <!--          mat-list-item-->
+        <!--          *ngIf="adminService.isAdmin"-->
+        <!--          routerLink="./admin"-->
+        <!--          routerLinkActive="active-link"-->
+        <!--        >-->
+        <!--          <mat-icon>person</mat-icon>-->
+        <!--          <span>{{ 'onlyAdmin' | translate }}</span></a-->
+        <!--        >-->
       </mat-nav-list>
+      <h3 mat-list-item>
+        <button mat-stroked-button color="warn" (click)="handleLogout()">
+          {{ 'LOGOUT' | translate }}
+        </button>
+      </h3>
       <h3 mat-list-item>
         <span style="margin-right: 6px">{{ 'LANGUAGE' | translate }}</span>
         <mat-form-field appearance="standard" style="max-width: 50px">

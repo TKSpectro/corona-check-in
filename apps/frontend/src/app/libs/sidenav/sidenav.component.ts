@@ -1,10 +1,13 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { AdminService } from '../../auth/admin/admin.service';
 import { AuthService } from '../../auth/auth.service';
+import { ProfileService } from '../../profile/profile.service';
 
 @Component({
   selector: 'ccn-sidenav',
@@ -26,7 +29,10 @@ export class SidenavComponent implements OnDestroy, OnInit {
     media: MediaMatcher,
     adminService: AdminService,
     public t: TranslateService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router,
+    private profileService: ProfileService,
+    private snackBar: MatSnackBar
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 700px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -60,6 +66,16 @@ export class SidenavComponent implements OnDestroy, OnInit {
       this.t.use(this.langSelect.value);
       localStorage.setItem('ccn_lang', this.langSelect.value);
     }
+  }
+
+  handleLogout() {
+    this.profileService.logout();
+
+    this.snackBar.open(this.t.instant('PROFILES.LOGOUT_SUCCESS'), undefined, {
+      panelClass: 'snackbar-success',
+    });
+
+    this.router.navigate(['/']);
   }
 
   ngOnDestroy(): void {

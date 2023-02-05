@@ -142,14 +142,4 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }
     });
   }
-
-  handleLogout() {
-    this.profileService.logout();
-
-    this.snackBar.open(this.t.instant('PROFILES.LOGOUT_SUCCESS'), undefined, {
-      panelClass: 'snackbar-success',
-    });
-
-    this.router.navigate(['/']);
-  }
 }
