@@ -50,7 +50,8 @@
     "LOGOUT_SUCCESS": "You have been logged out successfully",
     "PROFILE_DELETE_SUCCESS": "Your account has been deleted successfully",
     "PROFILE_DELETE_ERROR": "Could not delete your account",
-    "LOAD_PROFILE_ERROR": "Could not load profile"
+    "LOAD_PROFILE_ERROR": "Could not load profile",
+    "PROFILE_UPDATE": "Update profile"
   },
   "YES": "Yes",
   "NO": "No",
