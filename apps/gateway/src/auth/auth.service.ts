@@ -34,7 +34,7 @@ export class AuthService {
   async signup(userInput: SignupUserDto) {
     if (userInput.password !== userInput.passwordRepeat) {
       throw new HttpException(
-        'ERROR_PASSWORDS_NOT_MATCHING',
+        'ERRORS.PASSWORDS_NOT_MATCHING',
         HttpStatus.BAD_REQUEST
       );
     }
