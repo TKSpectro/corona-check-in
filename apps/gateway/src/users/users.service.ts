@@ -81,14 +81,14 @@ export class UsersService implements OnModuleInit {
     if (data.newPassword) {
       if (!data.oldPassword || !compareSync(data.oldPassword, user.password)) {
         throw new HttpException(
-          'ERROR_OLD_PASSWORD_WRONG',
+          'ERRORS.OLD_PASSWORD_WRONG',
           HttpStatus.BAD_REQUEST
         );
       }
 
       if (data.newPassword !== data.newPasswordRepeat) {
         throw new HttpException(
-          'ERROR_PASSWORDS_NOT_MATCHING',
+          'ERRORS.PASSWORDS_NOT_MATCHING',
           HttpStatus.BAD_REQUEST
         );
       }

@@ -115,8 +115,6 @@
     "NOTE_UPDATE_ERROR": "Could not update note",
     "LOAD_LAST_SESSION_ERROR": "Could not load last session"
   },
-  "ERROR_OLD_PASSWORD_WRONG": "Old password is wrong",
-  "ERROR_PASSWORDS_NOT_MATCHING": "New password is not matching",
   "FACULTY": {
     "AI": "Applied Computer Science",
     "SA": "Social Work"
@@ -124,6 +122,9 @@
   "ERRORS": {
     "REQUIRED": "This field is required",
     "MINIMUM": "Should be at least {{min}}",
-    "MAXIMUM": "Should be at most {{max}}"
+    "MAXIMUM": "Should be at most {{max}}",
+    "EMAIL_NOT_VALID": "Email is not valid",
+    "OLD_PASSWORD_WRONG": "Old password is wrong",
+    "PASSWORDS_NOT_MATCHING": "New password is not matching"
   }
 }

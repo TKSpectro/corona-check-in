@@ -115,8 +115,6 @@
     "NOTE_UPDATE_ERROR": "Notiz konnte nicht aktualisiert werden",
     "LOAD_LAST_SESSION_ERROR": "Letzte Session konnte nicht geladen werden"
   },
-  "ERROR_OLD_PASSWORD_WRONG": "Altes Passwort ist falsch",
-  "ERROR_PASSWORDS_NOT_MATCHING": "Neues Passwort stimmt nicht überein",
   "FACULTY": {
     "AI": "Angewandte Informatik",
     "SA": "Soziale Arbeit"
@@ -124,6 +122,9 @@
   "ERRORS": {
     "REQUIRED": "Pflichtfeld",
     "MINIMUM": "Mindestens {{min}}",
-    "MAXIMUM": "Maximal {{max}}"
+    "MAXIMUM": "Maximal {{max}}",
+    "EMAIL_NOT_VALID": "E-Mail-Adresse ist nicht gültig",
+    "PASSWORDS_NOT_MATCHING": "Neues Passwort stimmt nicht überein",
+    "OLD_PASSWORD_WRONG": "Altes Passwort ist falsch"
   }
 }
