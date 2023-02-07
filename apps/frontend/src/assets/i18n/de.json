@@ -106,6 +106,9 @@
     "LOAD_SESSIONS_ERROR": "Sessions konnten nicht geladen werden"
   },
   "DASHBOARDS": {
+    "LAST_SESSIONS": "Letzte Sessions",
+    "7_DAY_INCIDENCES": "7-Tage-Inzidenzen Durchschnitt",
+    "7_DAY_INCIDENCES_TOOLTIP": "Der 7-Tage-Inzidenz-Durchschnitt gibt an, wie viele Personen in den letzten 7 Tagen infiziert wurden. Die Datenpunkte werden tageweise (für die letzten 7 Tage aufsummiert) hochgerechnet.",
     "SESSIONS_ERROR": "Sessions konnten nicht geladen werden",
     "ME_ERROR": "Nutzer konnte nicht geladen werden",
     "MARK_INFECTED_SUCCESS": "Letzte Sessions erfolgreich als infiziert markiert",
@@ -115,8 +118,6 @@
     "NOTE_UPDATE_ERROR": "Notiz konnte nicht aktualisiert werden",
     "LOAD_LAST_SESSION_ERROR": "Letzte Session konnte nicht geladen werden"
   },
-  "ERROR_OLD_PASSWORD_WRONG": "Altes Passwort ist falsch",
-  "ERROR_PASSWORDS_NOT_MATCHING": "Neues Passwort stimmt nicht überein",
   "FACULTY": {
     "AI": "Angewandte Informatik",
     "SA": "Soziale Arbeit"
@@ -124,6 +125,9 @@
   "ERRORS": {
     "REQUIRED": "Pflichtfeld",
     "MINIMUM": "Mindestens {{min}}",
-    "MAXIMUM": "Maximal {{max}}"
+    "MAXIMUM": "Maximal {{max}}",
+    "EMAIL_NOT_VALID": "E-Mail-Adresse ist nicht gültig",
+    "PASSWORDS_NOT_MATCHING": "Neues Passwort stimmt nicht überein",
+    "OLD_PASSWORD_WRONG": "Altes Passwort ist falsch"
   }
 }
