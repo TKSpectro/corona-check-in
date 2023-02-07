@@ -12,21 +12,6 @@ export class IncidenceService {
   constructor(private serverSrv: ServerService) {}
 
   getIncidenceData() {
-    this.serverSrv.getIncidenceData().subscribe({
-      next: (data) => {
-        this.chartData = data;
-        this.submitChartData.next(this.chartData);
-      },
-      error: (error) => {
-        // TODO: This can only be done in the component, as the translation service is not available here
-        // this.snackBar.open(
-        //   this.t.instant('INCIDENCES.LOAD_ERROR' + '\n' + error.error.message),
-        //   undefined,
-        //   {
-        //     panelClass: 'snackbar-error',
-        //   }
-        // );
-      },
-    });
+    return this.serverSrv.getIncidenceData();
   }
 }

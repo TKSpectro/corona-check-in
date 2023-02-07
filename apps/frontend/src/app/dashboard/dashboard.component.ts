@@ -9,6 +9,7 @@ import {
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import { IncidenceService } from '../libs/graphs/incidence/incidence.service';
 import { SessionListService } from '../sessions/session-list.service';
 import { ScanQrCodeBody } from '../shared/types';
 import { SessionCardComponent } from './session-card/session-card.component';
@@ -28,12 +29,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   @ViewChild(SessionCardComponent) sessionCardChild!: SessionCardComponent;
 
+  incidenceChartDataSub!: Subscription;
+  incidenceChartData = [];
+
   constructor(
     public t: TranslateService,
     private snackBar: MatSnackBar,
     media: MediaMatcher,
     changeDetectorRef: ChangeDetectorRef,
-    private sessionListService: SessionListService
+    private sessionListService: SessionListService,
+    private incidenceService: IncidenceService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 1150px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -60,11 +65,31 @@ export class DashboardComponent implements OnInit, OnDestroy {
         );
       },
     });
+
+    this.incidenceChartDataSub = this.incidenceService
+      .getIncidenceData()
+      .subscribe({
+        next: (data) => {
+          this.incidenceChartData = data;
+        },
+        error: (error) => {
+          this.snackBar.open(
+            this.t.instant('INCIDENCE_CHART.LOAD_INCIDENCE_ERROR') +
+              '\n' +
+              error.error.message,
+            undefined,
+            {
+              panelClass: 'snackbar-error',
+            }
+          );
+        },
+      });
   }
 
   ngOnDestroy(): void {
     this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
     this.sessionListSub.unsubscribe();
+    this.incidenceChartDataSub.unsubscribe();
   }
 
   onScan($event: ScanQrCodeBody) {
