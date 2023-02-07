@@ -86,11 +86,18 @@
         <!--          <span>{{ 'onlyAdmin' | translate }}</span></a-->
         <!--        >-->
       </mat-nav-list>
-      <h3 mat-list-item>
-        <button mat-stroked-button color="warn" (click)="handleLogout()">
-          {{ 'LOGOUT' | translate }}
-        </button>
+
+      <h3
+        mat-list-item
+        style="cursor: pointer"
+        class="error-color"
+        *ngIf="isLoggedIn"
+        (click)="handleLogout()"
+      >
+        <mat-icon style="vertical-align: middle">logout</mat-icon>
+        <span>{{ 'LOGOUT' | translate }}</span>
       </h3>
+
       <h3 mat-list-item>
         <span style="margin-right: 6px">{{ 'LANGUAGE' | translate }}</span>
         <mat-form-field appearance="standard" style="max-width: 50px">

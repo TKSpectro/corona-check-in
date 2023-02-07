@@ -75,7 +75,7 @@ export class SidenavComponent implements OnDestroy, OnInit {
       panelClass: 'snackbar-success',
     });
 
-    this.router.navigate(['/']);
+    this.router.navigate(['/auth']);
   }
 
   ngOnDestroy(): void {
