@@ -11,7 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { IncidenceService } from '../libs/graphs/incidence/incidence.service';
 import { SessionListService } from '../sessions/session-list.service';
-import { ScanQrCodeBody } from '../shared/types';
+import { IncidenceResult, ScanQrCodeBody } from '../shared/types';
 import { SessionCardComponent } from './session-card/session-card.component';
 
 @Component({
@@ -30,7 +30,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   @ViewChild(SessionCardComponent) sessionCardChild!: SessionCardComponent;
 
   incidenceChartDataSub!: Subscription;
-  incidenceChartData = [];
+  incidenceChartData: IncidenceResult[] = [];
 
   constructor(
     public t: TranslateService,

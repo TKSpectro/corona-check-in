@@ -59,3 +59,8 @@ export interface ScanQrCodeBody {
   roomId: string;
   createdQrCode: Date;
 }
+
+export interface IncidenceResult {
+  name: string;
+  series: { name: string; value: number }[];
+}

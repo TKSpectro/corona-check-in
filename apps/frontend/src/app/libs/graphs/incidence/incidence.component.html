@@ -14,4 +14,12 @@
   (select)="onSelect($event)"
   (activate)="onActivate($event)"
   (deactivate)="onDeactivate($event)"
-></ngx-charts-line-chart>
+>
+  <ng-template #tooltipTemplate let-model="model">
+    {{ model.name }}: {{ model.value }}
+  </ng-template>
+
+  <ng-template #seriesTooltipTemplate let-model="model">
+    {{ model[0].name }}: {{ model[0].value }}
+  </ng-template>
+</ngx-charts-line-chart>

@@ -11,7 +11,7 @@ export class IncidenceService {
 
   constructor(private serverSrv: ServerService) {}
 
-  getIncidenceData() {
-    return this.serverSrv.getIncidenceData();
+  getIncidenceData(id = '') {
+    return this.serverSrv.getIncidenceData(id);
   }
 }

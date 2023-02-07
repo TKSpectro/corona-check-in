@@ -11,7 +11,7 @@ export class IncidenceController {
     return this.incidenceService.get7DayAverage(req.user);
   }
 
-  @Get('/incidences/7-day-average-for-room/:roomId')
+  @Get('/incidences/7-day-average/:roomId')
   @HttpCode(200)
   async get7DayAveragePerRoom(@Request() req, @Param('roomId') roomId: string) {
     return this.incidenceService.get7DayAverageForRoom(req.user, roomId);

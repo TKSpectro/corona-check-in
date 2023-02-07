@@ -131,6 +131,7 @@
   "INCIDENCE_CHART": {
     "7_DAY_INCIDENCES": "7-day incidence average",
     "7_DAY_INCIDENCES_TOOLTIP": "The 7-day incidence average indicates how many people were infected in the last 7 days. The data points are calculated daily (sum of the last 7 days).",
-    "LOAD_INCIDENCE_ERROR": "Could not load incidence data"
+    "LOAD_INCIDENCE_ERROR": "Could not load incidence data",
+    "NO_INCIDENCES_FOUND": "No incidence data found."
   }
 }
