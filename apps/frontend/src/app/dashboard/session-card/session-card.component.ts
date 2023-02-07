@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import { ConfirmationDialogComponent } from '../../libs';
 import { ServerService } from '../../shared/server.service';
 import { Session } from '../../shared/types';
-import { MatDialog } from '@angular/material/dialog';
-import { ConfirmationDialogComponent } from '../../libs';
 
 @Component({
   selector: 'ccn-session-card',
