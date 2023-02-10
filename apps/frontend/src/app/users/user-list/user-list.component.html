@@ -1,0 +1,71 @@
+<table mat-table [dataSource]="userList" class="mat-elevation-z8">
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+    <mat-cell *matCellDef="let user">{{ user.name }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="updated">
+    <mat-header-cell *matHeaderCellDef>{{
+      'USERS.LAST_UPDATED' | translate
+    }}</mat-header-cell>
+    <mat-cell *matCellDef="let user">{{
+      user.updatedAt | customDate
+    }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="maxParticipants">
+    <mat-header-cell *matHeaderCellDef>{{
+      'USERS.MAX_PARTICIPANTS' | translate
+    }}</mat-header-cell>
+    <mat-cell *matCellDef="let user">{{ user.maxParticipants }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="maxDuration">
+    <mat-header-cell *matHeaderCellDef>{{
+      'USERS.MAX_DURATION' | translate
+    }}</mat-header-cell>
+    <mat-cell *matCellDef="let user">{{ user.maxDuration }} min.</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="faculty">
+    <mat-header-cell *matHeaderCellDef>{{
+      'USERS.FACULTY' | translate
+    }}</mat-header-cell>
+    <mat-cell *matCellDef="let user">{{
+      isDesktop
+        ? ((user.faculty ? 'FACULTY.' : '') + user.faculty || '' | translate)
+        : user.faculty
+    }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <mat-header-cell class="center" *matHeaderCellDef>{{
+      'ACTIONS' | translate
+    }}</mat-header-cell>
+    <mat-cell *matCellDef="let user">
+      <!-- <button mat-icon-button (click)="openFormDialog($event, user.id)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button (click)="openDeleteDialog($event, user.id)">
+        <mat-icon>delete</mat-icon>
+      </button> -->
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <!-- <mat-row
+    *matRowDef="let row; columns: displayedColumns"
+    [routerLink]="row.id"
+  ></mat-row> -->
+</table>
+
+<mat-paginator
+  showFirstLastButtons
+  aria-label="Select page of periodic elements"
+  [hidePageSize]="true"
+  [length]="_meta?.itemCount"
+  [pageSize]="_meta?.take"
+  [pageIndex]="_meta?.page"
+  (page)="handlePageEvent($event)"
+>
+</mat-paginator>

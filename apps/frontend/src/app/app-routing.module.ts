@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthComponent, AuthGuard } from './auth';
+import { AdminGuard, AuthComponent, AuthGuard } from './auth';
 import { DashboardComponent } from './dashboard';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ProfileComponent } from './profile';
@@ -10,6 +10,7 @@ import { RoomDetailsComponent } from './rooms/room-details/room-details.componen
 import { RoomsComponent } from './rooms/rooms.component';
 import { SessionDetailsComponent } from './sessions/session-details/session-details.component';
 import { SessionListComponent } from './sessions/session-list/session-list.component';
+import { UsersComponent } from './users/users.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -46,6 +47,12 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     component: SessionListComponent,
     title: 'Sessions',
+  },
+  {
+    path: 'users',
+    canActivate: [AuthGuard, AdminGuard],
+    component: UsersComponent,
+    title: 'Users',
   },
   { path: '404', component: PageNotFoundComponent, title: 'Page Not Found' },
   { path: '**', redirectTo: '/404' },

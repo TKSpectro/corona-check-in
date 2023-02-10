@@ -92,6 +92,18 @@ export class ServerService {
     return this.httpClient.get<User>(environment.backendUrl + '/me');
   }
 
+  getUsers(page: number = 0, limit: number = 10, search: string = '') {
+    return this.httpClient.get<PaginationResponse<User>>(
+      `${environment.backendUrl}/users`,
+      {
+        params: new HttpParams()
+          .set('page', page)
+          .set('take', limit)
+          .set('search', search),
+      }
+    );
+  }
+
   updateUser(id: string, user: UpdateUser): Observable<User> {
     return this.httpClient.put<User>(
       `${environment.backendUrl}/users/${id}`,

@@ -130,5 +130,9 @@
     "EMAIL_NOT_VALID": "Email is not valid",
     "OLD_PASSWORD_WRONG": "Old password is wrong",
     "PASSWORDS_NOT_MATCHING": "New password is not matching"
+  },
+  "USERS": {
+    "USER": "User",
+    "USERS": "Users"
   }
 }
