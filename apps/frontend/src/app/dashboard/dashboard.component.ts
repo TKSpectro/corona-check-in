@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
-import { Subscription } from 'rxjs';
+import { firstValueFrom, Subscription } from 'rxjs';
 import { IncidenceService } from '../libs/graphs/incidence/incidence.service';
 import { SessionListService } from '../sessions/session-list.service';
 import { IncidenceResult, ScanQrCodeBody } from '../shared/types';
@@ -94,7 +94,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   onScan($event: ScanQrCodeBody) {
     this.sessionListService.scanQrCode($event).subscribe({
-      next: () => {
+      next: async () => {
+        this.snackBar.open(
+          await firstValueFrom(
+            this.t.get('DASHBOARDS.SCAN_QR_CODE_SUCCESSFUL')
+          ),
+          undefined,
+          {
+            panelClass: 'snackbar-success',
+          }
+        );
+
         // TODO: pass id to session card and check if the session there
         this.sessionCardChild.getCurrentSession();
       },

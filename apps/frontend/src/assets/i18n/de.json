@@ -114,7 +114,8 @@
     "CAMERA_NOT_FOUND_ERROR": "Keine Kamera gefunden",
     "NOTE_UPDATE_SUCCESS": "Notiz erfolgreich aktualisiert",
     "NOTE_UPDATE_ERROR": "Notiz konnte nicht aktualisiert werden",
-    "LOAD_LAST_SESSION_ERROR": "Letzte Session konnte nicht geladen werden"
+    "LOAD_LAST_SESSION_ERROR": "Letzte Session konnte nicht geladen werden",
+    "SCAN_QR_CODE_SUCCESSFUL": "QR-Code erfolgreich gescannt"
   },
   "FACULTY": {
     "AI": "Angewandte Informatik",
