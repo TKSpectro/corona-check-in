@@ -28,6 +28,10 @@ $error: mat.get-color-from-palette(mat.$red-palette, 500);
   color: mat.get-color-from-palette(mat.$green-palette, A200);
 }
 
+.error-color {
+  color: $error;
+}
+
 .snackbar-success {
   background-color: $success;
   white-space: pre-wrap;

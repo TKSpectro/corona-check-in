@@ -6,8 +6,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { AdminService } from '../../auth/admin/admin.service';
+import { IncidenceService } from '../../libs/graphs/incidence/incidence.service';
 import { SessionListService } from '../../sessions/session-list.service';
-import { Room } from '../../shared/types';
+import { IncidenceResult, Room } from '../../shared/types';
 import { RoomsService } from '../rooms.service';
 
 @Component({
@@ -23,7 +24,10 @@ export class RoomDetailsComponent implements OnInit, OnDestroy {
   sessionList = [];
   infectedSessionList = [];
   roomList: Room[] = [];
+  incidenceChartData: IncidenceResult[] = [];
   qrCode = '';
+
+  noIncidencesFound = false;
 
   constructor(
     private t: TranslateService,
@@ -33,7 +37,8 @@ export class RoomDetailsComponent implements OnInit, OnDestroy {
     private sessionListService: SessionListService,
     private roomsSrv: RoomsService,
     private media: MediaMatcher,
-    public adminSrv: AdminService
+    public adminSrv: AdminService,
+    private incidenceService: IncidenceService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 900px)');
   }
@@ -42,6 +47,28 @@ export class RoomDetailsComponent implements OnInit, OnDestroy {
     this.subscription.push(
       this.route.paramMap.subscribe((params) => {
         this.id = params.get('id') || '';
+
+        this.subscription.push(
+          this.incidenceService.getIncidenceData(this.id).subscribe({
+            next: (data) => {
+              this.incidenceChartData = data;
+
+              this.noIncidencesFound =
+                this.incidenceChartData[0]?.series?.length === 0;
+            },
+            error: (error) => {
+              this.snackBar.open(
+                this.t.instant('INCIDENCE_CHART.LOAD_INCIDENCE_ERROR') +
+                  '\n' +
+                  error.error.message,
+                undefined,
+                {
+                  panelClass: 'snackbar-error',
+                }
+              );
+            },
+          })
+        );
       })
     );
 

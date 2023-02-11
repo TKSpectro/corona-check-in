@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { User, UserSignup } from '../auth/user';
 import {
+  IncidenceResult,
   PaginationResponse,
   Room,
   ScanQrCodeBody,
@@ -17,9 +18,9 @@ import {
 export class ServerService {
   constructor(private httpClient: HttpClient) {}
 
-  getIncidenceData(): Observable<any> {
-    return this.httpClient.get<any>(
-      environment.backendUrl + '/incidences/7-day-average'
+  getIncidenceData(id = '') {
+    return this.httpClient.get<IncidenceResult[]>(
+      environment.backendUrl + '/incidences/7-day-average/' + id
     );
   }
 

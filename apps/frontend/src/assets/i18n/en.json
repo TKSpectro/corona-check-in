@@ -107,8 +107,6 @@
   },
   "DASHBOARDS": {
     "LAST_SESSIONS": "Last sessions",
-    "7_DAY_INCIDENCES": "7-day incidence average",
-    "7_DAY_INCIDENCES_TOOLTIP": "The 7-day incidence average indicates how many people were infected in the last 7 days. The data points are calculated daily (sum of the last 7 days).",
     "SESSIONS_ERROR": "Could not load sessions",
     "ME_ERROR": "Could not load user",
     "MARK_INFECTED_SUCCESS": "Marked last sessions successfully as infected",
@@ -116,7 +114,8 @@
     "CAMERA_NOT_FOUND_ERROR": "No cameras found",
     "NOTE_UPDATE_SUCCESS": "Note updated successfully",
     "NOTE_UPDATE_ERROR": "Could not update note",
-    "LOAD_LAST_SESSION_ERROR": "Could not load last session"
+    "LOAD_LAST_SESSION_ERROR": "Could not load last session",
+    "SCAN_QR_CODE_SUCCESSFUL": "QR code scanned successfully"
   },
   "FACULTY": {
     "AI": "Applied Computer Science",
@@ -129,5 +128,11 @@
     "EMAIL_NOT_VALID": "Email is not valid",
     "OLD_PASSWORD_WRONG": "Old password is wrong",
     "PASSWORDS_NOT_MATCHING": "New password is not matching"
+  },
+  "INCIDENCE_CHART": {
+    "7_DAY_INCIDENCES": "7-day incidence average",
+    "7_DAY_INCIDENCES_TOOLTIP": "The 7-day incidence average indicates how many people were infected in the last 7 days. The data points are calculated daily (sum of the last 7 days).",
+    "LOAD_INCIDENCE_ERROR": "Could not load incidence data",
+    "NO_INCIDENCES_FOUND": "No incidence data found."
   }
 }

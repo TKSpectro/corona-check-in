@@ -1,17 +1,14 @@
 import { MediaMatcher } from '@angular/cdk/layout';
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy } from '@angular/core';
 import { curveBumpX } from 'd3-shape';
-import { Subscription } from 'rxjs';
-import { IncidenceService } from './incidence.service';
 
 @Component({
   selector: 'ccn-incidence',
   templateUrl: './incidence.component.html',
   styleUrls: ['./incidence.component.scss'],
 })
-export class IncidenceComponent implements OnInit, OnDestroy {
-  incidenceChartData!: any;
-  subscription!: Subscription;
+export class IncidenceComponent implements OnDestroy {
+  @Input() incidenceChartData!: any;
 
   // chart options
   xAxis = true;
@@ -26,8 +23,7 @@ export class IncidenceComponent implements OnInit, OnDestroy {
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
-    media: MediaMatcher,
-    private incidenceService: IncidenceService
+    media: MediaMatcher
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 700px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -37,17 +33,7 @@ export class IncidenceComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnInit(): void {
-    this.incidenceService.getIncidenceData();
-    this.subscription = this.incidenceService.submitChartData.subscribe(
-      (data) => {
-        this.incidenceChartData = data;
-      }
-    );
-  }
-
   ngOnDestroy() {
-    this.subscription.unsubscribe();
     this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
   }
 
