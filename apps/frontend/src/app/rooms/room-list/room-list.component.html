@@ -50,13 +50,15 @@
     </button>
   </div>
 </div>
+
 <table mat-table [dataSource]="roomList" class="mat-elevation-z8">
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
     <mat-cell *matCellDef="let room">{{ room.name }}</mat-cell>
   </ng-container>
 
-  <ng-container matColumnDef="updated">
+  <ng-container matColumnDef="updated"
+      *ngIf='isDesktop'>
     <mat-header-cell *matHeaderCellDef>{{
       'ROOMS.UPDATE_ROOM' | translate
     }}</mat-header-cell>

@@ -27,7 +27,6 @@ export class RoomListComponent implements OnInit, OnDestroy {
   facultyList = FacultyList;
   displayedColumns: string[] = [
     'name',
-    'updated',
     'maxParticipants',
     'maxDuration',
     'faculty',
@@ -50,22 +49,32 @@ export class RoomListComponent implements OnInit, OnDestroy {
     private roomSrv: RoomsService,
     public adminSrv: AdminService,
     media: MediaMatcher,
-    changeDetectorRef: ChangeDetectorRef,
+    private changeDetectorRef: ChangeDetectorRef,
     public dialog: MatDialog
   ) {
-    this.mobileQuery = media.matchMedia('(max-width: 1150px)');
-    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-    this.mobileQuery.addEventListener(
-      'change',
-      (event) => (this.isDesktop = !event.matches)
-    );
-
     if (this.adminSrv.isAdmin) {
       this.displayedColumns.push('actions');
     }
+
+    this.mobileQuery = media.matchMedia('(max-width: 1150px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addEventListener('change', (event) => {
+      this.isDesktop = !event.matches;
+
+      if (this.isDesktop) {
+        this.displayedColumns.splice(1, 0, 'updated');
+      } else {
+        const index = this.displayedColumns.indexOf('updated');
+        this.displayedColumns.splice(index, 1);
+      }
+      this._mobileQueryListener = () => this.changeDetectorRef.detectChanges();
+    });
   }
 
   ngOnInit(): void {
+    if (!this.mobileQuery.matches) {
+      this.displayedColumns.splice(1, 0, 'updated');
+    }
     this.roomSrv.roomSubject.subscribe({
       next: (data) => {
         if (data) {
