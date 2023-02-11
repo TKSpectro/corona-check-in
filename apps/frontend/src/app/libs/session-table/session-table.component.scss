@@ -16,3 +16,20 @@ table {
 .icon-red {
   color: mat.get-color-from-palette(mat.$pink-palette, 500);
 }
+
+.full-width-table {
+  width: 100%;
+}
+.mat-column-infected{
+  max-width: 15% !important;
+}
+.mat-column-startTime {
+  max-width: 30% !important;
+}
+.mat-column-endTime {
+  max-width: 30% !important;
+}
+.mat-column-actions {
+  max-width: 25% !important;
+}
+
