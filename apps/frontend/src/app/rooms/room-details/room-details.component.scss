@@ -23,7 +23,6 @@
         flex: 50%;
         padding: 1em 8px;
       }
-
     }
   }
 
@@ -37,7 +36,6 @@
     .qr-code-btn {
       width: 220px;
     }
-
 
     .mat-icon {
       font-size: 30px;
@@ -97,4 +95,19 @@
   display: flex;
   justify-content: center;
   margin-top: 1em;
+}
+
+.incidence-chart-heading {
+  margin-top: 2rem;
+
+  mat-icon {
+    vertical-align: middle;
+    cursor: pointer;
+  }
+}
+
+.incidence-graph {
+  display: grid;
+  margin-top: 1em;
+  height: 300px;
 }

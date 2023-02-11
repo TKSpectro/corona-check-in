@@ -107,8 +107,6 @@
   },
   "DASHBOARDS": {
     "LAST_SESSIONS": "Letzte Sessions",
-    "7_DAY_INCIDENCES": "7-Tage-Inzidenzen Durchschnitt",
-    "7_DAY_INCIDENCES_TOOLTIP": "Der 7-Tage-Inzidenz-Durchschnitt gibt an, wie viele Personen in den letzten 7 Tagen infiziert wurden. Die Datenpunkte werden tageweise (für die letzten 7 Tage aufsummiert) hochgerechnet.",
     "SESSIONS_ERROR": "Sessions konnten nicht geladen werden",
     "ME_ERROR": "Nutzer konnte nicht geladen werden",
     "MARK_INFECTED_SUCCESS": "Letzte Sessions erfolgreich als infiziert markiert",
@@ -130,5 +128,11 @@
     "EMAIL_NOT_VALID": "E-Mail-Adresse ist nicht gültig",
     "PASSWORDS_NOT_MATCHING": "Neues Passwort stimmt nicht überein",
     "OLD_PASSWORD_WRONG": "Altes Passwort ist falsch"
+  },
+  "INCIDENCE_CHART": {
+    "7_DAY_INCIDENCES": "7-Tage-Inzidenzen Durchschnitt",
+    "7_DAY_INCIDENCES_TOOLTIP": "Der 7-Tage-Inzidenz-Durchschnitt gibt an, wie viele Personen in den letzten 7 Tagen infiziert wurden. Die Datenpunkte werden tageweise (für die letzten 7 Tage aufsummiert) hochgerechnet.",
+    "LOAD_INCIDENCE_ERROR": "Inzidenzen konnten nicht geladen werden",
+    "NO_INCIDENCES_FOUND": "Keine Inzidenzen gefunden"
   }
 }
