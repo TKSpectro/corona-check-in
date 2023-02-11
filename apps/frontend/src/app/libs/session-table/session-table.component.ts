@@ -51,6 +51,7 @@ export class SessionTableComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.forEach((sub) => sub.unsubscribe());
+    this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
   }
 
   markAsInfected(session: Session) {
