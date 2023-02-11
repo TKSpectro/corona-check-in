@@ -18,15 +18,14 @@
   style="margin-top: 1em; width: 100%"
 ></ccn-session-table>
 
-<h2 style="margin-top: 2rem">
+<h2 class="incidence-chart-heading">
   {{ 'INCIDENCE_CHART.7_DAY_INCIDENCES' | translate }}
   <mat-icon
     matTooltip="{{ 'INCIDENCE_CHART.7_DAY_INCIDENCES_TOOLTIP' | translate }}"
-    style="vertical-align: middle; cursor: pointer"
     >help_outline
   </mat-icon>
 </h2>
 <ccn-incidence
-  style="display: grid; margin-top: 1em; height: 300px"
   [incidenceChartData]="incidenceChartData"
+  class="incidence-chart"
 ></ccn-incidence>
