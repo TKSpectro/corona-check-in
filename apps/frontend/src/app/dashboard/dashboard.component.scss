@@ -1,0 +1,14 @@
+.incidence-chart-heading {
+  margin-top: 2rem;
+
+  mat-icon {
+    vertical-align: middle;
+    cursor: pointer;
+  }
+}
+
+.incidence-chart {
+  display: grid;
+  margin-top: 1em;
+  height: 300px;
+}

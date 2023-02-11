@@ -3,7 +3,12 @@
   <div class="filter-inputs">
     <mat-form-field appearance="standard" class="filter-space">
       <mat-label>{{ 'ROOMS.NAME' | translate }}</mat-label>
-      <input matInput (keyup)="setFilterName($event)" #input />
+      <input
+        matInput
+        [value]="filterName"
+        (keyup)="setFilterName($event)"
+        #input
+      />
     </mat-form-field>
 
     <mat-form-field appearance="standard" class="filter-space">
@@ -24,19 +29,24 @@
         }}</mat-option>
       </mat-select>
     </mat-form-field>
+
+    <button
+      mat-stroked-button
+      color="warn"
+      (click)="resetFilter()"
+      class="filter-space"
+    >
+      <mat-icon>replay</mat-icon>
+    </button>
   </div>
 
-  <div>
+  <div class="filter-actions">
     <button
       mat-raised-button
       *ngIf="adminSrv.getIsAdmin()"
       (click)="openFormDialog($event)"
     >
       <mat-icon>add</mat-icon>
-    </button>
-
-    <button mat-raised-button (click)="resetFilter()">
-      <mat-icon>replay</mat-icon>
     </button>
   </div>
 </div>

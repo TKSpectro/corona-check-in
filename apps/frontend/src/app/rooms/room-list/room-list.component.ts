@@ -39,7 +39,7 @@ export class RoomListComponent implements OnInit, OnDestroy {
   total!: number;
   limit!: number;
   page!: number;
-  filterName?: string;
+  filterName = '';
   filterFaculty = new FormControl('');
 
   formDialogRef?: MatDialogRef<RoomFormComponent>;

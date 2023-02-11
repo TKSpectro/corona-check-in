@@ -14,10 +14,14 @@ table {
 .filter-row {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 1em;
 
   .filter-inputs {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
+  }
+
+  .filter-actions {
+    display: flex;
+    align-items: center;
   }
 }
