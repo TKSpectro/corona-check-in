@@ -1,41 +1,49 @@
+<h2 class="mat-h2">{{ 'USERS.USERS' | translate }}</h2>
+<div class="filter-row">
+  <div class="filter-inputs">
+    <mat-form-field appearance="standard" class="filter-space">
+      <mat-label>{{ 'SEARCH' | translate }}</mat-label>
+      <input matInput name="search" [formControl]="search" />
+    </mat-form-field>
+
+    <button
+      mat-stroked-button
+      color="warn"
+      (click)="resetFilter()"
+      class="filter-space"
+    >
+      <mat-icon>replay</mat-icon>
+    </button>
+  </div>
+</div>
+
 <table mat-table [dataSource]="userList" class="mat-elevation-z8">
-  <ng-container matColumnDef="name">
-    <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-    <mat-cell *matCellDef="let user">{{ user.name }}</mat-cell>
+  <ng-container matColumnDef="email">
+    <mat-header-cell *matHeaderCellDef>{{
+      'USERS.EMAIL' | translate
+    }}</mat-header-cell>
+    <mat-cell *matCellDef="let user">{{ user.email }}</mat-cell>
   </ng-container>
 
-  <ng-container matColumnDef="updated">
+  <ng-container matColumnDef="firstname">
     <mat-header-cell *matHeaderCellDef>{{
-      'USERS.LAST_UPDATED' | translate
+      'USERS.FIRSTNAME' | translate
     }}</mat-header-cell>
-    <mat-cell *matCellDef="let user">{{
-      user.updatedAt | customDate
-    }}</mat-cell>
+    <mat-cell *matCellDef="let user">{{ user.firstname }}</mat-cell>
   </ng-container>
 
-  <ng-container matColumnDef="maxParticipants">
+  <ng-container matColumnDef="lastname">
     <mat-header-cell *matHeaderCellDef>{{
-      'USERS.MAX_PARTICIPANTS' | translate
+      'USERS.LASTNAME' | translate
     }}</mat-header-cell>
-    <mat-cell *matCellDef="let user">{{ user.maxParticipants }}</mat-cell>
+    <mat-cell *matCellDef="let user">{{ user.lastname }}</mat-cell>
   </ng-container>
 
-  <ng-container matColumnDef="maxDuration">
+  <ng-container matColumnDef="role">
     <mat-header-cell *matHeaderCellDef>{{
-      'USERS.MAX_DURATION' | translate
+      'USERS.ROLE' | translate
     }}</mat-header-cell>
-    <mat-cell *matCellDef="let user">{{ user.maxDuration }} min.</mat-cell>
-  </ng-container>
-
-  <ng-container matColumnDef="faculty">
-    <mat-header-cell *matHeaderCellDef>{{
-      'USERS.FACULTY' | translate
-    }}</mat-header-cell>
-    <mat-cell *matCellDef="let user">{{
-      isDesktop
-        ? ((user.faculty ? 'FACULTY.' : '') + user.faculty || '' | translate)
-        : user.faculty
-    }}</mat-cell>
+    <mat-cell *matCellDef="let user">{{ user.role }}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="actions">
@@ -43,20 +51,17 @@
       'ACTIONS' | translate
     }}</mat-header-cell>
     <mat-cell *matCellDef="let user">
-      <!-- <button mat-icon-button (click)="openFormDialog($event, user.id)">
+      <button mat-icon-button (click)="openUpdateDialog($event, user)">
         <mat-icon>edit</mat-icon>
       </button>
       <button mat-icon-button (click)="openDeleteDialog($event, user.id)">
         <mat-icon>delete</mat-icon>
-      </button> -->
+      </button>
     </mat-cell>
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <!-- <mat-row
-    *matRowDef="let row; columns: displayedColumns"
-    [routerLink]="row.id"
-  ></mat-row> -->
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
 </table>
 
 <mat-paginator

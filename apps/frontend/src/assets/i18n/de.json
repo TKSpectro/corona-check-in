@@ -134,5 +134,20 @@
     "7_DAY_INCIDENCES_TOOLTIP": "Der 7-Tage-Inzidenz-Durchschnitt gibt an, wie viele Personen in den letzten 7 Tagen infiziert wurden. Die Datenpunkte werden tageweise (für die letzten 7 Tage aufsummiert) hochgerechnet.",
     "LOAD_INCIDENCE_ERROR": "Inzidenzen konnten nicht geladen werden",
     "NO_INCIDENCES_FOUND": "Keine Inzidenzen gefunden"
+  },
+  "USERS": {
+    "USER": "Nutzer",
+    "USERS": "Nutzer",
+    "EMAIL": "E-Mail",
+    "FIRSTNAME": "Vorname",
+    "LASTNAME": "Nachname",
+    "ROLE": "Rolle",
+    "UPDATE_USER": "Nutzer bearbeiten",
+    "UPDATE_USER_SUCCESS": "Nutzer erfolgreich aktualisiert",
+    "UPDATE_USER_ERROR": "Nutzer konnte nicht aktualisiert werden",
+    "DELETE_USER": "Nutzer löschen",
+    "DELETE_USER_WARNING": "Sind Sie sicher, dass Sie diesen Nutzer löschen wollen? Dieser Vorgang kann nicht rückgängig gemacht werden.",
+    "DELETE_USER_SUCCESS": "Nutzer erfolgreich gelöscht",
+    "DELETE_USER_ERROR": "Nutzer konnte nicht gelöscht werden"
   }
 }

@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { User, UserSignup } from '../auth/user';
+import { User, UserLogin, UserSignup } from '../auth/user';
 import {
   IncidenceResult,
   PaginationResponse,
@@ -69,7 +69,7 @@ export class ServerService {
   }
 
   // cross domain problem
-  login(user: User): Observable<{ token: string }> {
+  login(user: UserLogin): Observable<{ token: string }> {
     return this.httpClient.post<{ token: string }>(
       environment.backendUrl + '/auth/login',
       user

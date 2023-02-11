@@ -137,6 +137,17 @@
   },
   "USERS": {
     "USER": "User",
-    "USERS": "Users"
+    "USERS": "Users",
+    "EMAIL": "Email",
+    "FIRSTNAME": "First Name",
+    "LASTNAME": "Last Name",
+    "ROLE": "Role",
+    "UPDATE_USER": "Update user",
+    "UPDATE_USER_SUCCESS": "User successfully updated",
+    "UPDATE_USER_ERROR": "User could not be updated",
+    "DELETE_USER": "Delete user",
+    "DELETE_USER_WARNING": "Are you sure you want to delete this user? This action cannot be undone.",
+    "DELETE_USER_SUCCESS": "Deleted user successfully",
+    "DELETE_USER_ERROR": "Could not delete user"
   }
 }

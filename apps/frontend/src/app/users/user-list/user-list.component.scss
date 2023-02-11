@@ -1,0 +1,29 @@
+table {
+  width: 100%;
+}
+
+.filter-space {
+  margin-right: 20px;
+}
+
+.mat-row:hover .mat-cell {
+  background-color: #5c5b5b;
+  // cursor: pointer;
+}
+
+.filter-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1em;
+
+  .filter-inputs {
+    display: flex;
+    align-items: flex-end;
+    align-items: center;
+  }
+
+  .filter-actions {
+    display: flex;
+    align-items: center;
+  }
+}
