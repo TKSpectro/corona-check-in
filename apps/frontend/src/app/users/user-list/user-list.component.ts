@@ -52,14 +52,18 @@ export class UserListComponent implements OnInit, OnDestroy {
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 1150px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-    this.mobileQuery.addEventListener(
-      'change',
-      (event) => (this.isDesktop = !event.matches)
-    );
+    this.mobileQuery.addEventListener('change', (event) => {
+      this.isDesktop = !event.matches;
+      this.setDisplayedColumns();
+      return this.isDesktop;
+    });
   }
 
   ngOnInit(): void {
     this.loadUsers();
+
+    this.isDesktop = !this.mobileQuery.matches;
+    this.setDisplayedColumns();
 
     this.subscriptions.push(
       this.search.valueChanges.subscribe(() => {
@@ -73,6 +77,20 @@ export class UserListComponent implements OnInit, OnDestroy {
         }, 400);
       })
     );
+  }
+
+  setDisplayedColumns() {
+    if (this.isDesktop) {
+      this.displayedColumns = [
+        'email',
+        'firstname',
+        'lastname',
+        'role',
+        'actions',
+      ];
+    } else {
+      this.displayedColumns = ['email', 'actions'];
+    }
   }
 
   loadUsers() {
@@ -116,6 +134,7 @@ export class UserListComponent implements OnInit, OnDestroy {
       // Spread the user object to get rid of the reference
       data: { user: { ...user } },
       panelClass: 'custom-dialog',
+      width: '440px',
     });
 
     this.subscriptions.push(

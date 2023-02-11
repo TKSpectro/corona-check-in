@@ -50,7 +50,10 @@
     <mat-header-cell class="center" *matHeaderCellDef>{{
       'ACTIONS' | translate
     }}</mat-header-cell>
-    <mat-cell *matCellDef="let user">
+    <mat-cell
+      *matCellDef="let user"
+      [ngClass]="{ center: isDesktop, end: !isDesktop }"
+    >
       <button mat-icon-button (click)="openUpdateDialog($event, user)">
         <mat-icon>edit</mat-icon>
       </button>
