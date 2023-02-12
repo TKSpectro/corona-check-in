@@ -24,7 +24,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ProfileModule } from './profile';
 import { RoomsModule } from './rooms/rooms.module';
 import { SessionsModule } from './sessions/sessions.module';
-import { ProfilesModule } from './users/users.module';
+import { UsersModule } from './users/users.module';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -50,7 +50,7 @@ export function tokenGetter() {
     SessionsModule,
     LibModule,
     ProfileModule,
-    ProfilesModule,
+    UsersModule,
     AuthModule,
     AngularMaterialModule,
     AppRoutingModule,

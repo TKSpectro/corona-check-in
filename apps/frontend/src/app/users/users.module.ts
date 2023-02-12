@@ -19,4 +19,4 @@ import { UsersComponent } from './users.component';
     LibModule,
   ],
 })
-export class ProfilesModule {}
+export class UsersModule {}
