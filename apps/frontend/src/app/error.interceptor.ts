@@ -34,6 +34,7 @@ export class ErrorInterceptor implements HttpInterceptor {
           this.authService.logout();
           this.router.navigate(['/auth']);
         }
+
         return next.handle(request);
       })
     );
