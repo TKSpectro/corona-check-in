@@ -1,13 +1,13 @@
-<h2 class='mat-h2' [ngClass]="{ 'no-margin-bottom': !isDesktop }">
-  {{ 'ROOMS.ROOMS' | translate }}
-</h2>
-<div class='filter-row' [ngClass]='{ mobile: !isDesktop }'>
-  <div class='filter-inputs' [ngClass]='{ mobile: !isDesktop }'>
-    <mat-form-field
-      appearance='standard'
-      class='filter-space'
-      [ngClass]='{ mobile: !isDesktop }'
-    >
+<h2 class='mat-h2'
+    [ngClass]="{ 'no-margin-bottom': !isDesktop }">
+  {{ 'ROOMS.ROOMS' | translate }}</h2>
+<div class='filter-row'
+     [ngClass]="{ 'mobile': !isDesktop }">
+  <div class='filter-inputs'
+       [ngClass]="{ 'mobile': !isDesktop }">
+    <mat-form-field appearance='standard'
+                    class='filter-space'
+                    [ngClass]="{ 'mobile': !isDesktop }">
       <mat-label>{{ 'ROOMS.NAME' | translate }}</mat-label>
       <input
         matInput
@@ -17,11 +17,9 @@
       />
     </mat-form-field>
 
-    <mat-form-field
-      appearance='standard'
-      class='filter-space'
-      [ngClass]='{ mobile: !isDesktop }'
-    >
+    <mat-form-field appearance='standard'
+                    class='filter-space'
+                    [ngClass]="{ 'mobile': !isDesktop }">
       <mat-label>{{ 'ROOMS.FACULTY' | translate }}</mat-label>
       <mat-select [formControl]='filterFaculty' (selectionChange)='loadRooms()'>
         <mat-select-trigger>
@@ -57,23 +55,24 @@
       <mat-icon>add</mat-icon>
     </button>
   </div>
+
+
 </div>
 
 <table mat-table [dataSource]='roomList' class='mat-elevation-z8'>
-  <ng-container matColumnDef='name'>
+  <ng-container
+    matColumnDef='name'>
     <mat-header-cell
       [ngClass]="{ 'padding-left-12': !isDesktop }"
-      *matHeaderCellDef
-    >Name
+      *matHeaderCellDef>Name
     </mat-header-cell>
     <mat-cell
       [ngClass]="{ 'padding-left-12': !isDesktop }"
-      *matCellDef='let room'
-    >{{ room.name }}</mat-cell
-    >
+      *matCellDef='let room'>{{ room.name }}</mat-cell>
   </ng-container>
 
-  <ng-container matColumnDef='updated' *ngIf='isDesktop'>
+  <ng-container matColumnDef='updated'
+                *ngIf='isDesktop'>
     <mat-header-cell *matHeaderCellDef>{{
       'ROOMS.UPDATE_ROOM' | translate
       }}</mat-header-cell>
@@ -85,42 +84,51 @@
   <ng-container matColumnDef='maxParticipants'>
     <mat-header-cell
       [ngClass]="{ 'center-text': !isDesktop }"
-      *matHeaderCellDef
-    >{{ 'ROOMS.MAX_PARTICIPANTS' | translate }}</mat-header-cell
-    >
-    <mat-cell [ngClass]='{ center: !isDesktop }' *matCellDef='let room'>{{
-      room.maxParticipants
-      }}</mat-cell>
+      *matHeaderCellDef>{{
+      'ROOMS.MAX_PARTICIPANTS' | translate
+      }}</mat-header-cell>
+    <mat-cell
+      [ngClass]="{ 'center-text': !isDesktop }"
+      *matCellDef='let room'>{{ room.maxParticipants }}</mat-cell>
   </ng-container>
 
   <ng-container matColumnDef='maxDuration'>
-    <mat-header-cell [ngClass]='{ center: !isDesktop }' *matHeaderCellDef>{{
+    <mat-header-cell
+      [ngClass]="{ 'center': !isDesktop }"
+      *matHeaderCellDef>{{
       'ROOMS.MAX_DURATION' | translate
       }}</mat-header-cell>
-    <mat-cell [ngClass]='{ center: !isDesktop }' *matCellDef='let room'
-    >{{ room.maxDuration }} min.
+    <mat-cell
+      [ngClass]="{ 'center': !isDesktop }"
+      *matCellDef='let room'>{{ room.maxDuration }} min.
     </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef='faculty'>
-    <mat-header-cell [ngClass]='{ center: !isDesktop }' *matHeaderCellDef>{{
+    <mat-header-cell
+      [ngClass]="{ 'center': !isDesktop }"
+      *matHeaderCellDef>{{
       'ROOMS.FACULTY' | translate
       }}</mat-header-cell>
-    <mat-cell [ngClass]='{ center: !isDesktop }' *matCellDef='let room'>{{
+    <mat-cell
+      [ngClass]="{ 'center': !isDesktop }"
+      *matCellDef='let room'>{{
       isDesktop
         ? ((room.faculty ? 'FACULTY.' : '') + room.faculty || '' | translate)
         : room.faculty
       }}</mat-cell>
   </ng-container>
 
-  <ng-container matColumnDef='actions'>
+  <ng-container
+    matColumnDef='actions'>
     <mat-header-cell
       [ngClass]="{ 'padding-right-12': !isDesktop }"
-      class='flex-end'
-      *matHeaderCellDef
-    >{{ 'ACTIONS' | translate }}</mat-header-cell
+      class='flex-end' *matHeaderCellDef>{{
+      'ACTIONS' | translate
+      }}</mat-header-cell>
+    <mat-cell
+      *matCellDef='let room'
     >
-    <mat-cell *matCellDef='let room'>
       <button
         *ngIf='adminSrv.isAdmin'
         mat-icon-button
