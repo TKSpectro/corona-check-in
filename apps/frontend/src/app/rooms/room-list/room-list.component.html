@@ -88,7 +88,7 @@
       'ROOMS.MAX_PARTICIPANTS' | translate
       }}</mat-header-cell>
     <mat-cell
-      [ngClass]="{ 'center': !isDesktop }"
+      [ngClass]="{ 'center-text': !isDesktop }"
       *matCellDef='let room'>{{ room.maxParticipants }}</mat-cell>
   </ng-container>
 
