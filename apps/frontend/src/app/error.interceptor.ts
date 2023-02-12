@@ -24,18 +24,16 @@ export class ErrorInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
       catchError((err) => {
+        const error = err.error.message || err.statusText;
+
         if (err.status === 401) {
           // auto logout if 401 response returned from api
+          this.snackBar.open(error, undefined, {
+            panelClass: 'snackbar-error',
+          });
           this.authService.logout();
           this.router.navigate(['/auth']);
         }
-        const error = err.error.message || err.statusText;
-        this.snackBar.open(error, undefined, {
-          panelClass: 'snackbar-error',
-        });
-
-        // TODO: we should decide if we want to throw the error or not
-        // return throwError(error);
         return next.handle(request);
       })
     );
