@@ -18,6 +18,7 @@ import { AppComponent } from './app.component';
 import { AuthModule } from './auth';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { DashboardModule } from './dashboard';
+import { ErrorInterceptor } from './error.interceptor';
 import { SidenavComponent } from './libs';
 import { LibModule } from './libs/lib.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -71,6 +72,7 @@ export function tokenGetter() {
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

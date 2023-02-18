@@ -34,7 +34,7 @@ export class SidenavComponent implements OnDestroy, OnInit {
     private profileService: ProfileService,
     private snackBar: MatSnackBar
   ) {
-    this.mobileQuery = media.matchMedia('(max-width: 700px)');
+    this.mobileQuery = media.matchMedia('(max-width: 900px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addEventListener(
       'change',

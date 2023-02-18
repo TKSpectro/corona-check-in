@@ -33,7 +33,7 @@ export class AppComponent implements OnDestroy, OnInit {
     private adminService: AdminService,
     private t: TranslateService
   ) {
-    this.mobileQuery = media.matchMedia('(max-width: 700px)');
+    this.mobileQuery = media.matchMedia('(max-width: 900px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addEventListener('change', this._mobileQueryListener);
 

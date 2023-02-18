@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
@@ -12,6 +13,7 @@ import { AdminService } from '../../auth/admin/admin.service';
 import { SessionDetailsComponent } from '../../sessions/session-details/session-details.component';
 import { Session } from '../../shared/types';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import { MediaMatcher } from '@angular/cdk/layout';
 
 @Component({
   selector: 'ccn-session-table',
@@ -22,13 +24,25 @@ export class SessionTableComponent implements OnInit, OnDestroy {
   @Input() sessionList: Session[] = [];
   @Input() extraColumns: string[] = [];
   @Output() markAsInfectedEvent = new EventEmitter<Session>();
-
+  isDesktop!: boolean;
+  mobileQuery: MediaQueryList;
+  _mobileQueryListener: () => void;
   subscriptions: Subscription[] = [];
   displayedColumns = ['startTime', 'endTime', 'infected'];
   adminService: AdminService;
 
-  constructor(adminService: AdminService, public dialog: MatDialog) {
+  constructor(
+    adminService: AdminService,
+    public dialog: MatDialog,
+    media: MediaMatcher,
+    private changeDetectorRef: ChangeDetectorRef
+  ) {
     this.adminService = adminService;
+    this.mobileQuery = media.matchMedia('(max-width: 1150px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addEventListener('change', (event) => {
+      this.isDesktop = !event.matches;
+    });
   }
 
   ngOnInit() {
@@ -37,6 +51,7 @@ export class SessionTableComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.forEach((sub) => sub.unsubscribe());
+    this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
   }
 
   markAsInfected(session: Session) {

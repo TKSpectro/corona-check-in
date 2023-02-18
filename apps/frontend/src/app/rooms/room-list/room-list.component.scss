@@ -2,8 +2,27 @@ table {
   width: 100%;
 }
 
+.no-margin-bottom{
+  margin-bottom: 0;
+}
+
+.center {
+  justify-content: center;
+}
+
+.center-text {
+  justify-content: center;
+  text-align: center;
+}
+
+
 .filter-space {
   margin-right: 20px;
+
+  &.mobile {
+    margin: 0 !important;
+    width: 100%;
+  }
 }
 
 .mat-row:hover .mat-cell {
@@ -21,7 +40,15 @@ table {
   }
 
   .filter-actions {
+    width: 100%;
     display: flex;
     align-items: center;
+    justify-content: space-between;
   }
 }
+
+.mobile {
+  display: block !important;
+  margin-bottom: 8px;
+}
+
