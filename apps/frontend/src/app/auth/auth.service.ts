@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { ServerService } from '../shared/server.service';
 import { AdminService } from './admin/admin.service';
-import { User, UserSignup } from './user';
+import { UserLogin, UserSignup } from './user';
 
 @Injectable({
   providedIn: 'root',
@@ -37,7 +37,7 @@ export class AuthService implements OnDestroy {
     return this.token;
   }
 
-  login(user: User) {
+  login(user: UserLogin) {
     this.subscriptions.push(
       this.serverSrv.login(user).subscribe({
         next: (result) => {

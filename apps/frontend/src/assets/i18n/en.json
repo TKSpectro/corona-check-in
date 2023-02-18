@@ -134,5 +134,20 @@
     "7_DAY_INCIDENCES_TOOLTIP": "The 7-day incidence average indicates how many people were infected in the last 7 days. The data points are calculated daily (sum of the last 7 days).",
     "LOAD_INCIDENCE_ERROR": "Could not load incidence data",
     "NO_INCIDENCES_FOUND": "No incidence data found."
+  },
+  "USERS": {
+    "USER": "User",
+    "USERS": "Users",
+    "EMAIL": "Email",
+    "FIRSTNAME": "First Name",
+    "LASTNAME": "Last Name",
+    "ROLE": "Role",
+    "UPDATE_USER": "Update user",
+    "UPDATE_USER_SUCCESS": "User successfully updated",
+    "UPDATE_USER_ERROR": "User could not be updated",
+    "DELETE_USER": "Delete user",
+    "DELETE_USER_WARNING": "Are you sure you want to delete this user? This action cannot be undone.",
+    "DELETE_USER_SUCCESS": "Deleted user successfully",
+    "DELETE_USER_ERROR": "Could not delete user"
   }
 }

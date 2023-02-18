@@ -1,0 +1,71 @@
+<div class="user-form-wrapper">
+  <form #f="ngForm">
+    <div class="session-card">
+      <h2 mat-dialog-title class="mat-h2">
+        {{ 'USERS.UPDATE_USER' | translate }}
+      </h2>
+      <mat-dialog-content class="dialog-content">
+        <mat-form-field>
+          <mat-label>{{ 'USERS.EMAIL' | translate }}</mat-label>
+          <input
+            matInput
+            type="text"
+            name="email"
+            [(ngModel)]="user.email"
+            required
+          />
+          <mat-error
+            *ngIf="f.form.get('email')?.touched && !f.form.get('email')?.valid"
+          >
+            {{ 'ERRORS.REQUIRED' | translate }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>{{ 'USERS.FIRSTNAME' | translate }}</mat-label>
+          <input
+            matInput
+            type="text"
+            name="firstname"
+            [(ngModel)]="user.firstname"
+            required
+          />
+          <mat-error
+            *ngIf="
+              f.form.get('firstname')?.touched &&
+              !f.form.get('firstname')?.valid
+            "
+          >
+            {{ 'ERRORS.REQUIRED' | translate }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>{{ 'USERS.LASTNAME' | translate }}</mat-label>
+          <input
+            matInput
+            type="text"
+            name="lastname"
+            [(ngModel)]="user.lastname"
+            required
+          />
+          <mat-error
+            *ngIf="
+              f.form.get('lastname')?.touched && !f.form.get('lastname')?.valid
+            "
+          >
+            {{ 'ERRORS.REQUIRED' | translate }}
+          </mat-error>
+        </mat-form-field>
+      </mat-dialog-content>
+      <mat-dialog-actions align="end">
+        <button mat-stroked-button mat-dialog-close class="button-space">
+          {{ 'CANCEL' | translate }}
+        </button>
+        <button mat-stroked-button [disabled]="!f.valid" (click)="saveUser()">
+          {{ 'SAVE' | translate }}
+        </button>
+      </mat-dialog-actions>
+    </div>
+  </form>
+</div>

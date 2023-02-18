@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { User, UserSignup } from '../auth/user';
+import { User, UserLogin, UserSignup } from '../auth/user';
 import {
   IncidenceResult,
   PaginationResponse,
@@ -69,7 +69,7 @@ export class ServerService {
   }
 
   // cross domain problem
-  login(user: User): Observable<{ token: string }> {
+  login(user: UserLogin): Observable<{ token: string }> {
     return this.httpClient.post<{ token: string }>(
       environment.backendUrl + '/auth/login',
       user
@@ -91,6 +91,18 @@ export class ServerService {
 
   me(): Observable<User> {
     return this.httpClient.get<User>(environment.backendUrl + '/me');
+  }
+
+  getUsers(page: number = 0, limit: number = 10, search: string = '') {
+    return this.httpClient.get<PaginationResponse<User>>(
+      `${environment.backendUrl}/users`,
+      {
+        params: new HttpParams()
+          .set('page', page)
+          .set('take', limit)
+          .set('search', search),
+      }
+    );
   }
 
   updateUser(id: string, user: UpdateUser): Observable<User> {

@@ -1,0 +1,79 @@
+<h2 class="mat-h2">{{ 'USERS.USERS' | translate }}</h2>
+<div class="filter-row">
+  <div class="filter-inputs">
+    <mat-form-field appearance="standard" class="filter-space">
+      <mat-label>{{ 'SEARCH' | translate }}</mat-label>
+      <input matInput name="search" [formControl]="search" />
+    </mat-form-field>
+
+    <button
+      mat-stroked-button
+      color="warn"
+      (click)="resetFilter()"
+      class="filter-space"
+    >
+      <mat-icon>replay</mat-icon>
+    </button>
+  </div>
+</div>
+
+<table mat-table [dataSource]="userList" class="mat-elevation-z8">
+  <ng-container matColumnDef="email">
+    <mat-header-cell *matHeaderCellDef>{{
+      'USERS.EMAIL' | translate
+    }}</mat-header-cell>
+    <mat-cell *matCellDef="let user">{{ user.email }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="firstname">
+    <mat-header-cell *matHeaderCellDef>{{
+      'USERS.FIRSTNAME' | translate
+    }}</mat-header-cell>
+    <mat-cell *matCellDef="let user">{{ user.firstname }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="lastname">
+    <mat-header-cell *matHeaderCellDef>{{
+      'USERS.LASTNAME' | translate
+    }}</mat-header-cell>
+    <mat-cell *matCellDef="let user">{{ user.lastname }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="role">
+    <mat-header-cell *matHeaderCellDef>{{
+      'USERS.ROLE' | translate
+    }}</mat-header-cell>
+    <mat-cell *matCellDef="let user">{{ user.role }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <mat-header-cell class="center" *matHeaderCellDef>{{
+      'ACTIONS' | translate
+    }}</mat-header-cell>
+    <mat-cell
+      *matCellDef="let user"
+      [ngClass]="{ center: isDesktop, end: !isDesktop }"
+    >
+      <button mat-icon-button (click)="openUpdateDialog($event, user)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button (click)="openDeleteDialog($event, user.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+</table>
+
+<mat-paginator
+  showFirstLastButtons
+  aria-label="Select page of periodic elements"
+  [hidePageSize]="true"
+  [length]="_meta?.itemCount"
+  [pageSize]="_meta?.take"
+  [pageIndex]="_meta?.page"
+  (page)="handlePageEvent($event)"
+>
+</mat-paginator>

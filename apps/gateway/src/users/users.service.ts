@@ -36,18 +36,24 @@ export class UsersService implements OnModuleInit {
   async find(pageOptionsDto: PageOptionsDto, query: findAllQueryDto) {
     const queryBuilder = this.userRepository.createQueryBuilder('user');
 
+    queryBuilder.andWhere('user.deleted IS false');
+
     if (query.role && Object.values(UserRole).includes(query.role)) {
       queryBuilder.andWhere('user.role = :role', { role: query.role });
     }
 
     if (query.search) {
+      query.search = query.search.trim().toLowerCase();
+
       queryBuilder.andWhere(
         new Brackets((qb) => {
-          qb.where('user.email LIKE :search', { search: `%${query.search}%` })
-            .orWhere('user.firstname LIKE :search', {
+          qb.where('LOWER(user.email) LIKE :search', {
+            search: `%${query.search}%`,
+          })
+            .orWhere('LOWER(user.firstname) LIKE :search', {
               search: `%${query.search}%`,
             })
-            .orWhere('user.lastname LIKE :search', {
+            .orWhere('LOWER(user.lastname) LIKE :search', {
               search: `%${query.search}%`,
             });
         })

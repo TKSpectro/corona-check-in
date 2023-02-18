@@ -47,12 +47,15 @@
           <mat-icon>home</mat-icon>
           <span>{{ 'ROOMS.ROOMS' | translate }}</span></a
         >
-        <a
-          mat-list-item
-          *ngIf="isLoggedIn"
-          routerLink="profile"
-          routerLinkActive="active-link"
-        >
+        <a mat-list-item
+          *ngIf="adminService.isAdmin"
+          routerLink="users"
+          routerLinkActive="active-link">
+          <mat-icon>person_search</mat-icon>
+          <span>{{ 'USERS.USERS' | translate }}</span></a>
+        <a mat-list-item
+           *ngIf="isLoggedIn"
+           routerLink="profile" routerLinkActive="active-link">
           <mat-icon>person</mat-icon>
           <span>{{ 'PROFILES.PROFILE' | translate }}</span></a
         >
@@ -76,15 +79,6 @@
           <mat-icon>home</mat-icon>
           <span>{{ 'LOGIN' | translate }}</span></a
         >
-        <!--        <a-->
-        <!--          mat-list-item-->
-        <!--          *ngIf="adminService.isAdmin"-->
-        <!--          routerLink="./admin"-->
-        <!--          routerLinkActive="active-link"-->
-        <!--        >-->
-        <!--          <mat-icon>person</mat-icon>-->
-        <!--          <span>{{ 'onlyAdmin' | translate }}</span></a-->
-        <!--        >-->
       </mat-nav-list>
 
       <h3
