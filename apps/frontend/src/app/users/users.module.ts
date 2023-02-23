@@ -7,6 +7,15 @@ import { LibModule } from '../libs/lib.module';
 import { UserFormComponent } from './user-form/user-form.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UsersComponent } from './users.component';
+import { RouterModule, Routes } from '@angular/router';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: UsersComponent,
+    title: 'Users',
+  },
+];
 
 @NgModule({
   declarations: [UsersComponent, UserListComponent, UserFormComponent],
@@ -17,6 +26,7 @@ import { UsersComponent } from './users.component';
     ReactiveFormsModule,
     AngularMaterialModule,
     LibModule,
+    RouterModule.forChild(routes),
   ],
 })
 export class UsersModule {}

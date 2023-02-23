@@ -5,12 +5,6 @@ import { AdminGuard, AuthComponent, AuthGuard } from './auth';
 import { DashboardComponent } from './dashboard';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ProfileComponent } from './profile';
-import { RoomListComponent } from './rooms';
-import { RoomDetailsComponent } from './rooms/room-details/room-details.component';
-import { RoomsComponent } from './rooms/rooms.component';
-import { SessionDetailsComponent } from './sessions/session-details/session-details.component';
-import { SessionListComponent } from './sessions/session-list/session-list.component';
-import { UsersComponent } from './users/users.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -29,30 +23,19 @@ const routes: Routes = [
   },
   {
     path: 'rooms',
-    component: RoomsComponent,
-    canActivate: [AuthGuard],
-    children: [
-      { path: '', component: RoomListComponent, title: 'Rooms' },
-      { path: ':id', component: RoomDetailsComponent, title: 'Room Details' },
-    ],
-  },
-  {
-    path: 'sessions/:id',
-    canActivate: [AuthGuard],
-    component: SessionDetailsComponent,
-    title: 'Session Details',
+    loadChildren: () =>
+      import('./rooms/rooms.module').then((m) => m.RoomsModule),
   },
   {
     path: 'sessions',
-    canActivate: [AuthGuard],
-    component: SessionListComponent,
-    title: 'Sessions',
+    loadChildren: () =>
+      import('./sessions/sessions.module').then((m) => m.SessionsModule),
   },
   {
     path: 'users',
     canActivate: [AuthGuard, AdminGuard],
-    component: UsersComponent,
-    title: 'Users',
+    loadChildren: () =>
+      import('./users/users.module').then((m) => m.UsersModule),
   },
   { path: '404', component: PageNotFoundComponent, title: 'Page Not Found' },
   { path: '**', redirectTo: '/404' },
