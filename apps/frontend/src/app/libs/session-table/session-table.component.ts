@@ -23,6 +23,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 export class SessionTableComponent implements OnInit, OnDestroy {
   @Input() sessionList: Session[] = [];
   @Input() extraColumns: string[] = [];
+  @Input() showDetails = true;
   @Output() markAsInfectedEvent = new EventEmitter<Session>();
   isDesktop!: boolean;
   mobileQuery: MediaQueryList;

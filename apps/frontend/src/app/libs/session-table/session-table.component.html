@@ -67,7 +67,7 @@
   </ng-container>
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row
-    (click)="openSessionDetailsDialog(row.id, $event)"
+    (click)="showDetails ? openSessionDetailsDialog(row.id, $event) : ''"
     *matRowDef="let row; columns: displayedColumns"
   ></mat-row>
 </table>
