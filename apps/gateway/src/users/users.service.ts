@@ -4,6 +4,7 @@ import {
   UserEntity,
   UserRole,
 } from '@corona-check-in/micro-service-shared';
+import { faker } from '@faker-js/faker';
 import {
   HttpException,
   HttpStatus,
@@ -147,8 +148,8 @@ export class UsersService implements OnModuleInit {
         // password: hashSync('password', 10),
         password:
           '$2b$10$.u8J.QB3BqWG7/9e4Q.hpOoEubTbsNqHPc.sQLY2bdrisDduk8wFS',
-        firstname: 'AdminFirst',
-        lastname: 'AdminLast',
+        firstname: 'Admin',
+        lastname: 'Admin',
         role: UserRole.ADMIN,
       });
     }
@@ -164,8 +165,8 @@ export class UsersService implements OnModuleInit {
         // password: hashSync('password', 10),
         password:
           '$2b$10$.u8J.QB3BqWG7/9e4Q.hpOoEubTbsNqHPc.sQLY2bdrisDduk8wFS',
-        firstname: 'UserFirst',
-        lastname: 'UserLast',
+        firstname: 'User',
+        lastname: 'User',
         role: UserRole.USER,
       });
     }
@@ -184,8 +185,8 @@ export class UsersService implements OnModuleInit {
         // password: hashSync('password', 10),
         password:
           '$2b$10$.u8J.QB3BqWG7/9e4Q.hpOoEubTbsNqHPc.sQLY2bdrisDduk8wFS',
-        firstname: 'UserFirst',
-        lastname: 'UserLast',
+        firstname: faker.name.firstName(),
+        lastname: faker.name.lastName(),
         role: UserRole.USER,
       });
     }
@@ -198,8 +199,8 @@ export class UsersService implements OnModuleInit {
           // password: hashSync('password', 10),
           password:
             '$2b$10$.u8J.QB3BqWG7/9e4Q.hpOoEubTbsNqHPc.sQLY2bdrisDduk8wFS',
-          firstname: 'UserFirst',
-          lastname: 'UserLast',
+          firstname: faker.name.firstName(),
+          lastname: faker.name.lastName(),
           role: UserRole.USER,
         });
       } catch (error) {

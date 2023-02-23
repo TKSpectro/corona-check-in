@@ -88,7 +88,7 @@ npm run start:backend
 - [@swimlane/ngx-charts](https://swimlane.gitbook.io/ngx-charts/)
 - [@zxing (QR Code Scanner)](https://github.com/zxing/zxing)
 
-Responsive Design is done for 3 different screen sizes:
+Responsive Design is explicitly done for 3 different screen sizes:
 
 - Mobile 414x896
 - Tablet 820x1180 | 1180x820

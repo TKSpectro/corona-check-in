@@ -322,7 +322,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"roomId\": \"00000000-0000-0000-0000-000000000000\",\n    \"createdQrCode\": \"2023-01-29T18:03:58.809Z\"\n}",
+							"raw": "{\n    \"roomId\": \"00000000-0000-0000-0000-000000000001\",\n    \"createdQrCode\": \"2023-01-14T15:09:28.621Z\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -443,7 +443,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "00000000-0000-0000-0002-000000000000"
+									"value": "00000000-0000-0000-0000-000000000000"
 								}
 							]
 						}
@@ -483,7 +483,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{   \n    \"id\": \"00000000-0000-0000-0002-000000000001\",\n    \"name\": \"update-room\",\n    \"maxParticipants\": 10,\n    \"maxDuration\": 60\n}",
+							"raw": "{   \n    \"id\": \"00000000-0000-0000-0000-000000000001\",\n    \"name\": \"update-room\",\n    \"maxParticipants\": 10,\n    \"maxDuration\": 60\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -519,7 +519,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "00000000-0000-0000-0002-000000000024"
+									"value": "00000000-0000-0000-0000-000000000024"
 								}
 							]
 						}
@@ -533,7 +533,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"room-111\",\n    \"maxParticipants\": 10,\n    \"maxDuration\": 60,\n    \"id\": \"00000000-0000-0000-0002-000000000001\",\n    \"createdQrCode\": \"2023-01-14T15:09:28.621Z\"\n}",
+							"raw": "{\n    \"name\": \"room-111\",\n    \"maxParticipants\": 10,\n    \"maxDuration\": 60,\n    \"id\": \"00000000-0000-0000-0000-000000000001\",\n    \"createdQrCode\": \"2023-01-14T15:09:28.621Z\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -560,21 +560,9 @@
 			"item": [
 				{
 					"name": "7 day average",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\":\"test\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "{{url}}/incidences/7-day-average",
 							"host": [
@@ -590,35 +578,23 @@
 				},
 				{
 					"name": "7day average for room",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\":\"test\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
-							"raw": "{{url}}/incidences/7-day-average-for-room/:roomId",
+							"raw": "{{url}}/incidences/7-day-average/:roomId",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"incidences",
-								"7-day-average-for-room",
+								"7-day-average",
 								":roomId"
 							],
 							"variable": [
 								{
 									"key": "roomId",
-									"value": "00000000-0000-0000-0000-000000000000"
+									"value": "00000000-0000-0000-0000-000000000001"
 								}
 							]
 						}
