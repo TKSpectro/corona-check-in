@@ -182,12 +182,26 @@ export class AppService implements OnModuleInit {
     return this.sessionRepository.save(createSessionDto);
   }
 
-  async markLastSessionsAsInfected(user: RequestUser): Promise<boolean> {
-    // TODO: function needs to be implemented
-    // should mark all sessions of the last 5 days from user as infected
-    // should return positive http-status on success
-    // should throw exception on error
-    return true;
+  async markLastSessionsAsInfected(user: RequestUser): Promise<HttpStatus> {
+    const lastDay = new Date();
+    lastDay.setDate(lastDay.getDate() - 5);
+
+    const queryBuilder = await this.sessionRepository
+      .createQueryBuilder()
+      .update()
+      .set({ infected: true })
+      .where('userId = :userId', { userId: user.sub })
+      .andWhere('startTime >= :lastDay', { lastDay })
+      .execute();
+
+    if (queryBuilder) {
+      return HttpStatus.OK;
+    } else {
+      throw new HttpException(
+        'Error while trying to update infection status',
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
   }
 
   async updateSession(
