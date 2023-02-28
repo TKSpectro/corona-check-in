@@ -7,6 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { AngularMaterialModule } from '../angular-material.module';
 import { LibModule } from '../libs/lib.module';
+import { CurrentStatusComponent } from './current-status/current-status.component';
 import { DashboardComponent } from './dashboard.component';
 import { QrCodeScannerComponent } from './qr-code-scanner/qr-code-scanner.component';
 import { SessionCardComponent } from './session-card/session-card.component';
@@ -16,6 +17,7 @@ import { SessionCardComponent } from './session-card/session-card.component';
     SessionCardComponent,
     QrCodeScannerComponent,
     DashboardComponent,
+    CurrentStatusComponent,
   ],
   imports: [
     CommonModule,

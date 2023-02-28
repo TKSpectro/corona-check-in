@@ -6,6 +6,7 @@
     [colspan]="mobileQuery.matches ? 9 : 6"
   >
     <ccn-session-card style="width: 100%"></ccn-session-card>
+    <ccn-current-status style="width: 100%"></ccn-current-status>
   </mat-grid-tile>
   <mat-grid-tile [rowspan]="2" [colspan]="mobileQuery.matches ? 9 : 3">
     <ccn-qr-code-scanner (scanEvent)="onScan($event)"></ccn-qr-code-scanner>
