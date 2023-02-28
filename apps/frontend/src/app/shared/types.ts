@@ -39,6 +39,7 @@ export interface Session {
   endTime?: Date;
   infected: boolean;
   note?: string;
+  room?: Room;
 }
 
 export type Meta = {

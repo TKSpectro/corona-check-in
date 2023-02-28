@@ -1,4 +1,5 @@
 import { IsNotEmpty, IsOptional } from 'class-validator';
+import { RoomDto } from '../rooms/rooms.dto';
 
 export class SessionDto {
   @IsOptional()
@@ -21,4 +22,7 @@ export class SessionDto {
 
   @IsOptional()
   userId: string;
+
+  @IsOptional()
+  room?: RoomDto;
 }

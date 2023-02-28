@@ -33,6 +33,18 @@
           </div>
         </div>
 
+        <mat-divider></mat-divider>
+        <div class="content">
+          <div class="column-left">
+            <p>{{ 'SESSIONS.SESSION_END' | translate }}:</p>
+          </div>
+          <div class="column-right">
+            <p>
+              {{ sessionData.room?.name }}
+            </p>
+          </div>
+        </div>
+
         <form #f="ngForm">
           <mat-form-field appearance="fill" class="note">
             <mat-label>{{ 'SESSIONS.NOTE' | translate }}</mat-label>

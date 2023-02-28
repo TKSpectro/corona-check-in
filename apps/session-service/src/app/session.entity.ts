@@ -3,6 +3,8 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToMany,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -35,4 +37,6 @@ export class SessionEntity extends BaseEntity {
 
   @Column({ type: 'uuid', name: 'roomid' })
   roomId: string;
+
+  room?: unknown;
 }
