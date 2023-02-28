@@ -49,18 +49,23 @@
   <mat-icon>replay</mat-icon>
 </button>
 
-<ccn-session-table
-  [sessionList]="sessionList"
-  [extraColumns]="['actions']"
-  (markAsInfectedEvent)="markAsInfected($event)"
-></ccn-session-table>
+<div class="table-wrapper">
+  <ccn-session-table
+    [sessionList]="sessionList"
+    [extraColumns]="['actions']"
+    (markAsInfectedEvent)="markAsInfected($event)"
+  ></ccn-session-table>
 
-<mat-paginator
-  showFirstLastButtons
-  aria-label="Select page of periodic elements"
-  [length]="_meta?.itemCount"
-  [pageSize]="_meta?.take"
-  [pageIndex]="_meta?.page"
-  (page)="handlePageEvent($event)"
->
-</mat-paginator>
+  <mat-paginator
+    showFirstLastButtons
+    aria-label="Select page of periodic elements"
+    [length]="_meta?.itemCount"
+    [pageSize]="_meta?.take"
+    [pageIndex]="_meta?.page"
+    (page)="handlePageEvent($event)"
+  >
+  </mat-paginator>
+  <div *ngIf="!sessionList" class="spinner-wrapper">
+    <mat-spinner></mat-spinner>
+  </div>
+</div>
