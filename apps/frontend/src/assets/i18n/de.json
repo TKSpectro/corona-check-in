@@ -115,7 +115,16 @@
     "NOTE_UPDATE_SUCCESS": "Notiz erfolgreich aktualisiert",
     "NOTE_UPDATE_ERROR": "Notiz konnte nicht aktualisiert werden",
     "LOAD_LAST_SESSION_ERROR": "Letzte Session konnte nicht geladen werden",
-    "SCAN_QR_CODE_SUCCESSFUL": "QR-Code erfolgreich gescannt"
+    "SCAN_QR_CODE_SUCCESSFUL": "QR-Code erfolgreich gescannt",
+    "CURRENT_STATUS": "Aktueller Status",
+    "ENCOUNTERS": "Begegnungen",
+    "LAST_ENCOUNTER": "Letzte Begegnung",
+    "RISK_ENCOUNTERS": "Risiko-Begegnung(en) in den letzten 5 Tagen",
+    "UPDATED": "Aktualisiert",
+    "TODAY": "Heute",
+    "STATUS_LOW": "Niedriges Risiko",
+    "STATUS_MEDIUM": "Mittleres Risiko",
+    "STATUS_HIGH": "Infiziert"
   },
   "FACULTY": {
     "AI": "Angewandte Informatik",

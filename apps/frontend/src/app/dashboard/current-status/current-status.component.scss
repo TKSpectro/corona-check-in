@@ -1,0 +1,27 @@
+mat-card {
+  height: calc(100% - 40px);
+
+  &.risk-low {
+    border-top: 8px solid #225224;
+  }
+  &.risk-medium {
+    border-top: 8px solid #e4af00;
+  }
+  &.risk-high {
+    border-top: 8px solid #381111;
+  }
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  padding-top: 15px;
+
+  .column-left {
+    font-weight: 500;
+    grid-column: 1;
+  }
+  .column-right {
+    grid-column: 2;
+  }
+}

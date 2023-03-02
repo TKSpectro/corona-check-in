@@ -1,1 +1,61 @@
-<mat-card> </mat-card>
+<mat-card
+  *ngIf="loaded === true"
+  [ngClass]="{
+    'risk-low': currentStatus.risk === 'LOW',
+    'risk-medium': currentStatus.risk === 'MEDIUM',
+    'risk-high': currentStatus.risk === 'HIGH'
+  }"
+>
+  <mat-card-title>
+    {{ 'DASHBOARDS.STATUS_' + currentStatus.risk | translate }}
+    <mat-icon
+      matTooltip="{{ 'INCIDENCE_CHART.7_DAY_INCIDENCES_TOOLTIP' | translate }}"
+      >help_outline
+    </mat-icon></mat-card-title
+  >
+  <mat-card-content>
+    <div class="content">
+      <div class="column-left">
+        <p>{{ 'DASHBOARDS.ENCOUNTERS' | translate }}:</p>
+      </div>
+      <div class="column-right">
+        <p>
+          {{ currentStatus.numberOfEncounters }}
+          {{ 'DASHBOARDS.RISK_ENCOUNTERS' | translate }}
+        </p>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+    <div class="content">
+      <div class="column-left">
+        <p>{{ 'DASHBOARDS.LAST_ENCOUNTER' | translate }}:</p>
+      </div>
+      <div class="column-right">
+        <p *ngIf="currentStatus.lastEncounter">
+          {{ currentStatus.lastEncounter | date : 'dd.MM.yyyy' }}
+        </p>
+        <p *ngIf="!currentStatus.lastEncounter">-</p>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+    <div class="content">
+      <div class="column-left">
+        <p>{{ 'DASHBOARDS.UPDATED' | translate }}:</p>
+      </div>
+      <div class="column-right">
+        <p>
+          {{ 'DASHBOARDS.TODAY' | translate }},
+          {{ currentStatus.updatedAt | date : 'HH:mm' }}
+        </p>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+<mat-card *ngIf="loaded === false">
+  <mat-card-content align="center">
+    <mat-grid-list cols="1" rowHeight="100px">
+      <mat-grid-tile><mat-spinner></mat-spinner></mat-grid-tile>
+    </mat-grid-list> </mat-card-content
+></mat-card>

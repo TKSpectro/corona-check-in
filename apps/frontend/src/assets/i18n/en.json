@@ -115,7 +115,16 @@
     "NOTE_UPDATE_SUCCESS": "Note updated successfully",
     "NOTE_UPDATE_ERROR": "Could not update note",
     "LOAD_LAST_SESSION_ERROR": "Could not load last session",
-    "SCAN_QR_CODE_SUCCESSFUL": "QR code scanned successfully"
+    "SCAN_QR_CODE_SUCCESSFUL": "QR code scanned successfully",
+    "CURRENT_STATUS": "Current status",
+    "ENCOUNTERS": "Encounters",
+    "LAST_ENCOUNTER": "Last encounter",
+    "RISK_ENCOUNTERS": "risk encounter(s) in the past 5 days",
+    "UPDATED": "Updated",
+    "TODAY": "Today",
+    "STATUS_LOW": "Low risk",
+    "STATUS_MEDIUM": "Medium risk",
+    "STATUS_HIGH": "Infected"
   },
   "FACULTY": {
     "AI": "Applied Computer Science",
