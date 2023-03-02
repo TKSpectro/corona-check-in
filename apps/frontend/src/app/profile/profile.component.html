@@ -121,4 +121,7 @@
       </div>
     </form>
   </mat-card-content>
+  <div *ngIf="!email" class="spinner-wrapper">
+    <mat-spinner></mat-spinner>
+  </div>
 </mat-card>
