@@ -1,15 +1,20 @@
 <mat-card
   *ngIf="loaded === true"
   [ngClass]="{
-    'risk-low': currentStatus.risk === 'LOW',
-    'risk-medium': currentStatus.risk === 'MEDIUM',
-    'risk-high': currentStatus.risk === 'HIGH'
+    'risk-low-ribbon': currentStatus.risk === 'LOW',
+    'risk-medium-ribbon': currentStatus.risk === 'MEDIUM',
+    'risk-high-ribbon': currentStatus.risk === 'HIGH'
   }"
 >
-  <mat-card-title>
+  <mat-card-title
+    [ngClass]="{
+      'risk-low-text': currentStatus.risk === 'LOW',
+      'risk-medium-text': currentStatus.risk === 'MEDIUM',
+      'risk-high-text': currentStatus.risk === 'HIGH'
+    }"
+  >
     {{ 'DASHBOARDS.STATUS_' + currentStatus.risk | translate }}
-    <mat-icon
-      matTooltip="{{ 'INCIDENCE_CHART.7_DAY_INCIDENCES_TOOLTIP' | translate }}"
+    <mat-icon matTooltip="{{ 'DASHBOARDS.RISK_TOOLTIP' | translate }}"
       >help_outline
     </mat-icon></mat-card-title
   >

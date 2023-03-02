@@ -1,13 +1,13 @@
 mat-card {
   height: calc(100% - 40px);
 
-  &.risk-low {
+  &.risk-low-ribbon {
     border-top: 8px solid #225224;
   }
-  &.risk-medium {
+  &.risk-medium-ribbon {
     border-top: 8px solid #e4af00;
   }
-  &.risk-high {
+  &.risk-high-ribbon {
     border-top: 8px solid #381111;
   }
 }
@@ -24,4 +24,16 @@ mat-card {
   .column-right {
     grid-column: 2;
   }
+}
+
+.risk-low-text {
+  color: #69f0ae;
+}
+
+.risk-medium-text {
+  color: #e4af00;
+}
+
+.risk-high-text {
+  color: #e91e63;
 }

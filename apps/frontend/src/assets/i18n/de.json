@@ -124,7 +124,8 @@
     "TODAY": "Heute",
     "STATUS_LOW": "Niedriges Risiko",
     "STATUS_MEDIUM": "Mittleres Risiko",
-    "STATUS_HIGH": "Infiziert"
+    "STATUS_HIGH": "Infiziert",
+    "RISK_TOOLTIP": "Ihr Infektionsrisiko wird durch die Begegnungen in den letzten 5 Tagen ermittelt. Ein niedriges Risiko ist vorhanden, wenn mittels CoronaCheckIn kein Kontakt mit infizierten Personen erfasst wurde. Ein mittleres Risiko entsteht, wenn Sie sich im gleichen Raum mit mindestens einer infizierten Person aufgehalten haben."
   },
   "FACULTY": {
     "AI": "Angewandte Informatik",

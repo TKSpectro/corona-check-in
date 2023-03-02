@@ -266,11 +266,10 @@ export class AppService implements OnModuleInit {
       .createQueryBuilder()
       .select('infected')
       .where('userId = :userId', { userId: user.sub })
-      .orderBy('endtime', 'DESC')
+      .orderBy('starttime', 'DESC')
       .limit(1)
       .getRawOne();
 
-    console.log(encounters);
     const result = new CurrenStatusDto();
     result.numberOfEncounters = encounters.count;
     result.updatedAt = new Date();
