@@ -47,6 +47,12 @@ export class SessionsController {
     return this.sessionsService.getCurrentSession(req.user);
   }
 
+  @Get('get-current-status')
+  @HttpCode(200)
+  async getCurrentStatus(@Request() req) {
+    return this.sessionsService.getCurrentStatus(req.user);
+  }
+
   @Get('mark-last-sessions-as-infected')
   @HttpCode(200)
   async markLastSessionsAsInfected(@Request() req) {
@@ -88,11 +94,5 @@ export class SessionsController {
   @HttpCode(204)
   async removeSession(@Param('id') id: string) {
     return this.sessionsService.removeSession(id);
-  }
-
-  @Get('get-current-status')
-  @HttpCode(200)
-  async getCurrentStatus(@Request() req) {
-    return this.sessionsService.getCurrentStatus(req.user);
   }
 }

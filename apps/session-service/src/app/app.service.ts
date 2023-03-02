@@ -125,7 +125,6 @@ export class AppService implements OnModuleInit {
       order: { startTime: 'DESC' },
     });
 
-    this.getCurrentStatus(user);
     const room = await lastValueFrom(
       this.roomSrv
         .send({ role: 'room', cmd: 'get-by-id' }, session.roomId)

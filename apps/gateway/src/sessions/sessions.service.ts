@@ -6,6 +6,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { lastValueFrom, timeout } from 'rxjs';
 import { environment } from '../environments/environment';
+import { CurrentStatusEntity } from './current-status.entity';
 import { SessionEntity } from './session.entity';
 import { SessionDto } from './sessions.dto';
 import { UpdateSessionDto } from './update-sessions.dto';
@@ -86,7 +87,10 @@ export class SessionsService {
   async getCurrentStatus(user: RequestUser) {
     return lastValueFrom(
       this.sessionClient
-        .send({ role: 'session', cmd: 'get-current-status' }, { user })
+        .send<CurrentStatusEntity>(
+          { role: 'session', cmd: 'get-current-status' },
+          { user }
+        )
         .pipe(timeout(environment.serviceTimeout))
     );
   }
