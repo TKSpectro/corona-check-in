@@ -78,4 +78,9 @@ export class AppController {
   async deleteSession(id: string) {
     return this.appService.deleteSession(id);
   }
+
+  @MessagePattern({ role: 'session', cmd: 'get-current-status' })
+  async getCurrentStatus({ user }: { user: RequestUser }) {
+    return this.appService.getCurrentStatus(user);
+  }
 }

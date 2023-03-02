@@ -89,4 +89,10 @@ export class SessionsController {
   async removeSession(@Param('id') id: string) {
     return this.sessionsService.removeSession(id);
   }
+
+  @Get('get-current-status')
+  @HttpCode(200)
+  async getCurrentStatus(@Request() req) {
+    return this.sessionsService.getCurrentStatus(req.user);
+  }
 }

@@ -83,6 +83,14 @@ export class SessionsService {
     );
   }
 
+  async getCurrentStatus(user: RequestUser) {
+    return lastValueFrom(
+      this.sessionClient
+        .send({ role: 'session', cmd: 'get-current-status' }, { user })
+        .pipe(timeout(environment.serviceTimeout))
+    );
+  }
+
   async updateSession(updateSessionDto: UpdateSessionDto) {
     return lastValueFrom(
       this.sessionClient
