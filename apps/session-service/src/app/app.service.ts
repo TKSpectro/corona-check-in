@@ -248,18 +248,6 @@ export class AppService implements OnModuleInit {
     const lastDay = new Date();
     lastDay.setDate(lastDay.getDate() - 5);
 
-    const numberOfEncounters = await this.sessionRepository
-      .createQueryBuilder('s1')
-      .innerJoin(
-        SessionEntity,
-        's2',
-        's2.roomid = s1.roomid AND s2.userid <> s1.userid AND (s1.starttime, s1.endtime) OVERLAPS (s2.starttime, s2.endtime)'
-      )
-      .where('s1.userid = :userid', { userid: user.sub })
-      .andWhere('s1.starttime >= :date', { date: lastDay })
-      .andWhere('s2.infected = true')
-      .getCount();
-
     const encounters = await this.sessionRepository
       .createQueryBuilder('s1')
       .select('COUNT(*)', 'count')
@@ -271,7 +259,7 @@ export class AppService implements OnModuleInit {
         '(s1.starttime, s1.endtime) OVERLAPS (s2.starttime, s2.endtime)'
       )
       .andWhere('s2.infected = true')
-      .andWhere('s1.starttime >= :date', { date: new Date() })
+      .andWhere('s1.starttime >= :date', { date: lastDay })
       .getRawOne();
 
     const infection = await this.sessionRepository
@@ -282,6 +270,7 @@ export class AppService implements OnModuleInit {
       .limit(1)
       .getRawOne();
 
+    console.log(encounters);
     const result = new CurrenStatusDto();
     result.numberOfEncounters = encounters.count;
     result.updatedAt = new Date();
@@ -296,12 +285,12 @@ export class AppService implements OnModuleInit {
       }
     }
 
+    // remove time from the last encounter and return only the date for privacy
     if (encounters.max_endtime !== null) {
       result.lastEncounter = new Date(
         encounters.max_endtime.setHours(0, 0, 0, 0)
       );
     }
-    console.log(result);
 
     return result;
   }
