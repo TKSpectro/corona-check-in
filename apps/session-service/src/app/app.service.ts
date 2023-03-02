@@ -116,11 +116,24 @@ export class AppService implements OnModuleInit {
   }
 
   async getCurrentSession(user: RequestUser) {
-    return this.sessionRepository.findOne({
+    const session = await this.sessionRepository.findOne({
       select: { ...selectWithoutNoteObj, note: user.role !== UserRole.ADMIN },
       where: { userId: user.sub },
       order: { startTime: 'DESC' },
     });
+
+    const room = await lastValueFrom(
+      this.roomSrv
+        .send({ role: 'room', cmd: 'get-by-id' }, session.roomId)
+        .pipe(timeout(environment.serviceTimeout))
+    );
+    if (!room) {
+      throw new NotFoundException('Room not found');
+    }
+
+    session.room = room;
+
+    return session;
   }
 
   async createSession(createSessionDto: SessionDto): Promise<SessionEntity> {

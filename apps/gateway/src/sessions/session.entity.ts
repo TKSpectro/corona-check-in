@@ -1,3 +1,5 @@
+import { RoomDto } from '../rooms/rooms.dto';
+
 export class SessionEntity {
   id: string;
 
@@ -16,4 +18,6 @@ export class SessionEntity {
   userId: string;
 
   roomId: string;
+
+  room?: RoomDto;
 }
