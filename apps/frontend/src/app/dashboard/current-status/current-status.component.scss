@@ -10,6 +10,14 @@ mat-card {
   &.risk-high-ribbon {
     border-top: 8px solid #381111;
   }
+
+  mat-card-title {
+    display: flex;
+    align-items: center;
+    mat-icon {
+      margin-left: 6px;
+    }
+  }
 }
 
 .content {
