@@ -42,7 +42,7 @@ export class SessionCardComponent implements OnInit, OnDestroy {
         },
         error: (error) => {
           this.snackBar.open(
-            this.t.instant('DASHBOARDS.NOTE_UPDATE_ERROR') +
+            this.t.instant('DASHBOARDS.LAST_SESSION_ERROR') +
               '\n' +
               error.error.message,
             undefined,
