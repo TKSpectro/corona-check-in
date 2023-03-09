@@ -38,7 +38,7 @@ export class CurrentStatusComponent implements OnInit, OnDestroy {
         },
         error: (error) => {
           this.snackBar.open(
-            this.t.instant('DASHBOARDS.NOTE_UPDATE_ERROR') +
+            this.t.instant('DASHBOARDS.STATUS_ERROR') +
               '\n' +
               error.error.message,
             undefined,

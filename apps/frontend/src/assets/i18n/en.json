@@ -125,6 +125,7 @@
     "STATUS_LOW": "Low risk",
     "STATUS_MEDIUM": "Medium risk",
     "STATUS_HIGH": "Infected",
+    "STATUS_ERROR": "Could not load current status",
     "RISK_TOOLTIP": "Your risk of infection is determined by encounters in the last 5 days. A low risk is present if no contact with infected persons has been recorded using CoronaCheckIn. A medium risk occurs if you have been in the same room with at least one infected person."
   },
   "FACULTY": {
