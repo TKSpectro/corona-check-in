@@ -16,10 +16,14 @@ mat-card-content {
   margin-bottom: 0;
 }
 
+mat-card-title {
+  margin-top: 8px;
+}
+
 .note {
   margin-top: 10px;
-  width: 400px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 400px;
 }
 
 .button-row {
