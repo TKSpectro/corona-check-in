@@ -33,6 +33,7 @@ export class RoomListComponent implements OnInit, OnDestroy {
   ];
 
   roomList!: Room[];
+  roomListLoaded = false;
   _meta?: Meta;
   pageEvent: PageEvent = new PageEvent();
   total!: number;
@@ -86,6 +87,7 @@ export class RoomListComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.roomSrv.getRoomList().subscribe((data) => {
         this.roomList = data.data;
+        this.roomListLoaded = true;
         this._meta = data._meta;
       })
     );

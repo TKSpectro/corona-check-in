@@ -59,6 +59,10 @@
   </div>
 </div>
 
+<div *ngIf="roomListLoaded && roomList.length === 0" class="alert-info">
+  {{ 'ROOMS.NO_ROOMS_FOUND_NOTICE' | translate }}
+</div>
+
 <div class="table-wrapper">
   <table mat-table [dataSource]="roomList" class="mat-elevation-z8">
     <ng-container matColumnDef="name">
