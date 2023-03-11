@@ -19,7 +19,10 @@ import { randomUUID } from 'crypto';
 import { DateTime } from 'luxon';
 import { lastValueFrom, timeout } from 'rxjs';
 import { MoreThan, Repository } from 'typeorm';
+import { resourceLimits } from 'worker_threads';
 import { environment } from '../environments/environment';
+import { CurrenStatusDto } from './current-status.dto';
+import { Risk } from './risk.enum';
 import { SessionEntity } from './session.entity';
 import { SessionDto } from './sessions.dto';
 import { UpdateSessionDto } from './update-sessions.dto';
@@ -239,6 +242,56 @@ export class AppService implements OnModuleInit {
     }
 
     return await this.sessionRepository.remove(session);
+  }
+
+  async getCurrentStatus(user: RequestUser) {
+    const lastDay = new Date();
+    lastDay.setDate(lastDay.getDate() - 5);
+
+    const encounters = await this.sessionRepository
+      .createQueryBuilder('s1')
+      .select('COUNT(*)', 'count')
+      .addSelect('MAX(s1.endtime)', 'max_endtime')
+      .innerJoin(SessionEntity, 's2', 's2.roomid = s1.roomid')
+      .where('s1.userid = :userid', { userid: user.sub })
+      .andWhere('s2.userid <> s1.userid')
+      .andWhere(
+        '(s1.starttime, s1.endtime) OVERLAPS (s2.starttime, s2.endtime)'
+      )
+      .andWhere('s2.infected = true')
+      .andWhere('s1.starttime >= :date', { date: lastDay })
+      .getRawOne();
+
+    const infection = await this.sessionRepository
+      .createQueryBuilder()
+      .select('infected')
+      .where('userId = :userId', { userId: user.sub })
+      .orderBy('starttime', 'DESC')
+      .limit(1)
+      .getRawOne();
+
+    const result = new CurrenStatusDto();
+    result.numberOfEncounters = encounters.count;
+    result.updatedAt = new Date();
+
+    if (infection.infected == true) {
+      result.risk = Risk.HIGH;
+    } else {
+      if (encounters.count > 0) {
+        result.risk = Risk.MEDIUM;
+      } else {
+        result.risk = Risk.LOW;
+      }
+    }
+
+    // remove time from the last encounter and return only the date for privacy
+    if (encounters.max_endtime !== null) {
+      result.lastEncounter = new Date(
+        encounters.max_endtime.setHours(0, 0, 0, 0)
+      );
+    }
+
+    return result;
   }
 
   async #seed() {

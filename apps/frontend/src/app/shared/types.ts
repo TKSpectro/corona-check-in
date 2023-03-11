@@ -5,6 +5,12 @@ export enum UserRole {
 
 export const FacultyList = ['', 'AI', 'SA'] as const;
 
+export enum Risk {
+  LOW = 'LOW',
+  MEDIUM = 'MEDIUM',
+  HIGH = 'HIGH',
+}
+
 export interface User {
   id?: string;
   email?: string;
@@ -64,4 +70,11 @@ export interface ScanQrCodeBody {
 export interface IncidenceResult {
   name: string;
   series: { name: string; value: number }[];
+}
+
+export interface CurrentStatus {
+  numberOfEncounters: number;
+  lastEncounter?: Date;
+  risk: Risk;
+  updatedAt: Date;
 }
