@@ -49,8 +49,9 @@
 </button>
 
 <div *ngIf="sessionListLoaded && sessionList.length === 0" class="alert-info">
-  Es wurden keine Sessions gefunden.
+  {{ 'SESSIONS.NO_SESSIONS_FOUND_NOTICE' | translate }}
 </div>
+
 <div class="table-wrapper">
   <ccn-session-table
     [sessionList]="sessionList"
