@@ -14,10 +14,20 @@
 </mat-grid-list>
 
 <h2>{{ 'DASHBOARDS.LAST_SESSIONS' | translate }}</h2>
-<ccn-session-table
-  [sessionList]="sessionList"
-  style="margin-top: 1em; width: 100%"
-></ccn-session-table>
+
+<div
+  *ngIf="sessionListLoaded && sessionList.length === 0; else elseBlock"
+  class="alert-info"
+>
+  {{ 'SESSIONS.NO_SESSIONS_FOUND_NOTICE' | translate }}
+</div>
+
+<ng-template #elseBlock>
+  <ccn-session-table
+    [sessionList]="sessionList"
+    style="margin-top: 1em; width: 100%"
+  ></ccn-session-table
+></ng-template>
 
 <h2 class="incidence-chart-heading">
   {{ 'INCIDENCE_CHART.7_DAY_INCIDENCES' | translate }}
