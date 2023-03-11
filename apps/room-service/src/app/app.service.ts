@@ -1,6 +1,5 @@
 import {
   findWithMeta,
-  Order,
   PageOptionsDto,
 } from '@corona-check-in/micro-service-shared';
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
@@ -47,7 +46,7 @@ export class AppService {
     if (query.faculty) {
       queryBuilder.andWhere('faculty = :faculty', { faculty: query.faculty });
     }
-    pageOptionsDto.order = Order.DESC;
+
     return findWithMeta(queryBuilder, pageOptionsDto, 'updated_at');
   }
 
