@@ -23,6 +23,7 @@ body {
 $success: mat.get-color-from-palette(mat.$green-palette, 500);
 $warning: mat.get-color-from-palette(mat.$yellow-palette, 500);
 $error: mat.get-color-from-palette(mat.$red-palette, 500);
+$info: mat.get-color-from-palette(mat.$blue-palette, 500);
 
 .primary-color {
   color: mat.get-color-from-palette(mat.$green-palette, A200);
@@ -49,4 +50,13 @@ $error: mat.get-color-from-palette(mat.$red-palette, 500);
 .padding-right-12 {
   padding-right: 12px !important;
   justify-content: flex-end;
+}
+
+.alert-info {
+  border: 1px solid #084298;
+  background-color: #031633;
+  border-radius: 4px;
+  color: #6ea8fe;
+  padding: 16px;
+  margin-bottom: 10px;
 }

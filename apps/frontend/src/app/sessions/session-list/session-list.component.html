@@ -1,5 +1,4 @@
 <h2 class="mat-h2">{{ 'SESSIONS.SESSIONS' | translate }}</h2>
-
 <mat-form-field appearance="standard" class="filter-space">
   <mat-label>{{ 'ENTER_DATERANGE' | translate }}</mat-label>
   <mat-date-range-input [rangePicker]="picker">
@@ -49,6 +48,9 @@
   <mat-icon>replay</mat-icon>
 </button>
 
+<div *ngIf="sessionListLoaded && sessionList.length === 0" class="alert-info">
+  Es wurden keine Sessions gefunden.
+</div>
 <div class="table-wrapper">
   <ccn-session-table
     [sessionList]="sessionList"
