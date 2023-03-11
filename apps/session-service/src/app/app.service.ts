@@ -19,7 +19,6 @@ import { randomUUID } from 'crypto';
 import { DateTime } from 'luxon';
 import { lastValueFrom, timeout } from 'rxjs';
 import { MoreThan, Repository } from 'typeorm';
-import { resourceLimits } from 'worker_threads';
 import { environment } from '../environments/environment';
 import { CurrenStatusDto } from './current-status.dto';
 import { Risk } from './risk.enum';
@@ -100,7 +99,7 @@ export class AppService implements OnModuleInit {
       queryBuilder.select(selectWithoutNote);
     }
 
-    return findWithMeta(queryBuilder, pageOptionsDto);
+    return findWithMeta(queryBuilder, pageOptionsDto, 'startTime');
   }
 
   async getSessionById(id: string, user: RequestUser) {
