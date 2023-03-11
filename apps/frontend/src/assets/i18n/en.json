@@ -114,7 +114,7 @@
     "CAMERA_NOT_FOUND_ERROR": "No cameras found",
     "NOTE_UPDATE_SUCCESS": "Note updated successfully",
     "NOTE_UPDATE_ERROR": "Could not update note",
-    "LOAD_LAST_SESSION_ERROR": "Could not load last session",
+    "LAST_SESSION_ERROR": "Could not load last session",
     "SCAN_QR_CODE_SUCCESSFUL": "QR code scanned successfully",
     "CURRENT_STATUS": "Current status",
     "ENCOUNTERS": "Encounters",
