@@ -112,6 +112,13 @@ export class SessionListComponent implements OnInit, OnDestroy {
       this.sessionListService.markAsInfected(session).subscribe({
         next: () => {
           this.loadSessions();
+          this.snackBar.open(
+            this.t.instant('SESSIONS.MARK_INFECTED_SUCCESS'),
+            undefined,
+            {
+              panelClass: 'snackbar-success',
+            }
+          );
         },
         error: (error) => {
           this.snackBar.open(

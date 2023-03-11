@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { User, UserLogin, UserSignup } from '../auth/user';
 import {
+  CurrentStatus,
   IncidenceResult,
   PaginationResponse,
   Room,
@@ -65,6 +66,12 @@ export class ServerService {
   markLastSessionsAsInfected() {
     return this.httpClient.get<boolean>(
       environment.backendUrl + '/sessions/mark-last-sessions-as-infected'
+    );
+  }
+
+  getCurrentStatus(): Observable<any> {
+    return this.httpClient.get<CurrentStatus>(
+      '/api/sessions/get-current-status'
     );
   }
 

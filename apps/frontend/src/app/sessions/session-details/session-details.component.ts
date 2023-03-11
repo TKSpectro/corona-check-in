@@ -1,7 +1,8 @@
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { AdminService } from '../../auth/admin/admin.service';
 import { ServerService } from '../../shared/server.service';
@@ -22,6 +23,8 @@ export class SessionDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private serverSrv: ServerService,
     adminService: AdminService,
+    private snackBar: MatSnackBar,
+    private t: TranslateService,
     @Inject(MAT_DIALOG_DATA) public data: { id: string }
   ) {
     this.adminService = adminService;
@@ -59,8 +62,28 @@ export class SessionDetailsComponent implements OnInit, OnDestroy {
           infected: this.sessionData.infected,
           note: this.sessionData.note,
         })
-        .subscribe((data) => {
-          this.sessionData = data;
+        .subscribe({
+          next: (data) => {
+            this.sessionData = data;
+            this.snackBar.open(
+              this.t.instant('SESSIONS.NOTE_UPDATE_SUCCESS'),
+              undefined,
+              {
+                panelClass: 'snackbar-success',
+              }
+            );
+          },
+          error: (error) => {
+            this.snackBar.open(
+              this.t.instant('SESSIONS.NOTE_UPDATE_ERROR') +
+                '\n' +
+                error.error.message,
+              undefined,
+              {
+                panelClass: 'snackbar-error',
+              }
+            );
+          },
         })
     );
   }
