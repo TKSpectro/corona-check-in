@@ -1,16 +1,15 @@
-<table mat-table [dataSource]="sessionList" class="mat-elevation-z8" >
-  <ng-container
-    matColumnDef="startTime">
+<table mat-table [dataSource]="sessionList" class="mat-elevation-z8">
+  <ng-container matColumnDef="startTime">
     <mat-header-cell
       [ngClass]="{ 'padding-left-12': !isDesktop }"
-      *matHeaderCellDef>{{
-      'SESSIONS.SESSION_START' | translate
-    }}</mat-header-cell>
+      *matHeaderCellDef
+      >{{ 'SESSIONS.SESSION_START' | translate }}</mat-header-cell
+    >
     <mat-cell
       [ngClass]="{ 'padding-left-12': !isDesktop }"
-      *matCellDef="let session">{{
-      session.startTime | customDate
-    }}</mat-cell>
+      *matCellDef="let session"
+      >{{ session.startTime | customDate }}</mat-cell
+    >
   </ng-container>
   <ng-container matColumnDef="endTime">
     <mat-header-cell *matHeaderCellDef>{{
@@ -21,27 +20,34 @@
     }}</mat-cell>
   </ng-container>
 
-  <ng-container
-    matColumnDef="infected">
-    <mat-header-cell class="center" *matHeaderCellDef>{{
-      'SESSIONS.INFECTED' | translate
-    }}</mat-header-cell>
-    <mat-cell class="center" *matCellDef="let session">
-      <mat-icon *ngIf="session.infected" class="icon-red">mood_bad</mat-icon>
-      <mat-icon *ngIf="!session.infected" color="accent"
-        >mood</mat-icon
-      ></mat-cell
+  <ng-container matColumnDef="infected">
+    <mat-header-cell
+      class="center"
+      [ngClass]="{ 'width-100': displayedColumns.length === 3 }"
+      *matHeaderCellDef
+      >{{ 'SESSIONS.INFECTED' | translate }}</mat-header-cell
     >
+    <mat-cell
+      class="center"
+      [ngClass]="{ 'width-100': displayedColumns.length === 3 }"
+      *matCellDef="let session"
+    >
+      <mat-icon *ngIf="session.infected" class="icon-red"> mood_bad </mat-icon>
+      <mat-icon *ngIf="!session.infected" color="accent"> mood </mat-icon>
+    </mat-cell>
   </ng-container>
   <ng-container matColumnDef="actions">
-    <mat-header-cell class="center"
-                     [ngClass]="{ 'padding-right-12': !isDesktop }"
-                     *matHeaderCellDef>{{
-      'ACTIONS' | translate
-    }}</mat-header-cell>
-    <mat-cell class="center"
-              *matCellDef="let session"
-              [ngClass]="{ 'padding-right-12': !isDesktop }">
+    <mat-header-cell
+      class="center"
+      [ngClass]="{ 'padding-right-12': !isDesktop }"
+      *matHeaderCellDef
+      >{{ 'ACTIONS' | translate }}</mat-header-cell
+    >
+    <mat-cell
+      class="center"
+      *matCellDef="let session"
+      [ngClass]="{ 'padding-right-12': !isDesktop }"
+    >
       <button
         mat-icon-button
         (click)="openSessionDetailsDialog(session.id, $event)"
@@ -58,7 +64,8 @@
           [matTooltip]="
             session.infected
               ? ('SESSIONS.MARK_INFECTED_TOOLTIP_DISABLED' | translate)
-              : ('SESSIONS.MARK_INFECTED_TOOLTIP' | translate)"
+              : ('SESSIONS.MARK_INFECTED_TOOLTIP' | translate)
+          "
         >
           bug_report
         </mat-icon>
