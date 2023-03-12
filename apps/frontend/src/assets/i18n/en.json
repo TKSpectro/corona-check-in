@@ -47,6 +47,7 @@
     "DELETE_USER_WARNING": "Are you sure you want to delete your account? This action cannot be undone.",
     "PROFILE_SETTINGS": "Profile settings",
     "PROFILE_UPDATE_SUCCESS": "Profile updated successfully",
+    "PROFILE_UPDATE_ERROR": "Could not update profile",
     "LOGOUT_SUCCESS": "You have been logged out successfully",
     "PROFILE_DELETE_SUCCESS": "Your account has been deleted successfully",
     "PROFILE_DELETE_ERROR": "Could not delete your account",
