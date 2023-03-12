@@ -17,7 +17,7 @@
         <mat-error
           *ngIf="f.form.get('email')?.dirty && !f?.form?.get('email')?.valid"
         >
-          {{ 'ERROR.EMAIL_NOT_VALID' | translate }}
+          {{ 'ERRORS.EMAIL_NOT_VALID' | translate }}
         </mat-error>
       </mat-form-field>
 
@@ -34,7 +34,7 @@
             f.form.get('firstname')?.dirty && !f?.form?.get('firstname')?.valid
           "
         >
-          {{ 'ERROR.FIRSTNAME_NOT_VALID' | translate }}
+          {{ 'ERRORS.FIRSTNAME_NOT_VALID' | translate }}
         </mat-error>
       </mat-form-field>
 
@@ -51,7 +51,7 @@
             f.form.get('lastname')?.dirty && !f?.form?.get('lastname')?.valid
           "
         >
-          {{ 'ERROR.LASTNAME_NOT_VALID' | translate }}
+          {{ 'ERRORS.LASTNAME_NOT_VALID' | translate }}
         </mat-error>
       </mat-form-field>
 
@@ -70,7 +70,7 @@
             f.form.get('password')?.dirty && !f?.form?.get('password')?.valid
           "
         >
-          {{ 'ERROR.PASSWORD_NOT_VALID' | translate }}
+          {{ 'ERRORS.PASSWORD_NOT_VALID' | translate }}
         </mat-error>
       </mat-form-field>
 
@@ -90,7 +90,7 @@
             !f?.form?.get('passwordRepeat')?.valid
           "
         >
-          {{ 'ERROR.PASSWORD_REPEAT_NOT_VALID' | translate }}
+          {{ 'ERRORS.PASSWORD_REPEAT_NOT_VALID' | translate }}
         </mat-error>
       </mat-form-field>
 

@@ -142,8 +142,12 @@
     "MINIMUM": "Mindestens {{min}}",
     "MAXIMUM": "Maximal {{max}}",
     "EMAIL_NOT_VALID": "E-Mail-Adresse ist nicht gültig",
+    "PASSWORD_NOT_VALID": "Passwort ist nicht gültig",
+    "FIRSTNAME_NOT_VALID": "Vorname ist nicht gültig",
+    "LASTNAME_NOT_VALID": "Nachname ist nicht gültig",
     "PASSWORDS_NOT_MATCHING": "Neues Passwort stimmt nicht überein",
-    "OLD_PASSWORD_WRONG": "Altes Passwort ist falsch"
+    "OLD_PASSWORD_WRONG": "Altes Passwort ist falsch",
+    "PASSWORD_REPEAT_NOT_VALID": "Passwort-Wiederholung ist erforderlich"
   },
   "INCIDENCE_CHART": {
     "7_DAY_INCIDENCES": "7-Tage-Inzidenzen Durchschnitt",

@@ -142,8 +142,12 @@
     "MINIMUM": "Should be at least {{min}}",
     "MAXIMUM": "Should be at most {{max}}",
     "EMAIL_NOT_VALID": "Email is not valid",
+    "PASSWORD_NOT_VALID": "Password is not valid",
+    "FIRSTNAME_NOT_VALID": "First name is not valid",
+    "LASTNAME_NOT_VALID": "Last name is not valid",
     "OLD_PASSWORD_WRONG": "Old password is wrong",
-    "PASSWORDS_NOT_MATCHING": "New password is not matching"
+    "PASSWORDS_NOT_MATCHING": "New password is not matching",
+    "PASSWORD_REPEAT_NOT_VALID": "Password repeat is not valid"
   },
   "INCIDENCE_CHART": {
     "7_DAY_INCIDENCES": "7-day incidence average",
