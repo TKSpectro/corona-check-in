@@ -30,14 +30,16 @@ export class SessionsController {
     @Query() pageOptionsDto: PageOptionsDto,
     @Query('infected') infected?: boolean,
     @Query('sessionBegin') sessionBegin?: Date,
-    @Query('sessionEnd') sessionEnd?: Date
+    @Query('sessionEnd') sessionEnd?: Date,
+    @Query('roomId') roomId?: string
   ) {
     return this.sessionsService.getSessions(
       pageOptionsDto,
       req.user,
       infected,
       sessionBegin,
-      sessionEnd
+      sessionEnd,
+      roomId
     );
   }
 

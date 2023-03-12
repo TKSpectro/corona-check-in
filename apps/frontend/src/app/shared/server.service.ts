@@ -38,7 +38,8 @@ export class ServerService {
     take = 10,
     infected?: boolean,
     sessionBegin?: string,
-    sessionEnd?: string
+    sessionEnd?: string,
+    roomId?: string
   ): Observable<any> {
     return this.httpClient.get<any>(environment.backendUrl + '/sessions', {
       params: new HttpParams()
@@ -46,6 +47,7 @@ export class ServerService {
         .set('take', take.toString())
         .set('infected', infected ?? '')
         .set('sessionBegin', sessionBegin ? sessionBegin : '')
+        .set('roomId', roomId ? roomId : '')
         .set('sessionEnd', sessionEnd ? sessionEnd : ''),
     });
   }
