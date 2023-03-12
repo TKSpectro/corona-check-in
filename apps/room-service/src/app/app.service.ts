@@ -47,7 +47,7 @@ export class AppService {
       queryBuilder.andWhere('faculty = :faculty', { faculty: query.faculty });
     }
 
-    return findWithMeta(queryBuilder, pageOptionsDto, 'updated_at');
+    return findWithMeta(queryBuilder, pageOptionsDto, 'name');
   }
 
   async getRoom(id: string): Promise<RoomEntity> {
@@ -154,7 +154,7 @@ export class AppService {
       ) {
         await this.roomRepository.insert({
           id: `00000000-0000-0000-0000-0000000000${i < 10 ? 0 : ''}${i}`,
-          name: `room-${i}`,
+          name: `room-${i < 10 ? 0 : ''}${i}`,
           maxDuration: randomInt(30, 240),
           maxParticipants: randomInt(10, 100),
           qrCode: null,
