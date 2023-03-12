@@ -22,6 +22,10 @@ table {
 }
 .mat-column-infected{
   max-width: 15% !important;
+
+  &.width-100{
+    max-width: 100% !important;
+  }
 }
 .mat-column-startTime {
   max-width: 30% !important;
