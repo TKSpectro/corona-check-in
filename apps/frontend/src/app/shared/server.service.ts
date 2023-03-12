@@ -46,7 +46,8 @@ export class ServerService {
         .set('take', take.toString())
         .set('infected', infected ?? '')
         .set('sessionBegin', sessionBegin ? sessionBegin : '')
-        .set('sessionEnd', sessionEnd ? sessionEnd : ''),
+        .set('sessionEnd', sessionEnd ? sessionEnd : '')
+        .set('order', 'DESC'),
     });
   }
 
