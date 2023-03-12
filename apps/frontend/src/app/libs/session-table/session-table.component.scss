@@ -4,15 +4,6 @@ table {
   width: 100%;
 }
 
-.center {
-  justify-content: center;
-}
-
-.mat-row:hover .mat-cell {
-  background-color: #5c5b5b;
-  cursor: pointer;
-}
-
 .icon-red {
   color: mat.get-color-from-palette(mat.$pink-palette, 500);
 }
