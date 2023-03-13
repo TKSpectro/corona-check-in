@@ -15,12 +15,10 @@
 
 <h2>{{ 'DASHBOARDS.LAST_SESSIONS' | translate }}</h2>
 
-<div
-  *ngIf="sessionListLoaded && sessionList.length === 0; else elseBlock"
-  class="alert-info"
->
-  {{ 'SESSIONS.NO_SESSIONS_FOUND_NOTICE' | translate }}
-</div>
+<ccn-info-message
+  *ngIf="sessionListEmpty === true; else elseBlock"
+  [message]="'SESSIONS.NO_SESSIONS_FOUND_NOTICE'"
+></ccn-info-message>
 
 <ng-template #elseBlock>
   <ccn-session-table
