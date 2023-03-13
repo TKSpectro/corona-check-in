@@ -64,6 +64,7 @@ $error: mat.get-color-from-palette(mat.$red-palette, 500);
     width: 100%;
   }
 }
+
 .table-wrapper {
   position: relative;
 
@@ -82,6 +83,7 @@ $error: mat.get-color-from-palette(mat.$red-palette, 500);
     align-items: center;
   }
 }
+
 .filter-row {
   display: flex;
   justify-content: space-between;
@@ -96,6 +98,7 @@ $error: mat.get-color-from-palette(mat.$red-palette, 500);
     align-items: center;
   }
 }
+
 .mat-row:hover .mat-cell {
   background-color: #5c5b5b;
   cursor: pointer;
