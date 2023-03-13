@@ -48,9 +48,10 @@
   <mat-icon>replay</mat-icon>
 </button>
 
-<div *ngIf="sessionListLoaded && sessionList.length === 0" class="alert-info">
-  {{ 'SESSIONS.NO_SESSIONS_FOUND_NOTICE' | translate }}
-</div>
+<ccn-info-message
+  *ngIf="sessionListEmpty === true"
+  [message]="'SESSIONS.NO_SESSIONS_FOUND_NOTICE'"
+></ccn-info-message>
 
 <div class="table-wrapper">
   <ccn-session-table
