@@ -47,8 +47,8 @@ export class ServerService {
         .set('take', take.toString())
         .set('infected', infected ?? '')
         .set('sessionBegin', sessionBegin ? sessionBegin : '')
-        .set('roomId', roomId ? roomId : '')
-        .set('sessionEnd', sessionEnd ? sessionEnd : ''),
+        .set('sessionEnd', sessionEnd ? sessionEnd : '')
+        .set('roomId', roomId ? roomId : ''),
     });
   }
 
