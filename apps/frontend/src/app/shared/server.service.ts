@@ -48,7 +48,7 @@ export class ServerService {
         .set('infected', infected ?? '')
         .set('sessionBegin', sessionBegin ? sessionBegin : '')
         .set('sessionEnd', sessionEnd ? sessionEnd : '')
-        .set('roomId', roomId ? roomId : ''),
+        .set('roomId', roomId ? roomId : '')
         .set('order', 'DESC'),
     });
   }
