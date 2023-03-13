@@ -59,9 +59,10 @@
   </div>
 </div>
 
-<div *ngIf="roomListLoaded && roomList.length === 0" class="alert-info">
-  {{ 'ROOMS.NO_ROOMS_FOUND_NOTICE' | translate }}
-</div>
+<ccn-info-message
+  *ngIf="roomListEmpty === true"
+  [message]="'ROOMS.NO_ROOMS_FOUND_NOTICE'"
+></ccn-info-message>
 
 <div class="table-wrapper">
   <table mat-table [dataSource]="roomList" class="mat-elevation-z8">
