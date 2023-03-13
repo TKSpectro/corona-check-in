@@ -21,15 +21,20 @@
   </ng-container>
 
   <ng-container matColumnDef="infected">
-    <mat-header-cell class="center" *matHeaderCellDef>{{
-      'SESSIONS.INFECTED' | translate
-    }}</mat-header-cell>
-    <mat-cell class="center" *matCellDef="let session">
-      <mat-icon *ngIf="session.infected" class="icon-red">mood_bad</mat-icon>
-      <mat-icon *ngIf="!session.infected" color="accent"
-        >mood</mat-icon
-      ></mat-cell
+    <mat-header-cell
+      class="center"
+      [ngClass]="{ 'width-100': displayedColumns.length === 3 }"
+      *matHeaderCellDef
+      >{{ 'SESSIONS.INFECTED' | translate }}</mat-header-cell
     >
+    <mat-cell
+      class="center"
+      [ngClass]="{ 'width-100': displayedColumns.length === 3 }"
+      *matCellDef="let session"
+    >
+      <mat-icon *ngIf="session.infected" class="icon-red"> mood_bad </mat-icon>
+      <mat-icon *ngIf="!session.infected" color="accent"> mood </mat-icon>
+    </mat-cell>
   </ng-container>
   <ng-container matColumnDef="actions">
     <mat-header-cell

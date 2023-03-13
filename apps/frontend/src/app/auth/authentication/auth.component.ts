@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { firstValueFrom, Subscription } from 'rxjs';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -7,19 +10,56 @@ import { AuthService } from '../auth.service';
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.scss'],
 })
-export class AuthComponent implements OnInit {
+export class AuthComponent implements OnInit, OnDestroy {
+  subscriptions: Subscription[] = [];
+
   email!: string;
   firstname!: string;
   lastname!: string;
   password!: string;
   passwordRepeat!: string;
   isSignup = false;
-  constructor(private authSrv: AuthService, private router: Router) {}
+  constructor(
+    public t: TranslateService,
+    private snackBar: MatSnackBar,
+    private authSrv: AuthService,
+    private router: Router
+  ) {}
 
-  ngOnInit(): void {
-    this.authSrv.authStatusSubject.subscribe((isSignup) => {
-      this.isSignup = isSignup;
-    });
+  ngOnInit() {
+    this.subscriptions.push(
+      this.authSrv.authStatusSubject.subscribe((isSignup) => {
+        this.isSignup = isSignup;
+      })
+    );
+
+    this.subscriptions.push(
+      this.authSrv.loginErrorSubject.subscribe(async (error) => {
+        this.snackBar.open(
+          (await firstValueFrom(this.t.get('AUTH.LOGIN_ERROR'))) +
+            '\n' +
+            error?.error?.message,
+          undefined,
+          {
+            panelClass: 'snackbar-error',
+          }
+        );
+      })
+    );
+
+    this.subscriptions.push(
+      this.authSrv.signupErrorSubject.subscribe(async (error) => {
+        this.snackBar.open(
+          (await firstValueFrom(this.t.get('AUTH.SIGNUP_ERROR'))) +
+            '\n' +
+            error?.error?.message,
+          undefined,
+          {
+            panelClass: 'snackbar-error',
+          }
+        );
+      })
+    );
   }
 
   handleSubmit() {
@@ -43,5 +83,9 @@ export class AuthComponent implements OnInit {
   clickSwitch() {
     this.isSignup = !this.isSignup;
     this.authSrv.authStatusSubject.next(this.isSignup);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 }

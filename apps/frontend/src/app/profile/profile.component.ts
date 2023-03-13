@@ -1,10 +1,10 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
 import { ConfirmationDialogComponent } from '../libs';
 import { ProfileService } from './profile.service';
 
@@ -28,6 +28,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
+    private authService: AuthService,
     private profileService: ProfileService,
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
@@ -35,10 +36,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.profileService.getProfileData();
     this.subscriptions.push(
-      this.profileService.submitProfileData.subscribe(
-        (data) => {
+      this.profileService.getProfileData().subscribe({
+        next: (data) => {
           this.id = data.id as string;
           this.firstname = data.firstname as string;
           this.lastname = data.lastname as string;
@@ -46,59 +46,61 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.firstname = data.firstname as string;
           this.lastname = data.lastname as string;
         },
-        (error) => {
+        error: (error) => {
           this.snackBar.open(
-            this.t.instant(
-              'PROFILES.LOAD_PROFILE_ERROR' + '\n' + error.error.message
-            ),
+            this.t.instant('PROFILES.LOAD_PROFILE_ERROR') +
+              '\n' +
+              error.error.message,
             undefined,
             {
               panelClass: 'snackbar-error',
             }
           );
-        }
-      )
+        },
+      })
     );
   }
 
-  ngOnDestroy() {
-    this.subscriptions.forEach((sub) => sub.unsubscribe());
-  }
-
   handleUpdate() {
-    this.profileService.updateUser(this.id, {
-      email: this.email,
-      firstname: this.firstname,
-      lastname: this.lastname,
-      oldPassword: this.oldPassword,
-      newPassword: this.newPassword,
-      newPasswordRepeat: this.newPasswordRepeat,
-    });
     this.subscriptions.push(
-      this.profileService.updateProfileData.subscribe((data) => {
-        if (data instanceof HttpErrorResponse) {
-          this.snackBar.open(this.t.instant(data?.error?.message), undefined, {
-            panelClass: 'snackbar-error',
-          });
+      this.profileService
+        .updateUser(this.id, {
+          email: this.email,
+          firstname: this.firstname,
+          lastname: this.lastname,
+          oldPassword: this.oldPassword,
+          newPassword: this.newPassword,
+          newPasswordRepeat: this.newPasswordRepeat,
+        })
+        .subscribe({
+          next: (data) => {
+            this.id = data.id as string;
+            this.firstname = data.firstname as string;
+            this.lastname = data.lastname as string;
+            this.email = data.email as string;
+            this.firstname = data.firstname as string;
+            this.lastname = data.lastname as string;
 
-          return;
-        }
-
-        this.id = data.id as string;
-        this.firstname = data.firstname as string;
-        this.lastname = data.lastname as string;
-        this.email = data.email as string;
-        this.firstname = data.firstname as string;
-        this.lastname = data.lastname as string;
-
-        this.snackBar.open(
-          this.t.instant('PROFILES.PROFILE_UPDATE_SUCCESS'),
-          undefined,
-          {
-            panelClass: 'snackbar-success',
-          }
-        );
-      })
+            this.snackBar.open(
+              this.t.instant('PROFILES.PROFILE_UPDATE_SUCCESS'),
+              undefined,
+              {
+                panelClass: 'snackbar-success',
+              }
+            );
+          },
+          error: (error) => {
+            this.snackBar.open(
+              this.t.instant('PROFILES.PROFILE_UPDATE_ERROR') +
+                '\n' +
+                error.error.message,
+              undefined,
+              {
+                panelClass: 'snackbar-error',
+              }
+            );
+          },
+        })
     );
   }
 
@@ -112,34 +114,39 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result === true) {
-        this.profileService.deleteUser(this.id);
         this.subscriptions.push(
-          this.profileService.deleteUserData.subscribe((data) => {
-            if (data instanceof HttpErrorResponse) {
+          this.profileService.deleteUser(this.id).subscribe({
+            next: () => {
+              this.authService.logout();
+
               this.snackBar.open(
-                this.t.instant('PROFILES.PROFILE_DELETE_ERROR'),
+                this.t.instant('PROFILES.PROFILE_DELETE_SUCCESS'),
+                undefined,
+                {
+                  panelClass: 'snackbar-success',
+                }
+              );
+
+              this.router.navigate(['/']);
+            },
+            error: (error) => {
+              this.snackBar.open(
+                this.t.instant('PROFILES.PROFILE_DELETE_ERROR') +
+                  '\n' +
+                  error.error.message,
                 undefined,
                 {
                   panelClass: 'snackbar-error',
                 }
               );
-              return;
-            }
-
-            this.profileService.logout();
-
-            this.snackBar.open(
-              this.t.instant('PROFILES.PROFILE_DELETE_SUCCESS'),
-              undefined,
-              {
-                panelClass: 'snackbar-success',
-              }
-            );
-
-            this.router.navigate(['/']);
+            },
           })
         );
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 }

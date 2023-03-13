@@ -10,6 +10,7 @@ import {
   HttpStatus,
   Inject,
   Injectable,
+  InternalServerErrorException,
   NotFoundException,
   OnModuleInit,
 } from '@nestjs/common';
@@ -19,7 +20,6 @@ import { randomUUID } from 'crypto';
 import { DateTime } from 'luxon';
 import { lastValueFrom, timeout } from 'rxjs';
 import { MoreThan, Repository } from 'typeorm';
-import { resourceLimits } from 'worker_threads';
 import { environment } from '../environments/environment';
 import { CurrenStatusDto } from './current-status.dto';
 import { Risk } from './risk.enum';
@@ -100,7 +100,7 @@ export class AppService implements OnModuleInit {
       queryBuilder.select(selectWithoutNote);
     }
 
-    return findWithMeta(queryBuilder, pageOptionsDto);
+    return findWithMeta(queryBuilder, pageOptionsDto, 'startTime');
   }
 
   async getSessionById(id: string, user: RequestUser) {
@@ -125,16 +125,18 @@ export class AppService implements OnModuleInit {
       order: { startTime: 'DESC' },
     });
 
-    const room = await lastValueFrom(
-      this.roomSrv
-        .send({ role: 'room', cmd: 'get-by-id' }, session.roomId)
-        .pipe(timeout(environment.serviceTimeout))
-    );
-    if (!room) {
-      throw new NotFoundException('Room not found');
-    }
+    if (session) {
+      const room = await lastValueFrom(
+        this.roomSrv
+          .send({ role: 'room', cmd: 'get-by-id' }, session.roomId)
+          .pipe(timeout(environment.serviceTimeout))
+      );
+      if (!room) {
+        throw new NotFoundException('Room not found');
+      }
 
-    session.room = room;
+      session.room = room;
+    }
 
     return session;
   }
@@ -271,24 +273,36 @@ export class AppService implements OnModuleInit {
       .getRawOne();
 
     const result = new CurrenStatusDto();
-    result.numberOfEncounters = encounters.count;
+
+    if (encounters == null) {
+      throw new InternalServerErrorException(
+        'Error while trying to get encounters'
+      );
+    } else {
+      // remove time from the last encounter and return only the date for privacy
+      if (encounters.max_endtime == null) {
+        result.lastEncounter = null;
+      } else {
+        result.lastEncounter = new Date(
+          encounters.max_endtime.setHours(0, 0, 0, 0)
+        );
+      }
+
+      result.numberOfEncounters = encounters.count ?? 0;
+    }
+
     result.updatedAt = new Date();
 
-    if (infection.infected == true) {
-      result.risk = Risk.HIGH;
+    if (infection) {
+      if (infection.infected == true) {
+        result.risk = Risk.HIGH;
+      }
     } else {
-      if (encounters.count > 0) {
+      if (result.numberOfEncounters > 0) {
         result.risk = Risk.MEDIUM;
       } else {
         result.risk = Risk.LOW;
       }
-    }
-
-    // remove time from the last encounter and return only the date for privacy
-    if (encounters.max_endtime !== null) {
-      result.lastEncounter = new Date(
-        encounters.max_endtime.setHours(0, 0, 0, 0)
-      );
     }
 
     return result;

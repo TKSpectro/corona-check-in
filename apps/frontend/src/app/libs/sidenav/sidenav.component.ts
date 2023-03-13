@@ -69,7 +69,7 @@ export class SidenavComponent implements OnDestroy, OnInit {
   }
 
   handleLogout() {
-    this.profileService.logout();
+    this.authService.logout();
 
     this.snackBar.open(this.t.instant('PROFILES.LOGOUT_SUCCESS'), undefined, {
       panelClass: 'snackbar-success',
