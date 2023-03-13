@@ -47,6 +47,7 @@
     "DELETE_USER_WARNING": "Are you sure you want to delete your account? This action cannot be undone.",
     "PROFILE_SETTINGS": "Profile settings",
     "PROFILE_UPDATE_SUCCESS": "Profile updated successfully",
+    "PROFILE_UPDATE_ERROR": "Could not update profile",
     "LOGOUT_SUCCESS": "You have been logged out successfully",
     "PROFILE_DELETE_SUCCESS": "Your account has been deleted successfully",
     "PROFILE_DELETE_ERROR": "Could not delete your account",
@@ -142,8 +143,12 @@
     "MINIMUM": "Should be at least {{min}}",
     "MAXIMUM": "Should be at most {{max}}",
     "EMAIL_NOT_VALID": "Email is not valid",
+    "PASSWORD_NOT_VALID": "Password is not valid",
+    "FIRSTNAME_NOT_VALID": "First name is not valid",
+    "LASTNAME_NOT_VALID": "Last name is not valid",
     "OLD_PASSWORD_WRONG": "Old password is wrong",
-    "PASSWORDS_NOT_MATCHING": "New password is not matching"
+    "PASSWORDS_NOT_MATCHING": "New password is not matching",
+    "PASSWORD_REPEAT_NOT_VALID": "Password repeat is not valid"
   },
   "INCIDENCE_CHART": {
     "7_DAY_INCIDENCES": "7-day incidence average",

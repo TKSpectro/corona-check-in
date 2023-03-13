@@ -1,6 +1,5 @@
 import {
   findWithMeta,
-  Order,
   PageOptionsDto,
 } from '@corona-check-in/micro-service-shared';
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
@@ -47,8 +46,8 @@ export class AppService {
     if (query.faculty) {
       queryBuilder.andWhere('faculty = :faculty', { faculty: query.faculty });
     }
-    pageOptionsDto.order = Order.DESC;
-    return findWithMeta(queryBuilder, pageOptionsDto, 'updated_at');
+
+    return findWithMeta(queryBuilder, pageOptionsDto, 'name');
   }
 
   async getRoom(id: string): Promise<RoomEntity> {
@@ -155,7 +154,7 @@ export class AppService {
       ) {
         await this.roomRepository.insert({
           id: `00000000-0000-0000-0000-0000000000${i < 10 ? 0 : ''}${i}`,
-          name: `room-${i}`,
+          name: `room-${i < 10 ? 0 : ''}${i}`,
           maxDuration: randomInt(30, 240),
           maxParticipants: randomInt(10, 100),
           qrCode: null,
