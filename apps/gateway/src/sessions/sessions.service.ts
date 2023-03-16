@@ -20,13 +20,14 @@ export class SessionsService {
     user: RequestUser,
     infected?: boolean,
     sessionBegin?: Date,
-    sessionEnd?: Date
+    sessionEnd?: Date,
+    roomId?: string
   ) {
     return await lastValueFrom(
       this.sessionClient
         .send(
           { role: 'session', cmd: 'get-all' },
-          { pageOptionsDto, user, infected, sessionBegin, sessionEnd }
+          { pageOptionsDto, user, infected, sessionBegin, sessionEnd, roomId }
         )
         .pipe(timeout(environment.serviceTimeout))
     );

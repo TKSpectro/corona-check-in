@@ -136,11 +136,18 @@ export class RoomDetailsComponent implements OnInit, OnDestroy {
   loadSessions() {
     this.subscription.push(
       this.sessionListService
-        .getSessions(0, 5)
+        .getSessions(0, 5, false, undefined, undefined, this.id)
         .pipe(
           mergeMap((data) => {
             this.sessionList = data.data;
-            return this.sessionListService.getSessions(0, 5, true);
+            return this.sessionListService.getSessions(
+              0,
+              5,
+              true,
+              undefined,
+              undefined,
+              this.id
+            );
           })
         )
         .subscribe({
