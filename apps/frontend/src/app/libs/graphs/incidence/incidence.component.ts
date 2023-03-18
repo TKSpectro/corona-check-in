@@ -37,18 +37,6 @@ export class IncidenceComponent implements OnDestroy {
     this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
   }
 
-  onSelect(data: any): void {
-    console.log('Item clicked', data);
-  }
-
-  onActivate(data: any): void {
-    console.log('Activate', data);
-  }
-
-  onDeactivate(data: any): void {
-    console.log('Deactivate', data);
-  }
-
   xAxisTickFormatting(value: any) {
     return new Date(value).toLocaleDateString(undefined, {
       day: '2-digit',

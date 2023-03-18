@@ -24,7 +24,7 @@ export class QrCodeScannerComponent {
       this.cameraDevices = $event;
       this.desiredDevice = $event[0];
     } else {
-      console.warn('no Camera found');
+      console.warn('no camera found');
       this.noCameraFound = true;
     }
   }
@@ -39,14 +39,6 @@ export class QrCodeScannerComponent {
     );
   }
 
-  scanSuccessHandler($event: string) {
-    console.log('scanSuccessHandler', $event);
-  }
-
-  scanErrorHandler($event: Error) {
-    console.log('scanErrorHandler', $event);
-  }
-
   scanCompleteHandler($event: Result) {
     if ($event) {
       const roomDetails: ScanQrCodeBody = JSON.parse($event.getText());
@@ -54,10 +46,6 @@ export class QrCodeScannerComponent {
       this.scanEvent.emit(roomDetails);
       this.turnCameraOn = !this.turnCameraOn;
     }
-  }
-
-  changeCamera() {
-    console.log('changeCamera', this.desiredDevice);
   }
 
   toggleCamera() {

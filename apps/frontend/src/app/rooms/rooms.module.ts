@@ -10,16 +10,12 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { QRCodeModule } from 'angularx-qrcode';
 import { AngularMaterialModule } from '../angular-material.module';
+import { AuthGuard } from '../auth';
 import { LibModule } from '../libs/lib.module';
 import { RoomDetailsComponent } from './room-details/room-details.component';
+import { RoomFormComponent } from './room-form/room-form.component';
 import { RoomListComponent } from './room-list/room-list.component';
 import { RoomsComponent } from './rooms.component';
-import { RoomFormComponent } from './room-form/room-form.component';
-import { AuthGuard } from '../auth';
-
-function test() {
-  console.log('test');
-}
 
 const routes: Routes = [
   {
