@@ -7,10 +7,12 @@ import {
   ViewChild,
 } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Title } from '@angular/platform-browser';
 import { TranslateService } from '@ngx-translate/core';
 import { firstValueFrom, Subscription } from 'rxjs';
 import { IncidenceService } from '../libs/graphs/incidence/incidence.service';
 import { SessionListService } from '../sessions/session-list.service';
+import { TitleService } from '../shared/title.service';
 import { IncidenceResult, ScanQrCodeBody } from '../shared/types';
 import { SessionCardComponent } from './session-card/session-card.component';
 
@@ -34,6 +36,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   constructor(
     public t: TranslateService,
+    private titleService: TitleService,
     private snackBar: MatSnackBar,
     media: MediaMatcher,
     changeDetectorRef: ChangeDetectorRef,
@@ -46,6 +49,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
       'change',
       (event) => (this.isExpanded = !event.matches)
     );
+    t.get('DASHBOARD').subscribe((res: string) => {
+      this.titleService.setTitle(res);
+    });
   }
 
   ngOnInit(): void {
