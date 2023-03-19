@@ -24,7 +24,6 @@ export class QrCodeScannerComponent {
       this.cameraDevices = $event;
       this.desiredDevice = $event[0];
     } else {
-      console.warn('no camera found');
       this.noCameraFound = true;
     }
   }
