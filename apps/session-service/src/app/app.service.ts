@@ -293,10 +293,8 @@ export class AppService implements OnModuleInit {
 
     result.updatedAt = new Date();
 
-    if (infection) {
-      if (infection.infected == true) {
-        result.risk = Risk.HIGH;
-      }
+    if (infection && infection.infected == true) {
+      result.risk = Risk.HIGH;
     } else {
       if (result.numberOfEncounters > 0) {
         result.risk = Risk.MEDIUM;

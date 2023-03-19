@@ -73,6 +73,8 @@
   class="incidence-graph"
   [incidenceChartData]="incidenceChartData"
 ></ccn-incidence>
-<div *ngIf="noIncidencesFound">
-  <h3>{{ 'INCIDENCE_CHART.NO_INCIDENCES_FOUND' | translate }}</h3>
-</div>
+
+<ccn-info-message
+  *ngIf="noIncidencesFound === true"
+  [message]="'INCIDENCE_CHART.NO_INCIDENCES_FOUND'"
+></ccn-info-message>
