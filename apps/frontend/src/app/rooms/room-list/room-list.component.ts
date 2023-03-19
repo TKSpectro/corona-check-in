@@ -33,6 +33,7 @@ export class RoomListComponent implements OnInit, OnDestroy {
   ];
 
   roomList!: Room[];
+  roomListEmpty = false;
   _meta?: Meta;
   pageEvent: PageEvent = new PageEvent();
   total!: number;
@@ -87,6 +88,12 @@ export class RoomListComponent implements OnInit, OnDestroy {
       this.roomSrv.getRoomList().subscribe((data) => {
         this.roomList = data.data;
         this._meta = data._meta;
+
+        if (this.roomList.length > 0) {
+          this.roomListEmpty = false;
+        } else {
+          this.roomListEmpty = true;
+        }
       })
     );
   }
@@ -106,6 +113,12 @@ export class RoomListComponent implements OnInit, OnDestroy {
           next: (data) => {
             this.roomList = [...data.data];
             this._meta = data._meta;
+
+            if (this.roomList.length > 0) {
+              this.roomListEmpty = false;
+            } else {
+              this.roomListEmpty = true;
+            }
           },
           error: (error) => {
             this.snackBar.open(
