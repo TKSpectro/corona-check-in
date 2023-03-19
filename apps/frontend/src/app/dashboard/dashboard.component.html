@@ -1,19 +1,24 @@
 <h1>{{ 'DASHBOARD' | translate }}</h1>
 
-<mat-grid-list cols="9" rowHeight="160px">
+<mat-grid-list cols="9" rowHeight="80px" gutterSize="12">
   <mat-grid-tile
-    [rowspan]="mobileQuery.matches ? 1 : 2"
-    [colspan]="mobileQuery.matches ? 9 : 6"
+    [rowspan]="mobileQuery.matches ? 3 : 4"
+    [colspan]="mobileQuery.matches ? 9 : 3"
   >
-    <ccn-current-status style="width: 100%; height: 100%"></ccn-current-status>
-    <ccn-session-card style="width: 100%; margin-left: 20px"></ccn-session-card>
+    <ccn-current-status style="width: 100%"></ccn-current-status>
   </mat-grid-tile>
-  <mat-grid-tile [rowspan]="2" [colspan]="mobileQuery.matches ? 9 : 3">
+  <mat-grid-tile [rowspan]="4" [colspan]="mobileQuery.matches ? 9 : 3">
     <ccn-qr-code-scanner (scanEvent)="onScan($event)"></ccn-qr-code-scanner>
+  </mat-grid-tile>
+  <mat-grid-tile
+    [rowspan]="mobileQuery.matches ? 4 : 4"
+    [colspan]="mobileQuery.matches ? 9 : 3"
+  >
+    <ccn-session-card style="width: 100%"></ccn-session-card>
   </mat-grid-tile>
 </mat-grid-list>
 
-<h2>{{ 'DASHBOARDS.LAST_SESSIONS' | translate }}</h2>
+<h2 class="margin-top-1">{{ 'DASHBOARDS.LAST_SESSIONS' | translate }}</h2>
 
 <ccn-info-message
   *ngIf="sessionListEmpty === true; else elseBlock"
@@ -23,11 +28,12 @@
 <ng-template #elseBlock>
   <ccn-session-table
     [sessionList]="sessionList"
-    style="margin-top: 1em; width: 100%"
+    class="margin-top-1"
+    style="width: 100%"
   ></ccn-session-table
 ></ng-template>
 
-<h2 class="incidence-chart-heading">
+<h2 class="incidence-chart-heading margin-top-1">
   {{ 'INCIDENCE_CHART.7_DAY_INCIDENCES' | translate }}
   <mat-icon
     matTooltip="{{ 'INCIDENCE_CHART.7_DAY_INCIDENCES_TOOLTIP' | translate }}"
