@@ -23,7 +23,9 @@ import { SessionCardComponent } from './session-card/session-card.component';
 export class DashboardComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   mobileQuery: MediaQueryList;
+  tabletQuery: MediaQueryList;
   _mobileQueryListener: () => void;
+  _tabletQueryListener: () => void;
   isExpanded!: boolean;
 
   sessionList = [];
@@ -44,9 +46,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private incidenceService: IncidenceService,
     private titleService: TitleService
   ) {
-    this.mobileQuery = media.matchMedia('(max-width: 1180px)');
+    this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-    this.mobileQuery.addEventListener('change', (event) => {
+    this.tabletQuery = media.matchMedia('(max-width: 1150px)');
+    this._tabletQueryListener = () => changeDetectorRef.detectChanges();
+    this.tabletQuery.addEventListener('change', (event) => {
       this.isExpanded = !event.matches;
 
       // If there is no current session and we are on mobile/tablet we can shrink the card
@@ -109,13 +113,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
+    this.tabletQuery.removeEventListener('change', this._tabletQueryListener);
     this.subscriptions.forEach((s) => s.unsubscribe());
   }
 
   currentSessionHandler($event: any) {
-    console.log($event);
     this.currentSessionFound = !!$event;
-    if (!$event && this.mobileQuery.matches) {
+    if (!$event && this.tabletQuery.matches) {
       this.currentSessionCardRowSpan = 2;
     }
   }

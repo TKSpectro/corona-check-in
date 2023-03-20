@@ -6,17 +6,17 @@
   [gutterSize]="mobileQuery.matches ? '2' : '6'"
 >
   <mat-grid-tile
-    [rowspan]="mobileQuery.matches ? 3 : 4"
-    [colspan]="mobileQuery.matches ? 9 : 3"
+    [rowspan]="tabletQuery.matches ? 3 : 4"
+    [colspan]="tabletQuery.matches ? 9 : 3"
   >
     <ccn-current-status style="width: 100%"></ccn-current-status>
   </mat-grid-tile>
-  <mat-grid-tile [rowspan]="4" [colspan]="mobileQuery.matches ? 9 : 3">
+  <mat-grid-tile [rowspan]="4" [colspan]="tabletQuery.matches ? 9 : 3">
     <ccn-qr-code-scanner (scanEvent)="onScan($event)"></ccn-qr-code-scanner>
   </mat-grid-tile>
   <mat-grid-tile
     [rowspan]="currentSessionCardRowSpan"
-    [colspan]="mobileQuery.matches ? 9 : 3"
+    [colspan]="tabletQuery.matches ? 9 : 3"
   >
     <ccn-session-card
       style="width: 100%"
@@ -25,7 +25,7 @@
   </mat-grid-tile>
 </mat-grid-list>
 
-<h2 class="margin-top-1">{{ 'DASHBOARDS.LAST_SESSIONS' | translate }}</h2>
+<h2 class="margin-top-1-5">{{ 'DASHBOARDS.LAST_SESSIONS' | translate }}</h2>
 
 <ccn-info-message
   *ngIf="sessionListEmpty === true; else elseBlock"
@@ -40,7 +40,7 @@
   ></ccn-session-table
 ></ng-template>
 
-<h2 class="incidence-chart-heading margin-top-1">
+<h2 class="incidence-chart-heading margin-top-1-5">
   {{ 'INCIDENCE_CHART.7_DAY_INCIDENCES' | translate }}
   <mat-icon
     matTooltip="{{ 'INCIDENCE_CHART.7_DAY_INCIDENCES_TOOLTIP' | translate }}"
