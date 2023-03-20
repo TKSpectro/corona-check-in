@@ -28,6 +28,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   sessionListSub!: Subscription;
   sessionList = [];
+  sessionListEmpty = false;
 
   @ViewChild(SessionCardComponent) sessionCardChild!: SessionCardComponent;
 
@@ -58,6 +59,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.sessionListSub = this.sessionListService.getSessions(0, 5).subscribe({
       next: (data) => {
         this.sessionList = data.data;
+
+        if (this.sessionList.length > 0) {
+          this.sessionListEmpty = false;
+        } else {
+          this.sessionListEmpty = true;
+        }
       },
       error: (error) => {
         this.snackBar.open(

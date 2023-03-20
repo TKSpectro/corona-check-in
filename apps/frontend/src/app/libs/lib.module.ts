@@ -6,6 +6,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { CustomDatePipe } from '.';
 import { AngularMaterialModule } from '../angular-material.module';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { InfoMessageComponent } from './info-message/info-message.component';
 import { IncidenceComponent } from './graphs/incidence/incidence.component';
 import { SessionTableComponent } from './session-table/session-table.component';
 
@@ -15,6 +16,7 @@ import { SessionTableComponent } from './session-table/session-table.component';
     ConfirmationDialogComponent,
     IncidenceComponent,
     CustomDatePipe,
+    InfoMessageComponent,
   ],
   imports: [
     CommonModule,
@@ -28,6 +30,7 @@ import { SessionTableComponent } from './session-table/session-table.component';
     ConfirmationDialogComponent,
     IncidenceComponent,
     CustomDatePipe,
+    InfoMessageComponent,
   ],
 })
 export class LibModule {}
