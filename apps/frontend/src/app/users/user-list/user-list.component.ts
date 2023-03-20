@@ -8,6 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { ConfirmationDialogComponent } from '../../libs';
+import { TitleService } from '../../shared/title.service';
 import { Meta, User } from '../../shared/types';
 import { UserFormComponent } from '../user-form/user-form.component';
 import { UsersService } from '../users.service';
@@ -48,7 +49,8 @@ export class UserListComponent implements OnInit, OnDestroy {
     private t: TranslateService,
     private snackBar: MatSnackBar,
     public dialog: MatDialog,
-    private userSrv: UsersService
+    private userSrv: UsersService,
+    private titleService: TitleService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 1150px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -60,6 +62,12 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.subscriptions.push(
+      this.t.get('USERS.USERS').subscribe((res: string) => {
+        this.titleService.setTitle(res);
+      })
+    );
+
     this.loadUsers();
 
     this.isDesktop = !this.mobileQuery.matches;

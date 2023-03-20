@@ -37,12 +37,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   constructor(
     public t: TranslateService,
-    private titleService: TitleService,
     private snackBar: MatSnackBar,
     media: MediaMatcher,
     changeDetectorRef: ChangeDetectorRef,
     private sessionListService: SessionListService,
-    private incidenceService: IncidenceService
+    private incidenceService: IncidenceService,
+    private titleService: TitleService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 1150px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -50,12 +50,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
       'change',
       (event) => (this.isExpanded = !event.matches)
     );
-    t.get('DASHBOARD').subscribe((res: string) => {
-      this.titleService.setTitle(res);
-    });
   }
 
   ngOnInit(): void {
+    this.t.get('DASHBOARD').subscribe((res: string) => {
+      this.titleService.setTitle(res);
+    });
+
     this.sessionListSub = this.sessionListService.getSessions(0, 5).subscribe({
       next: (data) => {
         this.sessionList = data.data;
