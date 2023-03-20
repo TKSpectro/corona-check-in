@@ -4,6 +4,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import { TitleService } from '../../shared/title.service';
 import { Session } from '../../shared/types';
 import { SessionListService } from '../session-list.service';
 
@@ -44,10 +45,17 @@ export class SessionListComponent implements OnInit, OnDestroy {
   constructor(
     private t: TranslateService,
     private snackBar: MatSnackBar,
-    private sessionListService: SessionListService
+    private sessionListService: SessionListService,
+    private titleService: TitleService
   ) {}
 
   ngOnInit(): void {
+    this.subscriptions.push(
+      this.t.get('SESSIONS.SESSIONS').subscribe((res: string) => {
+        this.titleService.setTitle(res);
+      })
+    );
+
     this.loadSessions();
   }
 

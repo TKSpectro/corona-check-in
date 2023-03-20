@@ -64,6 +64,7 @@ export class AuthService implements OnDestroy {
           this.token = result.token;
           localStorage.setItem('ccn_token', this.token);
           this.adminService.autoAdmin();
+          this.isLoggedIn = true;
           this.loginSubject.next(this.isLoggedIn);
           this.router.navigate(['/dashboard']);
         },

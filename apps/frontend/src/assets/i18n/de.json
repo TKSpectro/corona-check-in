@@ -87,7 +87,8 @@
     "DELETE_SESSION_ERROR": "Session konnte nicht gelöscht werden",
     "REPORT_INFECTION_WARNING": "Wollen Sie sich als infiziert melden? Dadurch werden Ihre Sessions der letzten 5 Tage als infiziert markiert.",
     "NO_CURRENT_OR_LAST_SESSION": "Noch keine Sessions vorhanden. Über den QR-Code-Scanner können Sie in einen Raum einchecken.",
-    "NO_SESSIONS_FOUND_NOTICE": "Es wurden keine Sessions gefunden"
+    "NO_SESSIONS_FOUND_NOTICE": "Es wurden keine Sessions gefunden",
+    "LOAD_SESSION_DETAILS_ERROR": "Session konnte nicht geladen werden"
   },
   "ROOMS": {
     "ROOMS": "Räume",
@@ -111,7 +112,9 @@
     "LOAD_ROOM_LIST_ERROR": "Raumliste konnte nicht geladen werden",
     "LOAD_ROOM_DETAILS_ERROR": "Raumdetails konnten nicht geladen werden",
     "LOAD_SESSIONS_ERROR": "Sessions konnten nicht geladen werden",
-    "NO_ROOMS_FOUND_NOTICE": "Es wurden keine Räume gefunden"
+    "NO_ROOMS_FOUND_NOTICE": "Es wurden keine Räume gefunden",
+    "QR_CODE_UPDATE_ERROR": "QR-Code konnte nicht aktualisiert werden",
+    "QR_CODE_UPDATE_SUCCESS": "QR-Code erfolgreich aktualisiert"
   },
   "DASHBOARDS": {
     "LAST_SESSIONS": "Letzte Sessions",

@@ -8,6 +8,7 @@ import { mergeMap } from 'rxjs/operators';
 import { AdminService } from '../../auth/admin/admin.service';
 import { IncidenceService } from '../../libs/graphs/incidence/incidence.service';
 import { SessionListService } from '../../sessions/session-list.service';
+import { TitleService } from '../../shared/title.service';
 import { IncidenceResult, Room } from '../../shared/types';
 import { RoomsService } from '../rooms.service';
 
@@ -38,12 +39,14 @@ export class RoomDetailsComponent implements OnInit, OnDestroy {
     private roomsSrv: RoomsService,
     private media: MediaMatcher,
     public adminSrv: AdminService,
-    private incidenceService: IncidenceService
+    private incidenceService: IncidenceService,
+    private titleService: TitleService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 900px)');
   }
 
   ngOnInit(): void {
+    this.generateTitle();
     this.subscription.push(
       this.route.paramMap.subscribe((params) => {
         this.id = params.get('id') || '';
@@ -76,6 +79,14 @@ export class RoomDetailsComponent implements OnInit, OnDestroy {
     this.loadSessions();
   }
 
+  generateTitle(roomName: string = '') {
+    this.subscription.push(
+      this.t.get('ROOMS.ROOM_DETAILS').subscribe((res: string) => {
+        this.titleService.setTitle((roomName ? roomName + ' ' : '') + res);
+      })
+    );
+  }
+
   init() {
     const _meta = this.roomsSrv.getMetaData();
     if (!_meta) {
@@ -83,6 +94,7 @@ export class RoomDetailsComponent implements OnInit, OnDestroy {
         this.roomsSrv.getRoomDetails(this.id).subscribe({
           next: (data) => {
             this.room = data;
+            this.generateTitle(this.room.name);
             this.qrCode = JSON.stringify({
               roomId: this.room.id,
               createdQrCode: this.room.createdQrCode,
@@ -112,6 +124,7 @@ export class RoomDetailsComponent implements OnInit, OnDestroy {
           );
           if (selectedRoom) {
             this.room = selectedRoom;
+            this.generateTitle(this.room.name);
             this.qrCode = JSON.stringify({
               roomId: this.room.id,
               createdQrCode: this.room.createdQrCode,
@@ -176,9 +189,27 @@ export class RoomDetailsComponent implements OnInit, OnDestroy {
       name: newDate,
     });
     this.room.createdQrCode = newDate;
-    this.roomsSrv.updateQrCode(this.room).subscribe((data) => {
-      // TODO: show success message
-      console.log(data);
+    this.roomsSrv.updateQrCode(this.room).subscribe({
+      next: () => {
+        this.snackBar.open(
+          this.t.instant('ROOMS.QR_CODE_UPDATE_SUCCESS'),
+          undefined,
+          {
+            panelClass: 'snackbar-success',
+          }
+        );
+      },
+      error: (error) => {
+        this.snackBar.open(
+          this.t.instant('ROOMS.QR_CODE_UPDATE_ERROR') +
+            '\n' +
+            error.error.message,
+          undefined,
+          {
+            panelClass: 'snackbar-error',
+          }
+        );
+      },
     });
   }
 
