@@ -3,6 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { firstValueFrom, Subscription } from 'rxjs';
+import { TitleService } from '../../shared/title.service';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -23,10 +24,13 @@ export class AuthComponent implements OnInit, OnDestroy {
     public t: TranslateService,
     private snackBar: MatSnackBar,
     private authSrv: AuthService,
-    private router: Router
+    private router: Router,
+    private titleService: TitleService
   ) {}
 
   ngOnInit() {
+    this.generateTitle();
+
     this.subscriptions.push(
       this.authSrv.authStatusSubject.subscribe((isSignup) => {
         this.isSignup = isSignup;
@@ -62,6 +66,22 @@ export class AuthComponent implements OnInit, OnDestroy {
     );
   }
 
+  generateTitle() {
+    if (this.isSignup === true) {
+      this.subscriptions.push(
+        this.t.get('REGISTER').subscribe((res: string) => {
+          this.titleService.setTitle(res);
+        })
+      );
+    } else {
+      this.subscriptions.push(
+        this.t.get('LOGIN').subscribe((res: string) => {
+          this.titleService.setTitle(res);
+        })
+      );
+    }
+  }
+
   handleSubmit() {
     if (this.isSignup) {
       this.authSrv.signup({
@@ -83,6 +103,7 @@ export class AuthComponent implements OnInit, OnDestroy {
   clickSwitch() {
     this.isSignup = !this.isSignup;
     this.authSrv.authStatusSubject.next(this.isSignup);
+    this.generateTitle();
   }
 
   ngOnDestroy() {
