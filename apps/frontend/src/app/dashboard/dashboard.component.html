@@ -1,6 +1,10 @@
 <h1>{{ 'DASHBOARD' | translate }}</h1>
 
-<mat-grid-list cols="9" rowHeight="80px" gutterSize="12">
+<mat-grid-list
+  cols="9"
+  rowHeight="80px"
+  [gutterSize]="mobileQuery.matches ? '2' : '6'"
+>
   <mat-grid-tile
     [rowspan]="mobileQuery.matches ? 3 : 4"
     [colspan]="mobileQuery.matches ? 9 : 3"

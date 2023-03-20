@@ -44,7 +44,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private incidenceService: IncidenceService,
     private titleService: TitleService
   ) {
-    this.mobileQuery = media.matchMedia('(max-width: 1150px)');
+    this.mobileQuery = media.matchMedia('(max-width: 1180px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addEventListener('change', (event) => {
       this.isExpanded = !event.matches;
