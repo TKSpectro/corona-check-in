@@ -5,10 +5,10 @@ export class SignupUserDto {
   @IsEmail()
   email: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   firstname: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   lastname: string;
 
   @IsNotEmpty()
