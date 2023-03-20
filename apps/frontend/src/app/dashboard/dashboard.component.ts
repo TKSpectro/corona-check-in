@@ -29,6 +29,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   sessionList = [];
   sessionListEmpty = false;
 
+  currentSessionFound = false;
+  currentSessionCardRowSpan: 2 | 4 = 4;
   @ViewChild(SessionCardComponent) sessionCardChild!: SessionCardComponent;
 
   incidenceChartData: IncidenceResult[] = [];
@@ -44,10 +46,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 1150px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-    this.mobileQuery.addEventListener(
-      'change',
-      (event) => (this.isExpanded = !event.matches)
-    );
+    this.mobileQuery.addEventListener('change', (event) => {
+      this.isExpanded = !event.matches;
+
+      // If there is no current session and we are on mobile/tablet we can shrink the card
+      this.currentSessionCardRowSpan =
+        !this.currentSessionFound && event.matches ? 2 : 4;
+    });
   }
 
   ngOnInit(): void {
@@ -105,6 +110,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
     this.subscriptions.forEach((s) => s.unsubscribe());
+  }
+
+  currentSessionHandler($event: any) {
+    console.log($event);
+    this.currentSessionFound = !!$event;
+    if (!$event && this.mobileQuery.matches) {
+      this.currentSessionCardRowSpan = 2;
+    }
   }
 
   onScan($event: ScanQrCodeBody) {

@@ -11,10 +11,13 @@
     <ccn-qr-code-scanner (scanEvent)="onScan($event)"></ccn-qr-code-scanner>
   </mat-grid-tile>
   <mat-grid-tile
-    [rowspan]="mobileQuery.matches ? 4 : 4"
+    [rowspan]="currentSessionCardRowSpan"
     [colspan]="mobileQuery.matches ? 9 : 3"
   >
-    <ccn-session-card style="width: 100%"></ccn-session-card>
+    <ccn-session-card
+      style="width: 100%"
+      (currentSessionEvent)="currentSessionHandler($event)"
+    ></ccn-session-card>
   </mat-grid-tile>
 </mat-grid-list>
 

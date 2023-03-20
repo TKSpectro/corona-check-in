@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
@@ -17,6 +23,8 @@ export class SessionCardComponent implements OnInit, OnDestroy {
   sessionData!: Session;
   sessionMarkedAsInfected = false;
   sessionLoaded = false;
+
+  @Output() currentSessionEvent = new EventEmitter<Session>();
 
   constructor(
     private t: TranslateService,
@@ -39,6 +47,7 @@ export class SessionCardComponent implements OnInit, OnDestroy {
         next: (data) => {
           this.sessionData = data;
           this.sessionLoaded = true;
+          this.currentSessionEvent.emit(this.sessionData);
         },
         error: (error) => {
           this.snackBar.open(
