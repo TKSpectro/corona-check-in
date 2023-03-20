@@ -11,9 +11,6 @@
   [curve]="curve"
   [scheme]="'vivid'"
   style="fill: white"
-  (select)="onSelect($event)"
-  (activate)="onActivate($event)"
-  (deactivate)="onDeactivate($event)"
 >
   <ng-template #tooltipTemplate let-model="model">
     {{ model.name }}: {{ model.value }}

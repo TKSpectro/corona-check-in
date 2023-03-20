@@ -176,9 +176,27 @@ export class RoomDetailsComponent implements OnInit, OnDestroy {
       name: newDate,
     });
     this.room.createdQrCode = newDate;
-    this.roomsSrv.updateQrCode(this.room).subscribe((data) => {
-      // TODO: show success message
-      console.log(data);
+    this.roomsSrv.updateQrCode(this.room).subscribe({
+      next: () => {
+        this.snackBar.open(
+          this.t.instant('ROOMS.QR_CODE_UPDATE_SUCCESS'),
+          undefined,
+          {
+            panelClass: 'snackbar-success',
+          }
+        );
+      },
+      error: (error) => {
+        this.snackBar.open(
+          this.t.instant('ROOMS.QR_CODE_UPDATE_ERROR') +
+            '\n' +
+            error.error.message,
+          undefined,
+          {
+            panelClass: 'snackbar-error',
+          }
+        );
+      },
     });
   }
 

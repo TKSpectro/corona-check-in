@@ -53,7 +53,15 @@ export class RoomFormComponent implements OnInit, OnDestroy {
             this.room = data;
           },
           error: (error) => {
-            console.log(error.error.message);
+            this.snackBar.open(
+              this.t.instant('ROOMS.LOAD_ROOM_DETAILS_ERROR') +
+                '\n' +
+                error.error.message,
+              undefined,
+              {
+                panelClass: 'snackbar-error',
+              }
+            );
           },
         })
       );
