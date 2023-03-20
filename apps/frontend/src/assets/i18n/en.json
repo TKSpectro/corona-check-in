@@ -87,7 +87,7 @@
     "DELETE_SESSION_ERROR": "Could not delete session",
     "REPORT_INFECTION_WARNING": "Do you want to report yourself as infected? Your sessions of the last 5 days will be marked as infected.",
     "NO_CURRENT_OR_LAST_SESSION": "You don't have any sessions. You can check into a room via the QR code scanner.",
-    "NO_SESSIONS_FOUND_NOTICE": "Couldn't find any sessions"
+    "NO_SESSIONS_FOUND_NOTICE": "Couldn't find any sessions",
     "LOAD_SESSION_DETAILS_ERROR": "Could not load session details"
   },
   "ROOMS": {
@@ -112,7 +112,7 @@
     "LOAD_ROOM_LIST_ERROR": "Could not load rooms",
     "LOAD_ROOM_DETAILS_ERROR": "Could not load room details",
     "LOAD_SESSIONS_ERROR": "Could not load sessions",
-    "NO_ROOMS_FOUND_NOTICE": "Couldn't find any rooms"
+    "NO_ROOMS_FOUND_NOTICE": "Couldn't find any rooms",
     "QR_CODE_UPDATE_SUCCESS": "QR code updated successfully",
     "QR_CODE_UPDATE_ERROR": "Could not update QR code"
   },
