@@ -14,6 +14,7 @@ import { SessionListService } from '../session-list.service';
 })
 export class SessionListComponent implements OnInit, OnDestroy {
   sessionList!: any;
+  sessionListEmpty = false;
   subscriptions: Subscription[] = [];
   _meta: any;
   pageEvent: PageEvent = new PageEvent();
@@ -64,6 +65,12 @@ export class SessionListComponent implements OnInit, OnDestroy {
           next: (data) => {
             this.sessionList = data.data;
             this._meta = data._meta;
+
+            if (this.sessionList.length > 0) {
+              this.sessionListEmpty = false;
+            } else {
+              this.sessionListEmpty = true;
+            }
           },
           error: (error) => {
             this.snackBar.open(
