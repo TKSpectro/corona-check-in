@@ -15,4 +15,5 @@ export const baseEnvironment = {
   },
   seedEnabled: process.env['SEEDING_ENABLED'] === 'true' ? true : false,
   serviceTimeout: parseInt(process.env['SERVICE_TIMEOUT']) || 2000,
+  allInternalToken: process.env['ALL_INTERNAL_TOKEN'] || 'all-internal-token',
 };

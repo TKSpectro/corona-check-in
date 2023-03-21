@@ -185,7 +185,7 @@ export class RoomDetailsComponent implements OnInit, OnDestroy {
   renewCode() {
     const newDate = new Date();
     this.qrCode = JSON.stringify({
-      id: this.room.id,
+      roomId: this.room.id,
       name: newDate,
     });
     this.room.createdQrCode = newDate;
