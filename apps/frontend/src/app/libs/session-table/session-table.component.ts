@@ -47,6 +47,7 @@ export class SessionTableComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.displayedColumns = this.displayedColumns.concat(this.extraColumns);
+    this.isDesktop = !this.mobileQuery.matches;
   }
 
   ngOnDestroy() {
