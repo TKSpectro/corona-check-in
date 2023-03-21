@@ -61,6 +61,14 @@
         <button mat-icon-button (click)="openDeleteDialog($event, user.id)">
           <mat-icon>delete</mat-icon>
         </button>
+        <button
+          mat-icon-button
+          (click)="markLastSessionsAsInfected($event, user.id)"
+        >
+          <mat-icon [matTooltip]="'USERS.MARK_INFECTED_TOOLTIP' | translate">
+            bug_report
+          </mat-icon>
+        </button>
       </mat-cell>
     </ng-container>
 

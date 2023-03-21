@@ -174,6 +174,9 @@
     "DELETE_USER": "Nutzer löschen",
     "DELETE_USER_WARNING": "Sind Sie sicher, dass Sie diesen Nutzer löschen wollen? Dieser Vorgang kann nicht rückgängig gemacht werden.",
     "DELETE_USER_SUCCESS": "Nutzer erfolgreich gelöscht",
-    "DELETE_USER_ERROR": "Nutzer konnte nicht gelöscht werden"
+    "DELETE_USER_ERROR": "Nutzer konnte nicht gelöscht werden",
+    "MARK_INFECTED_TOOLTIP": "Nutzer als infiziert markieren. Alle Sitzungen der letzten 5 Tage werden als infiziert markiert.",
+    "REPORT_INFECTION_ADMIN": "Als infiziert markieren",
+    "REPORT_INFECTION_ADMIN_WARNING": "Möchten Sie diesen Nutzer als infiziert markieren? Alle Sitzungen der letzten 5 Tage werden als infiziert markiert."
   }
 }

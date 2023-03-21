@@ -200,9 +200,27 @@ export class AppService implements OnModuleInit {
     return this.sessionRepository.save(createSessionDto);
   }
 
-  async markLastSessionsAsInfected(user: RequestUser): Promise<HttpStatus> {
+  async markLastSessionsAsInfected(
+    user: RequestUser,
+    userId?: string
+  ): Promise<HttpStatus> {
     const lastDay = new Date();
     lastDay.setDate(lastDay.getDate() - 5);
+
+    if (userId) {
+      const adminUser = await this.userRepository.findOne({
+        where: { id: user.sub, role: UserRole.ADMIN },
+      });
+      if (!adminUser) {
+        throw new HttpException(
+          'Only admins can mark sessions as infected for other users',
+          HttpStatus.UNAUTHORIZED
+        );
+      }
+
+      // Overwrite user id with the id of the user to mark as infected
+      user.sub = userId;
+    }
 
     const queryBuilder = await this.sessionRepository
       .createQueryBuilder()

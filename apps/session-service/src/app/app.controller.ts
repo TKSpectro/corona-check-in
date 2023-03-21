@@ -55,8 +55,14 @@ export class AppController {
   }
 
   @MessagePattern({ role: 'session', cmd: 'mark-last-sessions-as-infected' })
-  async markLastSessionsAsInfected({ user }: { user: RequestUser }) {
-    return this.appService.markLastSessionsAsInfected(user);
+  async markLastSessionsAsInfected({
+    user,
+    userId,
+  }: {
+    user: RequestUser;
+    userId?: string;
+  }) {
+    return this.appService.markLastSessionsAsInfected(user, userId);
   }
 
   @MessagePattern({ role: 'session', cmd: 'create' })
