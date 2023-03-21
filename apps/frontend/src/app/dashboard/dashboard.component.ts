@@ -57,6 +57,29 @@ export class DashboardComponent implements OnInit, OnDestroy {
       })
     );
 
+    this.getCurrentSessions();
+
+    this.subscriptions.push(
+      this.incidenceService.getIncidenceData().subscribe({
+        next: (data) => {
+          this.incidenceChartData = data;
+        },
+        error: (error) => {
+          this.snackBar.open(
+            this.t.instant('INCIDENCE_CHART.LOAD_INCIDENCE_ERROR') +
+              '\n' +
+              error.error.message,
+            undefined,
+            {
+              panelClass: 'snackbar-error',
+            }
+          );
+        },
+      })
+    );
+  }
+
+  getCurrentSessions() {
     this.subscriptions.push(
       this.sessionListService.getSessions(0, 5).subscribe({
         next: (data) => {
@@ -71,25 +94,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
         error: (error) => {
           this.snackBar.open(
             this.t.instant('DASHBOARDS.SESSIONS_ERROR') +
-              '\n' +
-              error.error.message,
-            undefined,
-            {
-              panelClass: 'snackbar-error',
-            }
-          );
-        },
-      })
-    );
-
-    this.subscriptions.push(
-      this.incidenceService.getIncidenceData().subscribe({
-        next: (data) => {
-          this.incidenceChartData = data;
-        },
-        error: (error) => {
-          this.snackBar.open(
-            this.t.instant('INCIDENCE_CHART.LOAD_INCIDENCE_ERROR') +
               '\n' +
               error.error.message,
             undefined,
@@ -123,6 +127,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
           // TODO: pass id to session card and check if the session there
           this.sessionCardChild.getCurrentSession();
+          this.getCurrentSessions();
         },
         error: (error) => {
           this.snackBar.open(
