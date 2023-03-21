@@ -48,12 +48,16 @@
     </ng-container>
 
     <ng-container matColumnDef="actions">
-      <mat-header-cell class="center" *matHeaderCellDef>{{
-        'ACTIONS' | translate
+      <mat-header-cell
+        class="center"
+        [ngClass]="{ 'padding-right-12': !isDesktop }"
+        *matHeaderCellDef>
+        {{'ACTIONS' | translate
       }}</mat-header-cell>
       <mat-cell
+        class="center"
         *matCellDef="let user"
-        [ngClass]="{ center: isDesktop, end: !isDesktop }"
+        [ngClass]="{ 'padding-right-12': !isDesktop }"
       >
         <button mat-icon-button (click)="openUpdateDialog($event, user)">
           <mat-icon>edit</mat-icon>

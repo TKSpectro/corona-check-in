@@ -122,11 +122,15 @@
     <ng-container matColumnDef="actions">
       <mat-header-cell
         [ngClass]="{ 'padding-right-12': !isDesktop }"
-        class="flex-end"
+        class="center"
         *matHeaderCellDef
         >{{ 'ACTIONS' | translate }}</mat-header-cell
       >
-      <mat-cell *matCellDef="let room">
+      <mat-cell
+        *matCellDef="let room"
+        class="center"
+        [ngClass]="{ 'padding-right-12': !isDesktop }"
+      >
         <button
           *ngIf="adminSrv.isAdmin"
           mat-icon-button

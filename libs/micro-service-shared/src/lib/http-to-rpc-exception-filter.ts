@@ -41,9 +41,7 @@ export class SneakyErrorInterceptor<T> implements NestInterceptor<T, any> {
     return next.handle().pipe(
       switchMap((data) => {
         if (data?.error) {
-          return throwError(
-            () => new HttpException(data.error, data.error.statusCode)
-          );
+          return throwError(() => new HttpException(data.error, 500));
         }
 
         return of(data);
