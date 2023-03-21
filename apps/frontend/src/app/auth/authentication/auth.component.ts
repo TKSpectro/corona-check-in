@@ -42,7 +42,7 @@ export class AuthComponent implements OnInit, OnDestroy {
         this.snackBar.open(
           (await firstValueFrom(this.t.get('AUTH.LOGIN_ERROR'))) +
             '\n' +
-            error?.error?.message,
+            (await firstValueFrom(this.t.get(error?.error?.message))),
           undefined,
           {
             panelClass: 'snackbar-error',
@@ -56,7 +56,7 @@ export class AuthComponent implements OnInit, OnDestroy {
         this.snackBar.open(
           (await firstValueFrom(this.t.get('AUTH.SIGNUP_ERROR'))) +
             '\n' +
-            error?.error?.message,
+            (await firstValueFrom(this.t.get(error?.error?.message))),
           undefined,
           {
             panelClass: 'snackbar-error',

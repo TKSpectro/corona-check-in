@@ -110,6 +110,8 @@
     "MAX_PARTICIPANTS": "Max Participants",
     "MAX_DURATION": "Max Duration",
     "FACULTY": "Faculty",
+    "UPDATED_AT": "Updated at",
+    "GENERATE_NEW_QRCODE": "Generate new QR-Code",
     "LOAD_ROOM_LIST_ERROR": "Could not load rooms",
     "LOAD_ROOM_DETAILS_ERROR": "Could not load room details",
     "LOAD_SESSIONS_ERROR": "Could not load sessions",
@@ -154,7 +156,10 @@
     "LASTNAME_NOT_VALID": "Last name is not valid",
     "OLD_PASSWORD_WRONG": "Old password is wrong",
     "PASSWORDS_NOT_MATCHING": "New password is not matching",
-    "PASSWORD_REPEAT_NOT_VALID": "Password repeat is not valid"
+    "PASSWORD_REPEAT_NOT_VALID": "Password repeat is not valid",
+    "EMAIL_ALREADY_IN_USE": "Email is already in use",
+    "UPDATE_QR_CODE": "QR-Code is out of date and must be updated",
+    "USER_INFECTED": "User is infected and not allowed to enter the room"
   },
   "INCIDENCE_CHART": {
     "7_DAY_INCIDENCES": "7-day incidence average",

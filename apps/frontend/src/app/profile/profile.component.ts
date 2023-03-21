@@ -101,7 +101,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
             this.snackBar.open(
               this.t.instant('PROFILES.PROFILE_UPDATE_ERROR') +
                 '\n' +
-                error.error.message,
+                this.t.instant(error.error.message),
               undefined,
               {
                 panelClass: 'snackbar-error',
