@@ -118,6 +118,7 @@
   },
   "DASHBOARDS": {
     "LAST_SESSIONS": "Last sessions",
+    "LAST_SESSIONS_ADMIN_TOOLTIP": "Last sessions of all users. Not only your own.",
     "SESSIONS_ERROR": "Could not load sessions",
     "ME_ERROR": "Could not load user",
     "MARK_INFECTED_SUCCESS": "Marked last sessions successfully as infected",

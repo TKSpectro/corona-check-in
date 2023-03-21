@@ -25,7 +25,14 @@
   </mat-grid-tile>
 </mat-grid-list>
 
-<h2 class="margin-top-1-5">{{ 'DASHBOARDS.LAST_SESSIONS' | translate }}</h2>
+<h2 class="heading-with-icon margin-top-1-5">
+  {{ 'DASHBOARDS.LAST_SESSIONS' | translate }}
+  <mat-icon
+    *ngIf="adminService.isAdmin"
+    matTooltip="{{ 'DASHBOARDS.LAST_SESSIONS_ADMIN_TOOLTIP' | translate }}"
+    >help_outline
+  </mat-icon>
+</h2>
 
 <ccn-info-message
   *ngIf="sessionListEmpty === true; else elseBlock"
@@ -40,8 +47,9 @@
   ></ccn-session-table
 ></ng-template>
 
-<h2 class="incidence-chart-heading margin-top-1-5">
+<h2 class="heading-with-icon margin-top-1-5">
   {{ 'INCIDENCE_CHART.7_DAY_INCIDENCES' | translate }}
+
   <mat-icon
     matTooltip="{{ 'INCIDENCE_CHART.7_DAY_INCIDENCES_TOOLTIP' | translate }}"
     >help_outline

@@ -9,6 +9,7 @@ import {
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { firstValueFrom, Subscription } from 'rxjs';
+import { AdminService } from '../auth/admin/admin.service';
 import { IncidenceService } from '../libs/graphs/incidence/incidence.service';
 import { SessionListService } from '../sessions/session-list.service';
 import { TitleService } from '../shared/title.service';
@@ -44,7 +45,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     changeDetectorRef: ChangeDetectorRef,
     private sessionListService: SessionListService,
     private incidenceService: IncidenceService,
-    private titleService: TitleService
+    private titleService: TitleService,
+    public adminService: AdminService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
