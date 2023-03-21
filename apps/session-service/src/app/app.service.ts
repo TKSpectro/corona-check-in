@@ -75,7 +75,8 @@ export class AppService implements OnModuleInit {
     infected?: string,
     sessionBegin?: Date,
     sessionEnd?: Date,
-    roomId?: string
+    roomId?: string,
+    allInternalToken?: string
   ) {
     const queryBuilder = this.sessionRepository.createQueryBuilder('session');
 
@@ -93,11 +94,14 @@ export class AppService implements OnModuleInit {
       queryBuilder.andWhere('roomId = :roomId', { roomId });
     }
 
-    if (user.role === UserRole.USER) {
-      queryBuilder.andWhere('userId = :userId', { userId: user.sub });
-    }
-    if (user.role === UserRole.ADMIN) {
-      queryBuilder.select(selectWithoutNote);
+    // When the correct allInternalToken is provided, we can see all sessions (only for internal services)
+    if (allInternalToken !== environment.allInternalToken) {
+      if (user.role === UserRole.USER) {
+        queryBuilder.andWhere('userId = :userId', { userId: user.sub });
+      }
+      if (user.role === UserRole.ADMIN) {
+        queryBuilder.select(selectWithoutNote);
+      }
     }
 
     return findWithMeta(queryBuilder, pageOptionsDto, 'startTime');
