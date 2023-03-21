@@ -47,15 +47,21 @@
           <mat-icon>home</mat-icon>
           <span>{{ 'ROOMS.ROOMS' | translate }}</span></a
         >
-        <a mat-list-item
+        <a
+          mat-list-item
           *ngIf="adminService.isAdmin"
           routerLink="users"
-          routerLinkActive="active-link">
+          routerLinkActive="active-link"
+        >
           <mat-icon>person_search</mat-icon>
-          <span>{{ 'USERS.USERS' | translate }}</span></a>
-        <a mat-list-item
-           *ngIf="isLoggedIn"
-           routerLink="profile" routerLinkActive="active-link">
+          <span>{{ 'USERS.USERS' | translate }}</span></a
+        >
+        <a
+          mat-list-item
+          *ngIf="isLoggedIn"
+          routerLink="profile"
+          routerLinkActive="active-link"
+        >
           <mat-icon>person</mat-icon>
           <span>{{ 'PROFILES.PROFILE' | translate }}</span></a
         >
@@ -107,7 +113,7 @@
           </mat-select>
         </mat-form-field>
       </h3>
-      <h3 mat-list-item routerLink="profile">
+      <h3 mat-list-item routerLink="imprint" class="pointer">
         <span>{{ 'IMPRINT' | translate }}</span>
       </h3>
     </div>

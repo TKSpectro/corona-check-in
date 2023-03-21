@@ -50,6 +50,7 @@ export class AppService {
             infected: 'true',
             sessionBegin: startTime.toJSDate(),
             roomId,
+            allInternalToken: environment.allInternalToken,
           }
         )
         .pipe(timeout(environment.serviceTimeout))

@@ -26,6 +26,7 @@ export class AppController {
     sessionBegin,
     sessionEnd,
     roomId,
+    allInternalToken,
   }: {
     pageOptionsDto: PageOptionsDto;
     user: RequestUser;
@@ -33,6 +34,7 @@ export class AppController {
     sessionBegin?: Date;
     sessionEnd?: Date;
     roomId?: string;
+    allInternalToken?: string;
   }) {
     return this.appService.getSessions(
       pageOptionsDto,
@@ -40,7 +42,8 @@ export class AppController {
       infected,
       sessionBegin,
       sessionEnd,
-      roomId
+      roomId,
+      allInternalToken
     );
   }
 
