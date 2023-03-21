@@ -125,15 +125,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
             }
           );
 
-          // TODO: pass id to session card and check if the session there
           this.sessionCardChild.getCurrentSession();
           this.getCurrentSessions();
         },
         error: (error) => {
           this.snackBar.open(
-            this.t.instant(
-              'PROFILES.LOAD_PROFILE_ERROR' + '\n' + error.error.message
-            ),
+            this.t.instant('DASHBOARDS.SCAN_QR_CODE_ERROR') +
+              '\n' +
+              this.t.instant(error.error.message),
             undefined,
             {
               panelClass: 'snackbar-error',
