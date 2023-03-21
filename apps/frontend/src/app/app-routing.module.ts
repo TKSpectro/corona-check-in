@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminGuard, AuthComponent, AuthGuard } from './auth';
 import { DashboardComponent } from './dashboard';
+import { ImprintComponent } from './imprint/imprint.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ProfileComponent } from './profile';
 
@@ -35,7 +36,8 @@ const routes: Routes = [
     loadChildren: () =>
       import('./users/users.module').then((m) => m.UsersModule),
   },
-  { path: '404', component: PageNotFoundComponent, title: 'Page Not Found' },
+  { path: 'imprint', component: ImprintComponent },
+  { path: '404', component: PageNotFoundComponent },
   { path: '**', redirectTo: '/404' },
 ];
 

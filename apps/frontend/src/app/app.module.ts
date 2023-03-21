@@ -1,7 +1,7 @@
 import {
-  HTTP_INTERCEPTORS,
   HttpClient,
   HttpClientModule,
+  HTTP_INTERCEPTORS,
 } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -17,6 +17,7 @@ import { AuthModule } from './auth';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { DashboardModule } from './dashboard';
 import { ErrorInterceptor } from './error.interceptor';
+import { ImprintComponent } from './imprint/imprint.component';
 import { SidenavComponent } from './libs';
 import { LibModule } from './libs/lib.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -32,7 +33,12 @@ export function tokenGetter() {
 }
 
 @NgModule({
-  declarations: [AppComponent, SidenavComponent, PageNotFoundComponent],
+  declarations: [
+    AppComponent,
+    SidenavComponent,
+    PageNotFoundComponent,
+    ImprintComponent,
+  ],
   imports: [
     BrowserModule,
     HttpClientModule,

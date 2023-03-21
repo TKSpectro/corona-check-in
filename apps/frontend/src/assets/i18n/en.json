@@ -5,6 +5,7 @@
   "CANCEL": "Cancel",
   "STATISTICS": "Statistic",
   "IMPRINT": "Imprint",
+  "IMPRINT_CONTENT": "This is a demo app. No imprint is required.",
   "DELETE": "Delete",
   "ERROR_404": "Page not found.",
   "SUBMIT": "Submit",

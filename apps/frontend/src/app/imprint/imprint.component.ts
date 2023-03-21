@@ -4,11 +4,11 @@ import { Subscription } from 'rxjs';
 import { TitleService } from '../shared/title.service';
 
 @Component({
-  selector: 'ccn-page-not-found',
-  templateUrl: './page-not-found.component.html',
-  styleUrls: ['./page-not-found.component.scss'],
+  selector: 'ccn-imprint',
+  templateUrl: './imprint.component.html',
+  styleUrls: ['./imprint.component.scss'],
 })
-export class PageNotFoundComponent implements OnInit, OnDestroy {
+export class ImprintComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   constructor(
@@ -18,7 +18,7 @@ export class PageNotFoundComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscriptions.push(
-      this.t.get('ERROR_404').subscribe((res: string) => {
+      this.t.get('IMPRINT').subscribe((res: string) => {
         this.titleService.setTitle(res);
       })
     );
