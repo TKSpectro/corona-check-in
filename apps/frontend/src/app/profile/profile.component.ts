@@ -6,6 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import { ConfirmationDialogComponent } from '../libs';
+import { TitleService } from '../shared/title.service';
 import { ProfileService } from './profile.service';
 
 @Component({
@@ -32,10 +33,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
     private profileService: ProfileService,
     private snackBar: MatSnackBar,
     private dialog: MatDialog,
-    private t: TranslateService
+    private t: TranslateService,
+    private titleService: TitleService
   ) {}
 
   ngOnInit(): void {
+    this.subscriptions.push(
+      this.t.get('PROFILES.PROFILE').subscribe((res: string) => {
+        this.titleService.setTitle(res);
+      })
+    );
+
     this.subscriptions.push(
       this.profileService.getProfileData().subscribe({
         next: (data) => {

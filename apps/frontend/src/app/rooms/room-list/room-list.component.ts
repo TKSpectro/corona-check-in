@@ -9,6 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { AdminService } from '../../auth/admin/admin.service';
 import { ConfirmationDialogComponent } from '../../libs';
+import { TitleService } from '../../shared/title.service';
 import { FacultyList, Meta, Room } from '../../shared/types';
 import { RoomFormComponent } from '../room-form/room-form.component';
 import { RoomsService } from '../rooms.service';
@@ -51,7 +52,8 @@ export class RoomListComponent implements OnInit, OnDestroy {
     public adminSrv: AdminService,
     media: MediaMatcher,
     private changeDetectorRef: ChangeDetectorRef,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private titleService: TitleService
   ) {
     if (this.adminSrv.isAdmin) {
       this.displayedColumns.push('actions');
@@ -73,6 +75,12 @@ export class RoomListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.subscriptions.push(
+      this.t.get('ROOMS.ROOMS').subscribe((res: string) => {
+        this.titleService.setTitle(res);
+      })
+    );
+
     if (!this.mobileQuery.matches) {
       this.displayedColumns.splice(1, 0, 'updated');
     }

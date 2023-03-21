@@ -41,7 +41,15 @@ export class SessionDetailsComponent implements OnInit, OnDestroy {
             this.sessionData = data;
           },
           error: (error) => {
-            console.log(error.error.message);
+            this.snackBar.open(
+              this.t.instant('SESSIONS.LOAD_SESSION_DETAILS_ERROR') +
+                '\n' +
+                error.error.message,
+              undefined,
+              {
+                panelClass: 'snackbar-error',
+              }
+            );
           },
         })
       );

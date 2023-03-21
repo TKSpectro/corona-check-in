@@ -8,11 +8,6 @@ export class AppService {
     const generatedAt = new Date();
     const code = create(JSON.stringify({ generatedAt, ...qrCodeData }), {});
 
-    // Print to console for debugging purposes
-    // toString(JSON.stringify(qrCodeData), { type: 'terminal' }, (err, url) => {
-    //   console.log(url);
-    // });
-
     return { qrCode: code.modules.data, generatedAt: generatedAt };
   }
 }

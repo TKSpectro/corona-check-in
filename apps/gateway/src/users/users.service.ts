@@ -209,7 +209,7 @@ export class UsersService implements OnModuleInit {
           role: UserRole.USER,
         });
       } catch (error) {
-        // console.log(error);
+        // do nothing
       }
     }
   }

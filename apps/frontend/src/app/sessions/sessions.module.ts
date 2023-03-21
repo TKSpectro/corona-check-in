@@ -1,28 +1,19 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { AngularMaterialModule } from '../angular-material.module';
-import { SessionListComponent } from './session-list/session-list.component';
-import { SessionDetailsComponent } from './session-details/session-details.component';
-import { FormsModule } from '@angular/forms';
-import { LibModule } from '../libs/lib.module';
-import { RouterModule, Routes } from '@angular/router';
-import { RoomsComponent } from '../rooms/rooms.component';
 import { AuthGuard } from '../auth';
+import { LibModule } from '../libs/lib.module';
+import { SessionDetailsComponent } from './session-details/session-details.component';
+import { SessionListComponent } from './session-list/session-list.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: RoomsComponent,
+    component: SessionListComponent,
     canActivate: [AuthGuard],
-    children: [
-      { path: '', component: SessionListComponent, title: 'Session' },
-      {
-        path: ':id',
-        component: SessionDetailsComponent,
-        title: 'Session Details',
-      },
-    ],
   },
 ];
 
