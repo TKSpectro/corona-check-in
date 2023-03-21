@@ -8,6 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { ConfirmationDialogComponent } from '../../libs';
+import { ServerService } from '../../shared/server.service';
 import { TitleService } from '../../shared/title.service';
 import { Meta, User } from '../../shared/types';
 import { UserFormComponent } from '../user-form/user-form.component';
@@ -50,6 +51,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar,
     public dialog: MatDialog,
     private userSrv: UsersService,
+    private serverSrv: ServerService,
     private titleService: TitleService
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 1150px)');
@@ -191,6 +193,47 @@ export class UserListComponent implements OnInit, OnDestroy {
                   panelClass: 'snackbar-success',
                 }
               );
+            })
+          );
+        }
+      })
+    );
+  }
+
+  markLastSessionsAsInfected(event: Event, userId: string) {
+    event.stopPropagation();
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        title: 'USERS.REPORT_INFECTION_ADMIN',
+        description: 'USERS.REPORT_INFECTION_ADMIN_WARNING',
+      },
+    });
+
+    this.subscriptions.push(
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result === true) {
+          this.subscriptions.push(
+            this.serverSrv.markLastSessionsAsInfected(userId).subscribe({
+              next: (data) => {
+                this.snackBar.open(
+                  this.t.instant('DASHBOARDS.MARK_INFECTED_SUCCESS'),
+                  undefined,
+                  {
+                    panelClass: 'snackbar-success',
+                  }
+                );
+              },
+              error: (error) => {
+                this.snackBar.open(
+                  this.t.instant('DASHBOARDS.MARK_INFECTED_ERROR') +
+                    '\n' +
+                    error.error.message,
+                  undefined,
+                  {
+                    panelClass: 'snackbar-error',
+                  }
+                );
+              },
             })
           );
         }
