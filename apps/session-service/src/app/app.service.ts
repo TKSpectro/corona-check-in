@@ -178,13 +178,32 @@ export class AppService implements OnModuleInit {
         startTime: MoreThan(startTime),
       },
     });
+    // User has no session in this room, so he scanned to enter
     if (sessions.length <= 0) {
-      // User has no session in this room, so he scanned to enter
+      // Check that the user has no infected session in the last 5 days
+      // If so he is not allowed to enter the room
+      const userHasInfectedSession = await this.sessionRepository.count({
+        where: {
+          userId: createSessionDto.userId,
+          startTime: MoreThan(startTime),
+          infected: true,
+        },
+      });
+      if (userHasInfectedSession) {
+        throw new HttpException(
+          'User has infected session',
+          HttpStatus.BAD_REQUEST
+        );
+      }
+
       return this.sessionRepository.save(createSessionDto);
     }
+
+    let currentSession = null;
     for (const session of sessions) {
       const maxEndTime = new Date(
-        session.startTime.getTime() + room.maxDuration * 60000
+        // Add the max duration to the start time (maxDuration is in minutes)
+        session.startTime.getTime() + room.maxDuration * 60 * 1000
       );
       if (maxEndTime <= new Date()) {
         // Session is an old session which the user did not close
@@ -192,16 +211,16 @@ export class AppService implements OnModuleInit {
       } else {
         // Session is the current session and the user scanned to leave
         session.endTime = new Date();
+        currentSession = session;
       }
       await this.updateSession(session);
-      if (session.infected) {
-        throw new HttpException(
-          'User is infected and not allowed to enter the room.',
-          HttpStatus.BAD_REQUEST
-        );
-      }
     }
-    return this.sessionRepository.save(createSessionDto);
+
+    if (!currentSession) {
+      currentSession = await this.sessionRepository.save(createSessionDto);
+    }
+
+    return currentSession;
   }
 
   async markLastSessionsAsInfected(user: RequestUser): Promise<HttpStatus> {
