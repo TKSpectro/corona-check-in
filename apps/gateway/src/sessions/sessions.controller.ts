@@ -57,8 +57,11 @@ export class SessionsController {
 
   @Get('mark-last-sessions-as-infected')
   @HttpCode(200)
-  async markLastSessionsAsInfected(@Request() req) {
-    return this.sessionsService.markLastSessionsAsInfected(req.user);
+  async markLastSessionsAsInfected(
+    @Request() req,
+    @Query('userId') userId?: string
+  ) {
+    return this.sessionsService.markLastSessionsAsInfected(req.user, userId);
   }
 
   @Get(':id')

@@ -66,9 +66,12 @@ export class ServerService {
     );
   }
 
-  markLastSessionsAsInfected() {
+  markLastSessionsAsInfected(userId?: string) {
     return this.httpClient.get<boolean>(
-      environment.backendUrl + '/sessions/mark-last-sessions-as-infected'
+      environment.backendUrl + '/sessions/mark-last-sessions-as-infected',
+      {
+        params: new HttpParams().set('userId', userId ?? ''),
+      }
     );
   }
 

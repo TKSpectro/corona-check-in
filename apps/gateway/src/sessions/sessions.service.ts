@@ -74,12 +74,12 @@ export class SessionsService {
     );
   }
 
-  async markLastSessionsAsInfected(user: RequestUser) {
+  async markLastSessionsAsInfected(user: RequestUser, userId?: string) {
     return lastValueFrom(
       this.sessionClient
         .send(
           { role: 'session', cmd: 'mark-last-sessions-as-infected' },
-          { user }
+          { user, userId }
         )
         .pipe(timeout(environment.serviceTimeout))
     );

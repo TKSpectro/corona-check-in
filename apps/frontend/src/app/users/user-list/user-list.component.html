@@ -65,11 +65,22 @@
         <button mat-icon-button (click)="openDeleteDialog($event, user.id)">
           <mat-icon>delete</mat-icon>
         </button>
+        <button
+          mat-icon-button
+          (click)="markLastSessionsAsInfected($event, user.id)"
+        >
+          <mat-icon [matTooltip]="'USERS.MARK_INFECTED_TOOLTIP' | translate">
+            bug_report
+          </mat-icon>
+        </button>
       </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    <mat-row
+      (click)="openUpdateDialog($event, row)"
+      *matRowDef="let row; columns: displayedColumns"
+    ></mat-row>
   </table>
 
   <mat-paginator
