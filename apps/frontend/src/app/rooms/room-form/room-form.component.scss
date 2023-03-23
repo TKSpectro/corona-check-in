@@ -1,6 +1,12 @@
-.dialog-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
+.width-100 {
+  width: 100%;
+}
+.width-50 {
+  width: calc(50% - 10px);
+}
+.input-left {
+  margin-right: 10px;
+}
+.input-right {
+  margin-left: 10px;
 }
