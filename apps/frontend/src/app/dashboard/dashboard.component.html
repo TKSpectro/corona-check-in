@@ -9,7 +9,7 @@
     [rowspan]="tabletQuery.matches ? 3 : 4"
     [colspan]="tabletQuery.matches ? 9 : 3"
   >
-    <ccn-current-status style="width: 100%"></ccn-current-status>
+    <ccn-current-status class="width-100"></ccn-current-status>
   </mat-grid-tile>
   <mat-grid-tile [rowspan]="4" [colspan]="tabletQuery.matches ? 9 : 3">
     <ccn-qr-code-scanner (scanEvent)="onScan($event)"></ccn-qr-code-scanner>
@@ -19,7 +19,7 @@
     [colspan]="tabletQuery.matches ? 9 : 3"
   >
     <ccn-session-card
-      style="width: 100%"
+      class="width-100"
       (currentSessionEvent)="currentSessionHandler($event)"
     ></ccn-session-card>
   </mat-grid-tile>
@@ -42,8 +42,7 @@
 <ng-template #elseBlock>
   <ccn-session-table
     [sessionList]="sessionList"
-    class="margin-top-1"
-    style="width: 100%"
+    class="margin-top-1 width-100"
   ></ccn-session-table
 ></ng-template>
 
