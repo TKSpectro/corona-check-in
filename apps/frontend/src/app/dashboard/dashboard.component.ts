@@ -135,9 +135,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.sessionListService.scanQrCode($event).subscribe({
         next: async () => {
           this.snackBar.open(
-            await firstValueFrom(
-              this.t.get('DASHBOARDS.SCAN_QR_CODE_SUCCESSFUL')
-            ),
+            this.t.instant('DASHBOARDS.SCAN_QR_CODE_SUCCESSFUL'),
             undefined,
             {
               panelClass: 'snackbar-success',
