@@ -20,6 +20,7 @@ export class AuthComponent implements OnInit, OnDestroy {
   password!: string;
   passwordRepeat!: string;
   isSignup = false;
+
   constructor(
     public t: TranslateService,
     private snackBar: MatSnackBar,
@@ -40,9 +41,10 @@ export class AuthComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.authSrv.loginErrorSubject.subscribe(async (error) => {
         this.snackBar.open(
-          (await firstValueFrom(this.t.get('AUTH.LOGIN_ERROR'))) +
+          this.t.instant('AUTH.LOGIN_ERROR') +
             '\n' +
-            (await firstValueFrom(this.t.get(error?.error?.message))),
+            this.t.instant(error?.error?.message),
+
           undefined,
           {
             panelClass: 'snackbar-error',
@@ -54,9 +56,9 @@ export class AuthComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.authSrv.signupErrorSubject.subscribe(async (error) => {
         this.snackBar.open(
-          (await firstValueFrom(this.t.get('AUTH.SIGNUP_ERROR'))) +
+          this.t.instant('AUTH.SIGNUP_ERROR') +
             '\n' +
-            (await firstValueFrom(this.t.get(error?.error?.message))),
+            this.t.instant(error?.error?.message),
           undefined,
           {
             panelClass: 'snackbar-error',
