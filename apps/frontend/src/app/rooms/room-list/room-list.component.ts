@@ -167,6 +167,7 @@ export class RoomListComponent implements OnInit, OnDestroy {
     this.formDialogRef = this.dialog.open(RoomFormComponent, {
       data: { id: id },
       panelClass: 'custom-dialog',
+      width: '440px',
     });
 
     this.subscriptions.push(

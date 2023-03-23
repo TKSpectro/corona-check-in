@@ -1,10 +1,10 @@
 <form #f="ngForm">
-  <div *ngIf="(isUpdate && room) || !isUpdate" class="session-card">
+  <div *ngIf="(isUpdate && room) || !isUpdate">
     <h2 mat-dialog-title class="mat-h2">
       {{ (isUpdate ? 'ROOMS.UPDATE_ROOM' : 'ROOMS.CREATE_ROOM') | translate }}
     </h2>
     <mat-dialog-content class="dialog-content">
-      <mat-form-field>
+      <mat-form-field class="input-full-width">
         <mat-label>{{ 'ROOMS.NAME' | translate }}</mat-label>
         <input
           matInput
@@ -20,7 +20,7 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field>
+      <mat-form-field class="input-left">
         <mat-label>{{ 'ROOMS.MAX_DURATION' | translate }}</mat-label>
         <input
           matInput
@@ -40,7 +40,7 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field>
+      <mat-form-field class="input-right">
         <mat-label>{{ 'ROOMS.MAX_PARTICIPANTS' | translate }}</mat-label>
         <input
           matInput
@@ -69,7 +69,7 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field>
+      <mat-form-field class="input-full-width">
         <mat-label>{{ 'ROOMS.FACULTY' | translate }}</mat-label>
         <mat-select [(ngModel)]="room.faculty" name="faculty" required>
           <mat-select-trigger>
