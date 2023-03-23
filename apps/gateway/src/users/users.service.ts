@@ -73,7 +73,10 @@ export class UsersService implements OnModuleInit {
   async create(user: UserEntity | SignupUserDto) {
     const existingUser = await this.findOne(user.email);
     if (existingUser) {
-      throw new HttpException('Email already in use', HttpStatus.BAD_REQUEST);
+      throw new HttpException(
+        'ERRORS.EMAIL_ALREADY_IN_USE',
+        HttpStatus.BAD_REQUEST
+      );
     }
 
     return this.userRepository.save(user);

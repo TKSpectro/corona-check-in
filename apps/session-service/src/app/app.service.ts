@@ -165,7 +165,7 @@ export class AppService implements OnModuleInit {
       new Date(room.createdQrCode).toISOString() !==
       new Date(createSessionDto.createdQrCode).toISOString()
     ) {
-      throw new HttpException('QrCode must be updated', HttpStatus.BAD_REQUEST);
+      throw new HttpException('ERRORS.UPDATE_QR_CODE', HttpStatus.BAD_REQUEST);
     }
 
     let startTime = new Date();
@@ -190,10 +190,7 @@ export class AppService implements OnModuleInit {
         },
       });
       if (userHasInfectedSession) {
-        throw new HttpException(
-          'User has infected session',
-          HttpStatus.BAD_REQUEST
-        );
+        throw new HttpException('ERRORS.USER_INFECTED', HttpStatus.BAD_REQUEST);
       }
 
       return this.sessionRepository.save(createSessionDto);
