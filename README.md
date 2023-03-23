@@ -29,6 +29,7 @@ libs/
 cp .env.example .env
 # If you want pre-generated data, set SEEDING_ENABLED=true in the .env file
 # If you want mass sessions (for better statistics), set SEEDING_MASS_SESSIONS_ENABLED=true in the .env file
+# When seeding is enabled you will get access to two accounts: admin@turbomeet.xyz (PW: password) and user@turbomeet.xyz (PW: password)
 
 # If you are building for localhost you should use
 npm run docker:build
