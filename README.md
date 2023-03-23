@@ -90,8 +90,8 @@ npm run start:backend
 
 Responsive Design is explicitly done for 3 different screen sizes:
 
-- Mobile 414x896
-- Tablet 820x1180 | 1180x820
+- Mobile 414x896 (iPhone XR)
+- Tablet 820x1180 | 1180x820 (iPad Air)
 - Desktop 1920x1080
 
 ## Continuous Integration | Continuous Deployment

@@ -121,6 +121,7 @@
   },
   "DASHBOARDS": {
     "LAST_SESSIONS": "Letzte Sessions",
+    "LAST_SESSIONS_ADMIN_TOOLTIP": "Letzte Sessions aller Nutzer",
     "SESSIONS_ERROR": "Sessions konnten nicht geladen werden",
     "ME_ERROR": "Nutzer konnte nicht geladen werden",
     "MARK_INFECTED_SUCCESS": "Letzte Sessions erfolgreich als infiziert markiert",

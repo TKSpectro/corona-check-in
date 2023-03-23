@@ -9,6 +9,7 @@ import {
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { firstValueFrom, Subscription } from 'rxjs';
+import { AdminService } from '../auth/admin/admin.service';
 import { IncidenceService } from '../libs/graphs/incidence/incidence.service';
 import { SessionListService } from '../sessions/session-list.service';
 import { TitleService } from '../shared/title.service';
@@ -23,12 +24,16 @@ import { SessionCardComponent } from './session-card/session-card.component';
 export class DashboardComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   mobileQuery: MediaQueryList;
+  tabletQuery: MediaQueryList;
   _mobileQueryListener: () => void;
+  _tabletQueryListener: () => void;
   isExpanded!: boolean;
 
   sessionList = [];
   sessionListEmpty = false;
 
+  currentSessionFound = false;
+  currentSessionCardRowSpan: 2 | 4 = 4;
   @ViewChild(SessionCardComponent) sessionCardChild!: SessionCardComponent;
 
   incidenceChartData: IncidenceResult[] = [];
@@ -40,14 +45,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
     changeDetectorRef: ChangeDetectorRef,
     private sessionListService: SessionListService,
     private incidenceService: IncidenceService,
-    private titleService: TitleService
+    private titleService: TitleService,
+    public adminService: AdminService
   ) {
-    this.mobileQuery = media.matchMedia('(max-width: 1150px)');
+    this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-    this.mobileQuery.addEventListener(
-      'change',
-      (event) => (this.isExpanded = !event.matches)
-    );
+    this.tabletQuery = media.matchMedia('(max-width: 1150px)');
+    this._tabletQueryListener = () => changeDetectorRef.detectChanges();
+    this.tabletQuery.addEventListener('change', (event) => {
+      this.isExpanded = !event.matches;
+
+      // If there is no current session and we are on mobile/tablet we can shrink the card
+      this.currentSessionCardRowSpan =
+        !this.currentSessionFound && event.matches ? 2 : 4;
+    });
   }
 
   ngOnInit(): void {
@@ -108,7 +119,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
+    this.tabletQuery.removeEventListener('change', this._tabletQueryListener);
     this.subscriptions.forEach((s) => s.unsubscribe());
+  }
+
+  currentSessionHandler($event: any) {
+    this.currentSessionFound = !!$event;
+    if (!$event && this.tabletQuery.matches) {
+      this.currentSessionCardRowSpan = 2;
+    }
   }
 
   onScan($event: ScanQrCodeBody) {
