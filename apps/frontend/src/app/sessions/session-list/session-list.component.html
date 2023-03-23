@@ -63,6 +63,7 @@
   <mat-paginator
     showFirstLastButtons
     aria-label="Select page of periodic elements"
+    [hidePageSize]="true"
     [length]="_meta?.itemCount"
     [pageSize]="_meta?.take"
     [pageIndex]="_meta?.page"
